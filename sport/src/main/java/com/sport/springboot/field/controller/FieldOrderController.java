@@ -1,0 +1,292 @@
+package com.sport.springboot.field.controller;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.sport.springboot.field.model.Field;
+import com.sport.springboot.field.model.FieldActOrder;
+import com.sport.springboot.field.model.FieldMemberOrder;
+import com.sport.springboot.field.model.FieldOrderDetail;
+import com.sport.springboot.field.model.FieldPeriod;
+import com.sport.springboot.field.model.FieldType;
+import com.sport.springboot.field.service.FieldActOrderService;
+import com.sport.springboot.field.service.FieldMemberOrderService;
+import com.sport.springboot.field.service.FieldOrderDetailService;
+import com.sport.springboot.field.service.FieldPeriodService;
+import com.sport.springboot.field.service.FieldService;
+import com.sport.springboot.field.service.FieldTypeService;
+
+@Controller
+@RequestMapping("/fieldOrder")
+public class FieldOrderController {
+	
+	@Autowired
+	FieldTypeService fieldTypeService;
+	@Autowired
+	FieldService fieldService;
+	@Autowired
+	FieldPeriodService fieldPeriodService;
+	@Autowired
+	FieldMemberOrderService fieldMemberOrderService;
+	@Autowired
+	FieldActOrderService fieldActOrderService;
+	@Autowired
+	FieldOrderDetailService fieldOrderDetailService;
+	
+	@GetMapping("/home")
+	public String fieldOrderHome() {
+		return "fieldOrder/order_Home";
+	}
+	
+	@GetMapping("/searchPage")
+	public String orderMemberSearchPage() {
+		return "fieldOrder/order_SearchPage";
+	}	
+	
+	@GetMapping("/searchForMemberPage")
+	public String orderSearchForMemberPage() {
+		return "fieldOrder/order_SearchPageForMember";
+	}
+	
+	@GetMapping("/cancelForMemberPage")
+	public String orderCancelForMemberPage() {
+		return "fieldOrder/order_CancelPageForMember";
+	}
+	
+	
+	@GetMapping("/createPage")
+	public String orderCreatePage(Model m) {
+		Date day1 = new Date();
+		long ms = day1.getTime() + 86400000 * 7;
+		Date day2 = new Date(ms);
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String day1Str = dateFormat.format(day1);
+		String day2Str = dateFormat.format(day2);		
+		System.out.println(day1Str);
+		System.out.println(day2Str);
+		
+		m.addAttribute("day1", day1Str);
+		m.addAttribute("day2", day2Str);
+		
+		return "fieldOrder/order_CreatePage";
+	}
+	
+	@PostMapping("/createMemberOrder")
+	public String fieldOrderCreate(@RequestParam("periodId")Integer periodId,
+			@RequestParam("date")String date, @RequestParam("hours")Integer hours,
+			@RequestParam("fieldId")String fieldId,
+			RedirectAttributes attr) {
+		FieldMemberOrder mOrder = new FieldMemberOrder();
+		mOrder.setAccount("test1001");
+		Date createDate = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateStr = dateFormat.format(createDate);
+		mOrder.setCreateTime(dateStr);
+		mOrder.setOrderStatus(1);
+		mOrder.setRemark(null);
+		
+		fieldMemberOrderService.save(mOrder);
+		
+		attr.addAttribute("date", date);
+		attr.addAttribute("periodId", periodId);
+		attr.addAttribute("hours", hours);
+		attr.addAttribute("fieldId", fieldId);
+		attr.addAttribute("mOrder", mOrder);		
+		
+		return "redirect:orderDetailCreate";
+	}
+	
+	//-------------------------------------------------------
+	@PostMapping("/createActOrder")
+	public String fieldOrdersCreate(@RequestParam("periodId")Integer periodId,
+			@RequestParam("date")String date, @RequestParam("hours")Integer hours,
+			@RequestParam("fieldId")String fieldId,
+			RedirectAttributes attr) {
+		FieldActOrder actOrder = new FieldActOrder();
+		actOrder.setActId(123);
+		Date createDate = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateStr = dateFormat.format(createDate);
+		actOrder.setCreateTime(dateStr);
+		actOrder.setOrderStatus(1);
+		actOrder.setRemark(null);
+		
+		fieldActOrderService.save(actOrder);
+		
+		attr.addAttribute("date", date);
+		attr.addAttribute("periodId", periodId);
+		attr.addAttribute("hours", hours);
+		attr.addAttribute("fieldId", fieldId);
+		attr.addAttribute("actOrder", actOrder);		
+		
+		return "redirect:orderDetailCreate";
+	}
+	
+	//-------------------------------------------------------
+	
+	@GetMapping("orderDetailCreate")
+	public String fieldOrderDetailCreate(@RequestParam("periodId")Integer periodId,
+			@RequestParam("date")String date, @RequestParam("hours")Integer hours,
+			@RequestParam("fieldId")String fieldId,
+			@RequestParam("mOrder")FieldMemberOrder mOrder) {
+		
+		//List<FieldOrderDetail> fieldOrderDetails = new ArrayList<>();
+		for(int i = periodId; i < periodId + hours; i++) {
+			FieldOrderDetail fieldOrderDetail = new FieldOrderDetail();
+			fieldOrderDetail.setField(fieldService.get(fieldId));
+			fieldOrderDetail.setFieldPeriod(fieldPeriodService.get(i));
+			fieldOrderDetail.setFieldMemberOrder(mOrder);
+			fieldOrderDetail.setDate(date);
+			
+			fieldOrderDetailService.save(fieldOrderDetail);
+		}
+		
+		return "fieldOrder/order_Create";
+		
+	}	
+	
+	
+	//-------------------- A j a x --------------------------
+	@GetMapping(value = "/getAllMemberOrdersJsonByAccount/{account}")
+	public @ResponseBody Map<String, Object> getAllMemberOrdersJsonByAccount(
+			@PathVariable("account")String account){
+		Map<String, Object> map = new HashMap<>();
+		List<FieldMemberOrder> fieldMemberOrderList = fieldMemberOrderService.getAllByAccount(account);
+		map.put("fieldMemberOrderList", fieldMemberOrderList);
+		return map;
+	}	
+	
+	@GetMapping(value = "/getMemberOrderJsonByAccount/{account}")
+	public @ResponseBody Map<String, Object> getMemberOrderJsonByAccount(
+			@PathVariable("account")String account){
+		Map<String, Object> map = new HashMap<>();
+		List<FieldMemberOrder> fieldMemberOrderList = fieldMemberOrderService.getOrderByAccount(account);
+		map.put("fieldMemberOrderList", fieldMemberOrderList);
+		return map;
+	}
+	
+	@GetMapping(value = "/getPastMemberOrderJsonByAccount/{account}")
+	public @ResponseBody Map<String, Object> getPastMemberOrderJsonByAccount(
+			@PathVariable("account")String account){
+		Map<String, Object> map = new HashMap<>();
+		List<FieldMemberOrder> fieldMemberOrderList = fieldMemberOrderService.getPastOrdersByAccount(account);
+		map.put("fieldMemberOrderList", fieldMemberOrderList);
+		return map;
+	}
+	
+	@GetMapping(value = "/getMemberOrderJson")
+	public @ResponseBody Map<String, Object> getMemberOrderJson(){
+		String account = "test1001";
+		Map<String, Object> map = new HashMap<>();
+		List<FieldMemberOrder> fieldMemberOrderList = fieldMemberOrderService.getOrderByAccount(account);
+		map.put("fieldMemberOrderList", fieldMemberOrderList);
+		return map;
+	}
+	
+	@GetMapping(value = "/getPastMemberOrderJson")
+	public @ResponseBody Map<String, Object> getPastMemberOrderJson(){
+		String account = "test1001";
+		Map<String, Object> map = new HashMap<>();
+		List<FieldMemberOrder> fieldMemberOrderList = fieldMemberOrderService.getPastOrdersByAccount(account);
+		map.put("fieldMemberOrderList", fieldMemberOrderList);
+		return map;
+	}
+	
+	@RequestMapping(value = "/updateAttendance")
+	@ResponseBody
+	public String updateAttendance(@RequestBody Map<String, Integer> map) {
+		FieldMemberOrder fieldMemberOrder = fieldMemberOrderService.get(map.get("updateId"));
+		fieldMemberOrder.setAttendance(1);
+		fieldMemberOrderService.save(fieldMemberOrder);
+		return "success";
+	}
+	
+	@RequestMapping(value = "/updateAbsence")
+	@ResponseBody
+	public String updateAbsence(@RequestBody Map<String, Integer> map) {
+		FieldMemberOrder fieldMemberOrder = fieldMemberOrderService.get(map.get("updateId"));
+		fieldMemberOrder.setAttendance(-1);
+		fieldMemberOrderService.save(fieldMemberOrder);
+		return "success";
+	}
+	
+	@RequestMapping(value = "/resetAttendance")
+	@ResponseBody
+	public String resetAttendance(@RequestBody Map<String, Integer> map) {
+		FieldMemberOrder fieldMemberOrder = fieldMemberOrderService.get(map.get("updateId"));
+		fieldMemberOrder.setAttendance(0);
+		fieldMemberOrderService.save(fieldMemberOrder);
+		return "success";
+	}
+	
+	@RequestMapping(value = "/updateCancel")
+	@ResponseBody
+	public String updateCancel(@RequestBody Map<String, Integer> map) {
+		FieldMemberOrder fieldMemberOrder = fieldMemberOrderService.get(map.get("updateId"));
+		fieldMemberOrder.setOrderStatus(0);
+		fieldMemberOrderService.save(fieldMemberOrder);
+		return "success";
+	}
+	
+	@RequestMapping(value = "/resetCancel")
+	@ResponseBody
+	public String resetCancel(@RequestBody Map<String, Integer> map) {
+		FieldMemberOrder fieldMemberOrder = fieldMemberOrderService.get(map.get("updateId"));
+		fieldMemberOrder.setOrderStatus(1);
+		fieldMemberOrderService.save(fieldMemberOrder);
+		return "success";
+	}
+	
+	
+	@GetMapping(value = "/getFieldsOrderJsonByTypeId/date={date}&typeId={typeId}")
+	public @ResponseBody Map<String, Object> getJsonByTypeId(@PathVariable("date")String date,
+			@PathVariable("typeId")Integer typeId) {
+		Map<String, Object> map = new HashMap<>();
+		List<FieldPeriod> fieldPeriodList = fieldPeriodService.getAll();
+		List<FieldOrderDetail> fieldOrderDetailList = new ArrayList<FieldOrderDetail>();
+		List<List<FieldOrderDetail>> orderDetailList = new ArrayList<>();
+		List<Field> fieldList = fieldService.getByTypeId(typeId);
+		for(int i = 0; i < fieldList.size(); i++) {
+			fieldOrderDetailList = fieldOrderDetailService.getByDateAndField(date,fieldList.get(i));
+			orderDetailList.add(i, fieldOrderDetailList);
+		}
+		
+		map.put("orderDetailList", orderDetailList);
+		map.put("fieldList", fieldList);
+		map.put("fieldPeriodList", fieldPeriodList);
+		
+		return map;
+	}
+	
+	@ModelAttribute
+	void commonData(Model m) {
+		List<FieldType> fieldTypeList = fieldTypeService.getAll();
+		List<FieldType> fieldTypeList1 = new ArrayList<>();
+		for(int i = 1; i < fieldTypeList.size(); i++) {
+			fieldTypeList1.add(fieldTypeList.get(i));
+		}
+		m.addAttribute("fieldTypeList", fieldTypeList1);
+		m.addAttribute("periodList", fieldPeriodService.getAll());
+		m.addAttribute("fieldList", fieldService.getAll());
+	}
+	
+}

@@ -1,0 +1,51 @@
+#imgDiv {
+    background-color: aqua;
+    padding: 0;
+}
+
+h2 {
+    margin: 45px 0 35px 0;
+    text-align: center;
+    font-size: 50px;
+}
+
+.newsDiv2 {
+    height: 400px;
+}
+
+.newsDiv3{
+    box-shadow: 0 0 5px gray;
+}
+
+.newsTop{
+    height: 320px;
+    background-color: rgb(222, 223, 223);
+}
+
+.newsBot {
+    height: 80px;
+    background-color: rgb(130, 184, 209);
+}
+
+.fieldDiv {
+    margin-bottom: 10px;
+    /* height: 100px; */
+    background-color: hotpink;
+}
+
+#fieldsDiv2 {
+    box-shadow: 0 0 5px gray;
+    padding: 0;
+}
+
+.nav a {
+    width: 162.8px;
+    text-align: center;
+    font-size: 130%;
+    font-weight: 600;
+}
+
+.tab-pane {
+    /* background-color: honeydew; */
+    height: 500px;
+}
