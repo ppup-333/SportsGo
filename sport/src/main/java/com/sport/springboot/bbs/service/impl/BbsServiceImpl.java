@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.sport.springboot.bbs.model.Bbs;
@@ -21,12 +18,21 @@ public class BbsServiceImpl implements BbsService {
 
 	@Override
 	public Bbs save(Bbs bbs) {
+		bbs.setBbsDelete(0);
 		return bbsDao.save(bbs);
 	}
 
 	@Override
-	public void delete(Integer bbsId) {
-		bbsDao.deleteById(bbsId);
+	public void delete(Bbs bbs) {
+//		bbs.getReplyList().removeAll(bbs.getReplyList());
+		bbs.setBbsDelete(1);
+		bbsDao.save(bbs);
+	}
+	
+	@Override
+	public Bbs deleteByManager(Bbs bbs) {
+		bbs.setBbsDelete(2);
+		return bbsDao.save(bbs);
 	}
 
 	@Override
@@ -67,18 +73,21 @@ public class BbsServiceImpl implements BbsService {
 	}
 
 	@Override
-	public Page<Bbs> getPageBbs(Integer page, Integer size){
-		Page<Bbs> pageResult = bbsDao.findAll(
-				PageRequest.of(page, size, Sort.by("bbsSetupTime").descending()));
-//		pageResult.getNumberOfElements(); // 本頁筆數
-//        pageResult.getSize();             // 每頁筆數 
-//        pageResult.getTotalElements();    // 全部筆數
-//        pageResult.getTotalPages();       // 全部頁數
-        
-//        List<Bbs> bbsList =  pageResult.getContent();
-    
-        return pageResult;
-		
+	public List<Bbs> getBbsByTypeGroup(Integer typeId) {
+		String typeGroup = "";
+		if(typeId == -1) {
+			typeGroup = "Game";
+		}else if(typeId == -2) {
+			typeGroup = "Health";
+		}else {
+			typeGroup = "Sport";
+		}
+		return bbsDao.findByBbsTypeTypeGroupOrderByBbsSetupTimeDesc(typeGroup);
 	}
-	
+
+	@Override
+	public List<Bbs> getBbsByBbsDelete(Integer bbsDelete) {
+		return bbsDao.findByBbsDeleteOrderByBbsSetupTimeDesc(bbsDelete);
+	}
+
 }

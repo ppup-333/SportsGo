@@ -3,6 +3,7 @@ package com.sport.springboot.bbs.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,12 +30,14 @@ public class Bbs {
 	private Timestamp bbsSetupTime;
 
 	private Timestamp bbsUpdateTime;
+	
+	private Integer bbsDelete;
 
 	@ManyToOne
 	@JoinColumn(name="typeId")
 	private BbsType bbsType;
 	
-	@OneToMany(mappedBy = "bbs")
+	@OneToMany(mappedBy = "bbs", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<BbsReply> replyList;
 
 	public Integer getBbsId() {
@@ -63,6 +66,10 @@ public class Bbs {
 
 	public String getBbsMessage() {
 		return bbsMessage;
+	}
+	
+	public String getBbsMessageByDetail() {
+		return bbsMessage.replaceAll("\n", "<br>").replaceAll("嗨", "&#128563");
 	}
 
 	public void setBbsMessage(String bbsMessage) {
@@ -99,6 +106,14 @@ public class Bbs {
 
 	public void setReplyList(List<BbsReply> replyList) {
 		this.replyList = replyList;
+	}
+
+	public Integer getBbsDelete() {
+		return bbsDelete;
+	}
+
+	public void setBbsDelete(Integer bbsDelete) {
+		this.bbsDelete = bbsDelete;
 	}
 	
 }

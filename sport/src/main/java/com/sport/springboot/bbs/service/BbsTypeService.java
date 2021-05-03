@@ -14,4 +14,6 @@ public interface BbsTypeService {
 	
 	List<BbsType> getByTypeGroup(String typeGroup);
 	
+	void update(BbsType bbs);
+	
 }
