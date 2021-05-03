@@ -2,7 +2,6 @@ package com.sport.springboot.bbs.model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +18,6 @@ public class BbsReply {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer replyId;
 	
-	//@OneToOne
 	private String replyAccount;
 
 	private String reply;
@@ -27,8 +25,12 @@ public class BbsReply {
 	private Timestamp replySetupTime;
 
 	private Timestamp replyUpdateTime;
+	
+	private Long replyRank;
+	
+	private Integer replyDelete;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "bbsId")
 	private Bbs bbs;
 
@@ -50,6 +52,10 @@ public class BbsReply {
 
 	public String getReply() {
 		return reply;
+	}
+	
+	public String getReplyByDetail() {
+		return reply.replaceAll("\n", "<br>").replaceAll("嗨", "&#128563");
 	}
 
 	public void setReply(String reply) {
@@ -79,5 +85,21 @@ public class BbsReply {
 	public void setBbs(Bbs bbs) {
 		this.bbs = bbs;
 	}
-	
+
+	public Long getReplyRank() {
+		return replyRank;
+	}
+
+	public void setReplyRank(Long replyRank) {
+		this.replyRank = replyRank;
+	}
+
+	public Integer getReplyDelete() {
+		return replyDelete;
+	}
+
+	public void setReplyDelete(Integer replyDelete) {
+		this.replyDelete = replyDelete;
+	}
+		
 }

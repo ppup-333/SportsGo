@@ -34,4 +34,40 @@ public class BbsReplyServiceImpl implements BbsReplyService {
 		return bbsReply;
 	}
 
+	@Override
+	public List<BbsReply> getBbsReplyByBbsId(Integer bbsId) {
+		return bbsReplyDao.findByBbsBbsIdOrderByReplySetupTimeDesc(bbsId);
+	}
+
+	@Override
+	public BbsReply save(BbsReply bbsReply) {
+		long replyRank = bbsReplyDao.countByBbsBbsId(bbsReply.getBbs().getBbsId());
+		bbsReply.setReplyRank(replyRank + 1);
+		bbsReply.setReplyDelete(0);
+		return bbsReplyDao.save(bbsReply);
+	}
+
+	@Override
+	public void delete(Integer replyId) {
+		BbsReply bbsReply = getBbsReply(replyId);
+		bbsReply.setReplyDelete(1);
+		bbsReplyDao.save(bbsReply);
+	}
+	
+	@Override
+	public BbsReply deleteByManager(BbsReply bbsReply) {
+		bbsReply.setReplyDelete(2);
+		return bbsReplyDao.save(bbsReply);
+	}
+
+	@Override
+	public BbsReply getReplyByReplyId(Integer replyId) {
+		return bbsReplyDao.findById(replyId).get();
+	}
+
+	@Override
+	public void update(BbsReply bbsReply) {
+		bbsReplyDao.save(bbsReply);
+	}
+
 }

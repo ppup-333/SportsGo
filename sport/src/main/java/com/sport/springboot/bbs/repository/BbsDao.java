@@ -18,4 +18,7 @@ public interface BbsDao extends JpaRepository<Bbs, Integer> {
 			+ " order by bbsSetupTime Desc")
 	public List<Bbs> findBySearch(@Param("search") String search);
 	
+	List<Bbs> findByBbsTypeTypeGroupOrderByBbsSetupTimeDesc(String typeGroup);
+	
+	List<Bbs> findByBbsDeleteOrderByBbsSetupTimeDesc(Integer bbsDelete);
 }

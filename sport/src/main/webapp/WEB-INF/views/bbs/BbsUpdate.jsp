@@ -13,6 +13,10 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -22,47 +26,56 @@
 		onclick="return false">
 		<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
 		<div>
-			<div>
-				<div>
-					<h6>${bbs.bbsType.typeName}</h6>
-					<input type="hidden" id="typeId" name="typeId"
-						value="${bbs.bbsType.typeId}"> <input type="text"
-						id="bbsTitle" name="bbsTitle" value="${bbs.bbsTitle}">
-				</div>
-
-			</div>
-			<hr>
-			<div>
-				<p>${bbs.bbsBuilder}</p>
-			</div>
-			<div>
-				<p>
-					<fmt:formatDate value="${bbs.bbsSetupTime}"
-						pattern="YYYY-MM-dd HH:mm" />
-					<br>
-					<fmt:formatDate value="${bbs.bbsUpdateTime}"
-						pattern="YYYY-MM-dd HH:mm" />
-				</p>
-			</div>
-			<div>
-				<textarea rows="20" cols="70" id="bbsMessage" name="bbsMessage">${bbs.bbsMessage}</textarea>
-			</div>
+			<select name ="typeId" id="selectGroup" class="custom-select-sm">
+				<optgroup label="賽事討論">
+					<c:forEach var="game" items="${gameList}">
+						<option value="${game.typeId}"
+							<c:if test="${game.typeId == bbs.bbsType.typeId}">selected</c:if>>${game.typeName}</option>
+					</c:forEach>
+				</optgroup>
+				<optgroup label="健康情報">
+					<c:forEach var="health" items="${healthList}">
+						<option	value="${health.typeId}" <c:if test="${health.typeId == bbs.bbsType.typeId}">selected</c:if>>${health.typeName}</option>
+					</c:forEach>
+				</optgroup>
+				<optgroup label="揪團運動">
+					<c:forEach var="sport" items="${sportList}">
+						<option	value="${sport.typeId}" <c:if test="${sport.typeId == bbs.bbsType.typeId}">selected</c:if>>${sport.typeName}</option>
+					</c:forEach>
+				</optgroup>
+			</select>
+			<input type="text" id="bbsTitle" name="bbsTitle" size="40" value="${bbs.bbsTitle}">
 		</div>
 
-		<input type="submit" id="upDateYN" value="修改"> <input
-			type="button" id="giveUpYN" value="放棄修改">
+			<hr>
+			
+		<div>
+			<p>${bbs.bbsBuilder}</p>
+			<p align="right">
+				建立時間：<fmt:formatDate value="${bbs.bbsSetupTime}"
+					pattern="YYYY-MM-dd HH:mm" />
+		<br>
+				最後編輯：<fmt:formatDate value="${bbs.bbsUpdateTime}"
+					pattern="YYYY-MM-dd HH:mm" />
+			</p>
+		</div>
+		<div>
+			<textarea id="bbsMessage" name="bbsMessage" rows="15" cols="60" style="resize: none">${bbs.bbsMessage}</textarea>
+		</div>
 
+		<input type="submit" id="upDateYN" class="btn btn-danger" value="修改">
+		<input type="button" id="giveUpYN" class="btn btn-primary" value="放棄修改">
 	</form>
 
 	<script>
 		$("#upDateYN").on("click", function() {
 			$.confirm({
 				title : "確定要修改發文嗎？",
-				content : "按下確定修改發文，按下取消導回前頁",
+				content : "按下確定修改發文，按下取消繼續編輯。",
 				buttons : {
 					確定 : function() {
 						$.confirm({
-							title : "已修改發文",
+							title : "已修改發文！",
 							content : "",
 							buttons : {
 								OK : function() {
@@ -72,7 +85,6 @@
 						})
 					},
 					取消 : function() {
-						history.back();
 					}
 				}
 			});
@@ -81,10 +93,10 @@
 		$("#giveUpYN").on("click", function() {
 			$.confirm({
 				title : "確定要放棄修改發文嗎？",
-				content : "按下確定將放棄修改發文並導回留言板首頁，按下取消繼續編輯",
+				content : "按下確定將放棄修改發文並導回前頁，按下取消繼續編輯。",
 				buttons : {
 					確定 : function() {
-						location.href = "bbs";
+						window.history.back();
 					},
 					取消 : function() {
 

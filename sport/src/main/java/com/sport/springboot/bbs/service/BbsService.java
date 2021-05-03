@@ -2,15 +2,15 @@ package com.sport.springboot.bbs.service;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-
 import com.sport.springboot.bbs.model.Bbs;
 
 public interface BbsService {
 
 	Bbs save(Bbs bbs);
 	
-	void delete(Integer bbsId);
+	void delete(Bbs bbs);
+	
+	Bbs deleteByManager(Bbs bbs);
 	
 	Bbs get(Integer bbsId);
 	
@@ -24,6 +24,8 @@ public interface BbsService {
 	
 	Bbs getBbsByBbsId(Integer bbsId);
 	
-	Page<Bbs> getPageBbs(Integer page, Integer size);
+	List<Bbs> getBbsByTypeGroup(Integer typeId);
+	
+	List<Bbs> getBbsByBbsDelete(Integer bbsDelete);
 	
 }	

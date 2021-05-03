@@ -16,9 +16,7 @@
 
 <div align="center">
 
-	<a href="bbsdiscussion.c"><input type="button" value="發文"></a>
-
-	<a href="bbs"><input type="button" value="全部"></a>
+	<a href="bbsM"><input type="button" value="全部"></a>
 
 	<select id="game" name="game">
 		<option value="">-- 賽事討論 --</option>
@@ -31,7 +29,7 @@
 		$("#game").change(function() {
 			var form = document.createElement("form");
 			form.setAttribute("method", "post");
-			form.setAttribute("action", "bbs.selectSearch");
+			form.setAttribute("action", "bbsM.Search");
 			var hiddenField = document.createElement("input");
 			hiddenField.setAttribute("type", "hidden");
 			hiddenField.setAttribute("name", "typeId");
@@ -53,7 +51,7 @@
 		$("#health").change(function() {
 			var form = document.createElement("form");
 			form.setAttribute("method", "post");
-			form.setAttribute("action", "bbs.selectSearch");
+			form.setAttribute("action", "bbsM.Search");
 			var hiddenField = document.createElement("input");
 			hiddenField.setAttribute("type", "hidden");
 			hiddenField.setAttribute("name", "typeId");
@@ -75,7 +73,7 @@
 		$("#sport").change(function() {
 			var form = document.createElement("form");
 			form.setAttribute("method", "post");
-			form.setAttribute("action", "bbs.selectSearch");
+			form.setAttribute("action", "bbsM.Search");
 			var hiddenField = document.createElement("input");
 			hiddenField.setAttribute("type", "hidden");
 			hiddenField.setAttribute("name", "typeId");
@@ -95,6 +93,8 @@
 	<form action="bbsdiscussion.r" method="get">
 		<table border="1">
 			<tr>
+				<th></th>
+				<th>編號</th>
 				<th>類型</th>
 				<th>建立者</th>
 				<th>標題及內文</th>
@@ -104,6 +104,8 @@
 			<c:if test="${searchList.size() > 0}">
 				<c:forEach var="search" items="${searchList}">
 					<tr>
+						<td><input type="checkbox" name=""></td>
+						<td>${search.bbsId}</td>
 						<td>${search.bbsType.typeName}</td>
 						<td>${search.bbsBuilder}</td>
 						<td><a
@@ -126,7 +128,7 @@
 			</c:if>
 			<c:if test="${searchList.size() == 0}">
 				<tr>
-					<td colspan="5" align="center">查無資料</td>
+					<td colspan="7" align="center">查無資料</td>
 				</tr>
 			</c:if>
 		</table>

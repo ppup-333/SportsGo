@@ -44,4 +44,10 @@ public class BbsTypeServiceImpl implements BbsTypeService {
 		return bbsTypeDao.findByTypeGroup(typeGroup);
 	}
 
+	@Override
+	public void update(BbsType bbs) {
+		bbsTypeDao.save(bbs);
+		
+	}
+
 }
