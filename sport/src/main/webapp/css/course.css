@@ -1,0 +1,28 @@
+.courseImage{
+	width: 300px;
+        height: 300px;
+        opacity: 90%;
+        margin: 20px;
+}
+
+.activityImage{
+	width: 300px;
+    height: 300px;
+}
+.courseButton{
+	margin:20px;
+}
+
+
+.centered {
+        
+     position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+    color:white;
+    font-weight:bold;
+    -webkit-text-stroke: 1px black;
+    
+    }

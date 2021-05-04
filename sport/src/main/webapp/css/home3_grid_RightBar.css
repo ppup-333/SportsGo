@@ -1,0 +1,36 @@
+body{
+    margin: 0;
+}
+.container{
+    display: grid;
+    grid-template-columns: 50px auto 230px;
+    grid-template-rows: 150px minmax(700px,auto) 100px;
+    grid-template-areas: "header header header"
+                         "sideL main sideR"
+                         "footer footer footer";
+}
+
+.div_Header{
+    grid-area: header;
+    /* background-color: blue; */
+}
+
+.div_SideL{
+    grid-area: sideL;
+    /* background-color: coral; */
+}
+
+.div_SideR{
+    grid-area: sideR;
+    /* background-color: crimson; */
+}
+
+.div_Main{
+    grid-area: main;
+    /* background-color: cyan; */
+}
+
+.div_Footer{
+    grid-area: footer;
+    /* background-color: darkkhaki; */
+}
