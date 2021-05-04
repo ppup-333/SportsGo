@@ -1,0 +1,104 @@
+.div_Header{
+    display: grid;
+    grid-template-columns: 3fr 2fr 15fr 3fr;
+    grid-template-rows: 95px 55px;
+    grid-template-areas: "logo logo top right"
+                         "botL bot bot right";
+
+    box-shadow: 0px 2px 5px gray;
+    background-color: lightcyan;
+}
+
+.div_HeaderLogo{
+    grid-area: logo;
+    float: left;
+}
+.headerLogo {
+    margin-top: 30px;
+    margin-left: 50px;
+    height: 60px;            
+}
+
+.div_HeaderTop {
+    grid-area: top;
+    text-align: right;
+    padding: 10px 20px;
+     
+}
+
+.div_HeaderTop a{
+    text-decoration: none;
+    margin-left: 15px;
+    padding: 2px 5px;
+    border-radius: 10px;
+}
+
+.div_UL {
+    margin: 0;
+    padding: 0;
+    grid-area: bot;
+    
+}
+
+.ul_1, .ul_2, .ul_3, .ul_4, .ul_5, .ul_6, .ul_7{
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 14.25%;
+}
+
+.div_UL ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    height: 55px;
+    font-size: 25px;
+    line-height: 55px;
+    cursor: pointer;
+}
+
+.ul_head {
+    font-weight: bold;
+    color: rgb(83, 83, 83);
+}
+
+.div_UL li:hover{
+    background-color: rgb(219, 225, 248);
+    box-shadow: 1px 1px 5px rgb(112, 112, 112);
+    transform: translate3d(-1px, 0px, 0px);    
+}
+
+.introduce_hide, .activity_hide, .reservation_hide, .announcement_hide, .aboutUs_hide, .store_hide, .bbs_hide{
+    box-shadow: 0px 1px 4px 0px rgb(131, 131, 131);
+    z-index: 1;
+    display: none;
+    background-color: rgb(219, 225, 248);
+    font-size: 70%;
+}
+
+
+
+.div_HeaderLogin {
+    grid-area: right;
+    padding-top: 10px;
+    /* background-color: black; */
+}
+
+.div_HeaderLogin a {
+    display: inline-block;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 0px 10px; 
+    text-decoration: none;
+    font-size: 120%;
+}
+
+.spLogin {
+    margin-left: 80px;
+}
+
+.div_HeaderLogin a:hover{
+    background-color: lightcyan;
+    box-shadow: 0px 0px 5px rgb(179, 178, 178);
+}
