@@ -18,9 +18,9 @@ public interface BbsReplyService {
 	
 	void delete(Integer replyId);
 	
-	BbsReply deleteByManager(BbsReply bbsReply);
+	BbsReply deleteReplyByManager(BbsReply bbsReply);
 	
-	BbsReply recoveryByManager(BbsReply bbsReply);
+	BbsReply recoveryReplyByManager(BbsReply bbsReply);
 	
 	void update(BbsReply bbsReply);
 	

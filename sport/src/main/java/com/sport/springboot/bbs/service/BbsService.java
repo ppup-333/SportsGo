@@ -10,9 +10,9 @@ public interface BbsService {
 	
 	void delete(Bbs bbs);
 	
-	Bbs deleteByManager(Bbs bbs);
+	Bbs deleteBbsByManager(Bbs bbs);
 	
-	Bbs recoveryByManager (Bbs bbs);
+	Bbs recoveryBbsByManager (Bbs bbs);
 	
 	Bbs get(Integer bbsId);
 	
