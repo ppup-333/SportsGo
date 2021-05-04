@@ -1,5 +1,6 @@
 package com.sport.springboot.bulletin.model;
 
+import java.sql.Blob;
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "bulletin")
@@ -24,6 +28,10 @@ public class Bulletin {
 	String contents;
 	Timestamp date;
 	Timestamp update_time;
+	Blob image;
+	String fileName;
+	@Transient
+	MultipartFile productImage;
 	public Integer getId() {
 		return id;
 	}
@@ -57,8 +65,28 @@ public class Bulletin {
 	public Timestamp getUpdate_time() {
 		return update_time;
 	}
-	public void setUpdate_time(Timestamp update_time) {
-		this.update_time = update_time;
+	public void setUpdate_time(Timestamp timestamp) {
+		this.update_time = timestamp;
+	}
+	
+	public Blob getImage() {
+		return image;
+	}
+	public void setImage(Blob image) {
+		this.image = image;
+	}
+	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
 	}
 	@Override
 	public String toString() {
@@ -75,13 +103,14 @@ public class Bulletin {
 		builder.append(date);
 		builder.append(", update_time=");
 		builder.append(update_time);
+		builder.append(", image=");
+		builder.append(image);
+		builder.append(", fileName=");
+		builder.append(fileName);
+		builder.append(", productImage=");
+		builder.append(productImage);
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-	
-	
-	
 	
 }

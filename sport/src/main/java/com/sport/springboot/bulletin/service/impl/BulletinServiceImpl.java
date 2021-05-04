@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sport.springboot.bulletin.model.Bulletin;
+import com.sport.springboot.bulletin.repository.BulletinPageRepository;
 import com.sport.springboot.bulletin.repository.BulletinRepository;
 import com.sport.springboot.bulletin.service.BulletinService;
 @Service
@@ -19,7 +20,8 @@ public class BulletinServiceImpl implements BulletinService {
 
 	@Autowired
 	BulletinRepository bulletinDao;
-	
+	@Autowired
+	BulletinPageRepository bulletinPageDao;
 	
 	@Override
 	public Bulletin save(Bulletin bulletin) {
@@ -56,8 +58,16 @@ public class BulletinServiceImpl implements BulletinService {
 		return bulletinDao.findAll();
 	}
 	
-	 @Override public Page<Bulletin> findById(Integer id, Pageable pageable) { 
-		 return bulletinDao.findByIdSort(id,pageable); 
+	 @Override public Page<Bulletin> findByIdSort(Integer id, Pageable pageable) { 
+		 return bulletinPageDao.findByIdSort(id,pageable); 
 	}
-
+	 @Override 
+	 public Page<Bulletin> findByIdAndClassId(Integer id, Integer classId, Pageable pageable){
+		 return bulletinPageDao.findByIdAndClassId(id, classId, pageable);
+	 }
+	 
+	 @Override
+	public void resetPicture(Integer id) {
+		bulletinDao.resetPicture(id);
+	}
 }

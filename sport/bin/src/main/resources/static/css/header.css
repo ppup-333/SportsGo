@@ -3,15 +3,6 @@
     /* box-shadow: 0 1px 5px gray; */
 }
 
-/* #logoDiv {
-    background-color: bisque;
-} */
-
-/* @font-face {
-	font-family: Yadou;
-	src: url(D://class/final/html/SportGo/font/Yadou.ttf);
-} */
-
 #logo {
     font-size: 40px;
     font-weight: bolder;
@@ -20,9 +11,10 @@
     margin-left: 130px;
 }
 
-/* #loginDiv {
-    background-color: burlywood;
-} */
+#logo a {
+	text-decoration: none;
+	color: black;
+}
 
 #optionDiv {
     padding: 0;
