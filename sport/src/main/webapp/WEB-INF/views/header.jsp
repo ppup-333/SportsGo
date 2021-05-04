@@ -20,11 +20,10 @@
 <!-- header -->
     <div id="headerDiv" class="container-fluid border-bottom">
         <div class="row">
-            <div id="logoDiv" class="col-3">
+            <div id="logoDiv" class="col-3">                
                 <div id="logo">
-                    Sports Go!
+                    <a href="/sport/">Sports Go!</a>
                 </div>
-
             </div>
             <div id="middleDiv" class="col-8">
                 <div class="container-fluid">
