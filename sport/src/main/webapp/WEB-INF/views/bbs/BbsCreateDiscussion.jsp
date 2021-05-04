@@ -63,7 +63,6 @@
 					content : false,
 					buttons : {
 						來去選發文類型 : function() {
-							
 						}
 					}
 				});
@@ -73,7 +72,6 @@
 					content : false,
 					buttons : {
 						來去補上標題 : function() {
-
 						}
 					}
 				});
@@ -83,7 +81,6 @@
 					content : false,
 					buttons : {
 						來去打完內文 : function() {
-
 						}
 					}
 				});
@@ -93,10 +90,9 @@
 					content : "選擇「是」送出發文；選擇「否」繼續編輯發文。",
 					buttons : {
 						是 : function() {
-										$("#create").submit();
+							$("#create").submit();
 						},
 						否 : function() {
-
 						}
 					}
 				});
@@ -109,10 +105,9 @@
 				content : "選擇確定放棄發文並將導回留言板首頁；選擇取消繼續編輯發文。",
 				buttons : {
 					確定 : function() {
-									document.location.href = "bbs";
+						document.location.href = "bbs";
 					},
 					取消 : function() {
-
 					}
 				}
 			});

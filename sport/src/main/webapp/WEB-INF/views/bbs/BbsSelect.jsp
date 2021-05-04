@@ -93,7 +93,6 @@
 					<input type="text" id="bbsTitle" name="bbsTitle" size="40"
 						value="${bbs.bbsTitle}">
 
-					<hr>
 
 					<div>
 						<p>${bbs.bbsBuilder}</p>
@@ -172,7 +171,7 @@
 		<c:forEach var="reply" items="${replyList}">
 			<c:if test="${reply.replyDelete == 0}">
 				<div class="card">
-					<p class="card-header">No.${reply.replyRank}  ${reply.replyAccount}</p>
+					<p class="card-header">No.${reply.replyRank}  <i class="far fa-user-circle"></i> ${reply.replyAccount}</p>
 					<div class="card-body">
 						<div class="card-title">
 							<div class="row">
@@ -218,7 +217,6 @@
 		</c:forEach>
 	</form>
 
-	<hr>
 
 
 	<script>

@@ -55,13 +55,13 @@ public class BbsReplyServiceImpl implements BbsReplyService {
 	}
 	
 	@Override
-	public BbsReply deleteByManager(BbsReply bbsReply) {
+	public BbsReply deleteReplyByManager(BbsReply bbsReply) {
 		bbsReply.setReplyDelete(2);
 		return bbsReplyDao.save(bbsReply);
 	}
 	
 	@Override
-	public BbsReply recoveryByManager(BbsReply bbsReply) {
+	public BbsReply recoveryReplyByManager(BbsReply bbsReply) {
 		bbsReply.setReplyDelete(0);
 		return bbsReplyDao.save(bbsReply);
 	}

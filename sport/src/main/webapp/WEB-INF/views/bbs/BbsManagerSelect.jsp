@@ -55,20 +55,20 @@
 		</div>
 		<br>
 		<div>
-			<button type="button" id="deteleBbsYN" style="display: none;" class="btn btn-danger btn-sm">刪除</button>
+			<button type="button" id="deteleBbs" style="display: none;" class="btn btn-danger btn-sm">刪除</button>
 			<button type="button" id="recoveryBbs" style="display: none;" class="btn btn-warning btn-sm">刪除還原</button>
 <!-- 			<button type="button" id="upDateBbs" class="btn btn-primary btn-sm">編輯</button> -->
 		</div>
 	</form>
 
-	<hr>
+<!-- 	<hr> -->
 
-	<form:form modelAttribute="bbsReply" id="reply" name="reply"
-		action="bbsReplySuccess" method="post">
-		<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
-		<form:textarea id="replyMessage" name="replyMessage" path="reply"
-			rows="3" cols="40" style="resize: none" placeholder="敲下你的留言..."></form:textarea>
-	</form:form>
+<%-- 	<form:form modelAttribute="bbsReply" id="reply" name="reply" --%>
+<%-- 		action="bbsReplySuccess" method="post"> --%>
+<%-- 		<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}"> --%>
+<%-- 		<form:textarea id="replyMessage" name="replyMessage" path="reply" --%>
+<%-- 			rows="3" cols="40" style="resize: none" placeholder="敲下你的留言..."></form:textarea> --%>
+<%-- 	</form:form> --%>
 	<script>
 		// 	在回覆發文的<textarea>以Enter送出，Enter + Shift換行
 		$("#replyMessage").keypress(function(e) {
@@ -84,79 +84,62 @@
 	</script>
 
 	<br>
-	
+
 	<form id="replyForm" name="replyForm">
-		<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
+<%-- 		<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}"> --%>
 		<c:forEach var="reply" items="${replyList}">
-			<c:if test="${reply.replyDelete == 0}">
-				<div class="card">
-					<p class="card-header">No.${reply.replyRank}</p>
-					<div class="card-body">
-						<div class="card-title">
-							<div class="row">
-								<p class="col">${reply.replyAccount}</p>
-								<P class="col">
-									建立時間：<fmt:formatDate value="${reply.replySetupTime}"
-										pattern="YYYY-MM-dd HH:mm" />
-									<br>
-									<c:if test="${reply.replyUpdateTime != null}">
-										最後編輯：<fmt:formatDate value="${reply.replyUpdateTime}"
-											pattern="YYYY-MM-dd HH:mm" />
-									</c:if>
-								</P>
-							</div>
-						</div>
-						<div>
-							<p class="card-text" id="div${reply.replyId}">${reply.reply}</p>
-<!-- 							<button -->
-<!-- 								onclick="javascript:document.replyForm.action='bbsM.ReplyDelete'; document.replyForm.method='post'; return false;" -->
-<%-- 								id="replyDelete${reply.replyId}" --%>
-<%-- 								class="replyDelete btn btn-danger btn-sm" rel="${reply.replyId}">刪除</button> --%>
-							<button type="button" id="deleteReply" style="display: none;" class="btn btn-warning btn-sm">刪除</button>
-							<button type="button" id="recoveryReply" style="display: none;" class="btn btn-warning btn-sm">刪除還原</button>
-						</div>
-					</div>
-				</div>
-			</c:if>
-				<div class="card">
-					<c:if test="${reply.replyDelete == 1}">
-						<p class="card-header">No.${reply.replyRank} <i class="fas fa-running"></i> 已被留言者刪除</p>
-					</c:if>
-					<c:if test="${reply.replyDelete == 2}">
-						<p class="card-header">No.${reply.replyRank} <i class="fas fa-running"></i> 管理員刪除</p>
-					</c:if>
-					<div class="card-body">
-						<div class="card-title">
-							<div class="row">
-								<p class="col">${reply.replyAccount}</p>
-								<P class="col">
-									建立時間：<fmt:formatDate value="${reply.replySetupTime}"
-										pattern="YYYY-MM-dd HH:mm" />
+			<input type="hidden" id="${reply.replyId}" name="${reply.replyId}" value="${reply.replyId}">
+			<div class="card">
+				<c:if test="${reply.replyDelete == 0}">
+					<p class="card-header">No.${reply.replyRank} <i class="far fa-user-circle"></i> ${reply.replyAccount}</p>
+				</c:if>
+				<c:if test="${reply.replyDelete == 1}">
+					<p class="card-header">
+						No.${reply.replyRank} <i class="fas fa-running"></i> 已被留言者刪除
+					</p>
+				</c:if>
+				<c:if test="${reply.replyDelete == 2}">
+					<p class="card-header">
+						No.${reply.replyRank} <i class="fas fa-running"></i> 管理員刪除
+					</p>
+				</c:if>
+				<div class="card-body">
+					<div class="card-title">
+						<div class="row">
+							<p class="card-text col-sm-9" id="div${reply.replyId}">${reply.reply}</p>
+							<P class="col-sm-3">
+								建立時間：<fmt:formatDate value="${reply.replySetupTime}"
+									pattern="YYYY-MM-dd HH:mm" />
 								<br>
-								<c:if test="${reply.replyUpdateTime != null}">
-									最後編輯：<fmt:formatDate value="${reply.replyUpdateTime}"
-										pattern="YYYY-MM-dd HH:mm" />
+							<c:if test="${reply.replyUpdateTime != null}">
+								最後編輯：<fmt:formatDate value="${reply.replyUpdateTime}"
+									pattern="YYYY-MM-dd HH:mm" />
 								</c:if>
-								</P>
-							</div>
+							</P>
 						</div>
-					<div>
-						<p class="card-text" id="div${reply.replyId}">${reply.reply}</p>
 					</div>
+					<div>
+						<!-- 							<button -->
+						<!-- 								onclick="javascript:document.replyForm.action='bbsM.ReplyDelete'; document.replyForm.method='post'; return false;" -->
+						<%-- 								id="replyDelete${reply.replyId}" --%>
+						<%-- 								class="replyDelete btn btn-danger btn-sm" rel="${reply.replyId}">刪除</button> --%>
+						<button type="button" id="deleteReply${reply.replyId}" style="display: none;" class="btn btn-danger btn-sm">刪除</button>
+						<button type="button" id="recoveryReply${reply.replyId}" style="display: none;"	class="btn btn-warning btn-sm">刪除還原</button>
 					</div>
 				</div>
+			</div>
 		</c:forEach>
 	</form>
 
 	<script>
 		//管理員刪除發文及復原發文按鈕
 		<c:if test="${bbs.bbsDelete == 0}">
-			$("#deteleBbsYN").show();
+			$("#deteleBbs").show();
 		</c:if>
 		<c:if test="${bbs.bbsDelete == 2}">
 			$("#recoveryBbs").show();
 		</c:if>
-		$("#deteleBbsYN").on("click", function() {
+		$("#deteleBbs").on("click", function() {
 			$.confirm({
 				title : "確定後用戶端的發文將會被刪除。",
 				content : false,
@@ -164,7 +147,7 @@
 					確定 : function() {
 						$.get("bbsM.BbsDelete?bbsId=" + $("#bbsId").val(), function(data) {
 							if(data == "OK"){
-								$("#deteleBbsYN").hide();
+								$("#deteleBbs").hide();
 								$("#recoveryBbs").show();
 							}else {
 								alert("系統異常");
@@ -179,7 +162,7 @@
 		$("#recoveryBbs").on("click", function() {
 			$.get("bbsM.BbsRecovery?bbsId=" + $("#bbsId").val(), function(data) {
 				if(data == "OK"){
-					$("#deteleBbsYN").show();
+					$("#deteleBbs").show();
 					$("#recoveryBbs").hide();
 				}else {
 					alert("系統異常");
@@ -188,43 +171,44 @@
 		});
 		
 		//管理員刪除留言及復原發文按鈕
-// 		<c:if test="${reply.replyDelete == 0}">
-// 			$("#deleteReply").show();
-// 		</c:if>
-// 		<c:if test="${reply.replyDelete == 2}">
-// 			$("#recoveryReply").show();
-// 		</c:if>
-// 		$("#deleteReply").on("click", function() {
-// 			$.confirm({
-// 				title : "確定後用戶端的留言將會被刪除。",
-// 				content : false,
-// 				buttons : {
-// 					確定 : function() {
-// 						$.get("bbsM.ReplyDelete?replyId=" + $("#replyId").val(), function(data) {
-// 							if(data == "OK"){
-// 								$("#deleteReply").hide();
-// 								$("#recoveryReply").show();
-// 							}else {
-// 								alert("系統異常");
-// 							}
-// 						});
-// 					},
-// 					取消 : function() {
-// 					}
-// 				}
-// 			});
-// 		});
-// 		$("#recoveryReply").on("click", function() {
-// 			$.get("bbsM.ReplyRecovery?replyId=" + $("#replyId").val(), function(data) {
-// 				if(data == "OK"){
-// 					$("#deleteReply").show();
-// 					$("#recoveryReply").hide();
-// 				}else {
-// 					alert("系統異常");
-// 				}
-// 			});
-// 		});
-		
+		<c:forEach var="reply" items="${replyList}">
+			<c:if test="${reply.replyDelete == 0}">
+				$("#deleteReply${reply.replyId}").show();
+			</c:if>
+			<c:if test="${reply.replyDelete == 2}">
+				$("#recoveryReply${reply.replyId}").show();
+			</c:if>
+			$("#deleteReply${reply.replyId}").on("click", function() {
+				$.confirm({
+					title : "確定後用戶端的留言將會被刪除。",
+					content : false,
+					buttons : {
+						確定 : function() {
+							$.get("bbsM.ReplyDelete?replyId=" + $("#${reply.replyId}").val(), function(data) {
+								if(data == "OK"){
+									$("#deleteReply${reply.replyId}").hide();
+									$("#recoveryReply${reply.replyId}").show();
+								}else {
+									alert("系統異常");
+								}
+							});
+						},
+						取消 : function() {
+						}
+					}
+				});
+			});
+			$("#recoveryReply${reply.replyId}").on("click", function() {
+				$.get("bbsM.ReplyRecovery?replyId=" + $("#${reply.replyId}").val(), function(data) {
+					if(data == "OK"){
+						$("#deleteReply${reply.replyId}").show();
+						$("#recoveryReply${reply.replyId}").hide();
+					}else {
+						alert("系統異常");
+					}
+				});
+			});
+		</c:forEach>
 
 		$("#upDateBbs").on("click", function() {
 			var form = document.createElement("form");
@@ -247,29 +231,6 @@
 			$(this).hide();
 			$("#modify" + id).show();
 		});
-
-// 		$(".replyDelete").on("click", function() {
-// 			var id = $(this).attr("rel");
-// 			$.confirm({
-// 			title : "確定後用戶端的留言將會被刪除。",
-// 			content : false,
-// 			buttons : {
-// 				確定 : function() {
-// 					var form = document.getElementById("replyForm");
-// 					var hiddenField = document.createElement("input");
-// 					hiddenField.setAttribute("type", "hidden");
-// 					hiddenField.setAttribute("name", "replyId");
-// 					hiddenField.setAttribute("value", id);
-// 					form.appendChild(hiddenField);
-// 					document.body.appendChild(form);
-// 					form.submit();
-// 					$("#replyForm").submit();
-// 				},
-// 				取消 : function() {
-// 				}
-// 			}
-// 		});
-// 	});
 	</script>
 
 </body>

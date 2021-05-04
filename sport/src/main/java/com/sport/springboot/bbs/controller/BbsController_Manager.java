@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sport.springboot.bbs.model.Bbs;
 import com.sport.springboot.bbs.model.BbsReply;
@@ -148,7 +147,7 @@ public class BbsController_Manager {
 	@GetMapping("/bbsM.BbsDelete")
 	public @ResponseBody String bbsMDeleteSuccess(@RequestParam Integer bbsId) {
 		Bbs bbs = bbsService.getBbsByBbsId(bbsId);
-		bbsService.deleteByManager(bbs);
+		bbsService.deleteBbsByManager(bbs);
 		return "OK";
 	}
 	
@@ -156,29 +155,23 @@ public class BbsController_Manager {
 	@GetMapping("/bbsM.BbsRecovery")
 	public @ResponseBody String bbsMRecovery(@RequestParam Integer bbsId) {
 		Bbs bbs = bbsService.getBbsByBbsId(bbsId);
-		bbsService.recoveryByManager(bbs);
+		bbsService.recoveryBbsByManager(bbs);
 		return "OK";
 	}
 	
 	// 管理員刪除留言
 	@GetMapping("/bbsM.ReplyDelete")
-	public String bbsMReplyDelete(@RequestParam Integer replyId, @RequestParam Integer bbsId,
-			RedirectAttributes attr) {
+	public @ResponseBody String bbsMReplyDelete(@RequestParam Integer replyId) {
 		BbsReply bbsReply = bbsReplyService.getReplyByReplyId(replyId);
-		bbsReplyService.deleteByManager(bbsReply);
-		attr.addAttribute("bbsId", bbsId);
-//		return "redirect:bbsM.Select";
+		bbsReplyService.deleteReplyByManager(bbsReply);
 		return "OK";
 	}
 	
-	//管理員復原刪除留言.
+	//管理員復原刪除留言
 	@GetMapping("/bbsM.ReplyRecovery")
-	public String bbsMReplyRecovery(@RequestParam Integer replyId, @RequestParam Integer bbsId,
-			RedirectAttributes attr) {
+	public @ResponseBody String bbsMReplyRecovery(@RequestParam Integer replyId) {
 		BbsReply bbsReply = bbsReplyService.getReplyByReplyId(replyId);
-		bbsReplyService.recoveryByManager(bbsReply);
-		attr.addAttribute("bbsId", bbsId);
-//		return "redirect:bbsM.Select";
+		bbsReplyService.recoveryReplyByManager(bbsReply);
 		return "OK";
 	}
 
