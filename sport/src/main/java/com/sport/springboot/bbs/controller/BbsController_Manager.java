@@ -171,7 +171,7 @@ public class BbsController_Manager {
 		return "OK";
 	}
 	
-	//管理員復原刪除留言
+	//管理員復原刪除留言.
 	@GetMapping("/bbsM.ReplyRecovery")
 	public String bbsMReplyRecovery(@RequestParam Integer replyId, @RequestParam Integer bbsId,
 			RedirectAttributes attr) {
