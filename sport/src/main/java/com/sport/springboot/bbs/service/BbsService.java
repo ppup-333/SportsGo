@@ -12,6 +12,8 @@ public interface BbsService {
 	
 	Bbs deleteByManager(Bbs bbs);
 	
+	Bbs recoveryByManager (Bbs bbs);
+	
 	Bbs get(Integer bbsId);
 	
 	void update(Bbs bbs);

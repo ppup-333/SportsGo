@@ -59,6 +59,12 @@ public class BbsReplyServiceImpl implements BbsReplyService {
 		bbsReply.setReplyDelete(2);
 		return bbsReplyDao.save(bbsReply);
 	}
+	
+	@Override
+	public BbsReply recoveryByManager(BbsReply bbsReply) {
+		bbsReply.setReplyDelete(0);
+		return bbsReplyDao.save(bbsReply);
+	}
 
 	@Override
 	public BbsReply getReplyByReplyId(Integer replyId) {

@@ -166,8 +166,8 @@
 	</script>
 
 	<br>
+	
 	<form id="replyForm" name="replyForm">
-
 		<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
 		<c:forEach var="reply" items="${replyList}">
 			<c:if test="${reply.replyDelete == 0}">

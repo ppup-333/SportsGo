@@ -20,6 +20,8 @@ public interface BbsReplyService {
 	
 	BbsReply deleteByManager(BbsReply bbsReply);
 	
+	BbsReply recoveryByManager(BbsReply bbsReply);
+	
 	void update(BbsReply bbsReply);
 	
 }

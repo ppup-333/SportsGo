@@ -34,6 +34,12 @@ public class BbsServiceImpl implements BbsService {
 		bbs.setBbsDelete(2);
 		return bbsDao.save(bbs);
 	}
+	
+	@Override
+	public Bbs recoveryByManager(Bbs bbs) {
+		bbs.setBbsDelete(0);
+		return bbsDao.save(bbs);
+	}
 
 	@Override
 	public Bbs get(Integer bbsId) {

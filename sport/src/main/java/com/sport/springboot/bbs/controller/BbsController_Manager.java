@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -146,21 +145,41 @@ public class BbsController_Manager {
 	}
 	
 	// 管理員刪除發文
-	@PostMapping("/bbsM.Delete")
-	public String bbsMDeleteSuccess(@RequestParam Integer bbsId) {
+	@GetMapping("/bbsM.BbsDelete")
+	public @ResponseBody String bbsMDeleteSuccess(@RequestParam Integer bbsId) {
 		Bbs bbs = bbsService.getBbsByBbsId(bbsId);
 		bbsService.deleteByManager(bbs);
-		return "redirect:bbsM";
+		return "OK";
+	}
+	
+	//管理員復原刪除發文
+	@GetMapping("/bbsM.BbsRecovery")
+	public @ResponseBody String bbsMRecovery(@RequestParam Integer bbsId) {
+		Bbs bbs = bbsService.getBbsByBbsId(bbsId);
+		bbsService.recoveryByManager(bbs);
+		return "OK";
 	}
 	
 	// 管理員刪除留言
-	@PostMapping("/bbsM.ReplyDelete")
-	public String bbsReplyDelete(@RequestParam Integer replyId, @RequestParam Integer bbsId,
+	@GetMapping("/bbsM.ReplyDelete")
+	public String bbsMReplyDelete(@RequestParam Integer replyId, @RequestParam Integer bbsId,
 			RedirectAttributes attr) {
 		BbsReply bbsReply = bbsReplyService.getReplyByReplyId(replyId);
 		bbsReplyService.deleteByManager(bbsReply);
 		attr.addAttribute("bbsId", bbsId);
-		return "redirect:bbsM.Select";
+//		return "redirect:bbsM.Select";
+		return "OK";
+	}
+	
+	//管理員復原刪除留言
+	@GetMapping("/bbsM.ReplyRecovery")
+	public String bbsMReplyRecovery(@RequestParam Integer replyId, @RequestParam Integer bbsId,
+			RedirectAttributes attr) {
+		BbsReply bbsReply = bbsReplyService.getReplyByReplyId(replyId);
+		bbsReplyService.recoveryByManager(bbsReply);
+		attr.addAttribute("bbsId", bbsId);
+//		return "redirect:bbsM.Select";
+		return "OK";
 	}
 
 }

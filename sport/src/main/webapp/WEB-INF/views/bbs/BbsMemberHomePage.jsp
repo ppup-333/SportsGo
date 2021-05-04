@@ -102,8 +102,8 @@
 			<thead>
 				<tr>
 					<th data-field="typeName"></th>
-					<th data-field="bbsTitle"  data-formatter="TitleFormatter" id="deleteByManager">標題<br>內文</th>
-					<th data-field="bbsBuilder" data-formatter="BuilderFormatter">建立者</th>
+					<th data-field="bbsTitle"  data-formatter="TitleFormatter" id="deleteByManager"></th>
+					<th data-field="bbsBuilder" data-formatter="BuilderFormatter"></th>
 					<th data-field="replySetupTime" data-formatter="ReplyFormatter">最新回覆</th>
 				</tr>
 			</thead>
@@ -119,7 +119,7 @@
 			
 			function TitleFormatter(value, row, index) {
 				if (row.bbsDelete == 2) {
-					return "<p class='text-muted font-weight-light'>" + value + "<br><span class='badge badge-secondary'>發文不存在</span></p>";
+					return "<p class='text-muted font-weight-light'><b>" + value + "</b><br><span class='badge badge-secondary'>發文不存在</span></p>";
 				} else {
 					return "<a href='bbsSelect?bbsId=" + row.bbsId + "'>"
 							+ value + "<br>" + row.bbsMessage + "</a>";

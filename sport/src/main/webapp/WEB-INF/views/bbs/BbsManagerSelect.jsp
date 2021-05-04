@@ -26,8 +26,7 @@
 
 	<a href="bbsM"><button class="btn btn-info btn-sm">留言板</button></a>
 
-	<form id="select" name="select" action="bbsM.Delete" method="post"
-		onclick="return false">
+	<form id="select" name="select">
 		<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
 		<div>
 			<div>
@@ -37,10 +36,10 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col">
+				<div class="col-sm-9">
 					${bbs.bbsBuilder}
 				</div>
-				<div class="col">
+				<div class="col-sm-3">
 					<p>
 						建立時間：<fmt:formatDate value="${bbs.bbsSetupTime}"
 							pattern="YYYY-MM-dd HH:mm" />
@@ -56,8 +55,9 @@
 		</div>
 		<br>
 		<div>
-			<button type="submit" id="deteleBbsYN" class="btn btn-danger btn-sm">刪除</button>
-			<button type="button" id="upDateBbs" class="btn btn-primary btn-sm">編輯</button>
+			<button type="button" id="deteleBbsYN" style="display: none;" class="btn btn-danger btn-sm">刪除</button>
+			<button type="button" id="recoveryBbs" style="display: none;" class="btn btn-warning btn-sm">刪除還原</button>
+<!-- 			<button type="button" id="upDateBbs" class="btn btn-primary btn-sm">編輯</button> -->
 		</div>
 	</form>
 
@@ -108,23 +108,23 @@
 						</div>
 						<div>
 							<p class="card-text" id="div${reply.replyId}">${reply.reply}</p>
-							<input type="button" class="replyEdit  btn btn-primary btn-sm"
-								rel="${reply.replyId}" value="編輯" />
-							<button id="modify${reply.replyId}" style="display: none;"
-								class="btn btn-primary btn-sm"
-								onclick="javascript:document.replyForm.action='bbsM.ReplyUpdate'; document.replyForm.method='post'"
-								name="replyId" value="${reply.replyId}">修改</button>
-							<button
-								onclick="javascript:document.replyForm.action='bbsM.ReplyDelete'; document.replyForm.method='post'; return false;"
-								id="replyDelete${reply.replyId}"
-								class="replyDelete btn btn-danger btn-sm" rel="${reply.replyId}">刪除</button>
+<!-- 							<button -->
+<!-- 								onclick="javascript:document.replyForm.action='bbsM.ReplyDelete'; document.replyForm.method='post'; return false;" -->
+<%-- 								id="replyDelete${reply.replyId}" --%>
+<%-- 								class="replyDelete btn btn-danger btn-sm" rel="${reply.replyId}">刪除</button> --%>
+							<button type="button" id="deleteReply" style="display: none;" class="btn btn-warning btn-sm">刪除</button>
+							<button type="button" id="recoveryReply" style="display: none;" class="btn btn-warning btn-sm">刪除還原</button>
 						</div>
 					</div>
 				</div>
 			</c:if>
-			<c:if test="${reply.replyDelete == 1}">
 				<div class="card">
-					<p class="card-header">No.${reply.replyRank} <i class="fas fa-running"></i> 已被留言者刪除</p>
+					<c:if test="${reply.replyDelete == 1}">
+						<p class="card-header">No.${reply.replyRank} <i class="fas fa-running"></i> 已被留言者刪除</p>
+					</c:if>
+					<c:if test="${reply.replyDelete == 2}">
+						<p class="card-header">No.${reply.replyRank} <i class="fas fa-running"></i> 管理員刪除</p>
+					</c:if>
 					<div class="card-body">
 						<div class="card-title">
 							<div class="row">
@@ -132,64 +132,42 @@
 								<P class="col">
 									建立時間：<fmt:formatDate value="${reply.replySetupTime}"
 										pattern="YYYY-MM-dd HH:mm" />
-									<br>
-									<c:if test="${reply.replyUpdateTime != null}">
-										最後編輯：<fmt:formatDate value="${reply.replyUpdateTime}"
-											pattern="YYYY-MM-dd HH:mm" />
-									</c:if>
-								</P>
-							</div>
-						</div>
-						<div>
-							<p class="card-text" id="div${reply.replyId}">${reply.reply}</p>
-						</div>
-					</div>
-				</div>
-			</c:if>
-			<c:if test="${reply.replyDelete == 2}">
-				<div class="card">
-					<p class="card-header">No.${reply.replyRank} <i class="fas fa-running"></i> 管理員刪除</p>
-					<div class="card-body">
-						<div class="card-title">
-							<div class="row">
-								<p class="col">${reply.replyAccount}</p>
-								<P class="col">
-									建立時間：<fmt:formatDate value="${reply.replySetupTime}"
+								<br>
+								<c:if test="${reply.replyUpdateTime != null}">
+									最後編輯：<fmt:formatDate value="${reply.replyUpdateTime}"
 										pattern="YYYY-MM-dd HH:mm" />
-									<br>
-									<c:if test="${reply.replyUpdateTime != null}">
-										最後編輯：<fmt:formatDate value="${reply.replyUpdateTime}"
-											pattern="YYYY-MM-dd HH:mm" />
-									</c:if>
+								</c:if>
 								</P>
 							</div>
 						</div>
-						<div>
-							<p class="card-text" id="div${reply.replyId}">${reply.reply}</p>
-						</div>
+					<div>
+						<p class="card-text" id="div${reply.replyId}">${reply.reply}</p>
+					</div>
 					</div>
 				</div>
-			</c:if>
 		</c:forEach>
 	</form>
 
-	<hr>
-
-
 	<script>
+		//管理員刪除發文及復原發文按鈕
+		<c:if test="${bbs.bbsDelete == 0}">
+			$("#deteleBbsYN").show();
+		</c:if>
+		<c:if test="${bbs.bbsDelete == 2}">
+			$("#recoveryBbs").show();
+		</c:if>
 		$("#deteleBbsYN").on("click", function() {
 			$.confirm({
-				title : "確定要刪除發文嗎？",
-				content : "確定刪除後將無法還原！",
+				title : "確定後用戶端的發文將會被刪除。",
+				content : false,
 				buttons : {
 					確定 : function() {
-						$.confirm({
-							title : "已成功刪除發文！",
-							content : "",
-							buttons : {
-								OK : function() {
-									$("#select").submit();
-								}
+						$.get("bbsM.BbsDelete?bbsId=" + $("#bbsId").val(), function(data) {
+							if(data == "OK"){
+								$("#deteleBbsYN").hide();
+								$("#recoveryBbs").show();
+							}else {
+								alert("系統異常");
 							}
 						});
 					},
@@ -198,6 +176,55 @@
 				}
 			});
 		});
+		$("#recoveryBbs").on("click", function() {
+			$.get("bbsM.BbsRecovery?bbsId=" + $("#bbsId").val(), function(data) {
+				if(data == "OK"){
+					$("#deteleBbsYN").show();
+					$("#recoveryBbs").hide();
+				}else {
+					alert("系統異常");
+				}
+			});
+		});
+		
+		//管理員刪除留言及復原發文按鈕
+// 		<c:if test="${reply.replyDelete == 0}">
+// 			$("#deleteReply").show();
+// 		</c:if>
+// 		<c:if test="${reply.replyDelete == 2}">
+// 			$("#recoveryReply").show();
+// 		</c:if>
+// 		$("#deleteReply").on("click", function() {
+// 			$.confirm({
+// 				title : "確定後用戶端的留言將會被刪除。",
+// 				content : false,
+// 				buttons : {
+// 					確定 : function() {
+// 						$.get("bbsM.ReplyDelete?replyId=" + $("#replyId").val(), function(data) {
+// 							if(data == "OK"){
+// 								$("#deleteReply").hide();
+// 								$("#recoveryReply").show();
+// 							}else {
+// 								alert("系統異常");
+// 							}
+// 						});
+// 					},
+// 					取消 : function() {
+// 					}
+// 				}
+// 			});
+// 		});
+// 		$("#recoveryReply").on("click", function() {
+// 			$.get("bbsM.ReplyRecovery?replyId=" + $("#replyId").val(), function(data) {
+// 				if(data == "OK"){
+// 					$("#deleteReply").show();
+// 					$("#recoveryReply").hide();
+// 				}else {
+// 					alert("系統異常");
+// 				}
+// 			});
+// 		});
+		
 
 		$("#upDateBbs").on("click", function() {
 			var form = document.createElement("form");
@@ -221,36 +248,28 @@
 			$("#modify" + id).show();
 		});
 
-		$(".replyDelete").on("click", function() {
-			var id = $(this).attr("rel");
-			$.confirm({
-			title : "確定要刪除留言嗎？",
-			content : "確定刪除後將無法還原！",
-			buttons : {
-				確定 : function() {
-					$.confirm({
-					title : "已成功刪除留言！",
-					content : "",
-					buttons : {
-						OK : function() {
-							var form = document.getElementById("replyForm");
-							var hiddenField = document.createElement("input");
-							hiddenField.setAttribute("type", "hidden");
-							hiddenField.setAttribute("name", "replyId");
-							hiddenField.setAttribute("value", id);
-							form.appendChild(hiddenField);
-							document.body.appendChild(form);
-							form.submit();
-							$("#replyForm").submit();
-							}
-						}
-					});
-				},
-						取消 : function() {
-						}
-			}
-		});
-	});
+// 		$(".replyDelete").on("click", function() {
+// 			var id = $(this).attr("rel");
+// 			$.confirm({
+// 			title : "確定後用戶端的留言將會被刪除。",
+// 			content : false,
+// 			buttons : {
+// 				確定 : function() {
+// 					var form = document.getElementById("replyForm");
+// 					var hiddenField = document.createElement("input");
+// 					hiddenField.setAttribute("type", "hidden");
+// 					hiddenField.setAttribute("name", "replyId");
+// 					hiddenField.setAttribute("value", id);
+// 					form.appendChild(hiddenField);
+// 					document.body.appendChild(form);
+// 					form.submit();
+// 					$("#replyForm").submit();
+// 				},
+// 				取消 : function() {
+// 				}
+// 			}
+// 		});
+// 	});
 	</script>
 
 </body>
