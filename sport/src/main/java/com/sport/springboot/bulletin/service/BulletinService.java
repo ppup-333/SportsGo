@@ -13,5 +13,7 @@ public interface BulletinService {
 	Bulletin get(Integer id);
 	void update(Bulletin bulletin);
 	List<Bulletin> getAllBulletin();
-	Page<Bulletin> findById( Integer id, Pageable pageable);
+	Page<Bulletin> findByIdSort( Integer id, Pageable pageable);
+	Page<Bulletin> findByIdAndClassId(Integer id, Integer classId, Pageable pageable);
+	void resetPicture(Integer id);
 }

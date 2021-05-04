@@ -31,20 +31,13 @@
 
 
 <script>
-	function load() {
-		$.ajax({
-			url : "jiazai.php",
-			// 顯示所有的資料不用寫data
-			data : {
-				page : page
-			},
-			//當前頁記得傳過去
-			type : "POST",
-			dataType : "TEXT",
-			success : function(data) {
-			}
-		});
+	window.onload = function(){
+		var updateTime = document.getElementById("updateTime").value;
+		var time = new Date(updateTime);
+		var showTime = document.getElementById("showTime");
+		showTime.innerHTML = time;
 	}
+
 </script>
 
 
@@ -65,7 +58,7 @@
 
 		<div align='center' id="showAllBulletin">
 			<h3>公告欄</h3>
-			<a href='add'>新增公告</a> &nbsp;&nbsp;&nbsp;<a href="<c:url value='/bulletin'/> ">回前頁</a>
+			<a href='add'>新增公告</a> &nbsp;&nbsp;&nbsp;<a href="<c:url value='/'/> ">回前頁</a>
 			<hr>
 			<c:choose>
 				<c:when test="${empty bulletins}">
@@ -82,8 +75,10 @@
 						<c:forEach var='bulletin' items='${bulletins}'>
 							<tr>
 								<td style="text-align: center">${bulletin.class_id.name}</td>
-								<td><a href="<c:url value='/' />bulletin/showBulletinContent/${bulletin.id}">${bulletin.title}</a></td>
-								<td>${bulletin.update_time}</td>
+								<td><a href="<c:url value='/' />Bulletin/showBulletinContent/${bulletin.id}">${bulletin.title}</a></td>
+								<td id="showTime"></td>
+								<input id='updateTime' type='hidden' value='${bulletin.update_time }'>
+<%-- 								<td id="time">${bulletin.update_time}</td> --%>
 							</tr>
 						</c:forEach>
 					</table>

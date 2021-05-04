@@ -20,11 +20,10 @@
 <!-- header -->
     <div id="headerDiv" class="container-fluid border-bottom">
         <div class="row">
-            <div id="logoDiv" class="col-3">
+            <div id="logoDiv" class="col-3">                
                 <div id="logo">
-                    Sports Go!
+                    <a href="/sport/">Sports Go!</a>
                 </div>
-
             </div>
             <div id="middleDiv" class="col-8">
                 <div class="container-fluid">
@@ -44,16 +43,17 @@
 <!--                                 </div> -->
                             </div>
                             <div class="dropdown">
-                            	<span id="aboutUs">
-                                    <a href="#">購物商城</a>
-                                </span>
-<!--                                 <span id="aboutUs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-<!--                                     購物商城 -->
+<!--                             	<span id="aboutUs"> -->
+<!--                                     <a href="/sport/shopHome">購物商城</a> -->
 <!--                                 </span> -->
-<!--                                 <div class="dropdown-menu" aria-labelledby="aboutUs"> -->
-<!--                                     <a class="dropdown-item" href="#">場館介紹</a> -->
-<!--                                     <a class="dropdown-item" href="#">位置資訊</a> -->
-<!--                                 </div> -->
+                                <span id="aboutUs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    購物商城
+                                </span>
+                                <div class="dropdown-menu" aria-labelledby="aboutUs">
+                                    <a class="dropdown-item" href="/sport/shop/storeProductsAll">前往商城</a>
+                                    <a class="dropdown-item" href="/sport/shop/myShoppingCart">我的購物車</a>
+                                    <a class="dropdown-item" href="/sport/shop/order/orderList">我的訂單</a>
+                                </div>
                             </div>
                             <div class="dropdown">
                                 <span id="aboutUs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

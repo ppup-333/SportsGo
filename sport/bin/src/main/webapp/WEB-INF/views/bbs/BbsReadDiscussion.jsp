@@ -14,6 +14,8 @@
 </head>
 <body>
 
+<div align="center">
+
 	<a href="bbsdiscussion.c"><input type="button" value="發文"></a>
 
 	<a href="bbs"><input type="button" value="全部"></a>
@@ -113,12 +115,12 @@
 									<p>${search.bbsMessage}</p>
 								</div>
 						</a></td>
-						<td><fmt:formatDate value="${row.bbsSetupTime}"
+						<td><fmt:formatDate value="${search.bbsSetupTime}"
 								pattern="YYYY-MM-dd" /><br> <fmt:formatDate
-								value="${row.bbsSetupTime}" pattern="HH:mm" /></td>
-						<td><fmt:formatDate value="${row.bbsUpdateTime}"
+								value="${search.bbsSetupTime}" pattern="HH:mm" /></td>
+						<td><fmt:formatDate value="${search.bbsUpdateTime}"
 								pattern="YYYY-MM-dd" /><br> <fmt:formatDate
-								value="${row.bbsUpdateTime}" pattern="HH:mm" /></td>
+								value="${search.bbsUpdateTime}" pattern="HH:mm" /></td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -129,5 +131,8 @@
 			</c:if>
 		</table>
 	</form>
+	
+</div>
+	
 </body>
 </html>

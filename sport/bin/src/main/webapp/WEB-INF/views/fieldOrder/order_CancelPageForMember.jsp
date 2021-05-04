@@ -24,7 +24,7 @@ th, td {
 
 </head>
 <body>
-	<c:import url="header.jsp"></c:import>
+	<c:import url="../header.jsp"></c:import>
 	
 	<h2>訂單取消</h2>
 	<hr>
