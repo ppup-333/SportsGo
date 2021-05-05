@@ -36,6 +36,7 @@ public class FieldController {
 	FieldTypeService fieldTypeService;
 	
 	private Integer typeId = 0;
+	private String startCode = "";
 
 	@GetMapping("/field_HomePage")
 	public String fieldHomePage() {
@@ -46,6 +47,8 @@ public class FieldController {
 	public String findAllFields(Model m) {
 		m.addAttribute("typeId", this.typeId);
 		m.addAttribute("typeIdHide", this.typeId);
+		m.addAttribute("startCode", this.startCode);
+		this.startCode = "";
 		return "field/field_GetAllFields";
 	}
 	
@@ -72,7 +75,9 @@ public class FieldController {
 		
 		fieldValidator.validate(newField, result);
 		if(result.hasErrors()) {
+			this.startCode = "createError";
 			m.addAttribute("typeId", typeId);
+			m.addAttribute("startCode", this.startCode);
 			return "field/field_GetAllFields";
 		}
 		
@@ -93,6 +98,7 @@ public class FieldController {
 			fieldService.save(newField);
 			
 			System.out.println("-------- 新增成功！ --------");
+			this.startCode = "createSuccess";
 			
 		}else {
 			
@@ -104,7 +110,8 @@ public class FieldController {
 			
 			fieldService.update(newField);
 			
-			System.out.println("-------- 修改成功！ --------");			
+			System.out.println("-------- 修改成功！ --------");	
+			this.startCode = "updateSuccess";
 		
 		}
 		this.typeId = typeId;
@@ -115,6 +122,8 @@ public class FieldController {
 	public String deleteField(@RequestParam("deleteId")String id) {
 		
 		fieldService.delete(id);
+		
+		this.startCode = "deleteSuccess";
 		
 		return "redirect:/field_GetAllFields";
 	}
@@ -157,7 +166,6 @@ public class FieldController {
 		for(int i = 1; i < fieldTypeList.size(); i++) {
 			fieldTypeList1.add(fieldTypeList.get(i));
 		}
-		
 		m.addAttribute("field", new Field());
 		m.addAttribute("fieldTypeList", fieldTypeList1);
 	}	
