@@ -9,7 +9,7 @@
 <style>
 
 	td {
-		height: 50px;
+		height: auto;
 		width: auto;
 		
 	}
@@ -34,7 +34,7 @@
 	span.error {
 		color: red;
 		display: inline-block;
-		font-size: 20pt;
+		font-size: 13pt;
 	}
 	
 </style>

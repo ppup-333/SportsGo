@@ -45,9 +45,10 @@
 <body>
 <c:import url="header.jsp"/>
 
-<!-- main -->
-    <div id="mainDiv" class="container-fluid">
+<!-- main img-->
+    <div id="mainDiv" class="container">
         <div class="row">
+<!--         	<div class="col-1"></div> -->
             <div id="imgDiv" class="col-12">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -76,8 +77,9 @@
                     </a>
                  </div>
             </div>
+<!--             <div class="col-1"></div> -->
         </div>
-    </div> <!--end of main-->
+    </div> <!--end of main img-->
 
     <!-- news -->
     <div id="newsDiv" class="container">

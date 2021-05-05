@@ -8,4 +8,5 @@ public interface UserDistrictService {
 
 	List<UserDistrict> getAllDistrict();
 	UserDistrict getDistrict(Integer userDistrictCode);
+	UserDistrict get (Integer userDistrictCode);
 }

@@ -34,4 +34,10 @@ public class UserCityServiceImpl implements UserCityService {
 		return userCity;
 	}
 
+	@Override
+	public UserCity get(String cityCode) {
+		// TODO Auto-generated method stub
+		return userCityDao.getOne(cityCode);
+	}
+
 }

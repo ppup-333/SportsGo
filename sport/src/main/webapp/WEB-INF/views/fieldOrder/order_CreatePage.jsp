@@ -19,17 +19,34 @@
 <!-- <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
 <style>
-#queryByType {
-	width: 700px;
-	position: absolute;
-	top: 3%;
-	left: 30%;
+#div_DateType {
+	text-align: center;
 }
 
+#queryByType { 
+	margin-top: 20px;
+/* 	width: 700px; */
+/* 	position: absolute; */
+/* 	top: 3%; */
+/* 	left: 30%; */
+} 
+
 th, td {
-	width: 100px;
-	height: 50px;
+ 	width: 80px; 
+	height: 40px;
 	text-align: center;
+}
+
+.th {
+	text-align: center;
+}
+
+#thPeriod { 
+ 	width: 100px; 
+} 
+
+#queryTable {
+	float: right;
 }
 
 </style>
@@ -39,50 +56,70 @@ th, td {
 	<c:import url="../header.jsp"/>
 	<h2>一般會員預約</h2>
 	<form action="createMemberOrder" method="post">
-		日期：
-		<input id="date" name="date" type="date" value="${day1}" min="${day1}" max="${day2}">&nbsp;&nbsp;
-		類型：	
-		<select id="typeSelect" name="typeSelect">
-			<option value="0">- 請選擇 -</option>
-			<c:forEach var="fieldType" items="${fieldTypeList}">
-				<option value="${fieldType.id}">${fieldType.name}</option>
-			</c:forEach>
-		</select><br>
-		
-		<div id=queryByType>
-		
-			<!-- 回傳查詢的資料放入 -->
-			
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div id="div_DateType">
+						日期：
+						<input id="date" name="date" type="date" value="${day1}" min="${day1}" max="${day2}">&nbsp;&nbsp;
+						類型：	
+						<select id="typeSelect" name="typeSelect">
+							<option value="0">- 請選擇 -</option>
+							<c:forEach var="fieldType" items="${fieldTypeList}">
+								<option value="${fieldType.id}">${fieldType.name}</option>
+							</c:forEach>
+						</select><br>
+					</div>
+					
+					<div class="container">
+						<div class="row">
+							<div class="col-7">
+								<div id=queryByType>
+						
+									<!-- 回傳查詢的資料放入 -->
+							
+								</div>
+							</div>
+							<div class="col-5">
+								場　地　：
+								<select id="fieldSelect" name="fieldId">
+									<option value="0">- 請選擇 -</option>
+									<c:forEach var="field" items="${fieldList}">			
+										<option class="${field.fieldType.id}" value="${field.id}" style="display:none">${field.name}</option>
+									</c:forEach>
+								</select>
+								<br>
+								起始時間：
+								<select id="period" name="periodId">
+									<option value="0">- 請選擇 -</option>
+									<c:forEach var="periods" items="${periodList}">			
+										<option value="${periods.id}" style="display:none">${periods.id} 點</option>
+									</c:forEach>
+								</select>
+								<br>
+								時　數　：
+								<select id="hoursSelect" name="hours">
+									<option value="0">- 請選擇 -</option>
+									<option value="1" style="display:none">1</option>
+									<option value="2" style="display:none">2</option>
+									<option value="3" style="display:none">3</option>
+								</select>
+							</div>
+						</div>
+					</div>
+						
+						
+					
+						
+					
+					<br>
+						
+					<button type="submit">送出</button>
+				</div>
+			</div>
 		</div>
-		
-		場　地　：
-		<select id="fieldSelect" name="fieldId">
-			<option value="0">- 請選擇 -</option>
-			<c:forEach var="field" items="${fieldList}">			
-				<option class="${field.fieldType.id}" value="${field.id}" style="display:none">${field.name}</option>
-			</c:forEach>
-		</select>
-		<br>
-		起始時間：
-		<select id="period" name="periodId">
-			<option value="0">- 請選擇 -</option>
-			<c:forEach var="periods" items="${periodList}">			
-				<option value="${periods.id}" style="display:none">${periods.id} 點</option>
-			</c:forEach>
-		</select>
-		<br>
-		時　數　：
-		<select id="hoursSelect" name="hours">
-			<option value="0">- 請選擇 -</option>
-			<option value="1" style="display:none">1</option>
-			<option value="2" style="display:none">2</option>
-			<option value="3" style="display:none">3</option>
-		</select>
-		<br>
-		
-		<button type="submit">送出</button>
-	</form>
 	
+	</form>				
 	
 <script>
 var typeSelect = document.getElementById("typeSelect");
@@ -146,7 +183,7 @@ function displayFields(responseText){
 		
 		var fieldNameListStr = "";
 		for(var i = 0; i < fieldList.length; i++){
-			fieldNameListStr += "<th>" + fieldList[i].name + "</th>";
+			fieldNameListStr += "<th class='th'>" + fieldList[i].name + "</th>";
 		}	
 		
 		var periodOrderListStr = "";
@@ -168,8 +205,8 @@ function displayFields(responseText){
 		}
 		console.log(orderedList);		
 		
-		content = "<table border='1'>"
-				+		"<thead><tr><th>" + fieldNameListStr + "</thead>" + periodOrderListStr 
+		content = "<table id='queryTable' border='1'>"
+				+		"<thead><tr><th id='thPeriod' class='th'>時段" + fieldNameListStr + "</thead>" + periodOrderListStr 
 				+ "</table>"
 		
 		queryByType.innerHTML = content;

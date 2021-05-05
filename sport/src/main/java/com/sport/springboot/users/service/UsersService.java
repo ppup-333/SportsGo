@@ -13,4 +13,10 @@ public interface UsersService {
 	List<Users> getAllUsers();
 //	Users userLogin(String account);
 	List<Users> userLogin(String account);
+	List<Users> adminResultAct(String account);
+	List<Users> adminResultName(String name);
+	List<Users> adminResultId(String id);
+	
+	List<Users> adminResult(Users users);
+	
 }

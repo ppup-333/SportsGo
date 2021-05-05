@@ -19,5 +19,14 @@ public interface UsersRepository extends JpaRepository<Users, String> {
 
 	@Query("select a from Users  a where account=:account")
 	public List<Users> userLogin(@Param("account") String account);
+	
+	@Query("from Users where account like %:account%")
+	public List<Users> adminResultAct(@Param("account") String account);
+	
+	@Query("from Users where name like %:name%")
+	public List<Users> adminResultName(@Param("name") String name);
+	
+	@Query("from Users where id like %:id%")
+	public List<Users> adminResultId(@Param("id") String id);
 
 }

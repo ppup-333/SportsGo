@@ -9,7 +9,7 @@
 <style>
 
 	td {
-		height: auto;
+		height: 50px;
 		width: auto;
 		
 	}
@@ -34,13 +34,14 @@
 	span.error {
 		color: red;
 		display: inline-block;
-		font-size: 13pt;
+		font-size: 20pt;
 	}
 	
 </style>
-
+<script>
+</script>
 <meta charset="UTF-8">
-<title>會員登入</title>
+<title>身份確認</title>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
@@ -48,16 +49,15 @@
 </head>
 <body>
 <fieldset>
-	<legend>Login</legend>
-	<form:form method="POST" modelAttribute="loginPage" enctype='multipart/form-data' id="form1">
+	<legend>請輸入帳號密碼</legend>
+	<form:form method="POST" modelAttribute="chkUserUpdatePwd" enctype='multipart/form-data' action="ChkUserUpdatePwd" id="form1">
 		<div>
 			<table>
 				<tr>
 					<td>帳號：<br>&nbsp;</td>
-					<td><form:input path="account"  /><br>&nbsp;
+					<td><form:input path="account" readonly="true" /><br>&nbsp;
 						<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
-<%-- 						<form:errors path='account' cssClass="error"/> --%>
-						</td>
+					</td>
 				</tr>
 				<tr>
 					<td>密碼：<br>&nbsp;</td>
@@ -68,14 +68,17 @@
 					<td></td>
 					<td><form:errors path='password' cssClass="error" id='loginError'/></td>
 				</tr>
+<!-- 				<tr> -->
+<!-- 					<td><input type="submit" value="login"></td> -->
+<!-- 				</tr> -->
 			</table>
 		</div>
 	</form:form>
 </fieldset>
 		<div>
 			<input type='button' value='登入' onclick='form1.submit()'>
-			<input type='button' value='註冊' onclick='location.href="RegisterEdit"'>
-			<input type='button' value='忘記密碼' onclick='location.href="ForgetPwd"'>
+<!-- 			<input type='button' value='註冊' onclick='location.href="RegisterEdit"'> -->
+<!-- 			<input type='button' value='忘記密碼' onclick='location.href="ForgetPwd"'> -->
 			<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
 <!-- 			<a href="RegisterEdit">註冊</a>  -->
 <%-- 			<a href="<c:url value='../'/> " >回前頁</a> --%>
@@ -83,10 +86,5 @@
 <!-- 			<a href="user/registerEdit">註冊</a> -->
 <!-- 			<a href="user/...">忘記密碼</a> -->
 		</div>
-		
-<script>
-
-
-</script>
 </body>
 </html>

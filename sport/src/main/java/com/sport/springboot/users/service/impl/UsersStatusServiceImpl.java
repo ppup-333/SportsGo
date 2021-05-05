@@ -1,5 +1,7 @@
 package com.sport.springboot.users.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,12 @@ public class UsersStatusServiceImpl implements UserStatusService {
 	public UserStatus get(String statusCode) {
 		return userStatusDao.getOne(statusCode);
 
+	}
+
+	@Override
+	public List<UserStatus> getAllStatus() {
+		// TODO Auto-generated method stub
+		return (List<UserStatus>) userStatusDao.findAll();
 	}
 
 }

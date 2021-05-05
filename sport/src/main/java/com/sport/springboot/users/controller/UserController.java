@@ -3,6 +3,7 @@ package com.sport.springboot.users.controller;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,31 +13,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sport.springboot.users.model.UserActValidateTemp;
 import com.sport.springboot.users.model.UserAuthList;
 import com.sport.springboot.users.model.UserCity;
 import com.sport.springboot.users.model.UserDistrict;
+import com.sport.springboot.users.model.UserStatus;
 import com.sport.springboot.users.model.Users;
+import com.sport.springboot.users.service.UserActValidateTempService;
 import com.sport.springboot.users.service.UserAuthListService;
 import com.sport.springboot.users.service.UserAuthService;
 import com.sport.springboot.users.service.UserCityService;
 import com.sport.springboot.users.service.UserDistrictService;
 import com.sport.springboot.users.service.UserStatusService;
 import com.sport.springboot.users.service.UsersService;
-import com.sport.springboot.users.validate.AdminLoginValidator;
+import com.sport.springboot.users.utils.RandomCode;
 import com.sport.springboot.users.validate.LoginValidator;
+import com.sport.springboot.users.validate.UserForgetPwdValidate;
+import com.sport.springboot.users.validate.UserUpdatePwdValidator;
 import com.sport.springboot.users.validate.UserUpdateValidator;
 import com.sport.springboot.users.validate.UserValidator;
 
@@ -62,6 +69,12 @@ public class UserController {
 	@Autowired
 	UserAuthListService userAuthListService;
 
+	@Autowired
+	UserActValidateTempService userActValidateTempService;
+
+	@Autowired
+	JavaMailSender mailSender;
+
 	@GetMapping(value = "/RegisterEdit")
 	public String registerEdit(Model model) {
 		Users users = new Users();
@@ -72,7 +85,7 @@ public class UserController {
 		users.setId("A123456789");
 		users.setBirthday("04/13/2021");
 		users.setEmail("test1001@gmail.com");
-		users.setAddress("大安區信義路二段1號1樓");
+		users.setAddress("信義路二段1號1樓");
 		users.setTel("0223456789");
 
 		users.setGender("M");
@@ -87,10 +100,33 @@ public class UserController {
 		model.addAttribute("loginPage", users);
 
 		if (session.getAttribute("account") != null) {
-			return "users/LoginHomePage";
+			String account = session.getAttribute("account").toString();
+			 if(chkStatus(account)){
+			            return "redirect:/user/ChkEmail";
+			  }else {
+			            return "users/LoginHomePage";
+			 }
 		}
 
 		return "users/Login";
+	}
+
+	@GetMapping(value = "/ForgetPwd")
+	public String forgetPwd(Model model) {
+		Users users = new Users();
+		model.addAttribute("forgetPwd", users);
+		return "users/ForgetPwd";
+
+	}
+
+	@GetMapping(value = "/userUpdatePwd")
+	public String userUpdatePwd(Model model, HttpSession session) {
+		Users users = new Users();
+		String userAct = session.getAttribute("account").toString();
+		users.setAccount(userAct);
+		model.addAttribute("chkUserUpdatePwd", users);
+		return "users/ChkUserUpdatePwd";
+
 	}
 
 //	@GetMapping(value = "/AdminLogin")
@@ -133,19 +169,44 @@ public class UserController {
 				temp.put("district", userDistrict.getDistrict());
 				districtList1.add(temp);
 
-				System.out.println("districtList1111 = " + districtList.get(i).getDistrict());
+				System.out.println("districtList = " + userDistrict.getDistrict());
 				model.addAttribute("districtList", districtList1);
 
 			}
 		}
-		System.out.println("city = " + cityCode);
-		System.out.println("districtList = " + districtList.get(0).getDistrict());
+//		System.out.println("city = " + cityCode);
+//		System.out.println("districtList = " + districtList.get(0).getDistrict());
 		return districtList1;
 
 	}
 
+//	@PostMapping(value = "/RegisterEdit")
+//	public String addUser(@ModelAttribute("users") Users users, BindingResult result, HttpServletRequest request,
+//			Model model) {
+//		UserValidator validator = new UserValidator();
+//		validator.validate(users, result);
+//		if (result.hasErrors()) {
+//			return "RegisterEdit";
+//		}
+//		// 格式驗證方法end
+//
+//		String userAct = users.getAccount();
+//		List<Users> sqlUserAct = usersService.userLogin(userAct);
+//		System.out.println("資料庫回傳List大小=" + sqlUserAct.size() + ", 用戶輸入帳號= " + userAct);
+//
+//		if (sqlUserAct.size() != 0) {
+//			result.rejectValue("account", "", "帳號已被使用");
+//			return "RegisterEdit";
+//		}
+//
+//		model.addAttribute(users);
+//
+//		return "RegisterShow";
+//	}
+
 	@PostMapping(value = "/RegisterEdit")
-	public String addUser(@ModelAttribute("users") Users users, BindingResult result, HttpServletRequest request) {
+	public String addUser(@ModelAttribute("users") Users users, BindingResult result, HttpServletRequest request,
+			Model model) {
 		// 格式驗證方法start
 		UserValidator validator = new UserValidator();
 		validator.validate(users, result);
@@ -195,8 +256,25 @@ public class UserController {
 		if ("".equals(users.getTel())) {
 			users.setTel(null);
 		}
+		Timestamp dateTime = Timestamp.valueOf(LocalDateTime.now());
 		users.setStatusCode(userStatusService.get("01"));
-		users.setVer(Timestamp.valueOf(LocalDateTime.now()));
+		users.setActRegisteredTime(dateTime);
+		users.setPwLastUpdateDate(dateTime);
+		users.setVer(dateTime);
+
+//		Timestamp temp = Timestamp.valueOf(LocalDateTime.now());
+//		Date temp1 = new Date();
+//		temp1 = temp;
+//		SimpleDateFormat temp2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		String temp3 = temp2.format(temp1);
+//		
+//		try {
+//			Date temp4 = temp2.parse(temp3);
+//			Timestamp temp5 = new Timestamp(temp4.getTime());
+//			users.setVer(temp5);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 
 		UserCity userCity = userCityService.getCity(users.getCityCode().getCityCode());
 		users.setCityCode(userCity);
@@ -210,10 +288,10 @@ public class UserController {
 		userAuthList.setUserAuthListOid(code);
 		userAuthList.setUsers(users);
 		userAuthList.setAuthCode(userAuthService.get("01"));
-		userAuthList.setVer(Timestamp.valueOf(LocalDateTime.now()));
+		userAuthList.setVer(dateTime);
 //		
 		try {
-
+			sendToGmail(users);
 			usersService.save(users);
 			userAuthListService.save(userAuthList);
 //			if ("".equals(account) || account == null) {
@@ -232,7 +310,7 @@ public class UserController {
 			return "users/RegisterEdit";
 		}
 
-		return "redirect:/user/Login";
+		return "redirect:/user/ChkEmail";
 
 	}
 
@@ -260,24 +338,34 @@ public class UserController {
 
 		try {
 
-			String userAccount1 = users.getAccount();
-			String userPwd1 = users.getPassword();
-			System.out.println("使用者輸入帳號 = " + userAccount1);
-			System.out.println("使用者輸入密碼 = " + userPwd1);
+			String inputAct = users.getAccount();
+			String inputPwd = users.getPassword();
+			System.out.println("使用者輸入帳號 = " + inputAct);
+			System.out.println("使用者輸入密碼 = " + inputPwd);
 
-			Users userAccount = usersService.get(account);
-			String userPwd = userAccount.getPassword();
-			System.out.println("資料庫帳號 = " + account);
+			Users userAct = usersService.get(account);
+			String userPwd = userAct.getPassword();
+			System.out.println("資料庫帳號 = " + userAct.getAccount());
 			System.out.println("資料庫密碼 = " + userPwd);
 
 			BCryptPasswordEncoder BCrypt = new BCryptPasswordEncoder();
-			boolean b = BCrypt.matches(userPwd1, userPwd);
+			boolean b = BCrypt.matches(inputPwd, userPwd);
 			System.out.println("登入比對:" + b);
+
+			String userStatus = userAct.getStatusCode().getStatusCode();
+			System.out.println("登入狀態Code = " + userAct.getStatusCode().getStatusCode());
 
 			if (b == false) {
 				result.rejectValue("password", "", "帳號或密碼不正確");
 				return "users/Login";
+
+			} else if ("03".equals(userStatus)) {
+				result.rejectValue("password", "", "帳號已封鎖，請洽管理員");
+				return "users/Login";
 			}
+//			else if ("01".equals(userStatus)) {
+//				return "redirect:/user/ChkEmail";
+//			}
 
 		} catch (Exception ex) {
 
@@ -287,60 +375,133 @@ public class UserController {
 
 		session.setAttribute("account", account);
 		System.out.println("session1=" + session.getAttribute("account"));
+		if(chkStatus(account)) {
+            return "redirect:/user/ChkEmail";
+        }
 		return "users/LoginHomePage";
 
 	}
 
-//	@PostMapping(value = "/AdminLogin")
-//	public String chkAdminLogin(@ModelAttribute("adminLogin") Users users, BindingResult result,
-//			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password,
-//			HttpSession session) {
-//
-//		AdminLoginValidator validator = new AdminLoginValidator();
-//		validator.validate(users, result);
-//		if (result.hasErrors()) {
-//			return "AdminLogin";
-//		}
-//
-//		String userAct = users.getAccount();
-//		List<UserAuthList> sqlUserAct = userAuthListService.chkUserAuth(userAct);
-//		if (sqlUserAct.size() == 0) {
-//			result.rejectValue("password", "", "帳號或密碼錯誤或無此權限");
-//			return "AdminLogin";
-//		}
-//
-//		try {
-//
-//			String userAccount1 = users.getAccount();
-//			String userPwd1 = users.getPassword();
-//			System.out.println("使用者輸入帳號 = " + userAccount1);
-//			System.out.println("使用者輸入密碼 = " + userPwd1);
-//
-//			Users userAccount = usersService.get(account);
-//			String userPwd = userAccount.getPassword();
-//			System.out.println("資料庫帳號 = " + account);
-//			System.out.println("資料庫密碼 = " + userPwd);
-//
-//			BCryptPasswordEncoder BCrypt = new BCryptPasswordEncoder();
-//			boolean b = BCrypt.matches(userPwd1, userPwd);
-//			System.out.println("登入比對:" + b);
-//
-//			if (b == false) {
-//				result.rejectValue("password", "", "帳號或密碼錯誤或無此權限");
-//				return "AdminLogin";
-//			}
-//
-//		} catch (Exception ex) {
-//
-//			result.rejectValue("password", "", "帳號或密碼錯誤或無此權限");
-//			return "AdminLogin";
-//		}
-//
-//		session.setAttribute("account", account);
-////		System.out.println("session1=" + session.getAttribute("account"));
-//		return "AdminHomePage";
-//
-//	}
+	@PostMapping(value = "/ForgetPwd")
+	public String chkForgetPwd(@ModelAttribute("forgetPwd") Users users, BindingResult result, Model model,
+			@RequestParam(value = "account") String account, @RequestParam(value = "id") String id,
+			@RequestParam(value = "email") String email) {
+
+		UserForgetPwdValidate validator = new UserForgetPwdValidate();
+		validator.validate(users, result);
+		if (result.hasErrors()) {
+			return "users/ForgetPwd";
+		}
+
+		String inputAct = users.getAccount();
+		String inputId = users.getId();
+		String inputEmail = users.getEmail();
+
+		Users userAccount = usersService.get(account);
+		String userAct = userAccount.getAccount();
+		String userId = userAccount.getId();
+		String userEmail = userAccount.getEmail();
+
+		System.out.println("輸入的帳號 = " + inputAct);
+		System.out.println("輸入的ID = " + inputId);
+		System.out.println("輸入的信箱 = " + inputEmail);
+		System.out.println("資料庫的帳號 = " + userAct);
+		System.out.println("資料庫的ID = " + userId);
+		System.out.println("資料庫的信箱 = " + userEmail);
+
+		if (!inputAct.equalsIgnoreCase(userAct) || !inputId.equalsIgnoreCase(userId)
+				|| !inputEmail.equalsIgnoreCase(userEmail)) {
+			result.rejectValue("account", "", "查無資料或資料有誤");
+			return "users/ForgetPwd";
+		}
+
+		Users userUpdatePwd = new Users();
+		userUpdatePwd.setAccount(inputAct);
+		model.addAttribute("updatePwd", userUpdatePwd);
+		return "users/UpdatePwd";
+
+	}
+
+	@PostMapping(value = "/UpdatePwd")
+	public String updatePwd(@ModelAttribute("updatePwd") Users users, BindingResult result,
+			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password,
+			HttpSession session) {
+
+		UserUpdatePwdValidator validator = new UserUpdatePwdValidator();
+		validator.validate(users, result);
+		if (result.hasErrors()) {
+			return "users/UpdatePwd";
+		}
+
+		String userAct = users.getAccount();
+		String userNewPwd = users.getPassword();
+		BCryptPasswordEncoder BCrypt = new BCryptPasswordEncoder();
+		String encPwd = BCrypt.encode(userNewPwd);
+		Users userData = usersService.get(userAct);
+		userData.setPassword(encPwd);
+		Timestamp dateTime = Timestamp.valueOf(LocalDateTime.now());
+		userData.setPwLastUpdateDate(dateTime);
+		userData.setVer(dateTime);
+
+		System.out.println("修改後 = " + userNewPwd);
+		System.out.println("修改後加密 = " + encPwd);
+
+		usersService.save(userData);
+		session.invalidate();
+//		System.out.println("取得的帳號 = " + userAct);
+//		System.out.println("取得的 = " + userData.getName());
+
+		return "redirect:/user/Login";
+
+	}
+
+	@PostMapping(value = "/ChkUserUpdatePwd")
+	public String chkUserUpdatePwd(@ModelAttribute("chkUserUpdatePwd") Users users, BindingResult result, Model model,
+			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password) {
+
+		LoginValidator validator = new LoginValidator();
+		validator.validate(users, result);
+		if (result.hasErrors()) {
+			return "users/ChkUserUpdatePwd";
+		}
+
+		String inputAct = "";
+		String inputPwd = "";
+		try {
+
+			inputAct = users.getAccount();
+			inputPwd = users.getPassword();
+			System.out.println("使用者輸入帳號 = " + inputAct);
+			System.out.println("使用者輸入密碼 = " + inputPwd);
+
+			Users userAct = usersService.get(account);
+			String userPwd = userAct.getPassword();
+			System.out.println("資料庫帳號 = " + userAct.getAccount());
+			System.out.println("資料庫密碼 = " + userPwd);
+
+			BCryptPasswordEncoder BCrypt = new BCryptPasswordEncoder();
+			boolean b = BCrypt.matches(inputPwd, userPwd);
+
+			System.out.println("登入比對:" + b);
+
+			if (b == false) {
+				result.rejectValue("password", "", "帳號或密碼不正確");
+				return "users/ChkUserUpdatePwd";
+			}
+
+		} catch (Exception ex) {
+
+			result.rejectValue("password", "", "帳號或密碼不正確");
+			return "users/ChkUserUpdatePwd";
+		}
+
+		Users userUpdatePwd = new Users();
+		userUpdatePwd.setAccount(inputAct);
+		model.addAttribute("updatePwd", userUpdatePwd);
+		return "users/UpdatePwd";
+
+	}
+
 
 	@PostMapping(value = "/Logout")
 	public String logout(HttpSession session) {
@@ -348,7 +509,7 @@ public class UserController {
 		session.invalidate();
 //		session.setAttribute("account", null);
 //		System.out.println("session2=" + session.getAttribute("account"));
-		return "redirect:/user_Login";
+		return "redirect:/";
 
 	}
 
@@ -372,14 +533,22 @@ public class UserController {
 
 	}
 
+//	@GetMapping(value = "/loginHomePage")
+//	public String userLoginHomePage() {
+//		return "LoginHomePage";
+//
+//	}
 	@GetMapping(value = "/loginHomePage")
-	public String userLoginHomePage() {
-		return "users/LoginHomePage";
+    public String userLoginHomePage(HttpSession session) {
+        String account = session.getAttribute("account").toString();
+        if(chkStatus(account))
+            return "redirect:/user/ChkEmail";
+        return "users/LoginHomePage";
 
-	}
+    }
 
 	@GetMapping(value = "/userUpdate")
-	public String userUpdate( Model model, HttpSession session) {
+	public String userUpdate(Model model, HttpSession session) {
 //		System.out.println("test==============================================" + account);
 		String userAct = session.getAttribute("account").toString();
 		Users userData = usersService.get(userAct);
@@ -393,8 +562,7 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/userUpdate")
-	public String userUpdateSave( @ModelAttribute("users") Users users,
-			BindingResult result, HttpServletRequest request, HttpSession session) {
+	public String userUpdateSave(@ModelAttribute("users") Users users, BindingResult result, HttpSession session) {
 
 		UserUpdateValidator validator = new UserUpdateValidator();
 		validator.validate(users, result);
@@ -402,18 +570,12 @@ public class UserController {
 			return "users/UserUpdate";
 		}
 
-		
-		
-//		Users userData = users;
-		
-		
 //		System.out.println("====2" + userData.getPassword());
 		String userAct = session.getAttribute("account").toString();
 		Users userData = usersService.get(userAct);
 		users.setPassword(userData.getPassword());
-//		users.setPassword(userData.getPassword());
 
-		users.setStatusCode(userStatusService.get("01"));
+		users.setStatusCode(userStatusService.get("02"));
 		users.setVer(Timestamp.valueOf(LocalDateTime.now()));
 
 		if ("".equals(users.getMobile())) {
@@ -432,4 +594,104 @@ public class UserController {
 
 	}
 
+	@GetMapping(value = "/ChkEmail")
+	public String chkEmail(HttpSession session, Model model) {
+		return "users/ChkEmail";
+	}
+
+	@PostMapping(value = "/verifyEmail")
+	public String verifyEmail(@ModelAttribute("error") String error,
+			@RequestParam(value = "verifyCode") String verifyCode, HttpSession session, RedirectAttributes reAttr) {
+		System.out.println("================");
+		System.out.println("verifyCode:" + verifyCode);
+		System.out.println("================");
+		UserActValidateTemp uavt = new UserActValidateTemp();
+		String account = session.getAttribute("account").toString();
+		uavt = userActValidateTempService.getInfo(account);
+		Date sqlDate = uavt.getExpired_time();
+		Date nowDate = new Timestamp(System.currentTimeMillis());
+		long dateCompare = nowDate.getTime() - sqlDate.getTime();// 相減時間為毫秒
+
+		boolean flag1 = false, flag2 = false;
+
+		if (verifyCode.equals(uavt.getValidate_code())) {
+			flag1 = true;
+		} else {
+			System.out.println("==========Wrong verifyCode==============");
+		}
+		if (dateCompare >= 0 && dateCompare <= 900000) {// 900000毫秒為15分鐘
+			flag2 = true;
+		} else {
+			System.out.println("===========OverTime===================");
+		}
+		if (flag1 == true && flag2 == true) {
+			Users user = new Users();
+			user = usersService.get(account);
+			UserStatus userstate = new UserStatus();
+			userstate = userStatusService.get("02");
+			user.setStatusCode(userstate);
+
+			usersService.save(user);
+			System.out.println("=========verify Success!!!=========");
+			return "users/LoginHomePage";
+		} else {
+			System.out.println("=========verify Fail!!!============\n");
+		}
+		reAttr.addFlashAttribute("error", "驗證碼錯誤，請重新輸入");
+		return "redirect:/user/ChkEmail";
+	}
+
+	@GetMapping(value = "/resetVerifyCode")
+	@ResponseBody
+	public void resetVerifyCode(HttpSession session) {
+		RandomCode random = new RandomCode();
+		String verifyCode = random.verifyCode();
+		String account = session.getAttribute("account").toString();
+
+		Users user = new Users();
+		user = usersService.get(account);
+		System.out.println("==============resetVerifyCode==============");
+
+		UserActValidateTemp uavt = new UserActValidateTemp();
+		uavt = userActValidateTempService.getInfo(account);
+		uavt.setValidate_code(verifyCode);
+		uavt.setExpired_time(new Timestamp(System.currentTimeMillis()));
+
+		userActValidateTempService.updateCode(uavt);
+		// 重製驗證碼後繼寄信
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(user.getEmail());
+		message.setSubject("運動中心註冊認證");
+		message.setText("您的4位認證碼為: " + verifyCode + "\n請於15分鐘內輸入認證碼。");
+		mailSender.send(message);
+
+	}
+
+	void sendToGmail(Users user) {
+		SimpleMailMessage message = new SimpleMailMessage();
+		String mailAddress = user.getEmail();
+		RandomCode random = new RandomCode();
+		String verifyCode = random.verifyCode();
+		message.setTo(mailAddress);
+		message.setSubject("運動中心註冊認證");
+		message.setText("您的4位認證碼為: " + verifyCode + "\n請於15分鐘內輸入認證碼。");
+
+		UserActValidateTemp uavt = new UserActValidateTemp();
+		uavt.setAccount(user.getAccount());
+		uavt.setValidate_code(verifyCode);
+		uavt.setExpired_time(new Timestamp(System.currentTimeMillis()));
+
+		userActValidateTempService.save(uavt);
+		mailSender.send(message);
+	}
+	
+	boolean chkStatus(String account) {
+        Users user = new Users();
+        user = usersService.get(account);
+        String userStatus = user.getStatusCode().getStatusCode();
+        if ("01".equals(userStatus)) {
+            return true;
+        }
+        return false;
+    }
 }

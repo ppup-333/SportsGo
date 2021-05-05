@@ -13,7 +13,27 @@ public class ProjectHomeController {
 	
 	@GetMapping("/header")
 	public String projectHeader() {
-		return "fieldOrder/header";
+		return "header";
+	}
+	
+	@GetMapping("/footer")
+	public String projectFooter() {
+		return "footer";
+	}
+	
+	@GetMapping("/managerHome")
+	public String projectManagerHome() {
+		return "indexM";
+	}
+	
+	@GetMapping("/headerM")
+	public String projectManagerHeader() {
+		return "headerM";
+	}
+	
+	@GetMapping("/footerM")
+	public String projectManagerFooter() {
+		return "footerM";
 	}
 	
 }
