@@ -7,14 +7,34 @@
 <meta charset="UTF-8">
 
 <style>
+
+/* #allproduct{ */
+
+/* margin-top:-100px; */
+
+/* } */
+
+
+.title{
+/* color:#2482e0; */
+text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
+margin-top:20px;
+font-size : 34px;
+font-weight:bolder;
+text-align: center;
+}
+
+
 .product {
-	height: 400px;
-	width: 250px;
+	height: 424px;
+	width: 274px;
 	background-color: white; 
 	margin: 70px;
 	padding:10px;
 	float: left;
     border: 2px #f0f0ef solid;
+     margin-top:0px; 
+    
 }
 
 .product:hover{
@@ -25,9 +45,14 @@
 }
 
 
+.All2 {
+		display:none;
+}
+
 .All {
 	width: 1280px;
 	margin: 0 auto;
+	display:none;
 }
 
 .pname{
@@ -40,6 +65,7 @@
   -webkit-box-orient: vertical;
   overflow:hidden;
   white-space: normal;
+  margin-top:15px;
 }
 
 .pnamehref{
@@ -49,6 +75,7 @@
 
 .pnamehref:hover{
   color:#5a636c;
+  text-decoration:none;
 }
 
 .price{
@@ -108,63 +135,127 @@ margin-right:5px;
 }
 
 .cart{
-float:right;
-
+/* float:right; */
+/* min-height:80px; */
+border: none;
+  text-decoration: none;
+  background-color: white;
+  margin-left:1150px;
+/*   margin-right:50px; */
+/* margin-top:-10px; */
+color:red;
+font-weight: bolder;
 
 }
+
+.cartpic{
+margin-bottom:0px;
+
+}
+
+.cartNum{
+display: inline-block; 
+margin-left:-20px;
+position: relative;
+top:-10px;
+
+ -webkit-border-radius: 4px;
+ -moz-border-radius: 4px;
+ border-radius: 25px;
+ background-color: red;
+
+ color: #fff;
+/*  display: block; */
+/*  float: left; */
+ height: 25px;
+ width:25px;
+ padding: 0px 2.5px 2px 2.5px;
+ text-align: center;
+ vertical-align: top;
+
+}
+
+/* display: inline-block;  */
+/* margin-left:-25px; */
+/* position: relative; */
+/* top:-20px; */
+
 
 .home{
 
 
 }
 
-
 </style>
-
-<script type='text/javascript'
-	src="<c:url value='/' />/scripts/jquery-1.9.1.min.js"></script>
 
 <title>運動中心商城</title>
 <!--引用css-->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
-<!--引用jQuery-->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-	type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
 <!--引用SweetAlert2.js-->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js"
-	type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
 
 </head>
 <body>
 
-
-	<div class="All">
+    <div class="All2">
 	
-	   
+	<c:import url="../../header.jsp" />
+	
+	<div class="All">
+
+<p class="title">運動中心商城</p>
+
+<!-- container-fluid -->
+	<div id="mainDiv" class="container"> 
+        <div class="row">
+            <div id="imgDiv" class="col-12">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img height='384' src="../images/store001.jpg" class="d-block w-100">
+                      </div>
+                      <div class="carousel-item">
+                        <img width='576' height='384' src="../images/store002.jpg" class="d-block w-100">
+                      </div>
+                      <div class="carousel-item">
+                        <img width='576' height='384' src="../images/store003.jpg" class="d-block w-100">
+                      </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+            </div>
+        </div>
+    </div> <!--end of main--><br>
+
+
 
         <div id="head"></div>
-<!--  		<h2 style="text-align: center">運動中心商城</h2>  -->
-<%-- 		<a href="<c:url value='/'/> " ><button>回到管理首頁</button></a><br> --%>
 
+		<div id= "cart">
 
-		<div id= "cart"></div>
-
-		<hr>
-
-		<div id="allProduct">
-		</div>
+<!-- 			<p>&nbsp;</p> -->
+			<a href="<c:url value='myShoppingCart' />" ><button class='cart'><img class="cartpic" src='../images/carticon.jpg' width='60' height='40'  /><div id="cartnn" style="display: inline-block; "><p class='cartNum' style="opacity:0.0;"></p></div></button></a>
+			
+				<br>
 		
-<!-- 		<div id="allProducts" style="display:none" > -->
-		<div id="allProducts" >
-<!-- 			<div class="product"> -->
-<!-- 				<a href='showAllProducts'><img width='250' height='250' src='picture/1'/></a> -->
-<!-- 			<p class="pname" title='title123'><a class="pnamehref" href='showAllProducts'>勝利牌鳳凰級羽毛球- 12入</a></p> -->
-<!-- 			<p class="price" >NT$ <span class='pprice'>100</span> -->
-<!-- 			<button type="submit" class="addCart">加入購物車</button></p> -->
-<!-- 			</div>	 -->
 		</div>
+
+<hr>
+		<div id="allProduct"></div>
+		
+	</div>
 	</div>
 
 	<script type='text/javascript'>
@@ -195,11 +286,10 @@ function testProducts(responseText){
 	
 	var cartNum = mapData.cartNum;
 	var cartcontent = "";
-	cartcontent += "<a href='<c:url value='/'/>'><button class='home'>回到管理首頁</button></a>"
-				 + "<a href='<c:url value='myShoppingCart'/>'><button class='cart'>購物車("+cartNum+")</button>";
-	
-	head.innerHTML = "<h1 style='text-align: center'>運動中心商城</h1>";
 
+// 				 + "<a href='<c:url value='/'/>'><button class='home' >回到管理首頁</button></a>"
+// 				 + "<a href='<c:url value='myShoppingCart'/>'><button class='cart'><img src='../images/carticon.jpg' width='60' height='40'  /><p id="cartNum" class='cartNum'>("+cartNum+")</p></button>";
+	
 	
 	if(productList.length > 0){			
 
@@ -234,7 +324,15 @@ function testProducts(responseText){
 	}
 	
 	allProduct.innerHTML = content;
-	cart.innerHTML = cartcontent;
+// 	cart.innerHTML = cartcontent;
+	if (cartNum != 0){
+		cartcontent +="<p class='cartNum'>"+cartNum+"</p>" //""+cartNum+"";
+		cartnn.innerHTML = cartcontent;
+	}
+
+	
+	$(".All").show();
+	$(".All2").show();
 	
 
 	
@@ -301,6 +399,9 @@ function testProducts(responseText){
 		
 		
 	</script>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	type="text/javascript"></script>
 </body>
+
+
 </html>

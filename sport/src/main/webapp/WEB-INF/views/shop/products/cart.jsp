@@ -7,6 +7,17 @@
 
 <style>
 
+.title{
+/* color:#2482e0; */
+text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
+margin-top:20px;
+font-size : 34px;
+font-weight:bolder;
+text-align: center;
+}
+
+
+
 .All {
 	width: 1280px;
 	min-height:680px;
@@ -50,7 +61,8 @@ vertical-align:middle;
 .prodPic{
   vertical-align : middle;
   border:6px #f0f0ef solid;
-  margin:16px 8px 16px 6px;
+  margin:16px 14px 16px 12px;
+  
   border-radius:12px;
 }
 
@@ -93,8 +105,8 @@ margin:0; padding:0;
 .counter li{
 float:left; 
 list-style-type:none; 
-width:30px; 
-height:30px; 
+width:32px; 
+height:32px; 
 text-align:center; 
 line-height:30px; 
 border:#999 thin solid; 
@@ -112,6 +124,8 @@ margin:0;
 padding:0; 
 border: 1px solid transparent; 
 border-radius: 0;
+
+margin-top:-10px;
 }
 
 #countnum{ 
@@ -137,15 +151,13 @@ color:#666
 }
 
 .sumprice{
-  font-size:20px;
+  font-size:18px;
   font-weight:bold;
   color:#15058f;
 
-
-
   position: relative;
    top: -3px;
-   margin-left:25px;
+   margin-left:15px;
 /*     margin:23px; */
 
 }
@@ -169,7 +181,7 @@ margin-top:36px;
 }
 
 .clearCart {
-
+font-size:14px;
 height:25px;
 border:2px grey solid;
 background-color:grey;
@@ -178,7 +190,6 @@ border-radius:10px;
 cursor:pointer;
 float:right;
 margin-right:8px;
-margin-top:-3px;
 
 }
 
@@ -190,7 +201,7 @@ margin-top:-3px;
 #cartFooter{
    width: 600px;
    height:100px;
-   margin-top:30px;  
+   margin-top:10px;  
    margin-left:340px;
 /*    border: 1px black solid;  */
    padding:10px 0px;
@@ -199,6 +210,7 @@ margin-top:-3px;
 }
 
 .prodAll{
+ font-weight:bolder;
  text-align:center;
  width:300px;
  margin:auto;
@@ -221,6 +233,7 @@ border-radius:100px;
 }
 
 .deleteSelectProd{
+font-size:14px;
 height:25px;
 border:2px grey solid;
 background-color:grey;
@@ -240,7 +253,17 @@ input[type=checkbox] {
   -webkit-transform: scale(1.3); /* Safari and Chrome */
   height:18px;
   vertical-align:text-top;
-  margin-top:0;
+  margin-left:5px;
+  margin-top:3px;
+}
+
+#clickAll{
+-webkit-transform: scale(1.3); /* Safari and Chrome */
+  height:18px;
+  vertical-align:text-top;
+  margin-left:5px;
+  margin-top:2px;
+  margin-right:5px;
 }
 
 
@@ -283,16 +306,20 @@ cursor:pointer;
 
 <title>購物車</title>
 
-<script type='text/javascript' src="<c:url value='/' />/scripts/jquery-1.9.1.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
 
 </head>
 <body>
 
+
+<div class="All2" >
+
+<c:import url="../../header.jsp" />
+
+
 <div class="All">
-	<h2 style="text-align: center">購物車</h2>
+	<p class="title">我的購物車</p>
 
 	<div id="allProductInCart">
 	
@@ -328,6 +355,7 @@ cursor:pointer;
 	
 	</div><br><br><br><br>
 
+</div>
 </div>
 
 
@@ -366,8 +394,8 @@ function cartProducts(responseText){
 						
 				content += "<hr><div class='productInCart'><label>&nbsp;"
 						+"<input type='checkbox' name='selectProduct' check="+checks[i]+"  value='"+productList[i].product_price*productNums[i]+"' selectName='"+productList[i].product_name+"' selectNum='"+productNums[i]+"' ></label>"
-						+"<a><img class='prodPic' width='60' height='60' src='picture/"+productList[i].product_id+"'/></a>"
-						+"<div class='pnamebox'><p class='pname'><a class='pnamehref' href='<c:url value='/'/>'>"+productList[i].product_name+"</a><br>"
+						+"<a><img class='prodPic' width='72' height='72' src='picture/"+productList[i].product_id+"'/></a>"
+						+"<div class='pnamebox'><p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='<c:url value='/'/>'>"+productList[i].product_name+"</a><br>"
 						+"<span class='price'>&nbsp;NT$&nbsp;</span><span class='pprice'>"+productList[i].product_price+"</span></p></div>&nbsp;&nbsp;"
 						+"<div class='buttons'>"
 						+"<ul class='counter'>"
@@ -376,17 +404,17 @@ function cartProducts(responseText){
 						+"<li id='countnum'>"+productNums[i]+"</li>"
 						+"<li id='plus'><input type='button' class='adder' value='+' addCartId='"+productList[i].product_id
 						+"'addCartName='"+productList[i].product_name+"'/></li>"
-						+"</ul><br><br><span class='stock'>&nbsp;庫存數量："+productList[i].product_stock+"</span></div>"
+						+"</ul><br><p class='stock'>&nbsp;庫存數量："+productList[i].product_stock+"</p></div>"
 						+"<span class='sumprice'>小計$ "+ productList[i].product_price * productNums[i] +"</span>"
 						+"<input class='delete' type='button' value='刪除' delCartId='"+productList[i].product_id
 						+"'delCartName='"+productList[i].product_name+"'/></div>"
 			
 		}
-		content+="<hr><h3 class='prodAll'>購物車內共有 "+productList.length+" 種商品</h3>";
+		content+="<hr><h5 class='prodAll'>購物車內共有 "+productList.length+" 種商品</h5>";
 		contentfoot = "<span id='sumPriceZone'></span>"
 					+"<a href='/sport/shop/storeProductsAll'><input class='continue' type='button' value='繼續購物'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
 					+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-					+"<input class='checkBill' type='button' value='結帳'/>";
+					+"<input class='checkBill' type='button' value='結帳'/><br><br>";
 		allProductInCart.innerHTML = content;
 		cartFooter.innerHTML = contentfoot;
 
@@ -408,10 +436,10 @@ function cartProducts(responseText){
 
 	}else if(productList.length == 0){
 		content = "<div class='emptyCart'><img class='cartPic' src='../images/cart.png'  width='250' height='236' />"
-				+ "<h2 style='text-align:center'>購物車裡空無一物，請去選購商品再來</h2><div>"; 
+				+ "<br><br><p style='text-align:center; font-size:22px; font-weight:bold;'>購物車裡空無一物，請去選購商品再來</p><div>"; 
 		contentfoot = "<span id='sumPriceZone'></span><hr><br>"
 					+"<a href='/sport/shop/storeProductsAll'><input class='continue' type='button' value='繼續購物'/></a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"
-					+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>";
+					+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a><br><br>";
 		allProductInCart.innerHTML = content;
 		cartFooter.innerHTML = contentfoot;
 	}
@@ -424,7 +452,7 @@ function cartProducts(responseText){
 
 
 	
-    function priceSum(){
+    function priceSum(){  //計算總金額
     	var sumPrice=0;
         $("[name=selectProduct]:checkbox:checked").each(function(){
           sumPrice += parseInt($(this).val());
@@ -434,7 +462,7 @@ function cartProducts(responseText){
     }
 
 	
-	function check(){
+	function check(){  //記錄勾選內容
     	var selectCheck ={};
 		$('input[name="selectProduct"]').each(function(i) {
 			if( $(this).prop("checked")==true){
@@ -469,23 +497,11 @@ function cartProducts(responseText){
 	
 	
 	
-	$('.adder').click(function() {
+	$('.adder').click(function() {  //購物車增加商品
 		var id = $(this).attr('addCartId');
 		var name = $(this).attr('addCartName');
 		var count=$(this).parent().prev().text();
 		count=parseInt(count)+1;
-		
-// 		var selectProd = new Array(); 
-// 		var selectNum = new Array(); 
-// 		var selectedProd ={};
-// 		$('input[name="selectProduct"]').each(function(i) {
-// 			selectProd[i] =  $(this).attr('selectName');
-// 			selectNum[i] =  $(this).attr('selectNum');
-// 			selectedProd[''+selectProd[i]] = selectNum[i];	
-// 		});
-		
-		//console.log("selectCheck = "+selectCheck);
-		
 		var json = {"addCartId" : id, "addCartName" : name, "proCount" : count};
 
 		 $.ajax({
@@ -499,9 +515,7 @@ function cartProducts(responseText){
 		            if (response=="success") {
 		        		$(this).parent().prev().text(count);
 		        		check();	
-		             		
-						//xhrFunction();
-          	
+						//xhrFunction();          	
 		            } else {
 		            	Swal.fire({
 			    		    toast: true,
@@ -522,8 +536,7 @@ function cartProducts(responseText){
 		});
 	
 	
-	
-	$('.minuser').click(function() {
+	$('.minuser').click(function() {  //購物車減少商品
 		var id = $(this).attr('minusCartId');
 		var name = $(this).attr('minusCartName');
 		var count=$(this).parent().next().text();
@@ -546,8 +559,7 @@ function cartProducts(responseText){
 			            	console.log(response);
 			            	$(this).parent().next().text(count);
 			            	check();
-							//xhrFunction();
-	          	
+							//xhrFunction();	          	
 			            } else {
 			            	Swal.fire({
 				    		    toast: true,
@@ -569,7 +581,7 @@ function cartProducts(responseText){
 	
 	
 	
-	$('.delete').click(function() {
+	$('.delete').click(function() {  //購物車刪除商品
 		var id = $(this).attr('delCartId');
 		var name = $(this).attr('delCartName');
 		//var json = {"delCartId" : id, "delCartName" : name};
@@ -578,7 +590,7 @@ function cartProducts(responseText){
 		cartDelete(json);
 	});
 		
-	$('.deleteSelectProd').click(function() {
+	$('.deleteSelectProd').click(function() {  //購物車刪除所勾選商品
 		if ($('input[name="selectProduct"]:checkbox:checked').length == 0){
 			Swal.fire({
     		    toast: true,
@@ -601,7 +613,7 @@ function cartProducts(responseText){
 
 	
 	
-	$('.checkBill').click(function() {
+	$('.checkBill').click(function() {  //準備結帳
 		if ($('input[name="selectProduct"]:checkbox:checked').length == 0){
 			Swal.fire({
     		    toast: true,
@@ -659,7 +671,7 @@ function cartProducts(responseText){
 	
 	
 	
-	function cartDelete(json) {
+	function cartDelete(json) {  //刪除商品實作Function
 		Swal.fire({ 
 	      	  title: '刪除商品', 
 	      	  text: '是否要將所選商品移出購物車?', 
@@ -715,7 +727,7 @@ function cartProducts(responseText){
 	      	  });
 	}
 	
-	$('.clearCart').click(function() {
+	$('.clearCart').click(function() {  //清空購物車
 		var json = {"clearCart" : "clear"};
 		Swal.fire({ 
 	      	  title: '清空購物車', 
@@ -773,7 +785,7 @@ function cartProducts(responseText){
 	});
 	
 	
-	$("#clickAll").click(function() {
+	$("#clickAll").click(function() {  //全選商品
 		var check = $("#clickAll").prop("checked");
 		if (check == true){
 			$("input[name='selectProduct']").prop("checked", true);
@@ -786,7 +798,7 @@ function cartProducts(responseText){
 	});
 
 	
-	$("input[name='selectProduct']").click(function() {
+	$("input[name='selectProduct']").click(function() {  //點選商品時動作
 		priceSum();
 		var check = $(this).prop("checked");
 
@@ -808,18 +820,11 @@ function cartProducts(responseText){
 // 		});
 	});
 
-	
-
-
-	
-
-
-
-	
 
 
 }
 		
 </script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 </body>
 </html>

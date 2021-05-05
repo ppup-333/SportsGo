@@ -13,7 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -184,7 +186,7 @@ public class ProductOrderController {
 	@GetMapping(value = "/getOrderListJson")
 	public @ResponseBody Map<String, Object> getOrderList(HttpSession httpSession) {
 		
-		String account = "test1001";
+		String account = "test1002";
 		Map<String, Object> map = new HashMap<>();		
 		List<ProductOrderList> orderList = productOrderListService.getByAccount(account);
 		List<ProductOrderDetail> orderDetail = new ArrayList<>(); 
@@ -209,11 +211,34 @@ public class ProductOrderController {
 	}
 	
 	//會員的訂單詳細
-	@GetMapping("/orderDetail")
-	public String orderDetail() {
+	@GetMapping("/orderDetail/{order_Id}")
+	public String orderDetail(@PathVariable("order_Id") Integer order_Id, Model m) {
+		m.addAttribute("order_Id", order_Id);
 		return "shop/productsOrder/orderDetail";
 	}
 	
+	
+	//顯示用戶的訂單詳細內容
+	@GetMapping(value = "orderDetail/getOrderDetailJson/{order_Id}")
+	public @ResponseBody Map<String, Object> getOrderDetail(@PathVariable("order_Id") Integer order_Id, HttpSession httpSession) {
+		Map<String, Object> map = new HashMap<>();		
+		
+		List<ProductOrderDetail> orderDetail = productOrderDetailService.getAllById(order_Id);
+		List<Product> productList = new ArrayList<>();
+		ProductOrderList orderList = productOrderListService.get(order_Id);
+
+		for(int i = 0; i<orderDetail.size(); i++) {
+			productList.add(i, orderDetail.get(i).getProduct());
+		}	
+
+		System.out.println("orderList = "+orderList);
+		System.out.println("orderDetail = "+orderDetail);
+		System.out.println("productList = "+productList);
+		map.put("orderList", orderList);
+		map.put("orderDetail", orderDetail);
+		map.put("productList", productList);
+		return map;
+	}
 	
 	
 	
