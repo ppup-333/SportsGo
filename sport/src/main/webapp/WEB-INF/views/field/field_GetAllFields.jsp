@@ -29,6 +29,9 @@ th, td {
 <body>
 	<c:import url="../header.jsp"/>
 	<h2>場地管理</h2>
+	<!-- startCode -->
+	<input style="display:none" id="startCode" value="${startCode}">
+	
 	<select id="ts" name="typeId">
 		<option value="0" <c:if test="${typeId==0}">selected</c:if>>- ALL -</option>
 		<c:forEach var="fieldType" items="${fieldTypeList}">
@@ -59,11 +62,11 @@ th, td {
 								<input id='typeIdHide' name="typeIdHide" style="display: none" value="${typeId}"/>
 								<table>
 									<tr><td><form:label path="id">編號</form:label></td>
-										<td><form:input path="id"/></td>
-										<td><form:errors path="id"/></td>
+										<td><form:input path="id" id="createFieldId"/></td>
+										<td><form:errors path="id"/></td><td id="createIdError"></td>
 									<tr><td><form:label path="name">名稱</form:label>
-										<td><form:input path="name"/>
-										<td><form:errors path="name"/></td>
+										<td><form:input path="name" id="createFieldName"/>
+										<td><form:errors path="name"/></td><td id="createNameError"></td>
 									<tr><td><form:label path="fieldType">類型</form:label>
 										<td><form:select path="fieldType">
 												<option value="0">- 請選擇 -</option>
@@ -119,11 +122,31 @@ th, td {
 var typeSelect = document.getElementById("ts");
 var queryByType = document.getElementById("queryByType");
 
+checkStartCode();
+function checkStartCode(){
+	var createFieldBtn = document.getElementById("createFieldBtn");
+	var startCode = document.getElementById("startCode").value;
+	alert("startCode=" + startCode);
+	if(startCode == "createError"){
+		alert("新增失敗！");
+		createFieldBtn.click();
+	}else if(startCode == "createSuccess"){
+		alert("新增成功！")
+	}else if(startCode == "updateError"){
+		alert("修改失敗！");
+		//updateFieldBtn.click();
+	}else if(startCode == "updateSuccess"){
+		alert("修改成功！");
+	}else if(startCode == "deleteSuccess"){
+		alert("刪除成功！");
+	}
+}
+
 $("#ts").ready(xhrFunction);
 $("#ts").change(typeIdFunction);
 $("#ts").change(xhrFunction);
 $("#createButton").click(function(){
-	if(!confirm("確定要刪除？")){
+	if(!confirm("確定要新增？")){
 		return false;
 	}
 });
@@ -148,9 +171,21 @@ function xhrFunction(){
 		}
 	}
 }
+function xhrFunction1(){
+	var tid = parseInt(typeSelect.value);
+	var xhr = new XMLHttpRequest();
 
+	xhr.open("GET","<c:url value='getFieldsJsonByTypeId/0'/>",true);
 
-
+	xhr.send();
+	if(xhr!=null){
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==4&&xhr.status==200){
+				checkCreateId(xhr.responseText);					
+			}					
+		}
+	}
+}
 
 function displayFields(responseText){
 	var mapData = JSON.parse(responseText);					
@@ -215,6 +250,65 @@ function displayFields(responseText){
 	});
 }
 
+$("#createFieldId").change(xhrFunctionId);
+$("#createFieldName").change(xhrFunctionName);
+
+function xhrFunctionId(){
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET","<c:url value='getFieldsJsonByTypeId/0'/>",true);
+	xhr.send();
+	if(xhr!=null){
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==4&&xhr.status==200){
+				checkCreateId(xhr.responseText);					
+			}					
+		}
+	}
+}
+
+function xhrFunctionName(){
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET","<c:url value='getFieldsJsonByTypeId/0'/>",true);
+	xhr.send();
+	if(xhr!=null){
+		xhr.onreadystatechange=function(){
+			if(xhr.readyState==4&&xhr.status==200){
+				checkCreateName(xhr.responseText);					
+			}					
+		}
+	}
+}
+
+function checkCreateId(responseText){
+	var mapData = JSON.parse(responseText);
+	var fieldList = mapData.fieldList;
+	var createFieldId = document.getElementById("createFieldId").value;
+	var createIdError = document.getElementById("createIdError");
+	
+	for(var i = 0; i < fieldList.length; i++){
+		if(fieldList[i].id == createFieldId){
+			createIdError.innerHTML = "此編號已存在";
+			break;
+		}
+		createIdError.innerHTML = "";
+	}
+}
+
+
+function checkCreateName(responseText){
+	var mapData = JSON.parse(responseText);
+	var fieldList = mapData.fieldList;
+	var createFieldName = document.getElementById("createFieldName").value;
+	var createNameError = document.getElementById("createNameError");
+	
+	for(var i = 0; i < fieldList.length; i++){
+		if(fieldList[i].name == createFieldName){
+			createNameError.innerHTML = "此名稱已存在";
+			break;
+		}
+		createNameError.innerHTML = "";
+	}
+}
 	
 </script>
 </body>
