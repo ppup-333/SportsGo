@@ -1,9 +1,12 @@
 package com.sport.springboot.users.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +28,7 @@ import com.sport.springboot.users.model.UserDistrict;
 import com.sport.springboot.users.model.UserStatus;
 import com.sport.springboot.users.model.Users;
 import com.sport.springboot.users.service.UserAuthListService;
+import com.sport.springboot.users.service.UserAuthService;
 import com.sport.springboot.users.service.UserCityService;
 import com.sport.springboot.users.service.UserDistrictService;
 import com.sport.springboot.users.service.UserStatusService;
@@ -49,6 +53,9 @@ public class AdminController {
 
 	@Autowired
 	UserStatusService userStatusService;
+	
+	@Autowired
+	UserAuthService userAuthService;
 
 	@GetMapping(value = "/AdminLogin")
 	public String adminLogin(Model model, HttpSession session) {
@@ -141,13 +148,14 @@ public class AdminController {
 		return "users/AdminResultUsers";
 
 	}
+
 	@GetMapping(value = "/resultAllAdmins")
 	public String adminResultAdmin(Model model) {
 		Users users = new Users();
-		UserAuthList userAuth = new UserAuthList();
-		model.addAttribute("users", users);
+//		UserAuthList userAuth = new UserAuthList();
+		model.addAttribute("userAuth", users);
 		return "users/AdminResultAdmin";
-		
+
 	}
 
 	@PostMapping(value = "/getDistrict")
@@ -176,14 +184,14 @@ public class AdminController {
 	}
 
 	@PostMapping(value = "/ResultData")
-	public @ResponseBody List<Map<String, Object>> adminResult(@RequestParam(value = "account") String account,
+	public @ResponseBody List<Map<String, Object>> adminResultAllUser(@RequestParam(value = "account") String account,
 			@RequestParam(value = "name") String name, @RequestParam(value = "id") String id,
 			@RequestParam(value = "cityCode") String cityCode,
 			@RequestParam(value = "userDistrictCode") Integer userDistrictCode,
 			@RequestParam(value = "address") String address, @RequestParam(value = "statusCode") String statusCode) {
 
 		Users users = new Users();
-		System.out.println("++++++++" + statusCode);
+//		System.out.println("++++++++" + statusCode);
 
 		users.setAccount(account);
 		users.setName(name);
@@ -195,82 +203,161 @@ public class AdminController {
 
 //		System.out.println("++++++++++++++++" + cityCode);
 		List<Users> adminRs = usersService.adminResult(users);
-		List<Map<String, Object>> temp = new ArrayList<Map<String, Object>>();
+
+		List<Map<String, Object>> adminRsUsersData = new ArrayList<Map<String, Object>>();
 		for (int i = 0; i < adminRs.size(); i++) {
-			Map<String, Object> temp1 = new HashMap<>();
-			temp1.put("account", adminRs.get(i).getAccount());
-			temp1.put("name", adminRs.get(i).getName());
-			temp1.put("id", adminRs.get(i).getId());
-			temp1.put("gender", adminRs.get(i).getGender());
-			temp1.put("birthday", adminRs.get(i).getBirthday());
-			temp1.put("email", adminRs.get(i).getEmail());
-			temp1.put("city", adminRs.get(i).getCityCode().getCity());
-			temp1.put("district", adminRs.get(i).getUserDistrictCode().getDistrict());
-			temp1.put("address", adminRs.get(i).getAddress());
-			temp1.put("tel", adminRs.get(i).getTel());
-			temp1.put("mobile", adminRs.get(i).getMobile());
-			temp1.put("status", adminRs.get(i).getStatusCode().getStatus());
-			temp1.put("ver", adminRs.get(i).getVer());
-			temp.add(temp1);
+
+			Map<String, Object> temp = new HashMap<>();
+
+			temp.put("account", adminRs.get(i).getAccount());
+			temp.put("name", adminRs.get(i).getName());
+			temp.put("id", adminRs.get(i).getId());
+			temp.put("gender", adminRs.get(i).getGender());
+			temp.put("birthday", adminRs.get(i).getBirthday());
+			temp.put("email", adminRs.get(i).getEmail());
+			temp.put("city", adminRs.get(i).getCityCode().getCity());
+			temp.put("district", adminRs.get(i).getUserDistrictCode().getDistrict());
+			temp.put("address", adminRs.get(i).getAddress());
+			temp.put("tel", adminRs.get(i).getTel());
+			temp.put("mobile", adminRs.get(i).getMobile());
+			temp.put("status", adminRs.get(i).getStatusCode().getStatus());
+			temp.put("ver", adminRs.get(i).getVer());
+			adminRsUsersData.add(temp);
 		}
 
-		return temp;
+		return adminRsUsersData;
 	}
 
 	@PostMapping(value = "/UpdateStatus")
 	public String updateStatus(@RequestParam(value = "selectAct") String account,
 			@RequestParam(value = "selectStatus") String selectStatus) {
 
-		System.out.println("******************" + account + selectStatus);
-		
+//		System.out.println("******************" + account + selectStatus);
+
 		Users userData = usersService.get(account);
-		UserStatus temp = userStatusService.get(selectStatus);
-		userData.setStatusCode(temp);
-		
+		UserStatus updateStatus = userStatusService.get(selectStatus);
+		userData.setStatusCode(updateStatus);
+		userData.setVer(Timestamp.valueOf(LocalDateTime.now()));
+
 		usersService.save(userData);
-		
+
 		return "redirect:/admin/resultAllUsers";
 
 	}
 
-//	@PostMapping(value = "/ResultData")
-//	public String adminResult(@ModelAttribute("adminResultUsers") Users users,
-//			@RequestParam(value = "adminSelect") String selectValue,
-//			@RequestParam(value = "adminInput") String adminInput, BindingResult result) {
-//
-//		System.out.println("Select的值 = " + selectValue);
-//
-//
-//		if (selectValue.equals("01")) {
-//
-//			String inputAct = users.getAdminInput();
-//			System.out.println("輸入的查詢關鍵字 = " + inputAct);
-//			List<Users> actResult = usersService.adminResultAct(inputAct);
-//			System.out.println("共有幾筆資料 = " + actResult.size());
-//
-//			return "AdminResultUsers";
-//		} else if (selectValue.equals("02")) {
-//
-//			String inputName = users.getAdminInput();
-//			System.out.println("輸入的查詢關鍵字 = " + inputName);
-//			List<Users> nameResult = usersService.adminResultName(inputName);
-//			System.out.println("共有幾筆資料 = " + nameResult.size());
-//
-//			return "AdminResultUsers";
-//		} else if (selectValue.equals("03")) {
-//
-//			String inputId = users.getAdminInput();
-//			System.out.println("輸入的查詢關鍵字 = " + inputId);
-//			List<Users> idResult = usersService.adminResultId(inputId);
-//			System.out.println("共有幾筆資料 = " + idResult.size());
-//
-//			return "AdminResultUsers";
+	@PostMapping(value = "/ResultAdmin")
+	public @ResponseBody List<Map<String, Object>> adminResultAllAdmin(
+			@RequestParam(value = "account") String account) {
+
+		List<UserAuthList> actAuthData = userAuthListService.chkUserAuth(account);
+		List<Map<String, Object>> adminRsAdminData = new ArrayList<Map<String, Object>>();
+//		Users users = new Users();
+
+		if (actAuthData.size() == 0) {
+			return adminRsAdminData;
+		}
+
+//		users.setAccount(actAuthData.get(0).getUsers().getAccount());
+
+		Users temp1 = usersService.get(actAuthData.get(0).getUsers().getAccount());
+
+		List<Users> adminRs = new ArrayList<>();
+		adminRs.add(temp1);
+
+//		System.out.println("------" + adminRs.get(0).getName());
+
+//		List<Users> adminRs = usersService.adminResult(users);
+
+//		System.out.println("------" + actAuthData.get(0).getAuthCode().getAuthName());
+
+		for (int i = 0; i < adminRs.size(); i++) {
+
+			Map<String, Object> temp = new HashMap<>();
+
+			temp.put("account", adminRs.get(i).getAccount());
+			temp.put("name", adminRs.get(i).getName());
+			temp.put("id", adminRs.get(i).getId());
+			temp.put("gender", adminRs.get(i).getGender());
+			temp.put("birthday", adminRs.get(i).getBirthday());
+			temp.put("email", adminRs.get(i).getEmail());
+			temp.put("city", adminRs.get(i).getCityCode().getCity());
+			temp.put("district", adminRs.get(i).getUserDistrictCode().getDistrict());
+			temp.put("address", adminRs.get(i).getAddress());
+			temp.put("tel", adminRs.get(i).getTel());
+			temp.put("mobile", adminRs.get(i).getMobile());
+			temp.put("auth", actAuthData.get(i).getAuthCode().getAuthName());
+			temp.put("ver", adminRs.get(i).getVer());
+			adminRsAdminData.add(temp);
+		}
+
+//		System.out.println("-------------" + actAuthData.get(0).getUsers().getAccount());
+
+		return adminRsAdminData;
+
+	}
+
+	@PostMapping(value = "/AddAdmin")
+	public String addAdmin(@RequestParam(value = "inputAct") String account) {
+//		boolean pass = usersService.getChkAccount(account);
+//		List<UserAuthList> pass1 = userAuthListService.chkUserAuth(account);
+
+//		System.out.println("HELLO" + pass);
+//		System.out.println("HELLO" + pass1);
+//		if (pass == false || pass1.size() != 0) {
+//			return "redirect:/admin/resultAllAdmins";
 //		}
-//
-//		result.rejectValue("account", "", "請選擇搜尋類別");
-//		return "AdminResultUsers";
-//
-//	}
+
+		UUID uuid = UUID.randomUUID();
+		String code = uuid.toString().toUpperCase().replaceAll("-", "");
+		
+		UserAuthList userAuthList = new UserAuthList();
+		userAuthList.setUserAuthListOid(code);
+		userAuthList.setUsers(usersService.get(account));
+		userAuthList.setAuthCode(userAuthService.get("02"));
+		userAuthList.setVer(Timestamp.valueOf(LocalDateTime.now()));
+		
+		userAuthListService.save(userAuthList);
+		
+		return "redirect:/admin/resultAllAdmins";
+
+	}
+	
+	@PostMapping(value = "/chkAct")
+	public @ResponseBody Map<String, String> getChkAccount(@RequestParam(value = "account") String account) {
+
+//		System.out.println("account = " + account.toString());
+		boolean b = usersService.getChkAccount(account);
+		Map<String, String> map = new HashMap<>();
+//		System.out.println(usersService.getChkAccount(account));
+//		System.out.println("b =" + b);
+		if (b) {
+			map.put("result", "true");
+		} else {
+			map.put("result", "false");
+		}
+
+//		System.out.println("mpa1=" + map);
+		return map;
+
+	}
+
+	@PostMapping(value = "/DeleteAdmin")
+	public String deleteAdmin(@RequestParam(value = "selectAct") String account) {
+//		List<UserAuthList> temp = userAuthListService.chkUserAuth(account);
+
+//		System.out.println("**********************************" + temp.get(0).getUserAuthListOid());
+
+//		String authListOid = temp.get(0).getUserAuthListOid();
+//		System.out.println("**********************************" + authListOid);
+//		userAuthListService.delete(authListOid);
+
+		String authCode = "02";
+		userAuthListService.deleteAdmin(account, authCode);
+
+		return "redirect:/admin/resultAllAdmins";
+
+	}
+
 
 //	@GetMapping(value = "/resultAllUsers")
 //	public String resultAllUsers(Model model, Users users) {

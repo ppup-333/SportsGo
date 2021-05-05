@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="user_district")
 public class UserDistrict {
@@ -24,6 +26,7 @@ public class UserDistrict {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "CITY_CODE", nullable = true)
+	@JsonIgnoreProperties(value={"cityDistrictList","cityList"})
 	private UserCity cityCode;
 
 	@Column(name = "DISTRICT")

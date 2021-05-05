@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "user_auth_list")
 public class UserAuthList {
@@ -24,6 +26,7 @@ public class UserAuthList {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "AUTH_CODE", nullable = false)
+	@JsonIgnoreProperties("authList")
 	private UserAuth authCode;
 
 	@Column(name = "VER")

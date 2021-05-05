@@ -14,7 +14,7 @@ public class UserAuthListServiceImpl implements UserAuthListService {
 
 	@Autowired
 	UserAuthListRepository userAuthListDao;
-	
+
 	@Override
 	public UserAuthList save(UserAuthList userAuthList) {
 		return userAuthListDao.save(userAuthList);
@@ -25,7 +25,19 @@ public class UserAuthListServiceImpl implements UserAuthListService {
 		// TODO Auto-generated method stub
 		return userAuthListDao.chkUserAuth(account);
 	}
-	
+
+	@Override
+	public void deleteAdmin(String account, String authCode) {
+		// TODO Auto-generated method stub
+		userAuthListDao.deleteAdmin(account, authCode);
+	}
+
+	@Override
+	public void delete(String authListOid) {
+		// TODO Auto-generated method stub
+		userAuthListDao.deleteById(authListOid);
+	}
+
 //	@Override
 //	public List<UserAuthList> chkUserAuth2() {
 //		// TODO Auto-generated method stub

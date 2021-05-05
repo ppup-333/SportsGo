@@ -101,11 +101,11 @@ public class UserController {
 
 		if (session.getAttribute("account") != null) {
 			String account = session.getAttribute("account").toString();
-			 if(chkStatus(account)){
-			            return "redirect:/user/ChkEmail";
-			  }else {
-			            return "users/LoginHomePage";
-			 }
+			if (chkStatus(account)) {
+				return "redirect:/user/ChkEmail";
+			} else {
+				return "users/LoginHomePage";
+			}
 		}
 
 		return "users/Login";
@@ -129,12 +129,6 @@ public class UserController {
 
 	}
 
-//	@GetMapping(value = "/AdminLogin")
-//	public String adminLogin(Model model) {
-//		Users users = new Users();
-//		model.addAttribute("adminLogin", users);
-//		return "AdminLogin";
-//	}
 
 	@PostMapping(value = "/chkAccount")
 	public @ResponseBody Map<String, String> getChkAccount(@RequestParam(value = "account") String account) {
@@ -180,29 +174,6 @@ public class UserController {
 
 	}
 
-//	@PostMapping(value = "/RegisterEdit")
-//	public String addUser(@ModelAttribute("users") Users users, BindingResult result, HttpServletRequest request,
-//			Model model) {
-//		UserValidator validator = new UserValidator();
-//		validator.validate(users, result);
-//		if (result.hasErrors()) {
-//			return "RegisterEdit";
-//		}
-//		// 格式驗證方法end
-//
-//		String userAct = users.getAccount();
-//		List<Users> sqlUserAct = usersService.userLogin(userAct);
-//		System.out.println("資料庫回傳List大小=" + sqlUserAct.size() + ", 用戶輸入帳號= " + userAct);
-//
-//		if (sqlUserAct.size() != 0) {
-//			result.rejectValue("account", "", "帳號已被使用");
-//			return "RegisterEdit";
-//		}
-//
-//		model.addAttribute(users);
-//
-//		return "RegisterShow";
-//	}
 
 	@PostMapping(value = "/RegisterEdit")
 	public String addUser(@ModelAttribute("users") Users users, BindingResult result, HttpServletRequest request,
@@ -235,21 +206,7 @@ public class UserController {
 		// 使用者密碼加密end
 
 		users.setPassword(encPwd);
-
-//		String districtCode = users.getCityCode().getCityCode();
-//		List<UserDistrict> districtList = userDistrictService.getAllDistrict();
-//		List<String> districtList1 = new ArrayList<String>();
-//		for (int i = 0; i < districtList.size(); i++) {
-//			if (districtCode == districtList.get(i).getCityCode().getCityCode()) {
-//				districtList1.add(districtList.get(i).getDistrict());
-//				System.out.println("districtList1 = " + districtList.get(i).getDistrict());
-//				model.addAttribute("districtList", districtList1);
-//
-//			}
-//		}
-//		System.out.println("city = " + districtCode);
-//		System.out.println("districtList = " + districtList.get(0).getDistrict());
-//
+		
 		if ("".equals(users.getMobile())) {
 			users.setMobile(null);
 		}
@@ -283,24 +240,17 @@ public class UserController {
 
 		UUID uuid = UUID.randomUUID();
 		String code = uuid.toString().toUpperCase().replaceAll("-", "");
-		;
+		
 		UserAuthList userAuthList = new UserAuthList();
 		userAuthList.setUserAuthListOid(code);
 		userAuthList.setUsers(users);
 		userAuthList.setAuthCode(userAuthService.get("01"));
 		userAuthList.setVer(dateTime);
-//		
+		
 		try {
 			sendToGmail(users);
 			usersService.save(users);
 			userAuthListService.save(userAuthList);
-//			if ("".equals(account) || account == null) {
-//				usersService.save(users);
-//
-//			} else {
-//				result.rejectValue("account", "", "此帳號已經被使用");
-//				return "RegisterEdit";
-//			}
 
 		} catch (Exception ex) {
 
@@ -375,9 +325,9 @@ public class UserController {
 
 		session.setAttribute("account", account);
 		System.out.println("session1=" + session.getAttribute("account"));
-		if(chkStatus(account)) {
-            return "redirect:/user/ChkEmail";
-        }
+		if (chkStatus(account)) {
+			return "redirect:/user/ChkEmail";
+		}
 		return "users/LoginHomePage";
 
 	}
@@ -502,7 +452,6 @@ public class UserController {
 
 	}
 
-
 	@PostMapping(value = "/Logout")
 	public String logout(HttpSession session) {
 //		System.out.println("session2=" + session.getAttribute("account"));
@@ -533,19 +482,14 @@ public class UserController {
 
 	}
 
-//	@GetMapping(value = "/loginHomePage")
-//	public String userLoginHomePage() {
-//		return "LoginHomePage";
-//
-//	}
 	@GetMapping(value = "/loginHomePage")
-    public String userLoginHomePage(HttpSession session) {
-        String account = session.getAttribute("account").toString();
-        if(chkStatus(account))
-            return "redirect:/user/ChkEmail";
-        return "users/LoginHomePage";
+	public String userLoginHomePage(HttpSession session) {
+		String account = session.getAttribute("account").toString();
+		if (chkStatus(account))
+			return "redirect:/user/ChkEmail";
+		return "users/LoginHomePage";
 
-    }
+	}
 
 	@GetMapping(value = "/userUpdate")
 	public String userUpdate(Model model, HttpSession session) {
@@ -633,7 +577,7 @@ public class UserController {
 
 			usersService.save(user);
 			System.out.println("=========verify Success!!!=========");
-			return "users/LoginHomePage";
+			return "LoginHomePage";
 		} else {
 			System.out.println("=========verify Fail!!!============\n");
 		}
@@ -684,14 +628,14 @@ public class UserController {
 		userActValidateTempService.save(uavt);
 		mailSender.send(message);
 	}
-	
+
 	boolean chkStatus(String account) {
-        Users user = new Users();
-        user = usersService.get(account);
-        String userStatus = user.getStatusCode().getStatusCode();
-        if ("01".equals(userStatus)) {
-            return true;
-        }
-        return false;
-    }
+		Users user = new Users();
+		user = usersService.get(account);
+		String userStatus = user.getStatusCode().getStatusCode();
+		if ("01".equals(userStatus)) {
+			return true;
+		}
+		return false;
+	}
 }

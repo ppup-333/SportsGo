@@ -7,6 +7,10 @@ import com.sport.springboot.users.model.UserAuthList;
 public interface UserAuthListService {
 
 	UserAuthList save(UserAuthList userAuthList);
+
 	List<UserAuthList> chkUserAuth(String account);
-//	List<UserAuthList> chkUserAuth2();
+
+	void deleteAdmin(String account, String authCode);
+
+	void delete(String authListOid);
 }

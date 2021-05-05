@@ -9,7 +9,7 @@ import com.sport.springboot.users.model.Users;
 
 @Controller
 public class BaseController {
-	@RequestMapping("/user_Login")
+	@RequestMapping("/")
 	public String login() {
 		
 		return "users/HomePage";
