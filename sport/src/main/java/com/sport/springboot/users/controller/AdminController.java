@@ -301,7 +301,7 @@ public class AdminController {
 //		boolean pass = usersService.getChkAccount(account);
 //		List<UserAuthList> pass1 = userAuthListService.chkUserAuth(account);
 
-		int i = 0;
+//		int i = 0;
 
 //		System.out.println("HELLO" + pass);
 //		System.out.println("HELLO" + pass1);
