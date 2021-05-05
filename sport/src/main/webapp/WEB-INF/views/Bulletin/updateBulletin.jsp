@@ -78,7 +78,7 @@
 		$('#imgInput').val('');
 		$('#previewImg').attr('src','');
 		$.ajax({
-			url: "/Sport_Project/Bulletin/resetPicture/" + id,
+			url: "/sport/Bulletin/resetPicture/" + id,
 			type:'POST',
 			dataType:'html',
 			success:function(result){

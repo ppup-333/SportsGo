@@ -51,7 +51,7 @@ span.error {
 	});
 	
 	function readURL(input){
-		console.log("11111");
+// 		console.log("11111");
 		  if(input.files && input.files[0]){
 		    var reader = new FileReader();
 		    reader.onload = function (e) {
