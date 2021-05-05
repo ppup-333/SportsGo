@@ -25,6 +25,7 @@
 <body>
 
 	<a href="bbs"><button class="btn btn-info btn-sm">留言板</button></a>
+	<a href="javascript:history.back()"><button class="btn btn-info btn-sm">回前頁</button></a>
 
 	<form id="select" name="select" action="bbsDelete" method="post"
 		onclick="return false">

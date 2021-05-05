@@ -151,7 +151,7 @@
 			}
 			
 			function TitleFormatter(value, row, index) {
-				  return "<a href='bbsM.Select?bbsId="+row.bbsId+"'>"+value+"<br>"+row.bbsMessage+"</a>";
+				  return "<a href='bbsM.Select?bbsId=" + row.bbsId + "'>" + value + "<br>" + row.bbsMessage + "</a>";
 				}
 
 			function BuilderFormatter(value, row, index) {

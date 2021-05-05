@@ -121,8 +121,7 @@
 				if (row.bbsDelete == 2) {
 					return "<p class='text-muted font-weight-light'><b>" + value + "</b><br><span class='badge badge-secondary'>發文不存在</span></p>";
 				} else {
-					return "<a href='bbsSelect?bbsId=" + row.bbsId + "'>"
-							+ value + "<br>" + row.bbsMessage + "</a>";
+					return "<a href='bbsSelect?bbsId=" + row.bbsId + "'>" + value + "<br>" + row.bbsMessage + "</a>";
 				}
 			}
 
