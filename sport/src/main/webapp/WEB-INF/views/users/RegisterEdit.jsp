@@ -46,80 +46,8 @@
 	}
 	
 </style>
-<script>
-$(document).ready(function(){ 
-    $.datepicker.regional['zh-TW']={
-      dayNames:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
-      dayNamesMin:["日","一","二","三","四","五","六"],
-      monthNames:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-      monthNamesShort:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-      prevText:"上月",
-      nextText:"次月",
-      weekHeader:"週"
-      };
-    $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
-  
-    $("#datepicker").datepicker({changeYear: true, changeMonth: true, showMonthAfterYear: true,yearRange:"1920:2021"});
-});
-</script>
-<script>
-window.onload = function() {
-	
-	var alink = document.getElementById("repeatAccount");
-	var div = document.getElementById('result0c');
-	alink.onclick = function() {
-		
-		var account = document.getElementById("account").value;
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "<c:url value='/user/chkAccount' />", true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send("account=" + account);
-		var message = "";
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				var result = JSON.parse(xhr.responseText);
-				console.log(result);
-				if (result.result == "false") {
-					message = "<font color='darkgreen' size='-2'>" + "帳號可以使用" + "</font>";
-				} 
-				else {
-					message = "<font color='red' size='-2'>" + "帳號重複，請重新輸入帳號" + "</font>";
-				}
-				console.log(message);
-				
-				div.innerHTML =  message ;
-			}
-		}
-	};
-	
-	var blink = document.getElementById("aaaa");
-	blink.onchange = function() {
-// 	var $("#aaaa").change(function(){
-		var cityDistrict = document.getElementById("cityDistrict");
-		
-		cityDistrict.options.length = 0;
-		cityDistrict.add(new Option("鄉鎮市區", 1000));
-		var cityCode = blink.value;
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "<c:url value='/user/getDistrict' />", true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send("cityCode=" + cityCode);
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				var result = JSON.parse(xhr.responseText);
-				for (var i = 0; i < result.length; i++) {
-					cityDistrict.add(new Option(result[i].district, result[i].userDistrictCode));
-				}
-			}
-		}
-	};
-// 	 cityCode.trigger("change");
-	var aaaa = $("#aaaa");
-	aaaa.trigger("change");
-// 	alert("bbb");
 
-}
-</script>
+
 
 </head>
 <body>
@@ -187,7 +115,8 @@ window.onload = function() {
 	   	  					</form:select><br>&nbsp;
 	   	  					<form:errors path="cityCode"  cssClass="error"/><br>
 	   	  					<form:input path='address' /><br>&nbsp;
-	   	  					<form:errors path="address"  cssClass="error"/></td>
+	   	  					<form:errors path="address"  cssClass="error"/>
+	   	  				</td>
 					</tr>
 					<tr>
 	      				<td>市內電話：<br>&nbsp;</td>
@@ -210,7 +139,98 @@ window.onload = function() {
 			</div>
 		</form:form>
 	</fieldset>
-	<input type='button' value='送出' onclick='form1.submit()'>
+	<input type='button' value='送出' onclick='chkSubmit()'>
 	<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
+	
+<script>
+$(document).ready(function(){ 
+    $.datepicker.regional['zh-TW']={
+      dayNames:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
+      dayNamesMin:["日","一","二","三","四","五","六"],
+      monthNames:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+      monthNamesShort:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+      prevText:"上月",
+      nextText:"次月",
+      weekHeader:"週"
+      };
+    $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
+  
+    $("#datepicker").datepicker({changeYear: true, changeMonth: true, showMonthAfterYear: true,yearRange:"1920:2021"});
+});
+
+
+var pass = false;
+window.onload = function() {
+	
+	var alink = document.getElementById("repeatAccount");
+	var div = document.getElementById('result0c');
+	alink.onclick = function() {
+		
+		var account = document.getElementById("account").value;
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "<c:url value='/user/chkAccount' />", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("account=" + account);
+		var message = "";
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var result = JSON.parse(xhr.responseText);
+// 				console.log(result);
+				if (result.result == "false") {
+					message = "<font color='darkgreen' size='-2'>" + "帳號可以使用" + "</font>";
+					pass = true;
+				} 
+				else {
+					message = "<font color='red' size='-2'>" + "帳號重複，請重新輸入帳號" + "</font>";
+					pass = false;
+				}
+				console.log(pass);
+				
+				div.innerHTML =  message ;
+			}
+		}
+	};
+	
+	var blink = document.getElementById("aaaa");
+	blink.onchange = function() {
+// 	var $("#aaaa").change(function(){
+		var cityDistrict = document.getElementById("cityDistrict");
+		
+		cityDistrict.options.length = 0;
+		cityDistrict.add(new Option("鄉鎮市區", 1000));
+		var cityCode = blink.value;
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "<c:url value='/user/getDistrict' />", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("cityCode=" + cityCode);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var result = JSON.parse(xhr.responseText);
+				for (var i = 0; i < result.length; i++) {
+					cityDistrict.add(new Option(result[i].district, result[i].userDistrictCode));
+				}
+			}
+		}
+	};
+// 	 cityCode.trigger("change");
+	var aaaa = $("#aaaa");
+	aaaa.trigger("change");
+// 	alert("bbb");
+
+}
+
+function chkSubmit(){
+	
+	if(pass){
+		console.log(pass);
+		$('#form1').submit();
+	} else {
+		alert("請先檢查帳號是否可以使用")
+	}
+}
+	
+	
+</script>
+	
 </body>
 </html>

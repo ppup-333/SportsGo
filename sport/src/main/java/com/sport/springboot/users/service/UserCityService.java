@@ -8,4 +8,5 @@ public interface UserCityService {
 
 	List<UserCity> getAllCity();
 	UserCity getCity(String cityCode);
+	UserCity get (String cityCode);
 }

@@ -33,4 +33,10 @@ public class UserDistrictServiceImpl implements UserDistrictService {
 		return userDistrict;
 	}
 
+	@Override
+	public UserDistrict get(Integer userDistrictCode) {
+		// TODO Auto-generated method stub
+		return userDistrictDao.getOne(userDistrictCode);
+	}
+
 }

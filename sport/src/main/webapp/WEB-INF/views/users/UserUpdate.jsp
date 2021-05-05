@@ -185,6 +185,7 @@ window.onload = function() {
 		</form:form>
 	</fieldset>
 	<input type='button' value='送出' onclick='form1.submit()'>
+	<input type='button' value='回上一頁' onclick='location.href="userResult"'>
 <%-- 	<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'> --%>
 </body>
 </html>

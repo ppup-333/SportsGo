@@ -23,7 +23,7 @@ public class AdminLoginValidator implements Validator {
 		String chkPwd = "(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{8,16}";
 
 		if (users.getAccount().matches(chkAccount) == false || users.getPassword().matches(chkPwd) == false) {
-			errors.rejectValue("password", "", "帳號密碼錯誤或無此權限");
+			errors.rejectValue("password", "", "帳號或密碼錯誤或無此權限");
 		}
 
 //		if (users.getPassword().matches(chkPwd) == false) {

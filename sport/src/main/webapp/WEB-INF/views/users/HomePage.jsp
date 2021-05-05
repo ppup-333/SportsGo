@@ -13,7 +13,7 @@
 	<div>
 		<a href="user/Login">登入</a> 
 		<a href="user/RegisterEdit">註冊</a> 
-		<a href="user/...">忘記密碼</a>
+<!-- 		<a href="user/ForgetPwd">忘記密碼</a> -->
 		<a href="admin/AdminLogin">管理者登入</a>
 	</div>
 </body>

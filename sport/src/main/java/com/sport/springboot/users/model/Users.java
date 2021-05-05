@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
-
 @Entity
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "ID"),
 		@UniqueConstraint(columnNames = "EMAIL") })
@@ -62,7 +61,7 @@ public class Users {
 	private UserStatus statusCode;
 
 	@Column(name = "ACT_REGISTERED_TIME")
-	private String actRegisteredTime;
+	private Timestamp actRegisteredTime;
 
 	@Column(name = "LOGIN_FAIL_COUNT")
 	private Integer loginFailCount;
@@ -75,6 +74,28 @@ public class Users {
 
 	@Transient
 	private String dbChkPwd;
+
+	@Transient
+	private String adminInput;
+
+	@Transient
+	private String adminSelect;
+
+	public String getAdminSelect() {
+		return adminSelect;
+	}
+
+	public void setAdminSelect(String adminSelect) {
+		this.adminSelect = adminSelect;
+	}
+
+	public String getAdminInput() {
+		return adminInput;
+	}
+
+	public void setAdminInput(String adminInput) {
+		this.adminInput = adminInput;
+	}
 
 	public String getDbChkPwd() {
 		return dbChkPwd;
@@ -188,11 +209,11 @@ public class Users {
 		this.statusCode = statusCode;
 	}
 
-	public String getActRegisteredTime() {
+	public Timestamp getActRegisteredTime() {
 		return actRegisteredTime;
 	}
 
-	public void setActRegisteredTime(String actRegisteredTime) {
+	public void setActRegisteredTime(Timestamp actRegisteredTime) {
 		this.actRegisteredTime = actRegisteredTime;
 	}
 
