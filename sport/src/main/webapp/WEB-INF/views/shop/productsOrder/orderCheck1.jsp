@@ -7,25 +7,34 @@
 
 <style>
 
+.title{
+/* color:#2482e0; */
+text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
+margin-top:20px;
+font-size : 34px;
+font-weight:bolder;
+text-align: center;
+}
+
 .All {
 	width: 1280px;
-	min-height:680px;
+	min-height:880px;
 	margin-left: 120px;
 	display:none;
 }
 
 #allProductInOrder {
    width: 830px;
-border: 1px black solid;
+border: 2px black solid;
    margin-top:30px;  
    margin-left:220px;
    padding:10px 0px;
-
+   border-radius: 8px;
 }
 
 
 .productInOrder {
-	width: 830px;
+	width: 820px;
 	height: 46px;
 	margin: 0 auto;
 	background-color:#ffffff;
@@ -52,12 +61,12 @@ vertical-align:middle;
 
 .pnamebox{
   display: inline-block; 
-  height: 46px;
-  width: 490px;
+  height: 40px;
+  width: 470px;
   font-size:17px;
   font-weight:bold;
   color:#2a2e32; 
-  margin-top:-12px;
+  margin-top:10px;
 /*   margin:-12px 0px 0px; */
 /*   line-height:50px;  */
 }
@@ -76,6 +85,7 @@ vertical-align:middle;
 
 .pnamehref:hover{
   color:#5a636c;
+    text-decoration:none;
 }
 
 
@@ -88,6 +98,8 @@ vertical-align:middle;
 }
 
 .num{
+display: inline-block;
+  min-width:64px;
   font-size:16px;
   font-weight:bold;
   margin-left:12px;
@@ -96,7 +108,7 @@ vertical-align:middle;
 }
 
 .sumprice{
-  font-size:20px;
+  font-size:18px;
   font-weight:bold;
   color:#15058f;
   margin-left:14px;
@@ -120,7 +132,7 @@ vertical-align:middle;
    width: 600px;
    min-height:100px;
    margin-top:0px;  
-   margin-left:340px;
+   margin-left:330px;
 /*    border: 1px black solid;  */
    padding:10px 0px;
    text-align:center; 
@@ -136,16 +148,19 @@ vertical-align:middle;
 }
 
 .cnum{
-
+font-size:18px;
 width:120px;
 display: inline-block;
-margin-left:590px;
+margin-left:582px;
 }
 
 
 .sumPrice{
+ font-size:18px;
  margin-left:6px;
-
+  font-weight:bold;
+ color:red;
+ text-decoration: underline;
 
 }
 
@@ -157,10 +172,10 @@ margin-left:590px;
 }
 .fee{
  margin:auto;
- color:red;
- font-size:20px;
+ color:grey;
+ font-size:18px;
  font-weight:bold;
- margin-left:700px;
+ margin-left:693px;
 /* text-decoration:underline;  */
 
 }
@@ -203,7 +218,7 @@ input[type=checkbox]{
 }
 
 #dataBox{
-width:360px;
+width:388px;
 margin-left:110px;
 padding:10px;
 border:4px black solid;
@@ -216,6 +231,7 @@ background-color: #f0feff;
 color:#4F4FFF;
  font-size:18px;
  font-weight:bold;
+ margin-left: 3px;
 /*  text-decoration:underline; */
 
 }
@@ -225,14 +241,17 @@ color:#4F4FFF;
 /*  margin-left:140px; */
 /*  border:2px black solid; */
 /*  border-radius:10px; */
+font-weight: bold;
 }
 
 #deliveryBox1{
 float:left;
+font-weight: bold;
 }
 
 #deliveryBox2{
 float:left;
+font-weight: bold;
 }
 
 #button{
@@ -250,7 +269,7 @@ height:22px;
 
 .tel{
 margin:10px;
-width:90px;
+width:120px;
 height:22px;
  
  } 
@@ -295,6 +314,13 @@ border-radius:10px;
 cursor:pointer;
 }
 
+.dWay{
+display: inline-block; 
+margin-top:-10px;
+font-size: 20px;
+font-weight: bolder; 
+}
+
 
 
 
@@ -302,16 +328,18 @@ cursor:pointer;
 
 <title>訂單頁面</title>
 
-<script type='text/javascript' src="<c:url value='/' />/scripts/jquery-1.9.1.min.js"></script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
 
 </head>
 <body>
 
+<c:import url="../../header.jsp" />
+
 <div class="All">
-	<h2 style="text-align: center">訂單明細</h2>
+	<p class="title">訂單明細</p>
 
 	<div id="allProductInOrder">
 		
@@ -321,19 +349,19 @@ cursor:pointer;
 <!-- 	<p class="fee">共計 19000元</p> -->
 	</div>
 	<div id="orderOption">
-		<h3 style="display: inline-block; margin-top:-10px; ">請選擇運送方式：</h3>
-		<div><input type='checkbox' name='delivery' value='delivery' ><span class="d1">宅配到府 (運費$ 100)</span>&emsp;
+		<p class="dWay">請選擇運送方式：</p>
+		<div>&emsp;<input type='checkbox' name='delivery' value='delivery' ><span class="d1">宅配到府 (運費$ 100)</span>&emsp;
 			 <input type='checkbox' name='take' value='take' ><span class="d2">中心自取 (免運費)</span><p></p>
 				<div id='dataBox' >
 				<span class="buyer">購買人資料</span>
 		
 					<table>
 						
-					    <tr><td><div id="deliveryBox1"><h4 style="display: inline-block; ">姓名 : </h4><input type="text" class="name" name="name" ></div></td></tr>
+					    <tr><td><div id="deliveryBox1"><p style="display: inline-block; ">姓名 : </p><input type="text" class="name" name="name" ></div></td></tr>
 	
-						<tr><td><div id="deliveryBox2"><h4 style="display: inline-block; ">電話 : </h4><input type="tel"  class="tel" name="tel" ></div></td></tr>
+						<tr><td><div id="deliveryBox2"><p style="display: inline-block; ">電話 : </p><input type="tel"  class="tel" name="tel" ></div></td></tr>
 	    
-						<tr><td><div id="deliveryBox"><h4 style="display: inline-block; ">地址 : </h4><input type="text" class="address" name="address" ></div></td></tr>
+						<tr><td><div id="deliveryBox"><p style="display: inline-block; ">地址 : </p><input type="text" class="address" name="address" ></div></td></tr>
 						
 						<tr><td><div id="button"><input type="button" class="auto" value="一鍵輸入" >
 									 			 <input type="button" class="clear" value="清除" ></div></td></tr>
@@ -394,8 +422,8 @@ function orderProducts(responseText){
 		
 		contentfoot = "<span id='sumPriceZone'>訂單總金額 : <span class='sumPrices'>"+sumPrice+"</span> 元<hr><br></span>"
 					+"<a href='../myShoppingCart'><input class='continue' type='button' value='回購物車'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-					+"<a href='<c:url value='/'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-					+"<input class='payBill' type='button' value='付款'/>";
+					+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+					+"<input class='payBill' type='button' value='付款'/><br><br>";
 
 		allProductInOrder.innerHTML = content;
 		orderFooter.innerHTML = contentfoot;
@@ -552,5 +580,6 @@ function orderProducts(responseText){
 
 }
 </script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 </body>
 </html>

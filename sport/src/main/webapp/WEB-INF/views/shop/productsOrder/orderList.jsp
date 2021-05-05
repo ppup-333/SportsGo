@@ -7,6 +7,15 @@
 
 <style>
 
+.title{
+/* color:#2482e0; */
+text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
+margin-top:20px;
+font-size : 34px;
+font-weight:bolder;
+text-align: center;
+}
+
 .All {
 	width: 1280px;
 	min-height:680px;
@@ -19,6 +28,7 @@ table,th,td{
 border: 1px black solid;
 font-size:16px;
 }
+
 .time{
 text-align:center;
 width:180px;
@@ -44,6 +54,7 @@ width: 90px;
 text-align:center;
 width: 90px;
 }
+
 #orderlist{
    width: 830px;
    border: 1px black solid;
@@ -87,20 +98,26 @@ cursor:pointer;
   border:2px #003C9D solid;
 }
 
+tr:hover {
+background-color: #f5f5f5;
+}
+
 </style>
 
 <title>訂單一覽</title>
 
-<script type='text/javascript' src="<c:url value='/' />/scripts/jquery-1.9.1.min.js"></script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
 
 </head>
 <body>
 
+<c:import url="../../header.jsp" />
+
 <div class="All">
-	<h2 style="text-align: center">訂單列表</h2>
+
+    <p class="title">訂單列表</p>
 	
 	<div id="orderlist">
 	
@@ -164,7 +181,7 @@ function orderLists(responseText){
 	
 	content = "<table class='order'><tr>"
 			+ "<th class='time'>訂單時間</th>"
-			+ "<th class='product'>訂單商品</th>"
+			+ "<th class='product'>訂單內容</th>"
 			+ "<th class='price'>訂單總價</th>"
 			+ "<th class='shipway'>交易方式</th>"
 			+ "<th class='status'>訂單狀態</th>"
@@ -172,19 +189,17 @@ function orderLists(responseText){
 				
 	for(var i=0; i < orderList.length; i++){	
 		content += "<tr><td class='time'>"+orderList[i].order_create_date+"</td>"
-				 + "<td class='product'>"+orderList[i].name+" ("+orderNumber[i]+" 項商品)</td>"
+				 + "<td class='product'>"+orderList[i].name+" (共 "+orderNumber[i]+" 件商品)</td>"
 				 + "<td class='price'>"+orderList[i].order_price+"</td>"
 				 + "<td class='shipway'>"+orderList[i].shipway+"</td>"
 				 + "<td class='status'>完成</td>"
-				 + "<td class='detail'><input type='button' value='確認'></td></tr>";
+				 + "<td class='detail'><a href='orderDetail/"+orderList[i].order_id+"'><input type='button' value='確認'></td></tr>";
 	}
 	content+="</table>";
 
 	content+="<p class='listnum'>共 "+orderList.length+" 筆訂單</p>";
 	
-	contentfoot ="<a href='../myShoppingCart'><input class='continue' type='button' value='回購物車'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-				+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-				+"<input class='payBill' type='button' value='付款'/>";
+	contentfoot ="<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 
 	orderlist.innerHTML = content;
 	orderFooter.innerHTML = contentfoot;
@@ -204,5 +219,6 @@ function orderLists(responseText){
 
 }
 </script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 </body>
 </html>
