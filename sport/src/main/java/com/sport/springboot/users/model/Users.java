@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "ID"),
 		@UniqueConstraint(columnNames = "EMAIL") })
@@ -41,10 +43,12 @@ public class Users {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "CITY_CODE", nullable = true)
+	@JsonIgnoreProperties(value = {"cityList","cityDistrictList"})
 	private UserCity cityCode;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "USER_DISTRICT_CODE", nullable = true)
+	@JsonIgnoreProperties("districtList")
 	private UserDistrict userDistrictCode;
 
 	@Column(name = "ADDRESS")

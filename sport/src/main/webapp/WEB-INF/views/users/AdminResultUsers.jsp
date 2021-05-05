@@ -104,16 +104,10 @@
       						<option value='02'>正常使用</option>
       						<option value='03'>封鎖</option>
       					</select>
-      					
-<%--  						<form:select path="statusCode.statusCode" id="selectStatus" name='selectStatus'> --%>
-<%-- 	   	  					<form:option label="請選擇" value="00" id="statusValue"/> --%>
-<%-- 							<form:options  items="${statusList}" itemLabel='status' itemValue='statusCode' /> --%>
-<%-- 	   	 				</form:select> --%>
       				</div>
       			</form>
       				<div class="modal-footer">
         				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-<!--         				<button type="button" class="btn btn-primary"  id="update">確認送出</button> -->
         				<button type="button" class="btn btn-primary" onclick="submitStatus()">確認送出</button>
       				</div>
     			</div>
