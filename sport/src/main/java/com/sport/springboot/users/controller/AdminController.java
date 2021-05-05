@@ -53,7 +53,7 @@ public class AdminController {
 
 	@Autowired
 	UserStatusService userStatusService;
-	
+
 	@Autowired
 	UserAuthService userAuthService;
 
@@ -301,6 +301,8 @@ public class AdminController {
 //		boolean pass = usersService.getChkAccount(account);
 //		List<UserAuthList> pass1 = userAuthListService.chkUserAuth(account);
 
+		int i = 0;
+
 //		System.out.println("HELLO" + pass);
 //		System.out.println("HELLO" + pass1);
 //		if (pass == false || pass1.size() != 0) {
@@ -309,19 +311,19 @@ public class AdminController {
 
 		UUID uuid = UUID.randomUUID();
 		String code = uuid.toString().toUpperCase().replaceAll("-", "");
-		
+
 		UserAuthList userAuthList = new UserAuthList();
 		userAuthList.setUserAuthListOid(code);
 		userAuthList.setUsers(usersService.get(account));
 		userAuthList.setAuthCode(userAuthService.get("02"));
 		userAuthList.setVer(Timestamp.valueOf(LocalDateTime.now()));
-		
+
 		userAuthListService.save(userAuthList);
-		
+
 		return "redirect:/admin/resultAllAdmins";
 
 	}
-	
+
 	@PostMapping(value = "/chkAct")
 	public @ResponseBody Map<String, String> getChkAccount(@RequestParam(value = "account") String account) {
 
@@ -357,7 +359,6 @@ public class AdminController {
 		return "redirect:/admin/resultAllAdmins";
 
 	}
-
 
 //	@GetMapping(value = "/resultAllUsers")
 //	public String resultAllUsers(Model model, Users users) {
