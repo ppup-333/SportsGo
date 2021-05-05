@@ -7,10 +7,6 @@
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <title>公告欄</title>
 </head>
 <style>
@@ -168,6 +164,7 @@
 
 
 <body>
+<c:import url="../header.jsp"/>
 	<div align="center" class="All">
 		<div>
 			<h3>公告欄</h3>
@@ -193,6 +190,6 @@
 			</div>
 		</div>
 	</div>
-
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 </body>
 </html>
