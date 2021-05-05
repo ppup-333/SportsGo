@@ -71,6 +71,7 @@ span.error {
 
 
 <body>
+<c:import url="../header.jsp"/>
 	<fieldset>
 		<legend>新增公告</legend>
 		<form:form id="insertForm" name="insertForm" method="POST" modelAttribute="bulletin" enctype='multipart/form-data'>
