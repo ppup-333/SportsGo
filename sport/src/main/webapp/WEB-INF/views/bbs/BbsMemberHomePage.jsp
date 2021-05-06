@@ -24,6 +24,10 @@
 </head>
 <body>
 
+	<div>
+		<a href="bbsMemberPrivate"><button type="button" class="btn btn-primary btn-sm">我的發文與留言</button></a>
+	</div>
+
 	<div class="container-sm pt-3">
 		<div>
 			<a href="bbsdiscussion.c"><button type="button" class="btn btn-primary btn-sm">發文</button></a>

@@ -30,4 +30,6 @@ public interface BbsService {
 	
 	List<Bbs> getBbsByBbsDelete(Integer bbsDelete);
 	
+	List<Bbs> getBbsByUsersAccount(String account);
+	
 }	

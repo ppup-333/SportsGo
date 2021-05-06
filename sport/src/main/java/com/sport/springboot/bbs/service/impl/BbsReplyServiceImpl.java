@@ -76,4 +76,9 @@ public class BbsReplyServiceImpl implements BbsReplyService {
 		bbsReplyDao.save(bbsReply);
 	}
 
+	@Override
+	public List<BbsReply> getReplyByUsersAccount(String account) {
+		return bbsReplyDao.findByUsersAccountOrderByReplySetupTimeDesc(account);
+	}
+
 }
