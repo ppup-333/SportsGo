@@ -24,7 +24,7 @@ th, td {
 
 </head>
 <body>
-	<c:import url="../header.jsp"/>
+	<c:import url="../headerM.jsp"/>
 	<h2>訂單查詢</h2>
 	<hr>
 	<!-- 	<form action="getMemberOrderJsonByAccount" method="post"> -->

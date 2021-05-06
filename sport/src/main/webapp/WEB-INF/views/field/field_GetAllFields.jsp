@@ -27,7 +27,7 @@ th, td {
 
 </head>
 <body>
-	<c:import url="../header.jsp"/>
+	<c:import url="../headerM.jsp"/>
 	<h2>場地管理</h2>
 	<!-- startCode -->
 	<input style="display:none" id="startCode" value="${startCode}">

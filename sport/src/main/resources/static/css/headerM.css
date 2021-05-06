@@ -1,0 +1,49 @@
+#bar1 {
+    box-shadow: 0 1px 2px rgb(180, 179, 179);
+}
+
+#bar1 a {
+    margin-left: 70px;
+    font-size: 25px;
+    font-weight: 550;
+    color: white;
+}
+
+#bar1 button {
+    padding: 6px 10px;
+    font-size: 15px;
+    margin-right: 20px;
+    border-radius: 20px;
+}
+
+#ul1 {
+    background-color: rgb(245,245,245);
+    box-shadow: 0 1px 2px rgb(180, 179, 179);
+}
+
+#ul1 .nav-item {
+    font-size: 17px;
+    text-align: center;
+    width: 200px;
+}
+
+#ul1 li .nav-link {
+    font-weight: 550;
+    color: gray;
+    cursor: pointer;
+}
+
+#ul1 li .nav-link:hover {
+    color: #007bff;
+}
+
+.dropdown-menu {
+    min-width: 118px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px rgb(180, 179, 179);
+    margin-top: 0;
+}
+
+/* #ul1 .nav-item:hover {
+    background-color: skyblue;
+} */
