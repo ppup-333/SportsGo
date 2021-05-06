@@ -44,7 +44,7 @@ public class courseControl {
 	@Autowired
 	private CourseOrderService courseorderservice;
 	
-	private final String properties="D:\\gitHub\\SportsGo\\sport\\src\\main\\java\\ecpay\\payment\\integration";
+	private final String properties="D:\\_SpringBoot\\SportsGo\\sport\\src\\main\\java\\ecpay\\payment\\integration";
 
 	@GetMapping("/courseHome")
 	public String index() {
