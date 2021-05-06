@@ -502,15 +502,19 @@ public class ProductController {
 	}
 	
 	@GetMapping("/storeProductsAll")
-	public String storeHomePage(Model m) {
+	public String storeHomePage(Model m, Integer category) {
 		//m.addAttribute("productList",productService.getAllProducts());
+		m.addAttribute("category",category);
+		
 		return "shop/products/storeProductsAll";
 	}	
 	
 	
 	//商城首頁，顯示商品
-	@GetMapping(value = "/getProductsJson")
-	public @ResponseBody Map<String, Object> getProductsAll(HttpSession httpSession) {
+	@PostMapping(value = "/getProductsJson")
+	public @ResponseBody Map<String, Object> getProductsAll(HttpSession httpSession, @RequestParam("category") Integer category) {
+
+		System.out.println("=============================================================================================== = "+category);
 		Map<String, Object> map = new HashMap<>();
 		List<Product> productList = productService.getAllProducts();
 		List<Product> productList2 = new ArrayList<>();
@@ -524,15 +528,10 @@ public class ProductController {
             //購物車不為空，判斷購物車是否已經有該商品
             //獲取商品數量
     		for(Entry<String, Integer> prods : cmap.entrySet()){
-    			//prods.getKey();
     			cartNum+=prods.getValue();
     			productList2.add(productService.getByName1(prods.getKey()));
-    			System.out.println("get by name :"+productService.getByName(prods.getKey()));
     		}		
         }
-		System.out.println("cartNum = "+cartNum);	
-		System.out.println("cmap = "+cmap);
-		System.out.println("productList2 = "+productList2);
 		map.put("productList", productList);
 		map.put("cartNum", cartNum);
 		@SuppressWarnings("unchecked")
@@ -540,6 +539,7 @@ public class ProductController {
 		if (checkmap!=null) {
 			checkmap.clear();
 		}
+		
 		
 		return map;
 	}

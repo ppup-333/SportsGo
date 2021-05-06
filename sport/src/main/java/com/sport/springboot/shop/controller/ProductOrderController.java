@@ -109,6 +109,9 @@ public class ProductOrderController {
 	@ResponseBody
 	public String OrderCreate(@RequestBody Map<String, String> map, HttpSession httpSession) {
 		
+		String account = (String) httpSession.getAttribute("account");
+		
+		System.out.println("account = "+account);
 		String name = map.get("Name");
 		String tel = map.get("Tel");
 		String address = map.get("Address");
@@ -121,7 +124,7 @@ public class ProductOrderController {
 		order.setTel(tel);
 		order.setAddress(address);
 		order.setShip(ship);
-		order.setMember_id("test1001");
+		order.setMember_id(account);
 		order.setOrder_price(order_price);
 		if(ship == 100) {
 			order.setShipway("宅配");
@@ -186,7 +189,8 @@ public class ProductOrderController {
 	@GetMapping(value = "/getOrderListJson")
 	public @ResponseBody Map<String, Object> getOrderList(HttpSession httpSession) {
 		
-		String account = "test1002";
+		String account = (String) httpSession.getAttribute("account");
+		
 		Map<String, Object> map = new HashMap<>();		
 		List<ProductOrderList> orderList = productOrderListService.getByAccount(account);
 		List<ProductOrderDetail> orderDetail = new ArrayList<>(); 

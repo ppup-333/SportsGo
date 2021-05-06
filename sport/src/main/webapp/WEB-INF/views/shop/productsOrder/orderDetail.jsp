@@ -64,7 +64,7 @@ font-weight: bolder;
    border: 2px black solid;
    border-radius:10px;
    margin-top:30px;  
-   margin-left:210px;
+   margin-left:190px;
    padding:10px 0px;
 }
 
