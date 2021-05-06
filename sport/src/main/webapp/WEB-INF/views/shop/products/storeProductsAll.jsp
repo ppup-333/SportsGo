@@ -179,11 +179,19 @@ top:-10px;
 /* margin-left:-25px; */
 /* position: relative; */
 /* top:-20px; */
-
-
 .home{
+}
 
 
+.searchBar{
+position: relative;
+top:60px;
+ width:650px;
+ margin-left:300px;
+}
+
+.key{
+ width:250px;
 }
 
 </style>
@@ -244,9 +252,14 @@ top:-10px;
         
 
 		<div id= "cart">
+		<p class="searchBar">請輸入商品名稱：<input id="keywordI" type="text" name="keyword" class="key" required="required" value="${keyword}">
+	<button id="search" >搜尋</button> <c:if test="${keyword!=null}" ><button id="unSearch" >清除搜尋結果</button> </c:if>
+	<input type='hidden' name='status' value='${status}'>
+	<input type='hidden' name='category' value='${category}'></p>
 
-<!-- 			<p>&nbsp;</p> -->
-			<a href="<c:url value='myShoppingCart' />" ><button class='cart'><img class="cartpic" src='../images/carticon.jpg' width='60' height='40'  /><div id="cartnn" style="display: inline-block; "><p class='cartNum' style="opacity:0.0;"></p></div></button></a>
+				<div class="cart"><a href="<c:url value='myShoppingCart' />" ><img class="cartpic" src='../images/carticon.jpg' width='60' height='40'  /><span id="cartnn" style="display: inline-block; "><p class='cartNum' style="opacity:0.0;"></p></span></a></div>
+
+<%-- 			<a href="<c:url value='myShoppingCart' />" ><button class='cart'><img class="cartpic" src='../images/carticon.jpg' width='60' height='40'  /><div id="cartnn" style="display: inline-block; "><p class='cartNum' style="opacity:0.0;"></p></div></button></a> --%>
 			
 				<br>
 		
@@ -255,20 +268,22 @@ top:-10px;
 		<hr>
         <div id="category">
 
-        <a href="<c:url value='storeProductsAll?category=1'/> " ><button>健身用品</button></a>
-        <a href="<c:url value='storeProductsAll?category=2'/> " ><button>服裝</button></a>
-        <a href="<c:url value='storeProductsAll?category=3'/> " ><button>鞋類</button></a>
-        <a href="<c:url value='storeProductsAll?category=4'/> " ><button>護具</button></a>
-        <a href="<c:url value='storeProductsAll?category=5'/> " ><button>配件</button></a>
-        <a href="<c:url value='storeProductsAll?category=6'/> " ><button>羽球</button></a>
-        <a href="<c:url value='storeProductsAll?category=7'/> " ><button>籃球</button></a>
-        <a href="<c:url value='storeProductsAll?category=8'/> " ><button>壁球</button></a>
-        <a href="<c:url value='storeProductsAll?category=9'/> " ><button>桌球</button></a>
-        <a href="<c:url value='storeProductsAll?category=10'/> " ><button>排球</button></a>
-        <a href="<c:url value='storeProductsAll'/> " ><button>All</button></a><br>
+        <a href="<c:url value='storeProductsAll?category=1&keyword=${keyword}'/> " ><button>健身用品</button></a>
+        <a href="<c:url value='storeProductsAll?category=2&keyword=${keyword}'/> " ><button>服裝</button></a>
+        <a href="<c:url value='storeProductsAll?category=3&keyword=${keyword}'/> " ><button>鞋類</button></a>
+        <a href="<c:url value='storeProductsAll?category=4&keyword=${keyword}'/> " ><button>護具</button></a>
+        <a href="<c:url value='storeProductsAll?category=5&keyword=${keyword}'/> " ><button>配件</button></a>
+        <a href="<c:url value='storeProductsAll?category=6&keyword=${keyword}'/> " ><button>羽球</button></a>
+        <a href="<c:url value='storeProductsAll?category=7&keyword=${keyword}'/> " ><button>籃球</button></a>
+        <a href="<c:url value='storeProductsAll?category=8&keyword=${keyword}'/> " ><button>壁球</button></a>
+        <a href="<c:url value='storeProductsAll?category=9&keyword=${keyword}'/> " ><button>桌球</button></a>
+        <a href="<c:url value='storeProductsAll?category=10&keyword=${keyword}'/> " ><button>排球</button></a>
+        <a href="<c:url value='storeProductsAll?keyword=${keyword}'/> " ><button>All</button></a><br>
         
         category = ${category}
+        keyword = ${keyword}
         <input id="categoryI" type="hidden" value="${category}">
+        <input id="keyword2" type="hidden" value="${keyword}">
 
         </div>
 
@@ -280,19 +295,56 @@ top:-10px;
 
 	<script type='text/javascript'>
 	var category = document.getElementById("categoryI").value;
-	console.log(category);
+	var keywordI = document.getElementById("keywordI");
+	var keyword="";
+	var keyword2 = document.getElementById("keyword2");
 	
-	if (category >= 1){
-		//var category = ${category};
-		//var category = document.getElementById("category");
-		
 		$(document).ready(xhrFunction);
+		
+		//$("#search").click(xhrFunction);
+		$("#search").click(function() {
+			keyword = keywordI.value;
+			if (keyword ==""){
+				Swal.fire({
+	    		    toast: true,
+	    		    position: 'top',
+	    		    showConfirmButton: false,
+	    		    timer: 2000,
+	    		    icon: 'error',
+	    		    title: '請輸入關鍵字!',
+	    		})
+			} else {
+				self.location.href='storeProductsAll?category='+category+'&keyword='+keyword;
+				//xhrFunction();
+			}
+		});
+		
+		
+		$("#unSearch").click(function() {
+			keyword = '';
+			self.location.href='storeProductsAll?category='+category+'&keyword='+keyword;
+		});
+		
+		
+		
+		
+		
 
 		function xhrFunction(){
+			//var keyword = keywordI.value;
+			keyword = keyword2.value;
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST","<c:url value='getProductsJson'/>",true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.send("category="+category);
+			console.log("keyword = "+keyword);
+			console.log("category = "+category);
+			if (category >= 1){
+					xhr.send("category="+category+"&keyword="+keyword); //+"&keyword="+keyword
+			}
+			else {
+					xhr.send("category=0&keyword="+keyword);
+			}
+			
 			if(xhr!=null){
 				xhr.onreadystatechange=function(){
 					if(xhr.readyState==4&&xhr.status==200){
@@ -303,40 +355,16 @@ top:-10px;
 			}
 		}
 		
-	}
-	else{
-		$(document).ready(xhrFunction0);
-		function xhrFunction0(){
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST","<c:url value='getProductsJson'/>",true);
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-			xhr.send("category=0");
-			if(xhr!=null){
-				xhr.onreadystatechange=function(){
-					if(xhr.readyState==4&&xhr.status==200){
-						testProducts(xhr.responseText);
-						//displayProducts(xhr.responseText);					
-					}					
-				}
-			}
-		}
-	}
 
 function testProducts(responseText){
 	var mapData = JSON.parse(responseText);		
 	var productList = mapData.productList;
 	var content = "<br>";
-	
 	var cartNum = mapData.cartNum;
 	var cartcontent = "";
 
-// 				 + "<a href='<c:url value='/'/>'><button class='home' >回到管理首頁</button></a>"
-// 				 + "<a href='<c:url value='myShoppingCart'/>'><button class='cart'><img src='../images/carticon.jpg' width='60' height='40'  /><p id="cartNum" class='cartNum'>("+cartNum+")</p></button>";
-	
-	
 	if(productList.length > 0){			
-
-		for(var i=0; i < 6; i++){
+		for(var i=0; i < productList.length; i++){
 			if (productList[i].product_stock >0) {
 				content += "<form id='add' action='addCart' method='post'>"
 						+"<div class='product'><a href='showAllProducts'>"
@@ -356,15 +384,15 @@ function testProducts(responseText){
 						+"<button class='noStock' disabled='disabled'>售完缺貨</button>"
 						+"<br><span class='stock'>庫存數量 : "+productList[i].product_stock+"</span></p>" 
 						+"</div>";	
-				
-			}
-			
+			}	
 		}
-		
-
 	}else if(productList.length == 0){
 		content = "<h3>沒有商品資料</h3>"; 
 	}
+	
+// 	if (keyword ="")
+// 	console.log( "keyword = "+keyword);
+	
 	
 	allProduct.innerHTML = content;
 // 	cart.innerHTML = cartcontent;
@@ -373,12 +401,8 @@ function testProducts(responseText){
 		cartnn.innerHTML = cartcontent;
 	}
 
-	
 	$(".All").show();
 	$(".All2").show();
-	
-
-	
 	
 	
 	$('.addCart').click(function() {

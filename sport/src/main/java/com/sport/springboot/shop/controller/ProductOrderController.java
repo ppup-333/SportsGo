@@ -58,9 +58,12 @@ public class ProductOrderController {
         httpSession.setAttribute("orderTemp", omap);
     	
     	for(Entry<String, String> prods : map.entrySet()){	
+    		if ( Integer.parseInt(prods.getValue()) > productService.getByName1(prods.getKey()).getProduct_stock() ) { //判斷下定數量是否大於庫存
+    			return ""+prods.getKey();
+    		}
     		omap.put(prods.getKey(), Integer.parseInt(prods.getValue()));  
-    		System.out.println("get Key = "+prods.getKey());
-			System.out.println("get value = "+prods.getValue());
+//    		System.out.println("get Key = "+prods.getKey()); //暫時訂單的商品名稱
+//			System.out.println("get value = "+prods.getValue()); //暫時訂單的商品下訂數量
 		}	
         System.out.println("omap = "+omap);
 		return "success";			
@@ -109,6 +112,15 @@ public class ProductOrderController {
 	@ResponseBody
 	public String OrderCreate(@RequestBody Map<String, String> map, HttpSession httpSession) {
 		
+		@SuppressWarnings("unchecked")
+		Map<String,Integer> omap = (Map<String, Integer>) httpSession.getAttribute("orderTemp");
+		
+		for(Entry<String, Integer> prods : omap.entrySet()){
+    		if ( prods.getValue() > productService.getByName1(prods.getKey()).getProduct_stock() ) { //判斷下定數量是否大於庫存
+    			return ""+prods.getKey();
+    		}
+		}	
+		
 		String account = (String) httpSession.getAttribute("account");
 		
 		System.out.println("account = "+account);
@@ -139,8 +151,6 @@ public class ProductOrderController {
 		@SuppressWarnings("unchecked")
 		Map<String,Integer> cmap = (Map<String, Integer>) httpSession.getAttribute("cart");	
 		
-		@SuppressWarnings("unchecked")
-		Map<String,Integer> omap = (Map<String, Integer>) httpSession.getAttribute("orderTemp");
 		
 		for(Entry<String, Integer> prods : omap.entrySet()){
 			ProductOrderDetail orderd = new ProductOrderDetail();

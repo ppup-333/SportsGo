@@ -502,9 +502,10 @@ public class ProductController {
 	}
 	
 	@GetMapping("/storeProductsAll")
-	public String storeHomePage(Model m, Integer category) {
+	public String storeHomePage(Model m, Integer category, String keyword) {
 		//m.addAttribute("productList",productService.getAllProducts());
 		m.addAttribute("category",category);
+		m.addAttribute("keyword",keyword);
 		
 		return "shop/products/storeProductsAll";
 	}	
@@ -512,30 +513,51 @@ public class ProductController {
 	
 	//商城首頁，顯示商品
 	@PostMapping(value = "/getProductsJson")
-	public @ResponseBody Map<String, Object> getProductsAll(HttpSession httpSession, @RequestParam("category") Integer category) {
+	public @ResponseBody Map<String, Object> getProductsAll(HttpSession httpSession, 
+			@RequestParam("category") String category,
+			@RequestParam("keyword") String keyword) {
 
-		System.out.println("=============================================================================================== = "+category);
+		System.out.println("CATEGORY================================================================================================ "+category);
+		System.out.println("KEYWORD================================================================================================ "+keyword);
+
 		Map<String, Object> map = new HashMap<>();
-		List<Product> productList = productService.getAllProducts();
-		List<Product> productList2 = new ArrayList<>();
-		//List<Product> productList2 = productService.getProdByStatus("1");
+		List<Product> productList = productService.getAllProducts();  //所有商品
+		
+		if (Integer.parseInt(category) == 0) {
+			if(keyword=="") {
+				productList = productService.getProdByStatus("1"); //所有上架中的商品	
+			} else {
+				productList = productService.getProdByStatusByName(keyword, "1");
+			}
+			
+		} else {
+			if(keyword=="") {
+				productList = productService.getProdByStatusByCategory("1", category); //所有上架中的該分類產品
+			} else {
+				productList = productService.getProdByStatusByNameByCategory(keyword, "1", category);
+			}
+
+		}
+	    
+	    
 		@SuppressWarnings("unchecked")
-		Map<String,Integer> cmap = (Map<String, Integer>) httpSession.getAttribute("cart");
-		Integer cartNum = 0;
+		Map<String,Integer> cmap = (Map<String, Integer>) httpSession.getAttribute("cart"); //獲取購物車session內容
+		Integer cartNum = 0; //初始化購物車內商品數量
         if (cmap == null) {  //第一次購物，創建購物車
         	cartNum=0;
         }else {
             //購物車不為空，判斷購物車是否已經有該商品
             //獲取商品數量
     		for(Entry<String, Integer> prods : cmap.entrySet()){
-    			cartNum+=prods.getValue();
-    			productList2.add(productService.getByName1(prods.getKey()));
+    			cartNum+=prods.getValue();  //計算購物車數量
+    			//productList2.add(productService.getByName1(prods.getKey())); 
     		}		
         }
 		map.put("productList", productList);
 		map.put("cartNum", cartNum);
+		
 		@SuppressWarnings("unchecked")
-		Map<String,Integer> checkmap = (Map<String, Integer>) httpSession.getAttribute("check");
+		Map<String,Integer> checkmap = (Map<String, Integer>) httpSession.getAttribute("check"); //清除購物車的checkbox內容
 		if (checkmap!=null) {
 			checkmap.clear();
 		}
@@ -667,7 +689,6 @@ public class ProductController {
 			cmap.put(addCartName, (Integer.parseInt(proCount)) );  //更新購物車數量
 		}
 		else  {
-        	System.out.println("超過庫存了GG");
         	return "OverStock";
 		}	
 		return "success";		

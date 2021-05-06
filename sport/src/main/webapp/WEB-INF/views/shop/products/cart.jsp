@@ -654,8 +654,22 @@ function cartProducts(responseText){
 	    		        dataType: 'text',             // 回傳資料會是 json 格式
 	    		        data: JSON.stringify(selectedProd),  // 將表單資料用打包起來送出去
 	    		        success: function(response){ // 成功以後會執行這個方法   
-	    		        	    console.log("response = "+response)
-	    		        	    self.location.href='order/orderCheck1';
+//     		        	    console.log("response = "+response)
+	    		        	if (response =="success") {
+	    		        		self.location.href='order/orderCheck1';
+	    		        	} else {
+	    		        		Swal.fire({
+					    		    toast: true,
+					    		    position: 'center',
+					    		    showConfirmButton: false,
+					    		    timer: 3500,
+					    		    icon: 'error',
+					    		    title: '結帳失敗',
+// 					    		    text: response+" 的庫存數量不足!",
+					    		    html: response+" 的庫存數量不足! <br><br><p style='text-align:center;font-size:18px;font-weight:bold;'>請重新選擇數量。</p>",
+					    		})
+	    		        	}
+ 	    
 	    		        },
 	    		        error: function(response) {
 	    		        	console.log("response = "+response)
