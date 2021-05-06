@@ -90,6 +90,7 @@ vertical-align:middle;
 
 
 .price{
+  width:87px;
   display: inline-block; 
   font-size:18px;
   color:#187191;
@@ -111,7 +112,7 @@ display: inline-block;
   font-size:18px;
   font-weight:bold;
   color:#15058f;
-  margin-left:14px;
+  margin-left:10px;
   position: relative;
 /*   top: -9px; */
 }
@@ -151,7 +152,7 @@ display: inline-block;
 font-size:18px;
 width:120px;
 display: inline-block;
-margin-left:582px;
+margin-left:580px;
 }
 
 
@@ -175,7 +176,7 @@ margin-left:582px;
  color:grey;
  font-size:18px;
  font-weight:bold;
- margin-left:693px;
+ margin-left:691px;
 /* text-decoration:underline;  */
 
 }
@@ -411,8 +412,8 @@ function orderProducts(responseText){
 				content += "<div class='productInOrder'>"
 						+"<img class='prodPic' width='40' height='40' src='../picture/"+productList[i].product_id+"'/>"
 						+"<div class='pnamebox'><p class='pname'><a class='pnamehref' href='<c:url value='/'/>'>"+productList[i].product_name+"</a></p></div>"
-						+"<div class='price'>&nbsp;NT$&nbsp;"+productList[i].product_price+"</div>&nbsp;&nbsp;"
-						+"<span class='num'> 數量 : "+productNums[i]+"</span>&nbsp;"
+						+"<div class='price'>&nbsp;NT$&nbsp;"+productList[i].product_price+"</div>&nbsp;"
+						+"<span class='num'> 數量 : "+productNums[i]+"</span>"
 						+"<span class='sumprice'>小計 $ "+ productList[i].product_price * productNums[i] +"</span>"
 						+"</div><hr>"
 				sumPrice += productList[i].product_price * productNums[i];
@@ -546,8 +547,22 @@ function orderProducts(responseText){
 	    		        dataType: 'text',             // 回傳資料會是 json 格式
 	    		        data: JSON.stringify(json),  // 將表單資料用打包起來送出去
 	    		        success: function(response){ // 成功以後會執行這個方法   
-	    		        	    console.log("response = "+response)
+	    		        	if (response != "success"){
+	    		        		Swal.fire({
+					    		    toast: true,
+					    		    position: 'center',
+					    		    showConfirmButton: false,
+					    		    timer: 3500,
+					    		    icon: 'error',
+					    		    title: '結帳失敗',
+					    		    html: response+" 的庫存數量不足! <br><br><p style='text-align:center;font-size:18px;font-weight:bold;'>請回購物車重新選擇數量。</p>",
+					    		    //text: response+" 的庫存數量不足! \\n請回購物車重新選擇數量。",
+					    		})
+	    		        	} else {
+	    		        		console.log("response = "+response)
 	    		        	    alert("success");
+	    		        	}
+	    		        	    
 	    		        },
 	    		        error: function(response) {
 	    		        	console.log("response = "+response)
