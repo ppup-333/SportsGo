@@ -15,7 +15,7 @@
 //		HttpSession session = request.getSession();
 //		Object user = session.getAttribute("account");
 //		if(user == null) {
-//			response.sendRedirect("/Spring_Sport/user/Login");
+//			response.sendRedirect("/sport/user/Login");
 //			System.out.println("未登入");
 //			return false;
 //		}

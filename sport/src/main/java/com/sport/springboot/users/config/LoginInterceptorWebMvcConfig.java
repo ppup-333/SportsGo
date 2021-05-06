@@ -17,7 +17,7 @@
 //	public void addInterceptors(InterceptorRegistry registry) {
 //		registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/user/RegisterEdit",
 //				"/user/Login", "/admin/AdminLogin", "/user/chkAccount", "/user/getDistrict", "/user/ForgetPwd",
-//				"/user/UpdatePwd", "/user/ChkEmail", "/user/verifyEmail", "/");
+//				"/user/UpdatePwd", "/user/ChkEmail", "/user/verifyEmail", "/", "/css/**", "/images/**");
 //	}
 //
 //}
