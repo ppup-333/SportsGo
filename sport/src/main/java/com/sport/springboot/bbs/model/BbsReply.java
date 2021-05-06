@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.sport.springboot.users.model.Users;
+
 @Entity
 @Table(name = "bbsReply")
 public class BbsReply {
@@ -18,8 +20,10 @@ public class BbsReply {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer replyId;
 	
-	private String replyAccount;
-
+	@ManyToOne
+	@JoinColumn(name = "replyAccount")
+	private Users users;
+	
 	private String reply;
 
 	private Timestamp replySetupTime;
@@ -42,12 +46,12 @@ public class BbsReply {
 		this.replyId = replyId;
 	}
 
-	public String getReplyAccount() {
-		return replyAccount;
+	public Users getUsers() {
+		return users;
 	}
 
-	public void setReplyAccount(String replyAccount) {
-		this.replyAccount = replyAccount;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 
 	public String getReply() {

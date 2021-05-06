@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.sport.springboot.users.model.Users;
+
 @Entity
 @Table(name = "bbs")
 public class Bbs {
@@ -21,8 +23,10 @@ public class Bbs {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer bbsId;
 
-	private String bbsBuilder;
-
+	@ManyToOne
+	@JoinColumn(name = "bbsBuilder")
+	private Users users;
+	
 	private String bbsTitle;
 
 	private String bbsMessage;
@@ -48,12 +52,12 @@ public class Bbs {
 		this.bbsId = bbsId;
 	}
 
-	public String getBbsBuilder() {
-		return bbsBuilder;
+	public Users getUsers() {
+		return users;
 	}
 
-	public void setBbsBuilder(String bbsBuilder) {
-		this.bbsBuilder = bbsBuilder;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 
 	public String getBbsTitle() {
