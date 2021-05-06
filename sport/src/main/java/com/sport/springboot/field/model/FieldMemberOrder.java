@@ -8,11 +8,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sport.springboot.users.model.Users;
 
 
 @Entity
@@ -23,7 +25,10 @@ public class FieldMemberOrder {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	//------------------------------account	
-	private String account;
+	
+	@ManyToOne
+	@JoinColumn(name = "account")
+	private Users user;
 	
 	private String createTime;
 	
@@ -51,12 +56,12 @@ public class FieldMemberOrder {
 		this.id = id;
 	}
 
-	public String getAccount() {
-		return account;
+	public Users getUsers() {
+		return user;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setUsers(Users user) {
+		this.user = user;
 	}
 
 	public String getCreateTime() {

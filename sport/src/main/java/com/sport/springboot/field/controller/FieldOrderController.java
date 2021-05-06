@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +35,8 @@ import com.sport.springboot.field.service.FieldOrderDetailService;
 import com.sport.springboot.field.service.FieldPeriodService;
 import com.sport.springboot.field.service.FieldService;
 import com.sport.springboot.field.service.FieldTypeService;
+import com.sport.springboot.users.model.Users;
+import com.sport.springboot.users.service.UsersService;
 
 @Controller
 @RequestMapping("/fieldOrder")
@@ -50,6 +54,8 @@ public class FieldOrderController {
 	FieldActOrderService fieldActOrderService;
 	@Autowired
 	FieldOrderDetailService fieldOrderDetailService;
+	@Autowired
+	UsersService usersService;
 	
 	@GetMapping("/home")
 	public String fieldOrderHome() {
@@ -93,10 +99,13 @@ public class FieldOrderController {
 	@PostMapping("/createMemberOrder")
 	public String fieldOrderCreate(@RequestParam("periodId")Integer periodId,
 			@RequestParam("date")String date, @RequestParam("hours")Integer hours,
-			@RequestParam("fieldId")String fieldId,
+			@RequestParam("fieldId")String fieldId, HttpSession session,
 			RedirectAttributes attr) {
+		
+		String account = session.getAttribute("account").toString();
+		Users user = usersService.get(account);
 		FieldMemberOrder mOrder = new FieldMemberOrder();
-		mOrder.setAccount("test1001");
+		mOrder.setUsers(user);
 		Date createDate = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateStr = dateFormat.format(createDate);

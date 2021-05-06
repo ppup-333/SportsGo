@@ -577,7 +577,7 @@ public class UserController {
 
 			usersService.save(user);
 			System.out.println("=========verify Success!!!=========");
-			return "LoginHomePage";
+			return "users/LoginHomePage";
 		} else {
 			System.out.println("=========verify Fail!!!============\n");
 		}
