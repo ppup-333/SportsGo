@@ -30,7 +30,7 @@ $(document).ready(function(){
 		$("#sport").empty();
 		$("#animation").addClass("loader");		
 		$.ajax({
-			url:"/springsport/order",
+			url:"/sport/order",
 		    context: document.body,
 		    success: function(result){		
 		    	$("#animation").removeClass("loader");
@@ -41,7 +41,7 @@ $(document).ready(function(){
 	});
 	$("#actOrder").on("click",function(){
 		$.ajax({
-			url:"/springsport/orderAct",
+			url:"/sport/orderAct",
 		    context: document.body,
 		    success: function(result){		  
 		    	$("#sport").html(result);
@@ -54,7 +54,7 @@ $(document).ready(function(){
 		$(".main_Title").empty();
 		$(".main_Title").append("活動總覽");
 		$.ajax({
-			url:"/springsport/activityMain",
+			url:"/sport/activityMain",
 		    context: document.body,
 		    success: function(result){
 		    	$("#sport").empty();
@@ -104,7 +104,7 @@ $(document).ready(function(){
 		$(".main_Title").empty();
 		$(".main_Title").append("管理活動");
 		$.ajax({
-			url:"/springsport/activityInsert",
+			url:"/sport/activityInsert",
 		    context: document.body,
 		    success: function(result){
 		    	$("#sport").html(result);
@@ -125,7 +125,7 @@ $(document).ready(function(){
 		$(".main_Title").empty();
 		$(".main_Title").append("管理老師");
 		$.ajax({
-			url:"/springsport/teacherHome",
+			url:"/sport/teacherHome",
 		    context: document.body,
 		    success: function(result){
 		    	$("#sport").html(result);
@@ -152,7 +152,7 @@ $(document).ready(function(){
 }*/
 function insertCourse(){
 	$.ajax({
-		url:"/springsport/courseInsert",
+		url:"/sport/courseInsert",
 	    context: document.body,
 	    success: function(result){
 	    	$("#sport").html(result);
@@ -163,7 +163,7 @@ function insertCourse(){
 
 function activity(a){	
 	 $.ajax({
-	     url: "/springsport/activityApply?actId="+a,
+	     url: "/sport/activityApply?actId="+a,
 	     context: document.body,
 	    success: function(response){
 	      $('#sport').html(response);
@@ -173,7 +173,7 @@ function activity(a){
 function manageSport(s){
 	
 	 $.ajax({
-	     url: "/springsport/manageCourseMain?sport="+s,
+	     url: "/sport/manageCourseMain?sport="+s,
 	     context: document.body,
 	    success: function(response){
 	      $('#sport').html(response);
@@ -183,7 +183,7 @@ function manageSport(s){
 function sport(s){
 	
 	 $.ajax({
-	     url: "/springsport/courseMain?sport="+s,
+	     url: "/sport/courseMain?sport="+s,
 	     context: document.body,
 	    success: function(response){
 	      $('#sport').html(response);

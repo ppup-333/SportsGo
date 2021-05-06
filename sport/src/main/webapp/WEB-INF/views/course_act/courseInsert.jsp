@@ -89,16 +89,16 @@
 	});
 </script>
 <style type="text/css">
-table {
+.courseInsertTable {
 text-align:center;
 	border-collapse: collapse;
 	border: 2px solid #D0D0D0;
 	border-right: 1px solid #D0D0D0;
-	margin-left: auto;
-	margin-right: auto;
+	/*margin-left: auto;
+	margin-right: auto;*/
 }
 
-tr td:first-child {
+.courseInsertTr td:first-child {
 	text-align:center;
    	padding: 20px;
 	background-color: #D2E9FF;
@@ -106,7 +106,7 @@ tr td:first-child {
 }
 
 
-tr td:last-child {
+.courseInsertTr td:last-child {
 text-align:center;
 	padding: 20px;
 	background-color: #66B3FF;
@@ -117,15 +117,15 @@ text-align:center;
 <body>
 	<form id="insert" action="/springsport/courseInsertImpl">
 
-		<table border="1" style="text-align: center;">
-			<tr>
+		<table class="courseInsertTable" border="1" style="text-align: center;">
+			<tr class="courseInsertTr">
 				<td>選擇運動
 				<td><select name="courseName" id="CN">
 						<option value="羽球">羽球</option>
 						<option value="桌球">桌球</option>
 						<option value="籃球">籃球</option>
 				</select>
-			<tr>
+			<tr class="courseInsertTr">
 				<td>選擇時段
 				<td><select name="courseKind" id="CK">
 						<option value="A 08:00~09:00">A 08:00~09:00</option>
@@ -137,13 +137,13 @@ text-align:center;
 						<option value="G 15:00~16:00">F 15:00~16:00</option>
 						<option value="H 16:00~17:00">F 16:00~17:00</option>
 				</select>
-			<tr>
+			<tr class="courseInsertTr">
 				<td><p>
 						<label for="from">起始日期</label>
 					</p>
 				<td><input type="date" id="from" name="from"><span
 					id="check" style="visibility: hidden;">請填入日期</span>
-			<tr>
+			<tr class="courseInsertTr">
 				<td><p>
 						<label for="to">開課次數</label>
 					</p>
@@ -158,23 +158,23 @@ text-align:center;
 						<option value="8">8</option>
 				</select> <span id="check" style="visibility: hidden;">請填入次數</span></td>
 			</tr>
-			<tr>
+			<tr class="courseInsertTr">
 				<td>費用:
 				<td><input type="text" name="courseCost" maxlength="5"></input>
-			<tr>
+			<tr class="courseInsertTr">
 				<td>場地:
 				<td><select name="coursePlace" id="CP"></select>
-			<tr>
+			<tr class="courseInsertTr">
 				<td>教師:
 				<td><select name="teacherId" id="teacherName">
 						<c:forEach var="item1" items="${teacherList}" varStatus="status">
 						<option value="${item1.teacherId}">${item1.teacherName}</option>
 						</c:forEach>
 					</select>
-			<tr>
+			<tr class="courseInsertTr">
 				<td>最大學生數:
 				<td><input type="text" name="studentMaxNum" maxlength="2"></input>
-			<tr>
+			<tr class="courseInsertTr">
 				<td>課程介紹:
 				<td><textarea rows="30" cols="40" name="courseIntroduce"></textarea>
 					<input type="text" name="types" style="display: none;"
