@@ -62,9 +62,9 @@ public class AdminController {
 		Users users = new Users();
 		model.addAttribute("adminLogin", users);
 
-		if (session.getAttribute("account") != null) {
-			return "users/AdminHomePage";
-		}
+//		if (session.getAttribute("account") != null) {
+//			return "users/AdminHomePage";
+//		}
 
 		return "users/AdminLogin";
 

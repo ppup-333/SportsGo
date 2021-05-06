@@ -18,7 +18,7 @@
 	}
 </style>
 <script>
-	var time = 60;
+	var time = 1;
 	function resetVerifyCode(){
 		$.ajax({
 			url:'resetVerifyCode',
@@ -31,7 +31,7 @@
 	function toggleBtn(){
 		if(time==0){
 		    $("#resetCodeBtn").attr("disabled",false);
-		    time = 60;
+		    time = 1;
 		    $("#resetBtnMessage").empty();
 		    return false;//清除定时器
 		   }else{
@@ -53,6 +53,7 @@
 
 		<div>
 			<form action='verifyEmail' method="post" id='verifyForm'>
+				<input style="display:none" type="text" name="checkAccount" value="${checkAccount}"/>
 				輸入四位認證碼: <input type="text" name="verifyCode"/>
 				<input id="submitBtn" type='submit' value='確定'/>
 				<input type="text" style="display:none" name="error" value="error"/><span id="error">${error }</span><br>
@@ -66,5 +67,6 @@
 				<input type="button" value="登出" onclick="form1.submit()">
 			</form>
 		</div>
+
 </body>
 </html>
