@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -100,12 +101,13 @@ public class UserController {
 		model.addAttribute("loginPage", users);
 
 		if (session.getAttribute("account") != null) {
-			String account = session.getAttribute("account").toString();
-			if (chkStatus(account)) {
-				return "redirect:/user/ChkEmail";
-			} else {
-				return "users/LoginHomePage";
-			}
+			return "users/LoginHomePage";
+//			String account = session.getAttribute("account").toString();
+//			if (chkStatus(account)) {
+//				//////////////////////////////////////////////////////////////////////////////////////
+//				return "redirect:/user/ChkEmail";
+//			} else {
+//			}
 		}
 
 		return "users/Login";
@@ -177,7 +179,7 @@ public class UserController {
 
 	@PostMapping(value = "/RegisterEdit")
 	public String addUser(@ModelAttribute("users") Users users, BindingResult result, HttpServletRequest request,
-			Model model) {
+			HttpSession session, Model model) {
 		// 格式驗證方法start
 		UserValidator validator = new UserValidator();
 		validator.validate(users, result);
@@ -259,7 +261,10 @@ public class UserController {
 			result.rejectValue("email", "", "此信箱已經被使用");
 			return "users/RegisterEdit";
 		}
-
+		
+//		this.checkAccount = users.getAccount();
+//////////////////////////////////////////////////////////////////////////////////////
+		session.setAttribute("tempAccount", users.getAccount());
 		return "redirect:/user/ChkEmail";
 
 	}
@@ -278,7 +283,7 @@ public class UserController {
 	@PostMapping(value = "/Login")
 	public String chkUserLogin(@ModelAttribute("loginPage") Users users, BindingResult result,
 			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password,
-			HttpSession session) {
+			HttpSession session, RedirectAttributes reAttr) {
 
 		LoginValidator validator = new LoginValidator();
 		validator.validate(users, result);
@@ -312,10 +317,11 @@ public class UserController {
 			} else if ("03".equals(userStatus)) {
 				result.rejectValue("password", "", "帳號已封鎖，請洽管理員");
 				return "users/Login";
+			} else if ("01".equals(userStatus)) {
+//				this.checkAccount = users.getAccount();
+				session.setAttribute("tempAccount", users.getAccount());
+				return "redirect:/user/ChkEmail";
 			}
-//			else if ("01".equals(userStatus)) {
-//				return "redirect:/user/ChkEmail";
-//			}
 
 		} catch (Exception ex) {
 
@@ -325,9 +331,11 @@ public class UserController {
 
 		session.setAttribute("account", account);
 		System.out.println("session1=" + session.getAttribute("account"));
-		if (chkStatus(account)) {
-			return "redirect:/user/ChkEmail";
-		}
+//		if (chkStatus(account)) {
+////////////////////////////////////////////////////////////////////////////////////////
+//			//reAttr.addAttribute("tempAccount", reAttr)
+//			return "redirect:/user/ChkEmail";
+//		}
 		return "users/LoginHomePage";
 
 	}
@@ -537,9 +545,16 @@ public class UserController {
 		return "redirect:/user/loginHomePage";
 
 	}
-
+	
+//	private String checkAccount = "";
 	@GetMapping(value = "/ChkEmail")
-	public String chkEmail(HttpSession session, Model model) {
+	public String chkEmail(Model model) {
+//	public String chkEmail(HttpSession session, Model model) {
+//		if(this.checkAccount != "") {
+//			model.addAttribute("checkAccount", checkAccount);
+//			checkAccount = "";
+//		}
+		
 		return "users/ChkEmail";
 	}
 
@@ -550,7 +565,7 @@ public class UserController {
 		System.out.println("verifyCode:" + verifyCode);
 		System.out.println("================");
 		UserActValidateTemp uavt = new UserActValidateTemp();
-		String account = session.getAttribute("account").toString();
+		String account = session.getAttribute("tempAccount").toString();
 		uavt = userActValidateTempService.getInfo(account);
 		Date sqlDate = uavt.getExpired_time();
 		Date nowDate = new Timestamp(System.currentTimeMillis());
@@ -570,13 +585,15 @@ public class UserController {
 		}
 		if (flag1 == true && flag2 == true) {
 			Users user = new Users();
-			user = usersService.get(account);
+			user = usersService.get(session.getAttribute("tempAccount").toString());
 			UserStatus userstate = new UserStatus();
 			userstate = userStatusService.get("02");
 			user.setStatusCode(userstate);
 
 			usersService.save(user);
 			System.out.println("=========verify Success!!!=========");
+			session.removeAttribute("tempAccount");
+			session.setAttribute("account", user.getAccount());
 			return "users/LoginHomePage";
 		} else {
 			System.out.println("=========verify Fail!!!============\n");
@@ -590,8 +607,8 @@ public class UserController {
 	public void resetVerifyCode(HttpSession session) {
 		RandomCode random = new RandomCode();
 		String verifyCode = random.verifyCode();
-		String account = session.getAttribute("account").toString();
-
+		String account = session.getAttribute("tempAccount").toString();
+//		String account = checkAccount;
 		Users user = new Users();
 		user = usersService.get(account);
 		System.out.println("==============resetVerifyCode==============");
