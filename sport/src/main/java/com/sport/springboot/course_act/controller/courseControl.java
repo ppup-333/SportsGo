@@ -2,10 +2,14 @@ package com.sport.springboot.course_act.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
+import org.apache.log4j.BasicConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +19,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sport.springboot.course_act.model.CATime;
+import com.sport.springboot.course_act.model.CourseOrderBean;
+import com.sport.springboot.course_act.model.EcpayOrderBean;
 import com.sport.springboot.course_act.model.courseBean;
 import com.sport.springboot.course_act.model.teacherBean;
 import com.sport.springboot.course_act.service.impl.CATimeService;
+import com.sport.springboot.course_act.service.impl.CourseOrderService;
 import com.sport.springboot.course_act.service.impl.courseService;
 import com.sport.springboot.course_act.service.impl.teacherService;
+
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.QueryTradeInfoObj;
 
 @Controller
 public class courseControl {
@@ -30,6 +40,11 @@ public class courseControl {
 	private CATimeService coursetimeservice;
 	@Autowired
 	private teacherService teacherservice;
+	
+	@Autowired
+	private CourseOrderService courseorderservice;
+	
+	private final String properties="D:/_SpringBoot/workspace/sport_course/src/main/java/ecpay/payment/integration";
 
 	@GetMapping("/courseHome")
 	public String index() {
@@ -192,6 +207,14 @@ public class courseControl {
 //		re = new ResponseEntity<>(cblist, HttpStatus.OK); 
 //		return re;
 //	}
+	
+	
+	@GetMapping("NewManageCourseMain")
+	public String NewManageCourseMain() {
+		return "course_act/NewManageCourseMain";
+	}
+	
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping("/manageCourseMain")
 	public String manageCourseMain(@RequestParam String sport, Model model) {
@@ -240,9 +263,15 @@ public class courseControl {
 		return "course_act/manageCourseSelect";
 	}
 
+	@GetMapping("NewCourseMain")
+	public String NewCourseMain() {
+		return "course_act/NewCourseMain";
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping("/courseMain")
-	public String courseMain(@RequestParam String sport, Model model) {
+	@ResponseBody
+	public List courseMain(@RequestParam String sport) {
 		
 		
 		List<courseBean> cblist = null;
@@ -256,15 +285,59 @@ public class courseControl {
 			String courseName = "籃球";
 			cblist = courseservice.selectCourse(courseName);
 		}
+		
+		//更新 最新報名人數
+		List<CourseOrderBean> courseOrderList=new ArrayList<>();
+		
+		
+		for(int i=0;i<cblist.size();i++) {
+			 Set<CourseOrderBean> courseOrderSet = cblist.get(i).getCourseOrder();
+			  Iterator<CourseOrderBean> it = courseOrderSet.iterator();
+			  
+			  
+			  while(it.hasNext()) {
+				  CourseOrderBean courseOrder = it.next();
+				  
+				  Set<EcpayOrderBean> easyPaySet = courseOrder.getECpay();
+				  Iterator<EcpayOrderBean> easyit = easyPaySet.iterator();
+				  while(easyit.hasNext()) {
+					  EcpayOrderBean easyPay = easyit.next();
+					  String MerchantTradeNo = easyPay.getMerchantTradeNo();
+					  String status="";
+					  BasicConfigurator.configure();
+						AllInOne ecpay=new AllInOne(properties);
+						QueryTradeInfoObj trade=new QueryTradeInfoObj();
+						trade.setMerchantTradeNo(MerchantTradeNo);
+						status=ecpay.queryTradeInfo(trade);
+						String[] statusSplit=status.split("&");				
+						String Status=statusSplit[statusSplit.length-2];//交易狀態
+						String TradeStatus=(Status.split("="))[1];
+						System.out.println(TradeStatus);
+						if(Integer.parseInt(TradeStatus)==1) {
+							courseOrder.setPayState(1);
+							courseOrderList.add(courseOrder);
+							//courseorderservice.updateCourseOrder(courseOrder);
+						}
+				  }
+			  }
+		}
+		
+		for(int i=0;i<courseOrderList.size();i++) {
+			courseorderservice.updateCourseOrder(courseOrderList.get(i));
+		}
+		
+		
 		// 要回傳的List
 		List resultList = new ArrayList<>();
 		for (int i = 0; i < cblist.size(); i++) {
 			Iterator<CATime> time = cblist.get(i).getTime().iterator();
 			// 存時間結果的List
 			List timeList = new ArrayList<>();	
-			timeList.add(cblist.get(i).getCourseName());
-			timeList.add(cblist.get(i).getCourseKind());
-			timeList.add(cblist.get(i).getCourseCost());			
+			Map m=new HashMap<>();
+			m.put("courseId",cblist.get(i).getCourseId());
+			m.put("courseName", cblist.get(i).getCourseName());
+			m.put("courseKind", cblist.get(i).getCourseKind());
+			m.put("courseCost", cblist.get(i).getCourseCost());		
 			
 			// 暫時存timeset裡面所有資料的List
 			List<String> tempList = new ArrayList<>();
@@ -281,31 +354,30 @@ public class courseControl {
 			Collections.sort(tempList);
 			String DateStart = tempList.get(0);
 			String DateEnd = tempList.get(tempList.size() - 1);
-			timeList.add(DateStart);
-			timeList.add(DateEnd);
-			timeList.add(cblist.get(i).getCourseId());
+			
+			m.put("DateStart", DateStart);
+			m.put("DateEnd", DateEnd);
 			
 			int courseId=cblist.get(i).getCourseId();
 			courseservice.updateStudentCurrent(courseId);
-			int StudentCurrentNum=cblist.get(i).getStudentCurrentNum();
-			int StudentMaxNum=cblist.get(i).getStudentMaxNum();
+			int studentCurrentNum=cblist.get(i).getStudentCurrentNum();
+			int studentMaxNum=cblist.get(i).getStudentMaxNum();
 			
-			if(StudentCurrentNum==StudentMaxNum) {
+			if(studentCurrentNum==studentMaxNum) {
 				
 			}else {
-				System.out.println("目前學生人數:"+StudentCurrentNum);
-				resultList.add(timeList);
+				m.put("studentCurrentNum", studentCurrentNum);
+				m.put("studentMaxNum", studentMaxNum);
+				resultList.add(m);
 			}
 			
 		}
-		model.addAttribute("resultList", resultList);
-
-		return "course_act/courseSelect";
+		return resultList;
 	}
 
 	// 我要報名
 	@GetMapping("/courseApply")
-	public String courseApply(@RequestParam String id, Model model) {
+	public String courseApply(@RequestParam(value = "id") String id,@RequestParam(value = "type") String type, Model model) {
 		int courseId = Integer.parseInt(id);
 	
 		Optional<courseBean> course = courseservice.selectId(courseId);
@@ -335,13 +407,22 @@ public class courseControl {
 		Optional<teacherBean> t=teacherservice.selectTeacher(c.getTeacherId());
 		teacherBean teacher=t.get();
 		String teacherName=teacher.getTeacherName();
+		
+		
+		
 		System.out.println(teacherName);
 		model.addAttribute("teacherName", teacherName);
 		model.addAttribute("course", c);
 		model.addAttribute("account", account);
 		model.addAttribute("timeList", timeList);
 		model.addAttribute("count", count);
-		return "course_act/checkSignUp";
+		
+		if("first".equals(type)) {
+			return "course_act/courseDetail";
+		}else {
+			return "course_act/checkSignUp";
+		}
+	
 	}
 
 	public String confirmCourseApply() {

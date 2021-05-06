@@ -1,0 +1,63 @@
+use Sport;
+
+CREATE TABLE bbsType(
+	typeId int primary　key identity(1,1),
+	typeGroup char(10),
+	typeName char(10)
+);
+
+insert bbsType(typeGroup, typeName) values('Game', 'NBA');
+insert bbsType(typeGroup, typeName) values('Game', 'MLB');
+insert bbsType(typeGroup, typeName) values('Game', 'NPB');
+insert bbsType(typeGroup, typeName) values('Game', 'CPBL');
+insert bbsType(typeGroup, typeName) values('Health', '健身');
+insert bbsType(typeGroup, typeName) values('Health', '瘦身');
+insert bbsType(typeGroup, typeName) values('Health', '營養');
+insert bbsType(typeGroup, typeName) values('Sport', '籃球');
+insert bbsType(typeGroup, typeName) values('Sport', '排球');
+insert bbsType(typeGroup, typeName) values('Sport', '桌球');
+insert bbsType(typeGroup, typeName) values('Sport', '壁球');
+insert bbsType(typeGroup, typeName) values('Sport', '羽毛球');
+
+GO
+
+CREATE TABLE bbs(
+	bbsId int identity(1,1) primary key,
+	bbsBuilder varchar(20),
+	bbsTitle varchar(50),
+	bbsMessage text,
+	bbsSetupTime datetime,
+	bbsUpdateTime datetime,
+	bbsDelete int,
+	typeId int FOREIGN KEY REFERENCES bbsType(typeId),
+);
+
+insert bbs(bbsBuilder, bbsTitle, bbsMessage, bbsSetupTime, bbsUpdateTime, bbsDelete, typeId) 
+values('A123', 'Test1', 'Test1', '2021-04-09 00:55:03', NULL, 0, 1);
+insert bbs(bbsBuilder, bbsTitle, bbsMessage, bbsSetupTime, bbsUpdateTime, bbsDelete, typeId) 
+values('B234', 'test2', '測試', '2021-04-09 06:48:45', NULL, 0, 2);
+insert bbs(bbsBuilder, bbsTitle, bbsMessage, bbsSetupTime, bbsUpdateTime, bbsDelete, typeId) 
+values('C345', 'ya', 'lalala', '2021-04-10 14:02:59', NULL, 0, 3);
+
+insert bbs(bbsBuilder, bbsTitle, bbsMessage, bbsSetupTime, bbsUpdateTime, bbsDelete, typeId) 
+values('A123', 'See~', 'Do?', '2021-04-11 08:08:08', '2021-04-11 12:12:12', 0, 4);
+insert bbs(bbsBuilder, bbsTitle, bbsMessage, bbsSetupTime, bbsUpdateTime, bbsDelete, typeId) 
+values('B234', '大家怎麼看?', '如題', '2021-04-11 10:57:03', NULL, 0, 5);
+insert bbs(bbsBuilder, bbsTitle, bbsMessage, bbsSetupTime, bbsUpdateTime, bbsDelete, typeId) 
+values('C345', 'aaa?', 'bbb', '2021-04-11 18:55:43', NULL, 0, 6);
+
+GO
+
+CREATE TABLE bbsReply(
+	replyId int identity(1,1) primary key,
+	replyAccount varchar(20),
+	reply text ,
+	replySetupTime datetime ,
+	replyUpdateTime datetime,
+	replyDelete int,
+	bbsId int FOREIGN KEY REFERENCES bbs(bbsId)
+);
+
+insert bbsReply(replyAccount, reply, replySetupTime, replyUpdateTime, replyDelete, bbsId) values('B234', 'HELLO~', '2021-04-09', NULL, 0, 1);
+insert bbsReply(replyAccount, reply, replySetupTime, replyUpdateTime, replyDelete, bbsId) values('C345', 'test', '2021-04-09', NULL, 0, 2);
+insert bbsReply(replyAccount, reply, replySetupTime, replyUpdateTime, replyDelete, bbsId) values('A123', 'yhea', '2021-04-09', NULL, 0, 3);

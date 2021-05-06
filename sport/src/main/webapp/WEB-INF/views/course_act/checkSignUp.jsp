@@ -7,54 +7,66 @@
 <meta charset="UTF-8">
 <title>報名訂單</title>
 <style>
+.main_body {
+	text-align: center;
+}
     .st1{
-        border-bottom: 3px dashed gray;
+        border-bottom: 1px solid gray;
         margin: 20px;
         padding-bottom: 10px;
-        width: 500px;
-        
         
     }   
-    .sub{
-        margin: 20px;
-        text-align: center;
-        width: 450px;
+     .fs{
+        margin-right:auto;
+         margin-left:auto;
+           margin-top:10px;
+           margin-bottom:20px;
+  		 width:800px;
+  		 background-color:#FFFFCE;
     }
-    .t1 {
+   .t1 {
         width: 100px;
         float: left;
         text-align: right;
     }
-    .st1 input,textarea{
-        background-color: rgb(216, 215, 215);
-        border-radius: 6px;
-        border: white;
-        margin-left: 30px;
-        
-    }
-    fieldset{
-        width: 600px;
-        margin: 20px;
-        border: 1px dashed green;
-    }
-    legend{
-        color: blue;
-    }
-    select{
-        margin-left: 30px;
-    }
-    
-    .fl2{
-        float: left ;
-    }
+    .course{
+width:200px;
+margin-left:200px;
+margin-top:50px;
+font-size:50px;
+}
+.block{
+height:200px;
+}
     </style>
-    
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+    	let times=document.getElementById("times");
+    	let date=$("#date").val();
+    	let d=new Date(date);
+    	let Day=d.getDay();
+    	console.log(Day);
+    	let week=["日","一","二","三","四","五","六"];
+    	for(let i=0;i<week.length;i++){
+    		if(Day==i){
+    			times.innerHTML=week[i];
+    		}
+    	}
+    	
+    })
+    </script>
 </head>
 <body>
+<c:import url="../header.jsp" />
+ <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+ <div class="main_body">
+ 
+ 
 
-<form  id="courseApply" method="post" action="../springsport/confirmCourseApply">
-<fieldset>
-            <legend>報名資料確認</legend>
+<form  id="courseApply" method="post" action="../sport/confirmCourseApply">
+<div class="course">報名資料確認</div>
+<fieldset class="fs">
+            
          <input name="courseId" value="${course.courseId}" style="display:none"/>
         <div class="st1">
             <label for="account" class="t1">帳號: </label><span> ${account}</span>
@@ -78,7 +90,7 @@
              <input name="TimeEnd" value="${timeList[1]}" style="display:none;"/>
         </div>
         <div class="st1">
-            <label for="account" class="t1">上課次數: </label><span>每周一次</span>
+            <label for="account" class="t1">每周: </label><span id="times"></span>
             <input name="count" value="${count}" style="display:none;"/>
         </div>
            <div class="st1">
@@ -87,7 +99,7 @@
         </div>
         <div class="st1">
             <label for="account" class="t1">開課日期: </label><span> ${timeList[2]}</span>
-            <input name="DateStart" value="${timeList[2]}" style="display:none;"/>
+            <input name="DateStart" id="date" value="${timeList[2]}" style="display:none;"/>
         </div>
         <div class="st1">
             <label for="account" class="t1">結訓日期: </label><span> ${timeList[3]}</span>
@@ -100,20 +112,11 @@
     
 </form>
 	
-    <button type="button" class="back" id="${course.courseName}">上一步</button>
+    <button type="button" onclick="window.location.href='/sport/courseApply?id=${course.courseId}&type=first'">上一步</button>
      <button type="button" class="confirm">確認報名</button>
+     <div class="block"></div>
+     </div>
 <script type="text/javascript">
-$(".back").on("click",function(){
-	let id=this.id;confirm
-	 $.ajax({
-		 
-	     url: "/springsport/courseMain?sport="+id,
-	     context: document.body,
-	    success: function(response){
-	      $('#sport').html(response);
-	    }
-	  });
-});
 $(".confirm").on("click",function(){
 	if(confirm("確認報名")){
 		$("#courseApply").submit();

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@ table{
  border-collapse:collapse;
  border:2px solid #D0D0D0;
  border-right:1px solid #D0D0D0;
+ margin-top:30px;
  margin-left: auto;
  margin-right: auto;
  
@@ -24,10 +26,15 @@ td{
 	background-color:#66B3FF;
 	border-right:1px solid #D0D0D0;
 }
+.main_body{
+text-align:center;
+}
 </style>
 
 </head>
 <body>
+<c:import url="../header.jsp"/>
+<div class="main_body">
 <h1>${activity.actName}</h1>
 <table>
 <tr><tr><th>活動時間<th>活動開始日期<th>活動結束日期<th>活動地點<th>活動費用
@@ -37,11 +44,14 @@ td{
 <h2>活動介紹</h2>
 ${activity.actIntroduce}
 <br>
-<button id="back" style="margin:20px">返回</button>
+<button id="back" onclick="window.location.href='/sport/activityMain'" style="margin:20px">返回</button>
 <button class="apply" id="${activity.actId}">報名</button>
+
+</div>
+
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#back").on("click",function(){
+/*	$("#back").on("click",function(){
 		$.ajax({
 			url:"/springsport/activityMain",
 		    context: document.body,
@@ -80,7 +90,7 @@ $(document).ready(function(){
 
 		   }
 		});	
-	});
+	});*/
 	
 	
 	$(".apply").on("click",function(){
