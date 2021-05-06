@@ -14,4 +14,6 @@ public interface BbsReplyDao extends JpaRepository<BbsReply, Integer> {
 	
 	long countByBbsBbsId(Integer bbsId);
 	
+	List<BbsReply> findByUsersAccountOrderByReplySetupTimeDesc(String account);
+	
 }

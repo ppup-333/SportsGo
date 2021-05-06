@@ -96,4 +96,9 @@ public class BbsServiceImpl implements BbsService {
 		return bbsDao.findByBbsDeleteOrderByBbsSetupTimeDesc(bbsDelete);
 	}
 
+	@Override
+	public List<Bbs> getBbsByUsersAccount(String account) {
+		return bbsDao.findByUsersAccountOrderByBbsSetupTimeDesc(account);
+	}
+
 }

@@ -24,4 +24,5 @@ public interface BbsReplyService {
 	
 	void update(BbsReply bbsReply);
 	
+	List<BbsReply> getReplyByUsersAccount(String account);
 }

@@ -17,7 +17,7 @@ import com.sport.springboot.users.model.Users;
 
 @Entity
 @Table(name = "bbs")
-public class Bbs {
+public class Bbs implements Comparable<Bbs> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -119,5 +119,10 @@ public class Bbs {
 	public void setBbsDelete(Integer bbsDelete) {
 		this.bbsDelete = bbsDelete;
 	}
-	
+
+	@Override
+	public int compareTo(Bbs o) {
+		return o.getBbsSetupTime().compareTo(this.getBbsSetupTime());
+	}
+
 }

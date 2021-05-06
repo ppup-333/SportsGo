@@ -215,10 +215,41 @@ public class BbsController_Member {
 		return "redirect:bbsSelect";
 	}
 	
-	//
+	//接我的發文跟我的留言
 	@GetMapping("/bbsMemberPrivate")
-	public String bbsMemberPrivate() {
-		
+	public String bbsMemberPrivate(HttpSession session) {
 		return "bbs/BbsMemberPrivate";
+	}
+	
+	//我的發文
+	@GetMapping("/bbs.selectSearchPrivateBbs")
+	public @ResponseBody List<BbsVo> selectPrivateBbs(@RequestParam("typeId") Integer typeId,
+			@RequestParam Integer bbsDelete, HttpSession session) {
+		String account = session.getAttribute("account").toString();
+		List<Bbs> bbsList = bbsService.getBbsByUsersAccount(account);
+		List<BbsReply> replyList = bbsReplyService.getReplyByUsersAccount(account);
+		replyList.stream().forEach(bbsReply -> {
+			if(!bbsList.contains(bbsReply.getBbs())) {
+				bbsList.add(bbsReply.getBbs());
+			}
+		});
+		return bbsList.stream().filter(bbs -> bbs.getBbsDelete() == bbsDelete || bbs.getBbsDelete() == 2)
+				.sorted()
+				.map(bbs -> {
+					BbsVo bbsVo = new BbsVo();
+					bbsVo.setBbsId(bbs.getBbsId());
+					bbsVo.setAccount(bbs.getUsers().getAccount());
+					bbsVo.setBbsTitle(bbs.getBbsTitle());
+					bbsVo.setBbsMessage(bbs.getBbsMessageByDetail().length() >= 20 ? bbs.getBbsMessageByDetail().substring(0, 20) + "..." : bbs.getBbsMessageByDetail());
+					bbsVo.setBbsSetupTime(bbs.getBbsSetupTime());
+					bbsVo.setBbsUpdateTime(bbs.getBbsUpdateTime());
+					bbsVo.setTypeName(bbs.getBbsType().getTypeName());
+					bbsVo.setBbsDelete(bbs.getBbsDelete());
+					BbsReply bbsReply = bbs.getReplyList().size() == 0 ? null : 
+					bbs.getReplyList().stream().max(Comparator.comparing(BbsReply::getReplySetupTime)).get();
+					bbsVo.setReplySetupTime(bbsReply != null ? bbsReply.getReplySetupTime() : null);
+					bbsVo.setReplyAccount(bbsReply != null ? bbsReply.getUsers().getAccount() : null);
+					return bbsVo;
+					}).collect(Collectors.toList());
 	}
 }

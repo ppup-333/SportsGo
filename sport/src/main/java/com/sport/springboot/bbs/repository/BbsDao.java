@@ -21,4 +21,6 @@ public interface BbsDao extends JpaRepository<Bbs, Integer> {
 	List<Bbs> findByBbsTypeTypeGroupOrderByBbsSetupTimeDesc(String typeGroup);
 	
 	List<Bbs> findByBbsDeleteOrderByBbsSetupTimeDesc(Integer bbsDelete);
+	
+	List<Bbs> findByUsersAccountOrderByBbsSetupTimeDesc(String account);
 }
