@@ -61,7 +61,7 @@ public class BbsController_Manager {
 		return bbsList.stream().map(bbs -> {
 			BbsVo bbsVo = new BbsVo();
 			bbsVo.setBbsId(bbs.getBbsId());
-			bbsVo.setBbsBuilder(bbs.getBbsBuilder());
+			bbsVo.setAccount(bbs.getUsers().getAccount());
 			bbsVo.setBbsTitle(bbs.getBbsTitle());
 			bbsVo.setBbsMessage(bbs.getBbsMessage().length() >= 20 ? bbs.getBbsMessage().substring(0, 20) + "..." : bbs.getBbsMessage());
 			bbsVo.setBbsSetupTime(bbs.getBbsSetupTime());
@@ -71,7 +71,7 @@ public class BbsController_Manager {
 			BbsReply bbsReply = bbs.getReplyList().size() == 0 ? null : 
 				bbs.getReplyList().stream().max(Comparator.comparing(BbsReply::getReplySetupTime)).get();
 			bbsVo.setReplySetupTime(bbsReply != null ? bbsReply.getReplySetupTime() : null);
-			bbsVo.setReplyAccount(bbsReply != null ? bbsReply.getReplyAccount() : null);
+			bbsVo.setReplyAccount(bbsReply != null ? bbsReply.getUsers().getAccount() : null);
 			return bbsVo;
 		}).collect(Collectors.toList());
 
@@ -84,7 +84,7 @@ public class BbsController_Manager {
 		return searchList.stream().map(bbs -> {
 			BbsVo bbsVo = new BbsVo();
 			bbsVo.setBbsId(bbs.getBbsId());
-			bbsVo.setBbsBuilder(bbs.getBbsBuilder());
+			bbsVo.setAccount(bbs.getUsers().getAccount());
 			bbsVo.setBbsTitle(bbs.getBbsTitle());
 			bbsVo.setBbsMessage(bbs.getBbsMessage().length() >= 20 ? bbs.getBbsMessage().substring(0, 20) + "..." : bbs.getBbsMessage());
 			bbsVo.setBbsSetupTime(bbs.getBbsSetupTime());
@@ -94,7 +94,7 @@ public class BbsController_Manager {
 			BbsReply bbsReply = bbs.getReplyList().size() == 0 ? null : 
 				bbs.getReplyList().stream().max(Comparator.comparing(BbsReply::getReplySetupTime)).get();
 			bbsVo.setReplySetupTime(bbsReply != null ? bbsReply.getReplySetupTime() : null);
-			bbsVo.setReplyAccount(bbsReply != null ? bbsReply.getReplyAccount() : null);
+			bbsVo.setReplyAccount(bbsReply != null ? bbsReply.getUsers().getAccount() : null);
 			return bbsVo;
 		}).collect(Collectors.toList());
 	}
@@ -111,7 +111,7 @@ public class BbsController_Manager {
 		return bbsList.stream().map(bbs -> {
 			BbsVo bbsVo = new BbsVo();
 			bbsVo.setBbsId(bbs.getBbsId());
-			bbsVo.setBbsBuilder(bbs.getBbsBuilder());
+			bbsVo.setAccount(bbs.getUsers().getAccount());
 			bbsVo.setBbsTitle(bbs.getBbsTitle());
 			bbsVo.setBbsMessage(bbs.getBbsMessage());
 			bbsVo.setBbsSetupTime(bbs.getBbsSetupTime());
@@ -121,7 +121,7 @@ public class BbsController_Manager {
 			BbsReply bbsReply = bbs.getReplyList().size() == 0 ? null : 
 				bbs.getReplyList().stream().max(Comparator.comparing(BbsReply::getReplySetupTime)).get();
 			bbsVo.setReplySetupTime(bbsReply != null ? bbsReply.getReplySetupTime() : null);
-			bbsVo.setReplyAccount(bbsReply != null ? bbsReply.getReplyAccount() : null);
+			bbsVo.setReplyAccount(bbsReply != null ? bbsReply.getUsers().getAccount() : null);
 			return bbsVo;
 		}).collect(Collectors.toList());
 

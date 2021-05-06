@@ -21,7 +21,7 @@
 </head>
 <body>
 
-	<div class="container-sm">
+	<div class="container-sm pt-3">
 <!-- 		<a href="bbsM"><button type="button" class="btn btn-primary">全部</button></a> -->
 
 		<div class="dropdown">
@@ -41,7 +41,6 @@
 						<c:if test="${game.typeId == typeId}">selected</c:if>>${game.typeName}</option>
 				</c:forEach>
 			</select>
-			
 	
 			<select id="health" name="health" class="custom-select-sm">
 				<option value="-2">-- 健康情報 --</option>
@@ -51,7 +50,6 @@
 				</c:forEach>
 			</select>
 			
-	
 			<select id="sport" name="sport" class="custom-select-sm">
 				<option value="-3">-- 揪團運動 --</option>
 				<c:forEach var="sport" items="${sportList}">
@@ -65,6 +63,8 @@
 			<input id="searchImage"	type="image" src="images/magnifier.png" width="20" height="20">
 		
 		</div>
+		
+		<br>
 				
 		<table class="table table-striped" id="table" data-pagination="true" data-page-size="5"
 			data-pagination-parts="['pageList']">
@@ -80,101 +80,97 @@
 			</thead>
 		</table>
 	</div>
-		<script>
-			//dropdown
-			function selectDelete(deleteType){
-				var $table = $('#table');
-				$.get("bbsM.selectSearchByBbsDelete?bbsDelete=" + deleteType,
-						function(data) {
-							$table.bootstrapTable({
-								data : data
-							});
-							$table.bootstrapTable('load', data);
-				});
-			}
-			
-			$("#game").change(
-					function() {
-						var $table = $('#table');
-						$.get("bbsM.selectSearch?typeId=" + $("#game").val(),
-								function(data) {
-									$table.bootstrapTable({
-										data : data
-									});
-									$table.bootstrapTable('load', data);
-								});
-					});
-
-			$("#health").change(
-					function() {
-						var $table = $('#table');
-						$.get("bbsM.selectSearch?typeId=" + $("#health").val(),
-								function(data) {
-									$table.bootstrapTable({
-										data : data
-									});
-									$table.bootstrapTable('load', data);
-								});
-					});
-
-			$("#sport").change(
-					function() {
-						var $table = $('#table');
-						$.get("bbsM.selectSearch?typeId=" + $("#sport").val(),
-								function(data) {
-									$table.bootstrapTable({
-										data : data
-									});
-									$table.bootstrapTable('load', data);
-								});
-					});
-
-		</script>
-		
-		<script>
+	
+	<script>
+	//dropdown
+		function selectDelete(deleteType){
 			var $table = $('#table');
-			$.get("bbsM.selectSearch?typeId=0", function(data) {
+			$.get("bbsM.selectSearchByBbsDelete?bbsDelete=" + deleteType,
+			function(data) {
 				$table.bootstrapTable({
 					data : data
 				});
 				$table.bootstrapTable('load', data);
 			});
+		}
 			
-			function DeleteFormatter(value, row, index) {
-				if(row.bbsDelete == 0){
-					return "<span class='badge badge-success'>正常</span>";
-				}else if(row.bbsDelete == 1){
-					return "<span class='badge badge-secondary'>用戶刪除</span>";
-				}else{
-					return "<span class='badge badge-warning'>管理員刪除</span>";
-				}
-			}
-			
-			function TitleFormatter(value, row, index) {
-				  return "<a href='bbsM.Select?bbsId=" + row.bbsId + "'>" + value + "<br>" + row.bbsMessage + "</a>";
-				}
-
-			function BuilderFormatter(value, row, index) {
-				return row.bbsBuilder + "<br>" + row.bbsSetupTime;
-			}
-			
-			function ReplyFormatter(value, row, index) {
-				if(row.replyAccount != null){
-					return row.replyAccount + "<br>" + row.replySetupTime;
-				}else{
-					return "";
-				}
-			}
-
-			$("#searchImage").on("click", function() {
-				var $table = $('#table');
-				$.get("bbsM.discussion.r?search="+$("#search").val(), function(data) {
-					$table.bootstrapTable({
-						data : data
-					});
-					$table.bootstrapTable('load', data);
+		$("#game").change(function() {
+			var $table = $('#table');
+			$.get("bbsM.selectSearch?typeId=" + $("#game").val(),
+			function(data) {
+				$table.bootstrapTable({
+					data : data
 				});
+				$table.bootstrapTable('load', data);
 			});
-		</script>
+		});
+
+		$("#health").change(function() {
+			var $table = $('#table');
+			$.get("bbsM.selectSearch?typeId=" + $("#health").val(),
+			function(data) {
+				$table.bootstrapTable({
+					data : data
+				});
+				$table.bootstrapTable('load', data);
+			});
+		});
+
+		$("#sport").change(function() {
+			var $table = $('#table');
+			$.get("bbsM.selectSearch?typeId=" + $("#sport").val(),
+			function(data) {
+				$table.bootstrapTable({
+					data : data
+				});
+				$table.bootstrapTable('load', data);
+			});
+		});
+
+		var $table = $('#table');
+		$.get("bbsM.selectSearch?typeId=0", function(data) {
+			$table.bootstrapTable({
+				data : data
+			});
+			$table.bootstrapTable('load', data);
+		});
+			
+		function DeleteFormatter(value, row, index) {
+			if(row.bbsDelete == 0){
+				return "<span class='badge badge-success'>正常</span>";
+			} else if(row.bbsDelete == 1){
+				return "<span class='badge badge-secondary'>用戶刪除</span>";
+			} else {
+				return "<span class='badge badge-warning'>管理員刪除</span>";
+			}
+		}
+			
+		function TitleFormatter(value, row, index) {
+			return "<a href='bbsM.Select?bbsId=" + row.bbsId + "'><b style='font-size: 20px'>" + value + "</b><br>" + row.bbsMessage + "</a>";
+		}
+
+		function BuilderFormatter(value, row, index) {
+			return row.bbsBuilder + "<br>" + row.bbsSetupTime;
+		}
+			
+		function ReplyFormatter(value, row, index) {
+			if (row.replyAccount != null) {
+				return row.replyAccount + "<br>" + row.replySetupTime;
+			} else {
+				return "";
+			}
+		}
+
+		$("#searchImage").on("click", function() {
+			var $table = $('#table');
+			$.get("bbsM.discussion.r?search=" + $("#search").val(),
+			function(data) {
+				$table.bootstrapTable({
+					data : data
+				});
+				$table.bootstrapTable('load', data);
+			});
+		});
+	</script>
 </body>
 </html>

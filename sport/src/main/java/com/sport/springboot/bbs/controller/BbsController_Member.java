@@ -7,6 +7,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,8 @@ import com.sport.springboot.bbs.service.BbsReplyService;
 import com.sport.springboot.bbs.service.BbsService;
 import com.sport.springboot.bbs.service.BbsTypeService;
 import com.sport.springboot.bbs.vo.BbsVo;
+import com.sport.springboot.users.model.Users;
+import com.sport.springboot.users.service.UsersService;
 
 @Controller
 public class BbsController_Member {
@@ -34,6 +38,8 @@ public class BbsController_Member {
 	private BbsTypeService bbsTypeService;
 	@Autowired
 	private BbsReplyService bbsReplyService;
+	@Autowired
+	UsersService usersService;
 
 	// 所有類型分類，使用在select下拉式選單
 	public void prepareList(Model m) {
@@ -55,23 +61,6 @@ public class BbsController_Member {
 	}
 
 	// select下拉式選單分類查詢
-//	@PostMapping("/bbs.selectSearch")
-//	public String selectType(@RequestParam Integer typeId, Model m) {
-//		prepareList(m);
-//		List<Bbs> bbsList = new ArrayList<>();
-//		if (typeId > 0) {
-//			bbsList = bbsService.getBbsByTypeId(typeId); // orderBy bbsSetupTime
-//		} else if (typeId == 0) {
-//			bbsList = bbsService.getAllBbs();
-//		} else {
-//			bbsList = bbsService.getBbsByTypeGroup(typeId);
-//		}
-//		m.addAttribute("bbsList", bbsList);
-//		m.addAttribute("typeId", typeId);
-//		return "BbsMemberHomePage";
-//	}
-
-	// select下拉式選單分類查詢
 	@GetMapping("/bbs.selectSearch")
 	public @ResponseBody List<BbsVo> selectType(@RequestParam("typeId") Integer typeId,
 												@RequestParam Integer bbsDelete) {
@@ -87,7 +76,7 @@ public class BbsController_Member {
 				.map(bbs -> {
 					BbsVo bbsVo = new BbsVo();
 					bbsVo.setBbsId(bbs.getBbsId());
-					bbsVo.setBbsBuilder(bbs.getBbsBuilder());
+					bbsVo.setAccount(bbs.getUsers().getAccount());
 					bbsVo.setBbsTitle(bbs.getBbsTitle());
 					bbsVo.setBbsMessage(bbs.getBbsMessageByDetail().length() >= 20 ? bbs.getBbsMessageByDetail().substring(0, 20) + "..." : bbs.getBbsMessageByDetail());
 					bbsVo.setBbsSetupTime(bbs.getBbsSetupTime());
@@ -97,20 +86,11 @@ public class BbsController_Member {
 					BbsReply bbsReply = bbs.getReplyList().size() == 0 ? null : 
 						bbs.getReplyList().stream().max(Comparator.comparing(BbsReply::getReplySetupTime)).get();
 					bbsVo.setReplySetupTime(bbsReply != null ? bbsReply.getReplySetupTime() : null);
-					bbsVo.setReplyAccount(bbsReply != null ? bbsReply.getReplyAccount() : null);
+					bbsVo.setReplyAccount(bbsReply != null ? bbsReply.getUsers().getAccount() : null);
 					return bbsVo;
 				}).collect(Collectors.toList());
 
 	}
-
-	// 模糊查詢
-//	@GetMapping("/bbsdiscussion.r")
-//	public String bbsReadBySearch(@RequestParam("search") String search, Model m) {
-//		prepareList(m);
-//		List<Bbs> searchList = bbsService.getBbsBySearch(search);
-//		m.addAttribute("searchList", searchList);
-//		return "BbsReadDiscussion";
-//	}
 
 	// 模糊查詢
 	@GetMapping("/bbsdiscussion.r")
@@ -119,7 +99,7 @@ public class BbsController_Member {
 		return searchList.stream().map(bbs -> {
 			BbsVo bbsVo = new BbsVo();
 			bbsVo.setBbsId(bbs.getBbsId());
-			bbsVo.setBbsBuilder(bbs.getBbsBuilder());
+			bbsVo.setAccount(bbs.getUsers().getAccount());
 			bbsVo.setBbsTitle(bbs.getBbsTitle());
 			bbsVo.setBbsMessage(bbs.getBbsMessageByDetail().length() >= 20 ? bbs.getBbsMessageByDetail().substring(0, 20) + "..." : bbs.getBbsMessageByDetail());
 			bbsVo.setBbsSetupTime(bbs.getBbsSetupTime());
@@ -129,7 +109,7 @@ public class BbsController_Member {
 			BbsReply bbsReply = bbs.getReplyList().size() == 0 ? null : 
 				bbs.getReplyList().stream().max(Comparator.comparing(BbsReply::getReplySetupTime)).get();
 			bbsVo.setReplySetupTime(bbsReply != null ? bbsReply.getReplySetupTime() : null);
-			bbsVo.setReplyAccount(bbsReply != null ? bbsReply.getReplyAccount() : null);
+			bbsVo.setReplyAccount(bbsReply != null ? bbsReply.getUsers().getAccount() : null);
 			return bbsVo;
 		}).collect(Collectors.toList());
 	}
@@ -149,7 +129,12 @@ public class BbsController_Member {
 
 	// 新增發文
 	@PostMapping("/bbsCreateSuccess")
-	public String bbsCreate(@ModelAttribute("bbs") Bbs bbs, RedirectAttributes attr) {
+	public String bbsCreate(@ModelAttribute("bbs") Bbs bbs, HttpSession session, 
+			RedirectAttributes attr) {
+		String account = session.getAttribute("account").toString();
+		Users users = usersService.get(account);
+		users.setAccount(account);
+		bbs.setUsers(users);
 		bbs.setBbsSetupTime(Timestamp.valueOf(LocalDateTime.now()));
 		Bbs newBbs = bbsService.save(bbs);
 		attr.addAttribute("bbsId", newBbs.getBbsId());
@@ -175,19 +160,11 @@ public class BbsController_Member {
 		return "redirect:bbs";
 	}
 
-	 //跳進編輯發文頁面
-//	@PostMapping("/bbsUpdate")
-//	public String bbsUpdate(@RequestParam Integer bbsId, Model m) {
-//		prepareList(m);
-//		Bbs bbs = bbsService.getBbsByBbsId(bbsId);
-//		m.addAttribute("bbs", bbs);
-//		return "BbsUpdate";
-//	}
-
 	// 編輯發文
 	@PostMapping("/bbsUpdateSuccess")
 	public String bbsUpdateSuccess(@RequestParam Integer bbsId, @RequestParam String bbsTitle,
-			@RequestParam String bbsMessage, @RequestParam Integer typeId, RedirectAttributes attr, Model m) {
+			@RequestParam String bbsMessage, @RequestParam Integer typeId, RedirectAttributes attr,
+			Model m) {
 		Bbs bbs = bbsService.getBbsByBbsId(bbsId);// 從資料庫拉物件進來，bbsId是從前端頁面傳過來的
 		bbs.setBbsTitle(bbsTitle);
 		bbs.setBbsMessage(bbsMessage);
@@ -203,7 +180,11 @@ public class BbsController_Member {
 	// 回覆發文
 	@PostMapping("/bbsReplySuccess")
 	public String bbsReplySuccess(@ModelAttribute("bbsReply") BbsReply bbsReply, @RequestParam Integer bbsId,
-			RedirectAttributes attr, Model m) {
+			RedirectAttributes attr, HttpSession session, Model m) {
+		String account = session.getAttribute("account").toString();
+		Users users = usersService.get(account);
+		users.setAccount(account);
+		bbsReply.setUsers(users);	
 		bbsReply.setReplySetupTime(Timestamp.valueOf(LocalDateTime.now()));
 		Bbs bbs = bbsService.getBbsByBbsId(bbsId);
 		bbsReply.setBbs(bbs);
@@ -214,7 +195,8 @@ public class BbsController_Member {
 
 	// 刪除回覆
 	@PostMapping("/bbsReplyDelete")
-	public String bbsReplyDelete(@RequestParam Integer replyId, @RequestParam Integer bbsId, RedirectAttributes attr) {
+	public String bbsReplyDelete(@RequestParam Integer replyId, @RequestParam Integer bbsId, 
+			RedirectAttributes attr) {
 		bbsReplyService.delete(replyId);
 		attr.addAttribute("bbsId", bbsId);
 		return "redirect:bbsSelect";
@@ -222,15 +204,21 @@ public class BbsController_Member {
 
 	// 編輯回覆
 	@PostMapping("/bbsReplyUpdate")
-	public String bbsReplyUpdate(@RequestParam Integer replyId, @RequestParam String reply, @RequestParam Integer bbsId,
+	public String bbsReplyUpdate(@RequestParam Integer replyId, @RequestParam String reply, @RequestParam Integer bbsId, 
 			RedirectAttributes attr) {
 		BbsReply bbsReply = bbsReplyService.getReplyByReplyId(replyId);
-//		bbsReply.setReplyAccount(replyAccount);
 		bbsReply.setReply(reply);
 		bbsReply.setReplyUpdateTime(Timestamp.valueOf(LocalDateTime.now()));
 		bbsReplyService.update(bbsReply);
 		Bbs bbs = bbsService.getBbsByBbsId(bbsId);
 		attr.addAttribute("bbsId", bbs);
 		return "redirect:bbsSelect";
+	}
+	
+	//
+	@GetMapping("/bbsMemberPrivate")
+	public String bbsMemberPrivate() {
+		
+		return "bbs/BbsMemberPrivate";
 	}
 }

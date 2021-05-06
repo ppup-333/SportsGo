@@ -8,8 +8,8 @@ public class BbsVo {
 	
 	private Integer bbsId;
 
-	private String bbsBuilder;
-
+	private String account;
+	
 	private String bbsTitle;
 
 	private String bbsMessage;
@@ -31,6 +31,8 @@ public class BbsVo {
 	
 	private Integer replyDelete;
 	
+	private String name;
+	
 	
 	public String getTypeName() {
 		return typeName;
@@ -48,12 +50,12 @@ public class BbsVo {
 		this.bbsId = bbsId;
 	}
 
-	public String getBbsBuilder() {
-		return bbsBuilder;
+	public String getAccount() {
+		return account;
 	}
 
-	public void setBbsBuilder(String bbsBuilder) {
-		this.bbsBuilder = bbsBuilder;
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 	public String getBbsTitle() {
@@ -118,6 +120,14 @@ public class BbsVo {
 
 	public void setReplyDelete(Integer replyDelete) {
 		this.replyDelete = replyDelete;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
