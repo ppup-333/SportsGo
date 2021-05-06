@@ -240,8 +240,8 @@ top:-10px;
     </div> <!--end of main--><br>
 
 
-
-        <div id="head"></div>
+        
+        
 
 		<div id= "cart">
 
@@ -251,6 +251,26 @@ top:-10px;
 				<br>
 		
 		</div>
+		
+		<hr>
+        <div id="category">
+
+        <a href="<c:url value='storeProductsAll?category=1'/> " ><button>健身用品</button></a>
+        <a href="<c:url value='storeProductsAll?category=2'/> " ><button>服裝</button></a>
+        <a href="<c:url value='storeProductsAll?category=3'/> " ><button>鞋類</button></a>
+        <a href="<c:url value='storeProductsAll?category=4'/> " ><button>護具</button></a>
+        <a href="<c:url value='storeProductsAll?category=5'/> " ><button>配件</button></a>
+        <a href="<c:url value='storeProductsAll?category=6'/> " ><button>羽球</button></a>
+        <a href="<c:url value='storeProductsAll?category=7'/> " ><button>籃球</button></a>
+        <a href="<c:url value='storeProductsAll?category=8'/> " ><button>壁球</button></a>
+        <a href="<c:url value='storeProductsAll?category=9'/> " ><button>桌球</button></a>
+        <a href="<c:url value='storeProductsAll?category=10'/> " ><button>排球</button></a>
+        <a href="<c:url value='storeProductsAll'/> " ><button>All</button></a><br>
+        
+        category = ${category}
+        <input id="categoryI" type="hidden" value="${category}">
+
+        </div>
 
 <hr>
 		<div id="allProduct"></div>
@@ -259,16 +279,20 @@ top:-10px;
 	</div>
 
 	<script type='text/javascript'>
+	var category = document.getElementById("categoryI").value;
+	console.log(category);
 	
-	var allProducts = document.getElementById("allProducts");
-	
+	if (category >= 1){
+		//var category = ${category};
+		//var category = document.getElementById("category");
+		
 		$(document).ready(xhrFunction);
 
 		function xhrFunction(){
-			//var tid = parseInt(typeSelect.value);
 			var xhr = new XMLHttpRequest();
-			xhr.open("GET","<c:url value='getProductsJson'/>",true);
-			xhr.send();
+			xhr.open("POST","<c:url value='getProductsJson'/>",true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send("category="+category);
 			if(xhr!=null){
 				xhr.onreadystatechange=function(){
 					if(xhr.readyState==4&&xhr.status==200){
@@ -278,6 +302,25 @@ top:-10px;
 				}
 			}
 		}
+		
+	}
+	else{
+		$(document).ready(xhrFunction0);
+		function xhrFunction0(){
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST","<c:url value='getProductsJson'/>",true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send("category=0");
+			if(xhr!=null){
+				xhr.onreadystatechange=function(){
+					if(xhr.readyState==4&&xhr.status==200){
+						testProducts(xhr.responseText);
+						//displayProducts(xhr.responseText);					
+					}					
+				}
+			}
+		}
+	}
 
 function testProducts(responseText){
 	var mapData = JSON.parse(responseText);		

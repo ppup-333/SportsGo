@@ -57,7 +57,7 @@ width: 90px;
 
 #orderlist{
    width: 830px;
-   border: 1px black solid;
+/*    border: 1px black solid; */
    margin-top:30px;  
    margin-left:220px;
    padding:10px 0px;
@@ -67,6 +67,17 @@ width: 90px;
 }
 
 .listnum{
+margin-top:20px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+
+}
+
+.listnone{
+font-size:24px;
+font-weight:bold;
+
 text-align:center;
 }
 
@@ -179,6 +190,13 @@ function orderLists(responseText){
 	var fee = 0;
 	
 	
+	if (orderList.length==0){
+		
+		content= "<p class='listnone'>目前沒有訂單紀錄，請去消費再來^.<</p>";
+		
+	}
+	
+	else {
 	content = "<table class='order'><tr>"
 			+ "<th class='time'>訂單時間</th>"
 			+ "<th class='product'>訂單內容</th>"
@@ -198,6 +216,8 @@ function orderLists(responseText){
 	content+="</table>";
 
 	content+="<p class='listnum'>共 "+orderList.length+" 筆訂單</p>";
+	
+	}
 	
 	contentfoot ="<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 
