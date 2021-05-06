@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -13,13 +14,12 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sport.springboot.course_act.model.CATime;
@@ -53,7 +53,7 @@ public class activityControl {
 //		return re;
 //	}
 
-	@GetMapping("/activityApply")
+	@PostMapping("/activityApply")
 	public String activityApply(@RequestParam String actId, Model model) {
 		int id = Integer.parseInt(actId);
 		Optional<activityBean> activity = activityservice.selectOneActivity(id);
@@ -84,21 +84,30 @@ public class activityControl {
 		return "course_act/activityCheckSignUp";
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@GetMapping("/activityMain")
-	public ResponseEntity<List> activityMain() {
+	public String GetActivityMainJsp() {
+		return "course_act/NewActMain";
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@GetMapping("/activity")
+	@ResponseBody
+	public List activityMain() {
 		List<activityBean> alist = null;
 		List resultList = new ArrayList<>();
 
 		alist = activityservice.selectAllActivity();
 
 		for (int i = 0; i < alist.size(); i++) {
-			resultList.add(alist.get(i).getActId());
-			resultList.add(alist.get(i).getActPicture());
-			resultList.add(alist.get(i).getActCost());
-			resultList.add(alist.get(i).getActMaxNum());
-			resultList.add(alist.get(i).getActCurrentNum());
-			resultList.add(alist.get(i).getActName());
+			Map activityMap=new HashMap();
+			activityMap.put("actId", alist.get(i).getActId());
+			activityMap.put("actPicture", alist.get(i).getActPicture());
+			activityMap.put("actCost", alist.get(i).getActCost());
+			activityMap.put("actMaxNum", alist.get(i).getActMaxNum());
+			activityMap.put("actCurrentNum", alist.get(i).getActCurrentNum());
+			activityMap.put("actName", alist.get(i).getActName());
+
+			
 			Iterator it = alist.get(i).getTime().iterator();
 			String DateStart = "";
 			String DateEnd = "";
@@ -108,16 +117,17 @@ public class activityControl {
 				CATime time = (CATime) it.next();
 				insideMap.add(time.getDate());
 				if (b) {
-					resultList.add(time.getTimeStart());
-					resultList.add(time.getTimeEnd());
+					activityMap.put("TimeStart", time.getTimeStart());
+					activityMap.put("TimeEnd", time.getTimeEnd());
 					b = false;
 				}
 			}
 			Collections.sort(insideMap);
 			DateStart = insideMap.get(0);
 			DateEnd = insideMap.get(insideMap.size() - 1);
-			resultList.add(DateStart);
-			resultList.add(DateEnd);
+			activityMap.put("DateStart", DateStart);
+			activityMap.put("DateEnd", DateEnd);
+			resultList.add(activityMap);
 			System.out.println("--------------------------");
 			System.out.println("開始日期:" + DateStart + "結束日期:" + DateEnd);
 
@@ -126,9 +136,7 @@ public class activityControl {
 		// model.addAttribute("resultList", resultList);
 		// return "actMain";
 		// List<activityBean> alist=null;
-		ResponseEntity<List> re = null;
-		re = new ResponseEntity<>(resultList, HttpStatus.OK);
-		return re;
+		return resultList;
 	}
 
 	@PostMapping("/activityInsertImpl")

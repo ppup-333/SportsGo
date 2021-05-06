@@ -6,17 +6,61 @@
 <head>
 <meta charset="UTF-8">
 <title>courseOrderSelect</title>
+<style type="text/css">
+table{
+border:1px solid #FFF8D7;
+text-align:center;
+margin-top:20px;
+margin-left: auto;
+margin-right: auto;
+}
+th{
+padding:10px;
+background-color:#FFD500;
+border-left:1px solid #FFF8D7;
+}
+td{
+color:	#6C6C6C;
+background-color:#FFFFDF;
+padding:10px;
+}
+.course{
+width:400px;
+margin-left:200px;
+margin-top:50px;
+font-size:50px;
+}
+.apply{
+	 background-color:#FFD500;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top:20px;
+  margin-left:auto;
+   margin-right:auto;
+	
+}
+
+.main_body {
+	text-align: center;
+}
+</style>
 </head>
 <body>
 
+<div class="main_body">
 
 <c:choose>
 <c:when test="${result=='0'}">
-<h1>目前沒有付款完成的課程</h1>
+
+<div class="course">目前沒有付款完成的課程<hr></div>
 </c:when>
 <c:otherwise>
-<h1>已付款完成的課程</h1>
-
+	<div class="course">已付款完成的課程<hr></div>
 <table class='courseTable' border='1' style='border-collapse:collapse; border:2px solid #D0D0D0; border-right:1px solid #D0D0D0; margin-left: auto; margin-right:auto;'>
 
 <tr><th width='70'>課程名稱</th><th width='70'>費用</th><th width='70'>上課時間</th><th width='70'>下課時間</th><th width='100'>開始日期</th><th width='100'>結束日期</th></tr>
@@ -30,6 +74,7 @@
 </table>
 </c:otherwise>
 </c:choose>
-
+<button type="button" class="apply" onclick="window.location.href='/sport/'">回首頁</button>
+</div>
 </body>
 </html>

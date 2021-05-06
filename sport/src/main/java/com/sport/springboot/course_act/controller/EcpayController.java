@@ -58,7 +58,7 @@ public class EcpayController {
 		String account="mary123";
 		String MerchantTradeNo="";
 		List<CourseOrderBean> courseOrderList=courseorderservice.selectByAccount(account);
-		
+		List<CourseOrderBean> updatecourseOrderList=new ArrayList<>();
 		String result="";
 		if(!courseOrderList.isEmpty()) {
 			for(int i=0;i<courseOrderList.size();i++) {
@@ -83,10 +83,14 @@ public class EcpayController {
 						if(Integer.parseInt(TradeStatus)==1) {
 							CourseOrderBean courseOrder=courseOrderList.get(i);
 							courseOrder.setPayState(1);
-							courseorderservice.updateCourseOrder(courseOrder);
+							updatecourseOrderList.add(courseOrder);
+							//courseorderservice.updateCourseOrder(courseOrder);
 						}
 					
 				}
+			}
+			for(int i=0;i<updatecourseOrderList.size();i++) {
+				courseorderservice.updateCourseOrder(updatecourseOrderList.get(i));
 			}
 			
 			List<List> resultList=new ArrayList<>();
