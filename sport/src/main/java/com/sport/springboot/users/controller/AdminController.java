@@ -62,9 +62,9 @@ public class AdminController {
 		Users users = new Users();
 		model.addAttribute("adminLogin", users);
 
-		if (session.getAttribute("account") != null) {
-			return "users/AdminHomePage";
-		}
+//		if (session.getAttribute("account") != null) {
+//			return "users/AdminHomePage";
+//		}
 
 		return "users/AdminLogin";
 
@@ -132,28 +132,57 @@ public class AdminController {
 	}
 
 	@GetMapping(value = "/adminUserHomePage")
-	public String adminUserHomePage() {
+	public String adminUserHomePage(HttpSession session) {
+
+		String loginAct = session.getAttribute("account").toString();
+
+		List<UserAuthList> loginActStatus = userAuthListService.chkUserAuth(loginAct);
+
+		if (loginActStatus.size() == 0) {
+			return "redirect:/admin/AdminLogin";
+		}
+
 		return "users/AdminUserHomePage";
 
 	}
 
 	@GetMapping(value = "/resultAllUsers")
-	public String adminResultUsers(Model model) {
+	public String adminResultUsers(Model model, HttpSession session) {
 		Users users = new Users();
 		model.addAttribute("adminResultUsers", users);
 		List<UserCity> cityList = userCityService.getAllCity();
 		model.addAttribute("cityList", cityList);
 		List<UserStatus> statusList = userStatusService.getAllStatus();
 		model.addAttribute("statusList", statusList);
+		
+		String loginAct = session.getAttribute("account").toString();
+
+		List<UserAuthList> loginActStatus = userAuthListService.chkUserAuth(loginAct);
+
+		if (loginActStatus.size() == 0) {
+			return "redirect:/admin/AdminLogin";
+		}
+		
 		return "users/AdminResultUsers";
 
 	}
 
 	@GetMapping(value = "/resultAllAdmins")
-	public String adminResultAdmin(Model model) {
+	public String adminResultAdmin(Model model, HttpSession session) {
 		Users users = new Users();
 //		UserAuthList userAuth = new UserAuthList();
 		model.addAttribute("userAuth", users);
+		
+		String loginAct = session.getAttribute("account").toString();
+
+		List<UserAuthList> loginActStatus = userAuthListService.chkUserAuth(loginAct);
+
+		if (loginActStatus.size() == 0) {
+			return "redirect:/admin/AdminLogin";
+		}
+		
+		
+		
 		return "users/AdminResultAdmin";
 
 	}
