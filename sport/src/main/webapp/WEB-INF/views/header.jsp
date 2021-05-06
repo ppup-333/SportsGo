@@ -65,10 +65,12 @@
                                 <span id="aboutUs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     活動與課程
                                 </span>
-                                <div class="dropdown-menu" aria-labelledby="aboutUs">
-                                    <a class="dropdown-item" href="#">活動總覽</a>
-                                    <a class="dropdown-item" href="#">課程總覽</a>
-                                    <a class="dropdown-item" href="#">我要報名</a>
+                                 <div class="dropdown-menu" aria-labelledby="aboutUs">
+                                    <a class="dropdown-item" href="/sport/activityMain">活動總覽</a>
+                                    <a class="dropdown-item" href="/sport/NewCourseMain">課程總覽</a>
+                                    <a class="dropdown-item" href="/sport/NewManageCourseMain">管理課程</a>
+                                    <a class="dropdown-item" href="/sport/NewCourseMain">管理活動</a>
+                                    <a class="dropdown-item" href="/sport/NewCourseMain">管理活動</a>
                                 </div>
                             </div>
                             <div class="btn-group">

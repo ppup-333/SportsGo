@@ -33,7 +33,7 @@ public class EcpayController {
 	@Autowired
 	private CourseOrderService courseorderservice;
 	
-	private final String properties="D:/_SpringBoot/workspace/sport_course/src/main/java/ecpay/payment/integration";
+	private final String properties="D:\\gitHub\\SportsGo\\sport\\src\\main\\java\\ecpay\\payment\\integration";
 	
 	@PostMapping("ecpay")
 	public String ecpay(@RequestParam String courseId,
