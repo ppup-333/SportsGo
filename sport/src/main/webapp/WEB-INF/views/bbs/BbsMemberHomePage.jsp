@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../header.jsp"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
 	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
 	crossorigin="anonymous">
@@ -26,7 +27,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:import url="../header.jsp"/>
 	
 	<a href="bbsMemberPrivate"><button type="button" class="btn btn-primary btn-sm">我的發文與留言</button></a>
 

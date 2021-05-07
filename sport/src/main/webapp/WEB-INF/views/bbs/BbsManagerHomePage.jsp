@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../header.jsp"/>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -20,8 +21,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:import url="../header.jsp"/>
-
+	
 	<div class="container-fluid pt-3">
 		<div class="row">
 			<div class="col-2"></div>
