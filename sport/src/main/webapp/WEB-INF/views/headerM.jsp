@@ -17,20 +17,22 @@
 <!-- header -->
     <nav id="bar1" class="navbar navbar-light bg-info">
         <a class="navbar-brand" href="/sport/managerHome">Sports Go!</a>
-        <button type="button" class="btn btn-light text-info">登出</button>
+        <form action="/sport/user/Logout" method="post">
+        	<button type="submit" class="btn btn-light text-info">登出</button>
+        </form>
     </nav>
     <ul id="ul1" class="nav justify-content-center">
         <li class="nav-item">
-            <a class="nav-link" href="#">帳號管理</a>
-            <!-- <div class="btn-group">
+<!--             <a class="nav-link" href="#">帳號管理</a> -->
+            <div class="btn-group">
                 <span class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     帳號管理
                 </span>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#"></a>
-                    <a class="dropdown-item" href="#"></a>
+                    <a class="dropdown-item" href="#">會員資料查詢／異動</a>
+                    <a class="dropdown-item" href="#">管理員查詢／異動</a>
                 </div>
-            </div> -->
+            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">公告管理</a>
@@ -81,7 +83,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">討論區</a>        
+            <a class="nav-link" href="#">討論區管理</a>        
             <!-- <div class="btn-group">
                 <span class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     討論區

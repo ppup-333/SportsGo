@@ -330,13 +330,14 @@ public class UserController {
 		}
 
 		session.setAttribute("account", account);
+		session.setAttribute("username", usersService.get(account).getName());
 		System.out.println("session1=" + session.getAttribute("account"));
 //		if (chkStatus(account)) {
 ////////////////////////////////////////////////////////////////////////////////////////
 //			//reAttr.addAttribute("tempAccount", reAttr)
 //			return "redirect:/user/ChkEmail";
 //		}
-		return "users/LoginHomePage";
+		return "index";
 
 	}
 
