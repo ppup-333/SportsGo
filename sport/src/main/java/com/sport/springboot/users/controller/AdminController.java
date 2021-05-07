@@ -117,7 +117,8 @@ public class AdminController {
 
 		session.setAttribute("account", account);
 //		System.out.println("session1=" + session.getAttribute("account"));
-		return "users/AdminHomePage";
+//		return "users/AdminHomePage";
+		return "indexM";
 
 	}
 

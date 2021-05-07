@@ -21,7 +21,7 @@
 <script>
 	$(document).ready(function(){
 		var xhr = new XMLHttpRequest();
-		var dataUrl = "Bulletin/bulletinPaging/" + 1;
+		var dataUrl = "/sport/Bulletin/bulletinPaging/" + 1;
 		xhr.open('GET', dataUrl, true)
 		xhr.send()
 		xhr.onreadystatechange = function(){
@@ -58,13 +58,13 @@
                     </ol>
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <img src="images/gym2.jpg" class="d-block w-100">
+                        <img src="/sport/images/gym2.jpg" class="d-block w-100">
                       </div>
                       <div class="carousel-item">
-                        <img src="images/swimmingpool2.jpg" class="d-block w-100">
+                        <img src="/sport/images/swimmingpool2.jpg" class="d-block w-100">
                       </div>
                       <div class="carousel-item">
-                        <img src="images/tabletennis2.jpg" class="d-block w-100">
+                        <img src="/sport/images/tabletennis2.jpg" class="d-block w-100">
                       </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
