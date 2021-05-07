@@ -1,5 +1,6 @@
 package com.sport.springboot.users.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,12 +10,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -131,7 +135,6 @@ public class UserController {
 
 	}
 
-
 	@PostMapping(value = "/chkAccount")
 	public @ResponseBody Map<String, String> getChkAccount(@RequestParam(value = "account") String account) {
 
@@ -176,7 +179,6 @@ public class UserController {
 
 	}
 
-
 	@PostMapping(value = "/RegisterEdit")
 	public String addUser(@ModelAttribute("users") Users users, BindingResult result, HttpServletRequest request,
 			HttpSession session, Model model) {
@@ -208,7 +210,7 @@ public class UserController {
 		// 使用者密碼加密end
 
 		users.setPassword(encPwd);
-		
+
 		if ("".equals(users.getMobile())) {
 			users.setMobile(null);
 		}
@@ -242,18 +244,18 @@ public class UserController {
 
 		UUID uuid = UUID.randomUUID();
 		String code = uuid.toString().toUpperCase().replaceAll("-", "");
-		
+
 		UserAuthList userAuthList = new UserAuthList();
 		userAuthList.setUserAuthListOid(code);
 		userAuthList.setUsers(users);
 		userAuthList.setAuthCode(userAuthService.get("01"));
 		userAuthList.setVer(dateTime);
-		
+
 		try {
-			sendToGmail(users);
+
 			usersService.save(users);
 			userAuthListService.save(userAuthList);
-
+			sendToGmail(users);
 		} catch (Exception ex) {
 
 			System.out.println(ex.getClass().getName() + ", ex.getMessage()=" + ex.getMessage());
@@ -261,7 +263,7 @@ public class UserController {
 			result.rejectValue("email", "", "此信箱已經被使用");
 			return "users/RegisterEdit";
 		}
-		
+
 //		this.checkAccount = users.getAccount();
 //////////////////////////////////////////////////////////////////////////////////////
 		session.setAttribute("tempAccount", users.getAccount());
@@ -546,7 +548,7 @@ public class UserController {
 		return "redirect:/user/loginHomePage";
 
 	}
-	
+
 //	private String checkAccount = "";
 	@GetMapping(value = "/ChkEmail")
 	public String chkEmail(Model model) {
@@ -555,7 +557,7 @@ public class UserController {
 //			model.addAttribute("checkAccount", checkAccount);
 //			checkAccount = "";
 //		}
-		
+
 		return "users/ChkEmail";
 	}
 
@@ -605,7 +607,7 @@ public class UserController {
 
 	@GetMapping(value = "/resetVerifyCode")
 	@ResponseBody
-	public void resetVerifyCode(HttpSession session) {
+	public void resetVerifyCode(HttpSession session)throws  UnsupportedEncodingException {
 		RandomCode random = new RandomCode();
 		String verifyCode = random.verifyCode();
 		String account = session.getAttribute("tempAccount").toString();
@@ -621,30 +623,51 @@ public class UserController {
 
 		userActValidateTempService.updateCode(uavt);
 		// 重製驗證碼後繼寄信
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(user.getEmail());
-		message.setSubject("運動中心註冊認證");
-		message.setText("您的4位認證碼為: " + verifyCode + "\n請於15分鐘內輸入認證碼。");
-		mailSender.send(message);
+		
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper;
+			helper = new MimeMessageHelper(message,true,"utf-8");
+			helper.setFrom("hla524290337@gmail.com","SportsGo!運動中心");
+			helper.setTo(user.getEmail());
+			helper.setSubject("運動中心註冊認證");
+			helper.setText(user.getName() + "您好!\n您的4位認證碼為: " + verifyCode + "\n請於15分鐘內輸入認證碼。");
+			mailSender.send(message);
+		} catch (MessagingException e) {
+			System.out.println("=======sending email fail!==========");
+			e.printStackTrace();
+		}
+		
+		
 
 	}
 
-	void sendToGmail(Users user) {
-		SimpleMailMessage message = new SimpleMailMessage();
-		String mailAddress = user.getEmail();
+	void sendToGmail(Users user) throws  UnsupportedEncodingException {
+//		SimpleMailMessage message = new SimpleMailMessage();
+		
 		RandomCode random = new RandomCode();
 		String verifyCode = random.verifyCode();
-		message.setTo(mailAddress);
-		message.setSubject("運動中心註冊認證");
-		message.setText("您的4位認證碼為: " + verifyCode + "\n請於15分鐘內輸入認證碼。");
 
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper;
+			helper = new MimeMessageHelper(message,true,"utf-8");
+			helper.setFrom("hla524290337@gmail.com","SportsGo!運動中心");
+			helper.setTo(user.getEmail());
+			helper.setSubject("運動中心註冊認證");
+			helper.setText(user.getName() + "您好!\n您的4位認證碼為: " + verifyCode + "\n請於15分鐘內輸入認證碼。");
+			mailSender.send(message);
+		} catch (MessagingException e) {
+			System.out.println("=======sending email fail!==========");
+			e.printStackTrace();
+		}
 		UserActValidateTemp uavt = new UserActValidateTemp();
 		uavt.setAccount(user.getAccount());
 		uavt.setValidate_code(verifyCode);
 		uavt.setExpired_time(new Timestamp(System.currentTimeMillis()));
 
 		userActValidateTempService.save(uavt);
-		mailSender.send(message);
+		
 	}
 
 	boolean chkStatus(String account) {

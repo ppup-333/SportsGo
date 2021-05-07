@@ -18,7 +18,7 @@
 	}
 </style>
 <script>
-	var time = 1;
+	var time = 60;
 	function resetVerifyCode(){
 		$.ajax({
 			url:'resetVerifyCode',
@@ -31,7 +31,7 @@
 	function toggleBtn(){
 		if(time==0){
 		    $("#resetCodeBtn").attr("disabled",false);
-		    time = 1;
+		    time = 60;
 		    $("#resetBtnMessage").empty();
 		    return false;//清除定时器
 		   }else{
