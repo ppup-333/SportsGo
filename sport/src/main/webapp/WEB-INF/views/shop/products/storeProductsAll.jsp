@@ -8,11 +8,12 @@
 
 <style>
 
-/* #allproduct{ */
+#allProduct{ 
 
-/* margin-top:-100px; */
+min-height:300px;
+text-align: center;
 
-/* } */
+ } 
 
 
 .title{
@@ -134,6 +135,13 @@ margin-right:5px;
 
 }
 
+#cart{
+height:120px;
+
+}
+
+
+
 .cart{
 /* float:right; */
 /* min-height:80px; */
@@ -145,6 +153,8 @@ border: none;
 /* margin-top:-10px; */
 color:red;
 font-weight: bolder;
+margin-top:-25px
+
 
 }
 
@@ -185,9 +195,9 @@ top:-10px;
 
 .searchBar{
 position: relative;
-top:60px;
+top:30px;
  width:650px;
- margin-left:300px;
+ margin-left:400px;
 }
 
 .key{
@@ -196,8 +206,56 @@ top:60px;
 
 #searchResult{
  text-align: center;
+}
+.category{
 
 }
+
+
+.categoryButton{
+background-color: #8da7fc   ;
+margin:7px;
+width:180px;
+height:50px;
+font-size:22px;
+color:white;
+margin-left:55px;
+ border-radius: 25px;
+ border:2px white solid; 
+ 
+}
+
+.categoryButton:hover{
+background-color: #3869f0   ;
+box-shadow:1px 1px 2px grey  ;
+width:180px;
+height:50px;
+font-size:22px;
+color:white;
+/*  border:2px #4400f5 solid; */
+}
+
+
+.allButton{
+background-color: #4f674c  ;
+margin:7px;
+width:180px;
+height:50px;
+font-size:22px;
+ color:white; 
+position:relative;
+top:70px;
+margin-left:55px;
+  border-radius: 25px; 
+/*  border:2px #211c4f solid; */
+ box-shadow:1px 1px 2px grey  ;
+  border:2px white solid; 
+ 
+}
+
+
+
+
 </style>
 
 <title>運動中心商城</title>
@@ -256,9 +314,10 @@ top:60px;
         
 
 		<div id= "cart">
+		 <a href="<c:url value='storeProductsAll?keyword=${keyword}'/> " ><button class="allButton"><i class="fas fa-tags"> &nbsp; 所有商品</i></button ></a>
 		
 		<p class="searchBar">請輸入商品名稱：<input id="keywordI" type="text" name="keyword" class="key" required="required" value="${keyword}">
-	<button id="search" >搜尋</button> <c:if test="${!empty keyword}" ><button id="unSearch" >清除搜尋結果</button> </c:if>
+	<button id="search" > 搜尋</button> <c:if test="${!empty keyword}" ><button id="unSearch" > 清除搜尋結果</button> </c:if>
 	<input type='hidden' name='status' value='${status}'>
 	<input type='hidden' name='category' value='${category}'></p>
 
@@ -273,21 +332,22 @@ top:60px;
 		<hr>
         <div id="category">
 
-        <a href="<c:url value='storeProductsAll?category=1&keyword=${keyword}'/> " ><button class="categoryButton">健身用品</button></a>
-        <a href="<c:url value='storeProductsAll?category=2&keyword=${keyword}'/> " ><button>服裝</button></a>
-        <a href="<c:url value='storeProductsAll?category=3&keyword=${keyword}'/> " ><button>鞋類</button></a>
-        <a href="<c:url value='storeProductsAll?category=4&keyword=${keyword}'/> " ><button>護具</button></a>
-        <a href="<c:url value='storeProductsAll?category=5&keyword=${keyword}'/> " ><button>配件</button></a>
-        <a href="<c:url value='storeProductsAll?category=6&keyword=${keyword}'/> " ><button>羽球</button></a>
-        <a href="<c:url value='storeProductsAll?category=7&keyword=${keyword}'/> " ><button>籃球</button></a>
-        <a href="<c:url value='storeProductsAll?category=8&keyword=${keyword}'/> " ><button>壁球</button></a>
-        <a href="<c:url value='storeProductsAll?category=9&keyword=${keyword}'/> " ><button>桌球</button></a>
-        <a href="<c:url value='storeProductsAll?category=10&keyword=${keyword}'/> " ><button>排球</button></a>
-        <a href="<c:url value='storeProductsAll?keyword=${keyword}'/> " ><button>All</button></a><br>
+        <a href="<c:url value='storeProductsAll?category=1&keyword=${keyword}'/> " ><button id="bn1" class="categoryButton"><i class="fas fa-dumbbell"> &nbsp; 健身</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=2&keyword=${keyword}'/> " ><button id="bn2" class="categoryButton"><i class="fas fa-tshirt"> &nbsp; 服裝</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=3&keyword=${keyword}'/> " ><button id="bn3" class="categoryButton"><i class="fas fa-shoe-prints"> &nbsp; 鞋類</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=4&keyword=${keyword}'/> " ><button id="bn4" class="categoryButton"><i class="fas fa-user-shield"> &nbsp; 護具</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=5&keyword=${keyword}'/> " ><button id="bn5" class="categoryButton"><i class="fas fa-toolbox"> &nbsp; 配件</i></button></a><br>
+        <a href="<c:url value='storeProductsAll?category=6&keyword=${keyword}'/> " ><button id="bn6" class="categoryButton"><i class="fas fa-feather"> &nbsp; 羽球</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=7&keyword=${keyword}'/> " ><button id="bn7" class="categoryButton"><i class="fas fa-basketball-ball"> &nbsp; 籃球</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=8&keyword=${keyword}'/> " ><button id="bn8" class="categoryButton"><i class="fas fa-circle"> &nbsp; 壁球</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=9&keyword=${keyword}'/> " ><button id="bn9" class="categoryButton"><i class="fas fa-table-tennis"> &nbsp; 桌球</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=10&keyword=${keyword}'/> " ><button id="bn10" class="categoryButton"><i class="fas fa-volleyball-ball"> &nbsp; 排球</i></button></a>
+       <br>
         
-        category = ${category}
-        keyword = ${keyword}
-        category_list = ${productCategoryList[category].name}
+<%--         category = ${category} --%>
+<%--         keyword = ${keyword} --%>
+<%--         category_list = ${productCategoryList[category].name} --%>
+
         <input id="categoryI" type="hidden" value="${category}">
         <input id="keyword2" type="hidden" value="${keyword}">
 
@@ -420,7 +480,7 @@ function testProducts(responseText){
 			}	
 		}
 	}else if(productList.length == 0){
-		content = "<h3>沒有商品資料</h3>"; 
+		content = "<br><br><h3>沒有商品資料</h3>"; 
 	}
 	
 // 	if (keyword ="")
@@ -434,7 +494,10 @@ function testProducts(responseText){
 		cartnn.innerHTML = cartcontent;
 	}
 
+
 	
+	$("#bn"+category).css('background-color', '#fe802f');
+	$("#bn"+category).css('box-shadow', '1px 1px 2px grey '); //box-shadow:1px 1px 2px grey  ;
 	result.innerHTML = productList.length;
 	$(".All").show();
 	$(".All2").show();
