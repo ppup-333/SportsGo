@@ -53,8 +53,9 @@
                     課程活動
                 </span>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">課程管理</a>
-                    <a class="dropdown-item" href="#">活動管理</a>
+                    <a class="dropdown-item" href="/sport/NewManageCourseMain">管理課程</a>
+                    <a class="dropdown-item" href="/sport/NewCourseMain">管理活動</a>
+                    <a class="dropdown-item" href="/sport/teacherHome">管理老師</a>
                 </div>
             </div>
         </li>

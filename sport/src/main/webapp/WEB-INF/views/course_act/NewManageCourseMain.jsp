@@ -365,7 +365,7 @@ function sport(s){
 
 </head>
 <body>
-	<c:import url="../header.jsp" />
+	<c:import url="../headerM.jsp" />
 	 
 	 
 	<div id="calendarModal" class="modal fade">

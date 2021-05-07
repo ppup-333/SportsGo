@@ -70,9 +70,7 @@
                                  <div class="dropdown-menu" aria-labelledby="aboutUs">
                                     <a class="dropdown-item" href="/sport/activityMain">活動總覽</a>
                                     <a class="dropdown-item" href="/sport/NewCourseMain">課程總覽</a>
-                                    <a class="dropdown-item" href="/sport/NewManageCourseMain">管理課程</a>
-                                    <a class="dropdown-item" href="/sport/NewCourseMain">管理活動</a>
-                                    <a class="dropdown-item" href="/sport/NewCourseMain">管理活動</a>
+                                    
                                 </div>
                             </div>
                             <div class="btn-group">
