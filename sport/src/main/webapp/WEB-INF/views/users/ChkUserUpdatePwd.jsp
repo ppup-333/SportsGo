@@ -77,9 +77,10 @@
 </fieldset>
 		<div>
 			<input type='button' value='登入' onclick='form1.submit()'>
+			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'>
 <!-- 			<input type='button' value='註冊' onclick='location.href="RegisterEdit"'> -->
 <!-- 			<input type='button' value='忘記密碼' onclick='location.href="ForgetPwd"'> -->
-			<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
+			<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
 <!-- 			<a href="RegisterEdit">註冊</a>  -->
 <%-- 			<a href="<c:url value='../'/> " >回前頁</a> --%>
 <!-- 			<a href="user/...">登入</a> -->
