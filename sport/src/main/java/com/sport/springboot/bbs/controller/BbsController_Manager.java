@@ -47,7 +47,8 @@ public class BbsController_Manager {
 		prepareList(m);
 		return "bbs/BbsManagerHomePage";
 	}
-
+	
+	//首頁下拉式選單
 	@GetMapping("/bbsM.selectSearch")
 	public @ResponseBody List<BbsVo> bbsMselectType(@RequestParam("typeId") Integer typeId) {
 		List<Bbs> bbsList = new ArrayList<>();
