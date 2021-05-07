@@ -26,12 +26,14 @@ public class Bulletin {
 	@JoinColumn(name = "class_id", nullable = false)
 	BulletinClass class_id;
 	String contents;
+	String subtitle;
 	Timestamp date;
 	Timestamp update_time;
 	Blob image;
 	String fileName;
 	@Transient
 	MultipartFile productImage;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -55,6 +57,13 @@ public class Bulletin {
 	}
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+	
+	public String getSubtitle() {
+		return subtitle;
+	}
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
 	}
 	public Timestamp getDate() {
 		return date;

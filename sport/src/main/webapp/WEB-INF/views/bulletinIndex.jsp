@@ -51,6 +51,7 @@
 	<hr />
 	<div style="text-align: center">
 		<a href='Bulletin/showAllBulletin'>顯示現有公告</a><br>
+		<a href='Bulletin/viewBulletin'>用戶瀏覽公告</a>
 		<br>
 	</div>
 
