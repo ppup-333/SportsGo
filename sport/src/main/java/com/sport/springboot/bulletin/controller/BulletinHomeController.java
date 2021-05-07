@@ -10,4 +10,9 @@ public class BulletinHomeController {
 	public String home() {
 		return "bulletinIndex";
 	}
+	
+	@RequestMapping("Bulletin/viewBulletin")
+	public String viewBulletin() {
+		return "Bulletin/viewBulletin";
+	}
 }
