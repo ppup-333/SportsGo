@@ -23,73 +23,47 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<c:import url="../header.jsp"/>
 	
-	<div class="container pt-3">
-
-		<a href="bbsM"><button class="btn btn-info btn-sm">留言板</button></a>
-	
-		<form id="select" name="select">
-			<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
-			<div>
-				<div>
-					<div class="row">
-						<h6 class="col-sm-1">${bbs.bbsType.typeName}</h6>
-						<h1 class="col-sm-11">${bbs.bbsTitle}</h1>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-9">
-						${bbs.users.account}
-					</div>
-					<div class="col-sm-3">
-						<p>
-							建立時間：<fmt:formatDate value="${bbs.bbsSetupTime}"
-								pattern="YYYY-MM-dd HH:mm" />
+	<div class="container-fluid pt-3">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+				<form id="select" name="select">
+				<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
+					<div>
+						<div>
+							<div class="row">
+								<h6 class="col-sm-1">${bbs.bbsType.typeName}</h6>
+								<h1 class="col-sm-11">${bbs.bbsTitle}</h1>
+							</div>
+						</div>
+							<div class="row">
+								<div class="col-sm-8">${bbs.users.account}</div>
+								<div class="col-sm-4">
+									<p>
+										建立時間：<fmt:formatDate value="${bbs.bbsSetupTime}"
+											pattern="YYYY-MM-dd HH:mm" />
 							<br>
-							<c:if test="${bbs.bbsUpdateTime != null}">
-								最後編輯：<fmt:formatDate value="${bbs.bbsUpdateTime}"
-									pattern="YYYY-MM-dd HH:mm" />
-							</c:if>
-						</p>
+									<c:if test="${bbs.bbsUpdateTime != null}">
+										最後編輯：<fmt:formatDate value="${bbs.bbsUpdateTime}"
+											pattern="YYYY-MM-dd HH:mm" />
+									</c:if>
+									</p>
+								</div>
+							</div>
+							<div>${bbs.bbsMessage}</div>
 					</div>
-				</div>
-				<div>${bbs.bbsMessage}</div>
-			</div>
-			<br>
-			<div>
-				<button type="button" id="deteleBbs" style="display: none;" class="btn btn-danger btn-sm">刪除</button>
-				<button type="button" id="recoveryBbs" style="display: none;" class="btn btn-warning btn-sm">刪除還原</button>
-	<!-- 			<button type="button" id="upDateBbs" class="btn btn-primary btn-sm">編輯</button> -->
-			</div>
+				<br>
+					<div>
+						<button type="button" id="deteleBbs" style="display: none;" class="btn btn-danger btn-sm">刪除</button>
+						<button type="button" id="recoveryBbs" style="display: none;" class="btn btn-warning btn-sm">刪除還原</button>
+					</div>
 		</form>
-	
-	
-	<!-- 	<hr> -->
-	
-	<%-- 	<form:form modelAttribute="bbsReply" id="reply" name="reply" --%>
-	<%-- 		action="bbsReplySuccess" method="post"> --%>
-	<%-- 		<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}"> --%>
-	<%-- 		<form:textarea id="replyMessage" name="replyMessage" path="reply" --%>
-	<%-- 			rows="3" cols="40" style="resize: none" placeholder="敲下你的留言..."></form:textarea> --%>
-	<%-- 	</form:form> --%>
-		<script>
-			// 	在回覆發文的<textarea>以Enter送出，Enter + Shift換行
-			$("#replyMessage").keypress(function(e) {
-				var replyText = $("#replyMessage").val();
-				if (e.which === 13 && !e.shiftKey) {
-					e.preventDefault();
-					if (replyText.length > 0) {
-						$(this).closest("form").submit();
-					}
-				}
-			});
-			document.getElementById("replyMessage").value = "";
-		</script>
 	
 		<br>
 	
 		<form id="replyForm" name="replyForm">
-	<%-- 		<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}"> --%>
 			<c:forEach var="reply" items="${replyList}">
 				<input type="hidden" id="${reply.replyId}" name="${reply.replyId}" value="${reply.replyId}">
 				<div class="card">
@@ -109,8 +83,8 @@
 					<div class="card-body">
 						<div class="card-title">
 							<div class="row">
-								<p class="card-text col-sm-9" id="div${reply.replyId}">${reply.reply}</p>
-								<P class="col-sm-3">
+								<p class="card-text col-sm-8" id="div${reply.replyId}">${reply.reply}</p>
+								<P class="col-sm-4">
 									建立時間：<fmt:formatDate value="${reply.replySetupTime}"
 										pattern="YYYY-MM-dd HH:mm" />
 									<br>
@@ -122,10 +96,6 @@
 							</div>
 						</div>
 						<div>
-							<!-- 							<button -->
-							<!-- 								onclick="javascript:document.replyForm.action='bbsM.ReplyDelete'; document.replyForm.method='post'; return false;" -->
-							<%-- 								id="replyDelete${reply.replyId}" --%>
-							<%-- 								class="replyDelete btn btn-danger btn-sm" rel="${reply.replyId}">刪除</button> --%>
 							<button type="button" id="deleteReply${reply.replyId}" style="display: none;" class="btn btn-danger btn-sm">刪除</button>
 							<button type="button" id="recoveryReply${reply.replyId}" style="display: none;"	class="btn btn-warning btn-sm">刪除還原</button>
 						</div>
@@ -133,7 +103,9 @@
 				</div>
 			</c:forEach>
 		</form>
-		
+			</div>
+			<div class="col-2"></div>
+		</div>
 	</div>
 
 	<script>

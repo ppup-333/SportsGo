@@ -20,65 +20,77 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<c:import url="../header.jsp"/>
 
-	<div class="container-sm pt-3">
-<!-- 		<a href="bbsM"><button type="button" class="btn btn-primary">全部</button></a> -->
-
-		<div class="dropdown">
-			<button type="button" id="selectDropdown" name="selectDropdown" class="btn btn-primary btn-sm dropdown-toggle"
-				data-toggle="dropdown">選擇狀態</button>
-			<ul class="dropdown-menu">
-				<li class="dropdown-item" onclick="selectDelete(-1)">全部</li> 
-				<li class="dropdown-item" onclick="selectDelete(0)">正常</li>
-				<li class="dropdown-item" onclick="selectDelete(1)">用戶刪除</li>
-				<li class="dropdown-item" onclick="selectDelete(2)">管理員刪除</li>
-			</ul>
-
-			<select id="game" name="game" class="custom-select-sm">
-				<option value="-1">-- 賽事討論 --</option>
-				<c:forEach var="game" items="${gameList}">
-					<option value="${game.typeId}"
-						<c:if test="${game.typeId == typeId}">selected</c:if>>${game.typeName}</option>
-				</c:forEach>
-			</select>
-	
-			<select id="health" name="health" class="custom-select-sm">
-				<option value="-2">-- 健康情報 --</option>
-				<c:forEach var="health" items="${healthList}">
-					<option value="${health.typeId}"
-						<c:if test="${health.typeId == typeId}">selected</c:if>>${health.typeName}</option>
-				</c:forEach>
-			</select>
-			
-			<select id="sport" name="sport" class="custom-select-sm">
-				<option value="-3">-- 揪團運動 --</option>
-				<c:forEach var="sport" items="${sportList}">
-					<option value="${sport.typeId}"
-						<c:if test="${sport.typeId == typeId}">selected</c:if>>${sport.typeName}</option>
-				</c:forEach>
-			</select>
-			
-			<input type="search" id="search" name="search" autocomplete="off"
-				placeholder="輸入查詢字串...">
-			<input id="searchImage"	type="image" src="images/magnifier.png" width="20" height="20">
+	<div class="container-fluid pt-3">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+				<div class="dropdown">
+					<button type="button" id="selectDropdown" name="selectDropdown" class="btn btn-primary btn-sm dropdown-toggle"
+						data-toggle="dropdown">選擇狀態</button>
+					<ul class="dropdown-menu">
+						<li class="dropdown-item" onclick="selectDelete(-1)">全部</li> 
+						<li class="dropdown-item" onclick="selectDelete(0)">正常</li>
+						<li class="dropdown-item" onclick="selectDelete(1)">用戶刪除</li>
+						<li class="dropdown-item" onclick="selectDelete(2)">管理員刪除</li>
+					</ul>
 		
+					<select id="game" name="game" class="custom-select-sm">
+						<option value="-1">-- 賽事討論 --</option>
+						<c:forEach var="game" items="${gameList}">
+							<option value="${game.typeId}"
+								<c:if test="${game.typeId == typeId}">selected</c:if>>${game.typeName}</option>
+						</c:forEach>
+					</select>
+			
+					<select id="health" name="health" class="custom-select-sm">
+						<option value="-2">-- 健康情報 --</option>
+						<c:forEach var="health" items="${healthList}">
+							<option value="${health.typeId}"
+								<c:if test="${health.typeId == typeId}">selected</c:if>>${health.typeName}</option>
+						</c:forEach>
+					</select>
+					
+					<select id="sport" name="sport" class="custom-select-sm">
+						<option value="-3">-- 揪團運動 --</option>
+						<c:forEach var="sport" items="${sportList}">
+							<option value="${sport.typeId}"
+								<c:if test="${sport.typeId == typeId}">selected</c:if>>${sport.typeName}</option>
+						</c:forEach>
+					</select>
+					
+					<input type="search" id="search" name="search" autocomplete="off"
+						placeholder="輸入查詢字串...">
+					<input id="searchImage"	type="image" src="images/magnifier.png" width="20" height="20">
+				</div>
+			</div>
+			<div class="col-2"></div>
 		</div>
+	</div>
 		
 		<br>
-				
-		<table class="table table-striped" id="table" data-pagination="true" data-page-size="5"
-			data-pagination-parts="['pageList']">
-			<thead>
-				<tr>
-					<th data-field="bbsDelete" data-formatter="DeleteFormatter">狀態</th>
-					<th data-field="bbsId">序號</th>
-					<th data-field="typeName">類型</th>
-					<th data-field="bbsTitle"  data-formatter="TitleFormatter">標題<br>內文</th>
-					<th data-field="bbsBuilder" data-formatter="BuilderFormatter">建立者</th>
-					<th data-field="replySetupTime" data-formatter="ReplyFormatter">最新回覆</th>
-				</tr>
-			</thead>
-		</table>
+		
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+				<table class="table table-striped" id="table" data-pagination="true" data-page-size="5"
+					data-pagination-parts="['pageList']">
+					<thead>
+						<tr>
+							<th data-field="bbsDelete" data-formatter="DeleteFormatter" data-halign="center" data-align="center" data-width="80">狀態</th>
+							<th data-field="bbsId" data-halign="center" data-align="center" data-width="80">序號</th>
+							<th data-field="typeName" data-halign="center" data-align="center" data-width="80">類型</th>
+							<th data-field="bbsTitle"  data-formatter="TitleFormatter" data-halign="center" data-align="left">發文</th>
+							<th data-field="bbsBuilder" data-formatter="BuilderFormatter" data-halign="center" data-align="center" data-width="180">建立者</th>
+							<th data-field="replySetupTime" data-formatter="ReplyFormatter" data-halign="center" data-align="center" data-width="180">最新回覆</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div class="col-2"></div>
+		</div>		
 	</div>
 	
 	<script>
@@ -150,7 +162,7 @@
 		}
 
 		function BuilderFormatter(value, row, index) {
-			return row.bbsBuilder + "<br>" + row.bbsSetupTime;
+			return row.account + "<br>" + row.bbsSetupTime;
 		}
 			
 		function ReplyFormatter(value, row, index) {
