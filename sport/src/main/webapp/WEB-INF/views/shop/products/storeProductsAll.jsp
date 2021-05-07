@@ -194,6 +194,10 @@ top:60px;
  width:250px;
 }
 
+#searchResult{
+ text-align: center;
+
+}
 </style>
 
 <title>運動中心商城</title>
@@ -245,15 +249,16 @@ top:60px;
                   </div>
             </div>
         </div>
-    </div> <!--end of main--><br>
+    </div> <!--end of main-->
 
 
         
         
 
 		<div id= "cart">
+		
 		<p class="searchBar">請輸入商品名稱：<input id="keywordI" type="text" name="keyword" class="key" required="required" value="${keyword}">
-	<button id="search" >搜尋</button> <c:if test="${keyword!=null}" ><button id="unSearch" >清除搜尋結果</button> </c:if>
+	<button id="search" >搜尋</button> <c:if test="${!empty keyword}" ><button id="unSearch" >清除搜尋結果</button> </c:if>
 	<input type='hidden' name='status' value='${status}'>
 	<input type='hidden' name='category' value='${category}'></p>
 
@@ -268,7 +273,7 @@ top:60px;
 		<hr>
         <div id="category">
 
-        <a href="<c:url value='storeProductsAll?category=1&keyword=${keyword}'/> " ><button>健身用品</button></a>
+        <a href="<c:url value='storeProductsAll?category=1&keyword=${keyword}'/> " ><button class="categoryButton">健身用品</button></a>
         <a href="<c:url value='storeProductsAll?category=2&keyword=${keyword}'/> " ><button>服裝</button></a>
         <a href="<c:url value='storeProductsAll?category=3&keyword=${keyword}'/> " ><button>鞋類</button></a>
         <a href="<c:url value='storeProductsAll?category=4&keyword=${keyword}'/> " ><button>護具</button></a>
@@ -282,12 +287,40 @@ top:60px;
         
         category = ${category}
         keyword = ${keyword}
+        category_list = ${productCategoryList[category].name}
         <input id="categoryI" type="hidden" value="${category}">
         <input id="keyword2" type="hidden" value="${keyword}">
 
         </div>
 
 <hr>
+		<c:if test="${!empty keyword}" >
+			<c:if test="${!empty category}" >
+				<div id="searchResult" class="searchResult">
+					【 ${productCategoryList[category-1].name} 】的分類下<br>
+					關鍵字" ${keyword} "的相關商品 共有 <span id = "result"></span> 個結果
+				</div>	
+			</c:if>
+			<c:if test="${empty category}">
+				<div id="searchResult" class="searchResult">
+					關鍵字" ${keyword} "的相關商品 共有 <span id = "result"></span> 個結果
+				</div>
+			</c:if>
+		</c:if>
+		<c:if test="${empty keyword}" >
+			<c:if test="${!empty category}" >
+				<div id="searchResult" class="searchResult">
+					【 ${productCategoryList[category-1].name} 】分類下 共有 <span id = "result"></span> 個商品
+				</div>	
+			</c:if>
+			<c:if test="${empty category}">
+				<div id="searchResult" class="searchResult">
+					總共有 <span id = "result"></span> 個商品
+				</div>	
+			</c:if>
+		</c:if>
+<!-- 		<span id = "result" style="display:none"></span> -->
+<!-- 		<span id = "result" style="display:none"></span> -->
 		<div id="allProduct"></div>
 		
 	</div>
@@ -401,6 +434,8 @@ function testProducts(responseText){
 		cartnn.innerHTML = cartcontent;
 	}
 
+	
+	result.innerHTML = productList.length;
 	$(".All").show();
 	$(".All2").show();
 	

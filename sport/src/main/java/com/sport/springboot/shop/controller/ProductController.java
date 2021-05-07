@@ -498,7 +498,7 @@ public class ProductController {
 	public void commonData(Model model) {
 		List<ProductCategory> productCategoryList = productCategoryService.getAllProductCategories();
 		model.addAttribute("productCategoryList", productCategoryList);
-		System.out.println("@ModelAttribute productCategoryList = " + productCategoryList);
+		//System.out.println("@ModelAttribute productCategoryList = " + productCategoryList);
 	}
 	
 	@GetMapping("/storeProductsAll")
@@ -506,6 +506,7 @@ public class ProductController {
 		//m.addAttribute("productList",productService.getAllProducts());
 		m.addAttribute("category",category);
 		m.addAttribute("keyword",keyword);
+		//m.addAttribute("productCategoryList",productCategoryList);
 		
 		return "shop/products/storeProductsAll";
 	}	
