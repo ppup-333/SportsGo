@@ -146,7 +146,7 @@ th, td {
 				var remark = (fieldMemberOrderList[i].remark == null) ? "無" : fieldMemberOrderList[i].remark;
 					content += "<tr>"
 							+ "<td>" + fieldMemberOrderList[i].id
-							+ "<td>" + fieldMemberOrderList[i].account
+							+ "<td>" + fieldMemberOrderList[i].users.account
 							+ "<td>" + createTime
 							+ '<td><input type="button" displayId="'+fieldMemberOrderList[i].id+'" class="displayDetail" data-toggle="modal" data-target="#myModal" value="瀏覽"/>'
 							+ "<td>" + attendance

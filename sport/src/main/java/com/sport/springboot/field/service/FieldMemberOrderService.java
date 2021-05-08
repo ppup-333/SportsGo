@@ -3,6 +3,7 @@ package com.sport.springboot.field.service;
 import java.util.List;
 
 import com.sport.springboot.field.model.FieldMemberOrder;
+import com.sport.springboot.field.model.FieldType;
 
 public interface FieldMemberOrderService {
 	
@@ -14,5 +15,6 @@ public interface FieldMemberOrderService {
 	List<FieldMemberOrder> getAllByAccount(String account);
 	List<FieldMemberOrder> getOrderByAccount(String account);
 	List<FieldMemberOrder> getPastOrdersByAccount(String account);
+	List<FieldMemberOrder> getOrderByDateAndPeriod(Integer typeId, String date, Integer periodId);
 
 }
