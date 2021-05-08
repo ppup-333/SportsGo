@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.BasicConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,9 +54,35 @@ public class courseControl {
 	}
 
 	@GetMapping("/courseInsert")
-	public String courseInsert(Model model) {
+	public String courseInsert(@RequestParam String ymd,Model model,HttpSession session) {
+		 List<courseBean> courseList = courseservice.selectAllCourse();		
+		 List<String>  Timeperiod=new ArrayList<>();
+		
+		 System.out.println("選擇的時間"+ymd);
+		for(int i=0;i<courseList.size();i++) {
+			Set<CATime> timeset = courseList.get(i).getTime();
+			Iterator<CATime> it = timeset.iterator();
+			while(it.hasNext()) {
+				CATime time = it.next();
+			//	System.out.println(time.getDate());
+				if(time.getDate().equals(ymd)) {
+					System.out.println(ymd);
+					String timestart=time.getTimeStart().split("\\.")[0].substring(0,5);
+					String timeEnd=time.getTimeEnd().split("\\.")[0].substring(0,5);
+					Timeperiod.add(timestart+"~"+timeEnd);
+				}
+			}
+		}
+		
 		
 		List<teacherBean> teacherList=teacherservice.selectAllTeacher();
+		String courseName=(String) session.getAttribute("courseName");
+		System.out.println(courseName);
+		
+		
+		model.addAttribute("courseName",courseName);
+		model.addAttribute("Timeperiod", Timeperiod);
+		model.addAttribute("time", ymd);
 		model.addAttribute("teacherList", teacherList);
 		return "course_act/courseInsert";
 	}
@@ -79,7 +107,8 @@ public class courseControl {
 			@RequestParam String freq,
 			@RequestParam String teacherId,
 			@RequestParam String studentMaxNum,
-			@RequestParam String courseIntroduce
+			@RequestParam String courseIntroduce,
+			Model model
 			) {
 		System.out.printf("%s %s %s %s %s %s %s %s %s ",courseId,courseName,courseKind,courseCost,	from,freq,teacherId,studentMaxNum,courseIntroduce);
 
@@ -91,11 +120,12 @@ public class courseControl {
 		int tId=Integer.parseInt(teacherId);
 		boolean b=courseservice.updateCourse(id, cost, courseKind,studentmaxnum, courseIntroduce, fre, from, tId);
 		if (b) {
+			model.addAttribute("result", "更新成功");
 			System.out.println("update ok");
 		} else {
-			System.out.println("update not ok");
+			model.addAttribute("result","更新失敗,查詢相關資訊請聯絡後台工程師");
 		}
-		return "course_act/InsertOK";
+		return "course_act/updateOk";
 	}
 	// 前往 更新jsp
 	@GetMapping("/courseUpdate")
@@ -217,17 +247,21 @@ public class courseControl {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping("/manageCourseMain")
-	public String manageCourseMain(@RequestParam String sport, Model model) {
+	public String manageCourseMain(@RequestParam String sport, Model model,HttpSession session) {
 		List<courseBean> cblist = null;
 		if ("1".equals(sport) || "羽球".equals(sport)) {
 			String courseName = "羽球";
 			cblist = courseservice.selectCourse(courseName);
+			session.setAttribute("courseName", courseName);
+			
 		} else if ("2".equals(sport) || "桌球".equals(sport)) {
 			String courseName = "桌球";
 			cblist = courseservice.selectCourse(courseName);
+			session.setAttribute("courseName", courseName);
 		} else if ("3".equals(sport) || "籃球".equals(sport)) {
 			String courseName = "籃球";
 			cblist = courseservice.selectCourse(courseName);
+			session.setAttribute("courseName", courseName);
 		}
 		// 要回傳的List
 		List resultList = new ArrayList<>();
@@ -271,19 +305,22 @@ public class courseControl {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping("/courseMain")
 	@ResponseBody
-	public List courseMain(@RequestParam String sport) {
+	public List courseMain(@RequestParam String sport,HttpSession session) {
 		
 		
 		List<courseBean> cblist = null;
 		if ("1".equals(sport) || "羽球".equals(sport)) {
 			String courseName = "羽球";
 			cblist = courseservice.selectCourse(courseName);
+			session.setAttribute("courseName", courseName);
 		} else if ("2".equals(sport) || "桌球".equals(sport)) {
 			String courseName = "桌球";
 			cblist = courseservice.selectCourse(courseName);
+			session.setAttribute("courseName", courseName);
 		} else if ("3".equals(sport) || "籃球".equals(sport)) {
 			String courseName = "籃球";
 			cblist = courseservice.selectCourse(courseName);
+			session.setAttribute("courseName", courseName);
 		}
 		
 		//更新 最新報名人數
