@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +14,24 @@ import com.sport.springboot.course_act.model.CATime;
 import com.sport.springboot.course_act.model.activityBean;
 import com.sport.springboot.course_act.model.courseBean;
 import com.sport.springboot.course_act.repository.CATimeRepository;
+import com.sport.springboot.field.model.Field;
+import com.sport.springboot.field.model.FieldOrderDetail;
+import com.sport.springboot.field.repository.FieldRepository;
+import com.sport.springboot.field.service.impl.FieldActOrderServiceImpl;
 
 @Service
 public class CATimeService {
 
 	@Autowired
 	private CATimeRepository CATimeDao;
+	@Autowired
+	private FieldActOrderServiceImpl fieldActOrderService;
 	
+	@Autowired
+	FieldRepository fieldRepository;
 	
 	public String convertCourseDate(String courseDate) {
 		String convertDate="";
-		System.out.println(courseDate.substring(8));
 		int Date=Integer.parseInt(courseDate.substring(8));
 		int month=Integer.parseInt(courseDate.substring(5,7));
 		int year=Integer.parseInt(courseDate.substring(0,4));
@@ -76,6 +84,10 @@ public class CATimeService {
 		
 		int D;
 		List<CATime> timeList=null;
+		List<FieldOrderDetail> orderDetailList=null;
+		List<FieldOrderDetail> newOrderDetailList=new ArrayList<>();
+		Optional<Field> field = fieldRepository.findById(Place);
+		Field f = field.get();
 		if("course".equals(type)) {
 			Set<CATime> timeSet=null;
 			List<CATime> insertList=new ArrayList<>();
@@ -92,17 +104,23 @@ public class CATimeService {
 				time.setTimeStart(TimeStart);
 				time.setTimeEnd(TimeEnd);
 				time.setCoursebean(coursebean);
+				time.setFieldId(Place);
+				time.setFieldbean(f);
 				insertList.add(time);
 				timeSet.add(time);	
 				coursebean.setTime(timeSet);
 				
-				//boolean cps=coursePlaceService.save(coursebean);				
-				//檢查場地service
-//				if(cps) {
-//					
-//				}else {
-//					return false;
-//				}
+				orderDetailList = fieldActOrderService.checkOrderTime(Place,Date,TimeStart,TimeEnd);
+				
+				if(orderDetailList==null) {
+					return false;
+				}else {
+					System.out.println(orderDetailList.size());
+					for(int j = 0; j < orderDetailList.size(); j++) {
+					   newOrderDetailList.add(orderDetailList.get(j));
+					  }
+				}
+				
 				Iterator<CATime> it=coursebean.getTime().iterator();
 				while(it.hasNext()) {
 					CATime time1=it.next();
@@ -121,6 +139,14 @@ public class CATimeService {
 			
 			Date=convertCourseDate(Date);
 		}
+			
+			 if(newOrderDetailList != null && newOrderDetailList.size() > 0) {
+				   fieldActOrderService.createActOrder(newOrderDetailList);
+				   System.out.println("場地預約已建立好");
+				  }else {
+					  return false;
+				  }
+			
 			boolean b =insertTime(insertList);
 			if(b) {
 				coursebean.setTime(timeSet);
@@ -138,20 +164,17 @@ public class CATimeService {
 			if(timeList.isEmpty()) {
 				timeSet=new HashSet<>();
 				time=new CATime();
+				
 				System.out.println(Date+" "+TimeStart+" "+TimeEnd);
 				time.setDate(Date);
 				time.setTimeStart(TimeStart);
 				time.setTimeEnd(TimeEnd);
+				time.setFieldbean(f);
+				time.setFieldId(Place);
 				time.setActivitybean(activitybean);
 				insertList.add(time);
-				timeSet.add(time);				
-				//檢查場地service
-//				boolean cps=coursePlaceService.checkPlaceCanRentOrNot(courseDate,courseTimeStart,coursePlace);
-//				if(cps) {
-//					
-//				}else {
-//					return false;
-//				}
+				timeSet.add(time);			
+				orderDetailList = fieldActOrderService.checkOrderTime(Place,Date,TimeStart,TimeEnd);
 			}else {
 				return false;
 			}
@@ -161,8 +184,17 @@ public class CATimeService {
 			System.out.println(Date);
 			Date=convertCourseDate(Date);
 		}	
+			
+			
+			if(orderDetailList!=null&&orderDetailList.size()!=0) {
+				fieldActOrderService.createActOrder(orderDetailList);
+				
+			}else {
+				return false;
+			}
 			boolean b =insertTime(insertList);
 			if(b) {
+				
 				activitybean.setTime(timeSet);
 			}else {
 				return false;

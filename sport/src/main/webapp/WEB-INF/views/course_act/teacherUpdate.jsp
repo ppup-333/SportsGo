@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <meta charset="UTF-8">
 <title>teacherUpdate</title>
 <style>
@@ -12,7 +13,7 @@
         margin: 20px;
         padding-bottom: 10px;
         width: 500px;
-        
+         
         
     }   
     .sub{
@@ -24,18 +25,22 @@
         width: 100px;
         float: left;
         text-align: right;
+       
     }
     .st1{
         background-color: rgb(216, 215, 215);
         border-radius: 6px;
         border: white;
         margin-left: 30px;
-        
+         margin-right:auto;
+        margin-left:auto;
     }
     fieldset{
         width: 600px;
         margin: 20px;
         border: 1px dashed green;
+        margin-right:auto;
+        margin-left:auto;
     }
     legend{
         color: blue;
@@ -47,12 +52,22 @@
     .fl2{
         float: left ;
     }
+    .main_body{
+
+text-align:center;
+}
+
     </style>
 </head>
 <body>
+<c:import url="../headerM.jsp" />
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<div class="main_body">
+
+
 <form  id="update" method="post" action="../springsport/teacherUpdateImpl" enctype="multipart/form-data">
-<fieldset>
- 			<legend>修改教師資料</legend>
+<div>
+ 			<h1>修改教師資料</h1>
  		 <input name="teacherId" value="${teacher.teacherId}" style="display:none"/>
  		   <div class="st1">
             <label for="account" class="t1">老師姓名: </label><input id="teacherName" name="teacherName" value="${teacher.teacherName}"/>
@@ -90,22 +105,24 @@
            <label for="account" class="t1">更改照片: </label>
             <input  type="file" id="teacherPicture" name="teacherPicture"/>
         </div>
-</fieldset>
+</div>
 </form>
    <button type="button" class="back">上一步</button>
    <button id="updateValue">修改</button>
+   </div>
+   
    <script type="text/javascript">
    $(".back").on("click",function(){
-	   $(".main_Title").empty();
-		$(".main_Title").append("管理老師");
-		$.ajax({
-			url:"/springsport/teacherHome",
-		    context: document.body,
-		    success: function(result){
-		    	$("#sport").html(result);
-		  
-		   }
-		});
+	   let xhr=new XMLHttpRequest();
+		xhr.open("GET","/sport/teacherHome",true);
+		 xhr.send();
+		 xhr.onreadystatechange=function(){
+			if(xhr.readyState==4&&xhr.status==200){
+			let response=xhr.responseText;
+			 $("body").empty();
+		     $("body").append(response);
+			}
+		 }	
 	});
    var spImageIncorrect="<img src='images/incorrect.png'  width='10'/>";
    $("#updateValue").on("click",function(){

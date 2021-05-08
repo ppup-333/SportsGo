@@ -95,10 +95,22 @@ function transformdate(d){
 	}
 	
 	if(month<10) {
-		convertDate=year+"-0"+month+"-"+d1;
+		
+		if(d1<10){
+			convertDate=year+"-0"+month+"-0"+d1;
+		}else{
+			convertDate=year+"-0"+month+"-"+d1;
+		}
+
 	}else {
-		convertDate=year+"-"+month+"-"+d1;
+		if(d1<10){
+			convertDate=year+"-"+month+"-0"+d1;
+		}else{
+			convertDate=year+"-"+month+"-"+d1;
+		}
 	}
+	
+	
 	return convertDate;
 }
 
@@ -127,12 +139,13 @@ function sport(s){
 			for(let i=0;i<result.length;i++){
 				DateStart=result[i].DateStart;
 				DateEnd=result[i].DateEnd;
-
+				
 				var GetDateDiff1 = DateDiff(DateStart,DateEnd); 			
 				if(i!=(result.length-1)){
 					
 					DateStart=result[i].DateStart;
 					tempDateStart=DateStart;
+					console.log("第一個List:"+GetDateDiff1);
 					for(let j=0;j<=GetDateDiff1;j+=7){						
 						
 						if(j==0){
@@ -143,8 +156,8 @@ function sport(s){
 							
 						}else{
 
-							let tempDate=tempDateStart.substring(8);
-							let intdate=parseInt(tempDate, 10);
+							let tempDate=tempDateStart.substring(8);							
+							let intdate=parseInt(tempDate, 10);							
 							let date=intdate+7;
 							let ym=tempDateStart.substring(0,8);
 							let d=ym+date;
@@ -160,11 +173,29 @@ function sport(s){
 					}
 					
 				}else{
+					console.log("後面的List:"+GetDateDiff1);
 					
 					DateStart=result[i].DateStart;
 					tempDateStart=DateStart;
 					for(let j=0;j<=GetDateDiff1;j+=7){
 						
+							
+						if(j==0){
+							if(GetDateDiff1==0){
+								context+="{\"id\":\""+result[i].courseId+"\","
+								context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
+								context+="\"start\":\""+result[i].DateStart+"\","
+								context+="\"constraint\":\"businessHours\"}"
+							}else{
+								context+="{\"id\":\""+result[i].courseId+"\","
+							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
+							context+="\"start\":\""+result[i].DateStart+"\","
+							context+="\"constraint\":\"businessHours\"},"
+							}
+															
+						}else if(j==GetDateDiff1){
+							
+							
 							let tempDate=tempDateStart.substring(8);
 							let intdate=parseInt(tempDate, 10);
 							let date=intdate+7;
@@ -172,18 +203,20 @@ function sport(s){
 							let d=ym+date;
 							completeDate=transformdate(d);
 							tempDateStart=completeDate;
-							console.log(completeDate);
-						if(j==0){
-							context+="{\"id\":\""+result[i].courseId+"\","
-							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
-							context+="\"start\":\""+result[i].DateStart+result[i].courseKind+"\","
-							context+="\"constraint\":\"businessHours\"},"								
-						}else if(j==GetDateDiff1){							
+						
 							context+="{\"id\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 							context+="\"start\":\""+tempDateStart+"\","
 							context+="\"constraint\":\"businessHours\"}"	
 						}else{
+							let tempDate=tempDateStart.substring(8);
+							let intdate=parseInt(tempDate, 10);
+							let date=intdate+7;
+							let ym=tempDateStart.substring(0,8);
+							let d=ym+date;
+							completeDate=transformdate(d);
+							tempDateStart=completeDate;
+
 							context+="{\"id\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 							context+="\"start\":\""+tempDateStart+"\","
@@ -198,6 +231,7 @@ function sport(s){
 			console.log(context);
 			
 			let eventCal=JSON.parse(context);
+			context="";
 			$("#animation").removeClass("loader");
 			var calendarEl = document.getElementById('calendar');
 			

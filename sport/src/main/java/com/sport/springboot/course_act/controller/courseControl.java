@@ -29,6 +29,8 @@ import com.sport.springboot.course_act.service.impl.CATimeService;
 import com.sport.springboot.course_act.service.impl.CourseOrderService;
 import com.sport.springboot.course_act.service.impl.courseService;
 import com.sport.springboot.course_act.service.impl.teacherService;
+import com.sport.springboot.field.model.Field;
+import com.sport.springboot.field.service.FieldService;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.QueryTradeInfoObj;
@@ -39,7 +41,7 @@ public class courseControl {
 	@Autowired
 	private courseService courseservice;
 	@Autowired
-	private CATimeService coursetimeservice;
+	FieldService fieldService;	
 	@Autowired
 	private teacherService teacherservice;
 	
@@ -55,7 +57,17 @@ public class courseControl {
 
 	@GetMapping("/courseInsert")
 	public String courseInsert(@RequestParam String ymd,Model model,HttpSession session) {
-		 List<courseBean> courseList = courseservice.selectAllCourse();		
+		 
+		String courseName=(String) session.getAttribute("courseName");
+		String courseTypeId=(String) session.getAttribute("courseTypeId");
+		
+		
+		int typeId=Integer.parseInt(courseTypeId);
+		List<Field> fieldList = fieldService.getByTypeId(typeId);
+		
+		
+		List<courseBean> courseList = courseservice.selectCourse(courseName);
+		
 		 List<String>  Timeperiod=new ArrayList<>();
 		
 		 System.out.println("選擇的時間"+ymd);
@@ -69,14 +81,14 @@ public class courseControl {
 					System.out.println(ymd);
 					String timestart=time.getTimeStart().split("\\.")[0].substring(0,5);
 					String timeEnd=time.getTimeEnd().split("\\.")[0].substring(0,5);
-					Timeperiod.add(timestart+"~"+timeEnd);
+					Timeperiod.add(courseList.get(i).getCourseKind()+" "+timestart+"~"+timeEnd);
 				}
 			}
 		}
 		
 		
 		List<teacherBean> teacherList=teacherservice.selectAllTeacher();
-		String courseName=(String) session.getAttribute("courseName");
+		
 		System.out.println(courseName);
 		
 		
@@ -84,6 +96,7 @@ public class courseControl {
 		model.addAttribute("Timeperiod", Timeperiod);
 		model.addAttribute("time", ymd);
 		model.addAttribute("teacherList", teacherList);
+		model.addAttribute("fieldList", fieldList);
 		return "course_act/courseInsert";
 	}
 //	public  ResponseEntity<List<courseBean>> courseInsert() {
@@ -176,18 +189,19 @@ public class courseControl {
 			@RequestParam String from, @RequestParam String freq, @RequestParam String courseCost,
 			@RequestParam String coursePlace, @RequestParam String teacherId, @RequestParam String studentMaxNum,
 			@RequestParam String courseIntroduce) {
+		
+	
 		String courseTimeStart = (courseKind.split(" ")[1]).split("~")[0];
 		String courseTimeEnd = (courseKind.split(" ")[1]).split("~")[1];
 		System.out.println(" " + courseTimeStart + " " + courseTimeEnd);
-		System.out.println(from + " " + from.substring(8) + " " + freq);
+		//System.out.println(from + " " + from.substring(8) + " " + freq);
 		int date = Integer.parseInt(from.substring(8)) + 7;
-		System.out.println(from.substring(0, 8) + date);
-		System.out.println(teacherId);
+
 
 		int tId = Integer.parseInt(teacherId);
 
 		courseBean course = new courseBean();
-		
+		System.out.println(coursePlace);
 		course.setTeacherId(tId);
 		course.setCourseName(courseName);
 		course.setCourseKind(courseKind.split(" ")[0]);
@@ -197,10 +211,12 @@ public class courseControl {
 		String type = "course";
 		boolean b = courseservice.insertCourse(course, from, Integer.parseInt(freq), tId, courseTimeStart,
 				courseTimeEnd, coursePlace, type);
-
+		String result="";
 		if (b) {
+			result="新增成功";
 			System.out.println("insert ok");
 		} else {
+			result="新增失敗";
 			System.out.println("insert not ok");
 		}
 
@@ -213,7 +229,7 @@ public class courseControl {
 //		if(result) {
 //			return "<button>ok</button>";
 //		}
-		return "gg";
+		return result;
 
 	}
 
@@ -253,15 +269,18 @@ public class courseControl {
 			String courseName = "羽球";
 			cblist = courseservice.selectCourse(courseName);
 			session.setAttribute("courseName", courseName);
+			session.setAttribute("courseTypeId", "1");
 			
 		} else if ("2".equals(sport) || "桌球".equals(sport)) {
 			String courseName = "桌球";
 			cblist = courseservice.selectCourse(courseName);
 			session.setAttribute("courseName", courseName);
+			session.setAttribute("courseTypeId", "4");
 		} else if ("3".equals(sport) || "籃球".equals(sport)) {
 			String courseName = "籃球";
 			cblist = courseservice.selectCourse(courseName);
 			session.setAttribute("courseName", courseName);
+			session.setAttribute("courseTypeId", "2");
 		}
 		// 要回傳的List
 		List resultList = new ArrayList<>();
@@ -313,14 +332,17 @@ public class courseControl {
 			String courseName = "羽球";
 			cblist = courseservice.selectCourse(courseName);
 			session.setAttribute("courseName", courseName);
+			session.setAttribute("courseTypeId", "1");
 		} else if ("2".equals(sport) || "桌球".equals(sport)) {
 			String courseName = "桌球";
 			cblist = courseservice.selectCourse(courseName);
 			session.setAttribute("courseName", courseName);
+			session.setAttribute("courseTypeId", "4");
 		} else if ("3".equals(sport) || "籃球".equals(sport)) {
 			String courseName = "籃球";
 			cblist = courseservice.selectCourse(courseName);
 			session.setAttribute("courseName", courseName);
+			session.setAttribute("courseTypeId", "2");
 		}
 		
 		//更新 最新報名人數
@@ -394,7 +416,8 @@ public class courseControl {
 			
 			m.put("DateStart", DateStart);
 			m.put("DateEnd", DateEnd);
-			
+			System.out.println(DateStart);
+			System.out.println(DateEnd);
 			int courseId=cblist.get(i).getCourseId();
 			courseservice.updateStudentCurrent(courseId);
 			int studentCurrentNum=cblist.get(i).getStudentCurrentNum();
