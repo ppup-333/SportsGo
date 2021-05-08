@@ -11,6 +11,7 @@ import com.sport.springboot.field.model.FieldMemberOrder;
 public interface FieldMemberOrderRepository extends JpaRepository<FieldMemberOrder, Integer> {
 
 	@Query("from FieldMemberOrder where account = :account order by id desc")
-	public List<FieldMemberOrder> getAllByAccount(@Param("account")String account);	
+	public List<FieldMemberOrder> getAllByAccount(@Param("account")String account);
 	
+
 }

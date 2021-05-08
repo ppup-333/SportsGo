@@ -32,6 +32,29 @@ th, td {
 	<button id="search">搜尋</button>
 	<button id="searchPast">查詢歷史訂單</button>
 	<button id="searchAll">查詢全部訂單</button>
+	<br>
+	<div id="div_DateType">
+		類型：	
+		<select id="typeSelect" name="typeSelect">
+			<option value="0">- 請選擇 -</option>
+			<c:forEach var="fieldType" items="${fieldTypeList}">
+				<option value="${fieldType.id}">${fieldType.name}</option>
+			</c:forEach>
+		</select>
+		日期：
+		<input id="date" name="date" type="date" value="${day1}" min="${day1}" max="${day2}">&nbsp;&nbsp;
+		時段：
+		<select id="period" name="periodId">
+			<option value="0">- 請選擇 -</option>
+			<c:forEach var="periods" items="${periodList}">			
+				<option value="${periods.id}">${periods.period}</option>
+			</c:forEach>
+		</select>
+		<button id="search2">送出</button>
+		
+		<br>
+	</div>
+	
 	<!-- 	</form> -->
 	<div id="queryDiv"></div>
 
@@ -76,6 +99,7 @@ th, td {
 	var temp;
 	
 	$("#search").click(xhrFunction);
+	$("#search2").click(xhrFunction2);
 	$("#searchPast").click(xhrFunction);
 	$("#searchAll").click(xhrFunction);
 
@@ -114,6 +138,36 @@ th, td {
 		}
 	}
 	
+	function xhrFunction2() {
+		var typeId = parseInt(document.getElementById("typeSelect").value);
+		var date = document.getElementById("date").value;
+		var periodId = parseInt(document.getElementById("period").value);
+		if(typeId != 0 && periodId != 0){			
+			var xhr = new XMLHttpRequest();
+			
+			xhr.open("GET","<c:url value='getJson/typeId="+typeId+"&date="+date+"&periodId="+periodId+"'/>",true);
+			
+			xhr.send();
+			if (xhr != null) {
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						displayMemberOrders(xhr.responseText);
+					}
+				}
+			}
+		}else{
+			var content = "";
+			if(typeId == 0){
+				content += "類型、"
+			}
+			if(periodId == 0){
+				content += "時段、"
+			}
+			content = content.substr(0, (content.length-1))
+			queryDiv.innerHTML = "<h4>您尚未選擇" + content + "</h4>"
+		}
+	}
+	
 
 	function displayMemberOrders(responseText) {
 		mapData = JSON.parse(responseText);
@@ -138,7 +192,7 @@ th, td {
 				var remark = (fieldMemberOrderList[i].remark == null) ? "無" : fieldMemberOrderList[i].remark;
 					content += "<tr>"
 							+ "<td>" + fieldMemberOrderList[i].id
-							+ "<td>" + fieldMemberOrderList[i].account
+							+ "<td>" + fieldMemberOrderList[i].users.account
 							+ "<td>" + createTime
 							+ '<td><input type="button" displayId="'+fieldMemberOrderList[i].id+'" class="displayDetail" data-toggle="modal" data-target="#myModal" value="瀏覽"/>'
 							+ "<td>" + attendance
@@ -165,14 +219,12 @@ th, td {
 					data : JSON.stringify(json),
 	
 					success : function(response) {
-						console.log("S-------------" + response);
 						if (response == "success") {
 							alert("success");
 							xhrFunction();
 						}
 					},
 					error : function(response) {
-						console.log("F-------------" + response);
 						alert('Failed');
 					}
 				});
@@ -190,14 +242,12 @@ th, td {
 					data : JSON.stringify(json),
 	
 					success : function(response) {
-						console.log("S-------------" + response);
 						if (response == "success") {
 							alert("success");
 							xhrFunction();
 						}
 					},
 					error : function(response) {
-						console.log("F-------------" + response);
 						alert('Failed');
 					}
 				});
@@ -215,14 +265,12 @@ th, td {
 					data : JSON.stringify(json),
 	
 					success : function(response) {
-						console.log("S-------------" + response);
 						if (response == "success") {
 							alert("success");
 							xhrFunction();
 						}
 					},
 					error : function(response) {
-						console.log("F-------------" + response);
 						alert('Failed');
 					}
 				});
@@ -315,7 +363,8 @@ function displayDetail(){
 	detailTime.innerHTML = startTime + " ~ " + endTime;
 	detailHours.innerHTML = hours + "小時";
 }
-	
+
 </script>
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
 </body>
 </html>

@@ -63,7 +63,14 @@ public class FieldOrderController {
 	}
 	
 	@GetMapping("/searchPage")
-	public String orderMemberSearchPage() {
+	public String orderMemberSearchPage(Model m) {
+		Date day1 = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String day1Str = dateFormat.format(day1);		
+		System.out.println(day1Str);
+		
+		m.addAttribute("day1", day1Str);
+		
 		return "fieldOrder/order_SearchPage";
 	}	
 	
@@ -203,8 +210,8 @@ public class FieldOrderController {
 	}
 	
 	@GetMapping(value = "/getMemberOrderJson")
-	public @ResponseBody Map<String, Object> getMemberOrderJson(){
-		String account = "test1001";
+	public @ResponseBody Map<String, Object> getMemberOrderJson(HttpSession session){
+		String account = session.getAttribute("account").toString();
 		Map<String, Object> map = new HashMap<>();
 		List<FieldMemberOrder> fieldMemberOrderList = fieldMemberOrderService.getOrderByAccount(account);
 		map.put("fieldMemberOrderList", fieldMemberOrderList);
@@ -212,10 +219,23 @@ public class FieldOrderController {
 	}
 	
 	@GetMapping(value = "/getPastMemberOrderJson")
-	public @ResponseBody Map<String, Object> getPastMemberOrderJson(){
-		String account = "test1001";
+	public @ResponseBody Map<String, Object> getPastMemberOrderJson(HttpSession session){
+		String account = session.getAttribute("account").toString();
 		Map<String, Object> map = new HashMap<>();
 		List<FieldMemberOrder> fieldMemberOrderList = fieldMemberOrderService.getPastOrdersByAccount(account);
+		map.put("fieldMemberOrderList", fieldMemberOrderList);
+		return map;
+	}
+	
+	@GetMapping(value = "/getJson/typeId={typeId}&date={date}&periodId={periodId}")
+	public @ResponseBody Map<String, Object> getJsonByTypeAndPeriod(
+			@PathVariable("typeId")Integer typeId, @PathVariable("date")String date,
+			@PathVariable("periodId")Integer periodId){
+		Map<String, Object> map = new HashMap<>();
+		List<FieldMemberOrder> fieldMemberOrderList = fieldMemberOrderService.getOrderByDateAndPeriod(typeId, date, periodId);
+//		System.out.println("---------------------------------------");
+//		System.out.println(fieldMemberOrderList.get(0).getId());
+//		System.out.println("---------------------------------------");
 		map.put("fieldMemberOrderList", fieldMemberOrderList);
 		return map;
 	}

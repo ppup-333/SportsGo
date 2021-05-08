@@ -7,14 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sport.springboot.field.model.FieldMemberOrder;
+import com.sport.springboot.field.model.FieldOrderDetail;
+import com.sport.springboot.field.model.FieldPeriod;
+import com.sport.springboot.field.model.FieldType;
 import com.sport.springboot.field.repository.FieldMemberOrderRepository;
+import com.sport.springboot.field.repository.FieldOrderDetailRepository;
 import com.sport.springboot.field.service.FieldMemberOrderService;
+import com.sport.springboot.field.service.FieldPeriodService;
+import com.sport.springboot.field.service.FieldService;
+import com.sport.springboot.field.service.FieldTypeService;
 
 @Service
 public class FieldMemberOrderServiceImpl implements FieldMemberOrderService {
 
 	@Autowired
 	FieldMemberOrderRepository fieldMemberOrderRepository;
+	@Autowired
+	FieldService fieldService;
+	@Autowired
+	FieldTypeService fieldTypeService;
+	@Autowired
+	FieldPeriodService fieldPeriodService;
+	@Autowired
+	FieldOrderDetailRepository fieldOrderDetailRepository;
 	
 	@Override
 	public FieldMemberOrder save(FieldMemberOrder fieldMemberOrder) {
@@ -71,5 +86,22 @@ public class FieldMemberOrderServiceImpl implements FieldMemberOrderService {
 		}
 		return pastFieldMemberOrders;
 	}
+
+	@Override
+	public List<FieldMemberOrder> getOrderByDateAndPeriod(Integer typeId, String date, Integer periodId) {
+		FieldPeriod fieldPeriod = fieldPeriodService.get(periodId);
+		
+		List<FieldOrderDetail> orderDetailList = fieldOrderDetailRepository.getByDateAndPeriod(date, fieldPeriod);
+		
+		List<FieldMemberOrder> fieldMemberOrderList = new ArrayList<>();
+		for(int i = 0; i < orderDetailList.size(); i++) {
+			if(fieldTypeService.getById(typeId) == orderDetailList.get(i).getField().getFieldType()) {
+				fieldMemberOrderList.add(orderDetailList.get(i).getFieldMemberOrder());
+			}					
+		}
+		
+		return fieldMemberOrderList;
+	}
+	
 
 }
