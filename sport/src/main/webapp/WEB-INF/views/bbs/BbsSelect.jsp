@@ -6,20 +6,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <c:import url="../header.jsp"/> --%>
+<c:import url="../header.jsp"/>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -202,35 +200,46 @@
 
 		//發文刪除鈕
 		$("#deteleBbs").on("click", function() {
-			$.confirm({
-				animation : "none",
-				title : "確定要刪除發文嗎？",
-				content : "確定刪除後將無法還原！",
-				buttons : {
-					確定 : function() {
+			Swal.fire({
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonText: "確定",
+				cancelButtonText: "取消",
+				title: "確定要刪除發文嗎？",
+				text: "刪除後將無法還原！",
+			}).then((result) => {
+				if (result.isConfirmed) {
+					Swal.fire({
+						icon: "success",
+						title: "已刪除發文",
+					}).then((result) => {
 						$("#select").submit();
-					},
-					取消 : function() {
-					}
+					});
 				}
 			});
 		});
 
 		//發文修改鈕
 		$("#upDateYN").on("click", function() {
-			$.confirm({
-				animation : "none",
-				title : "確定要修改發文嗎？",
-				content : "按下確定修改發文，按下取消繼續編輯。",
-				buttons : {
-					確定 : function() {
+			Swal.fire({
+				icon: "question",
+				showCancelButton: true,
+				confirmButtonText: "確定",
+				cancelButtonText: "取消",
+				title: "確定要修改發文嗎？",
+				text: "按下取消可繼續編輯發文",
+			}).then((result) => {
+				if (result.isConfirmed) {
+					Swal.fire({
+						icon: "success",
+						title: "已成功修改發文",
+					}).then((result) => {
 						$("#update").submit();
-					},
-					取消 : function() {
-						$("#update").modal({
-							show:true
-						});
-					}
+					});
+				} else {
+					$("#update").modal({
+						show:true
+					});
 				}
 			});
 		});
@@ -250,12 +259,19 @@
 		//留言刪除鈕
 		$(".replyDelete").on("click", function() {
 			var id = $(this).attr("rel");
-			$.confirm({
-				animation : "none",
-				title : "確定要刪除留言嗎？",
-				content : "確定刪除後將無法還原！",
-				buttons : {
-					確定 : function() {
+			Swal.fire({
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonText: "確定",
+				cancelButtonText: "取消",
+				title: "確定要刪除留言嗎？",
+				text: "刪除後將無法復原！",
+			}).then((result) => {
+				if (result.isConfirmed) {
+					Swal.fire({
+						icon: "success",
+						title: "已成功刪除留言",
+					}).then((result) => {
 						var form = document.getElementById("replyForm");
 						var hiddenField = document.createElement("input");
 						hiddenField.setAttribute("type", "hidden");
@@ -265,9 +281,7 @@
 						document.body.appendChild(form);
 						form.submit();
 						$("#replyForm").submit();
-					},
-					取消 : function() {
-					}
+					});
 				}
 			});
 		});

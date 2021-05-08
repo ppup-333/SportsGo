@@ -6,20 +6,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <c:import url="../header.jsp"/> --%>
+<c:import url="../header.jsp"/>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -116,33 +114,53 @@
 		<c:if test="${bbs.bbsDelete == 2}">
 			$("#recoveryBbs").show();
 		</c:if>
-		$("#deteleBbs").on("click", function() {
-			$.confirm({
-				title : "確定後用戶端的發文將會被刪除。",
-				content : false,
-				buttons : {
-					確定 : function() {
-						$.get("bbsM.BbsDelete?bbsId=" + $("#bbsId").val(), function(data) {
-							if(data == "OK"){
-								$("#deteleBbs").hide();
-								$("#recoveryBbs").show();
-							}else {
-								alert("系統異常");
-							}
-						});
-					},
-					取消 : function() {
-					}
+		$("#deteleBbs").on("click", function(){
+			Swal.fire({
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonText: "確定",
+				cancelButtonText: "取消",
+				title: "確定要刪除發文？",
+				title: "確定後用戶端的發文將被刪除",
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.get("bbsM.BbsDelete?bbsId=" + $("#bbsId").val(), function(data) {
+						if(data == "OK"){
+							$("#deteleBbs").hide();
+							$("#recoveryBbs").show();
+						} else {
+							Swal.fire({
+								icon: "info",
+								confirmButtonText: "確定",
+								title: "系統異常",
+							});
+						}
+					});
 				}
 			});
 		});
-		$("#recoveryBbs").on("click", function() {
-			$.get("bbsM.BbsRecovery?bbsId=" + $("#bbsId").val(), function(data) {
-				if(data == "OK"){
-					$("#deteleBbs").show();
-					$("#recoveryBbs").hide();
-				}else {
-					alert("系統異常");
+		$("#recoveryBbs").on("click", function(){
+			Swal.fire({
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonText: "確定",
+				cancelButtonText: "取消",
+				title: "確定要還原刪除的發文？",
+				title: "確定後用戶端的發文將被還原",
+			}).then((result) => {
+				if(result.isConfirmed) {
+					$.get("bbsM.BbsRecovery?bbsId=" + $("#bbsId").val(), function(data) {
+						if(data == "OK") {
+							$("#deteleBbs").show();
+							$("#recoveryBbs").hide();
+						} else {
+							Swal.fire({
+								icon: "info",
+								confirmButtonText: "確定",
+								title: "系統異常",
+							});
+						}
+					});
 				}
 			});
 		});
@@ -155,59 +173,57 @@
 			<c:if test="${reply.replyDelete == 2}">
 				$("#recoveryReply${reply.replyId}").show();
 			</c:if>
-			$("#deleteReply${reply.replyId}").on("click", function() {
-				$.confirm({
-					title : "確定後用戶端的留言將會被刪除。",
-					content : false,
-					buttons : {
-						確定 : function() {
-							$.get("bbsM.ReplyDelete?replyId=" + $("#${reply.replyId}").val(), function(data) {
-								if(data == "OK"){
-									$("#deleteReply${reply.replyId}").hide();
-									$("#recoveryReply${reply.replyId}").show();
-								}else {
-									alert("系統異常");
-								}
-							});
-						},
-						取消 : function() {
-						}
+			$("#deleteReply${reply.replyId}").on("click", function(){
+				Swal.fire({
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonText: "確定",
+					cancelButtonText: "取消",
+					title: "確定要刪除留言？",
+					title: "確定後用戶端的留言將被刪除",
+				}).then((result) => {
+					if(result.isConfirmed) {
+						$.get("bbsM.ReplyDelete?replyId=" + $("#${reply.replyId}").val(), function(data) {
+							if(data == "OK") {
+								$("#deleteReply${reply.replyId}").hide();
+								$("#recoveryReply${reply.replyId}").show();
+							} else {
+								Swal.fire({
+									icon: "info",
+									confirmButtonText: "確定",
+									title: "系統異常",
+								});
+							}
+						});
 					}
 				});
 			});
-			$("#recoveryReply${reply.replyId}").on("click", function() {
-				$.get("bbsM.ReplyRecovery?replyId=" + $("#${reply.replyId}").val(), function(data) {
-					if(data == "OK"){
-						$("#deleteReply${reply.replyId}").show();
-						$("#recoveryReply${reply.replyId}").hide();
-					}else {
-						alert("系統異常");
+			$("#recoveryReply${reply.replyId}").on("click", function(){
+				Swal.fire({
+					icon: "question",
+					showCancelButton: true,
+					confirmButtonText: "確定",
+					cancelButtonText: "取消",
+					title: "確定要還原刪除的留言？",
+					title: "確定後用戶端的留言將被還原",
+				}).then((result) => {
+					if(result.isConfirmed) {
+						$.get("bbsM.ReplyRecovery?replyId=" + $("#${reply.replyId}").val(), function(data) {
+		 					if(data == "OK") {
+		 						$("#deleteReply${reply.replyId}").show();
+		 						$("#recoveryReply${reply.replyId}").hide();
+		 					} else {
+		 						Swal.fire({
+									icon: "info",
+									confirmButtonText: "確定",
+									title: "系統異常",
+								});
+	 						}
+	 					});
 					}
 				});
 			});
 		</c:forEach>
-
-		$("#upDateBbs").on("click", function() {
-			var form = document.createElement("form");
-			form.setAttribute("method", "post");
-			form.setAttribute("action", "bbsUpdate");
-			var hiddenField = document.createElement("input");
-			hiddenField.setAttribute("type", "hidden");
-			hiddenField.setAttribute("name", "bbsId");
-			hiddenField.setAttribute("value", $("#bbsId").val());
-			form.appendChild(hiddenField);
-			document.body.appendChild(form);
-			form.submit();
-		});
-
-		$(".replyEdit").on("click",	function() {
-			var id = $(this).attr("rel");
-			var text = $("#div" + id).html();
-			$("#div" + id).html("<textarea name='reply' style='resize:none' rows='3' cols='35'>"
-								+ text + "</textarea>");
-			$(this).hide();
-			$("#modify" + id).show();
-		});
 	</script>
 
 </body>
