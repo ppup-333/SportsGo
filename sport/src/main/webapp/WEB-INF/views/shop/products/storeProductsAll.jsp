@@ -11,7 +11,7 @@
 #allProduct{ 
 
 min-height:300px;
-text-align: center;
+/* text-align: center; */
 
  } 
 
@@ -35,6 +35,7 @@ text-align: center;
 	float: left;
     border: 2px #f0f0ef solid;
      margin-top:0px; 
+     overflow:hidden;
     
 }
 
@@ -43,6 +44,16 @@ text-align: center;
 /*   background-color:#fff; */
   background-color: #f0feff;
   border: 2px navy solid;
+}
+
+
+.product img{
+transform:scale(1,1);transition: all 0.3s ease-out;
+}
+
+
+.product img:hover{
+transform:scale(1.1,1.1);
 }
 
 
@@ -94,22 +105,23 @@ text-align: center;
 .addCart{
 font-size:16px;
 float: right;
-width:100px;
+width:130px;
 height:40px;
 border:0;
 background-color:#003C9D;
 color:#fff;
 border-radius:10px;
 cursor:pointer;
-margin-top:5px;
-margin-right:5px;
+margin-top:20px;
+margin-right:0px;
 
 }
 
 .addCart:hover{
 /*   color:#003C9D; */
   background-color:#3072d9;
-  border:4px #003C9D solid;
+  border:3px #003C9D solid;
+   box-shadow:1px 1px 2px grey  ;
 }
 
 .stock{
@@ -459,20 +471,26 @@ function testProducts(responseText){
 	if(productList.length > 0){			
 		for(var i=0; i < productList.length; i++){
 			if (productList[i].product_stock >0) {
-				content += "<form id='add' action='addCart' method='post'>"
-						+"<div class='product'><a href='showAllProducts'>"
+				content += ""
+// 						+= "<form id='add' action='addCart' method='post'>"
+						+"<div class='product'><a href='storeProduct/"+productList[i].product_id+"'>"
 						+"<img width='250' height='250' src='picture/"+productList[i].product_id+"'/></a>"
-						+"<p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='showAllProducts'>"+productList[i].product_name+"</a></p>"
+						+"<p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='storeProduct/"+productList[i].product_id+"'>"+productList[i].product_name+"</a></p>"
 						+"<p class='price'>NT$ <span class='pprice'>"+productList[i].product_price+"</span>"
-						+"<input type='button' class='addCart' value='加入購物車' addCartId='"+productList[i].product_id
-						+"' addCartName='"+productList[i].product_name+"' ></input>"
+// 						+"<input type='button' class='addCart' value='加入購物車' addCartId='"+productList[i].product_id
+// 						+"' addCartName='"+productList[i].product_name+"' ></input>"  //<i class='fas fa-cart-plus'></i>
+						
+						+"<button class='addCart' addCartId='"+productList[i].product_id
+						+"' addCartName='"+productList[i].product_name+"' ><i class='fas fa-cart-plus'> 加入購物車</i></button>"  //
+						
 						+"<br><span class='stock'>庫存數量 : "+productList[i].product_stock+"</span></p>" 
-						+"</div></form>";			
+						+"</div>";	
+// 						+"</div></form>";	
 			}
 			else {
-				content += "<div class='product'><a href='showAllProducts'>"
+				content += "<div class='product'><a href='storeProduct/"+productList[i].product_id+"'>"
 						+"<img width='250' height='250' src='picture/"+productList[i].product_id+"'/></a>"
-						+"<p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='showAllProducts'>"+productList[i].product_name+"</a></p>"
+						+"<p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='storeProduct/"+productList[i].product_id+"'>"+productList[i].product_name+"</a></p>"
 						+"<p class='price'>NT$ <span class='pprice'>"+productList[i].product_price+"</span>"
 						+"<button class='noStock' disabled='disabled'>售完缺貨</button>"
 						+"<br><span class='stock'>庫存數量 : "+productList[i].product_stock+"</span></p>" 
