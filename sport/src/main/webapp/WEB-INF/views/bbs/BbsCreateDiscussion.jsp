@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:import url="../header.jsp"/>
+<%-- <c:import url="../header.jsp"/> --%>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -62,54 +62,54 @@
 		function formReset() {
 			document.getElementById("create").reset();
 		}
-
-		$("#postYN").on("click", function() {
-			if ($("#typeId").val() == "") {
-				$.confirm({
-					title : "別忘了選擇發文的類型呀~",
-					content : false,
-					buttons : {
-						來去選發文類型 : function() {
-						}
+		
+				$("#postYN").on("click", function() {
+					if ($("#typeId").val() == "") {
+						$.confirm({
+							title : "別忘了選擇發文的類型呀~",
+							content : false,
+							buttons : {
+								來去選發文類型 : function() {
+								}
+							}
+						});
+					} else if ($("#bbsTitle").val() == "") {
+						$.confirm({
+							title : "發文要記得打標題唷~",
+							content : false,
+							buttons : {
+								來去補上標題 : function() {
+								}
+							}
+						});
+					} else if ($("#bbsMessage").val() == "") {
+						$.confirm({
+							title : "打完標題，內文也要記得啊~",
+							content : false,
+							buttons : {
+								來去打完內文 : function() {
+								}
+							}
+						});
+					} else {
+						$.confirm({
+							title : "是否送出發文？",
+							content : "選擇「是」送出發文；選擇「否」繼續編輯發文。",
+							buttons : {
+								是 : function() {
+									$("#create").submit();
+								},
+								否 : function() {
+								}
+							}
+						});
 					}
 				});
-			} else if ($("#bbsTitle").val() == "") {
-				$.confirm({
-					title : "發文要記得打標題唷~",
-					content : false,
-					buttons : {
-						來去補上標題 : function() {
-						}
-					}
-				});
-			} else if ($("#bbsMessage").val() == "") {
-				$.confirm({
-					title : "打完標題，內文也要記得啊~",
-					content : false,
-					buttons : {
-						來去打完內文 : function() {
-						}
-					}
-				});
-			} else {
-				$.confirm({
-					title : "是否送出發文？",
-					content : "選擇「是」送出發文；選擇「否」繼續編輯發文。",
-					buttons : {
-						是 : function() {
-							$("#create").submit();
-						},
-						否 : function() {
-						}
-					}
-				});
-			}
-		});
 
 		$("#cancelYN").on("click", function() {
 			$.confirm({
 				title : "確定要放棄發文嗎？",
-				content : "選擇確定放棄發文並將導回留言板首頁；選擇取消繼續編輯發文。",
+				content : "選擇確定放棄發文並將導回討論區首頁；選擇取消繼續編輯發文。",
 				buttons : {
 					確定 : function() {
 						document.location.href = "bbs";
