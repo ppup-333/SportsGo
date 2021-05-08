@@ -36,6 +36,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sport.springboot.shop.model.Product;
 import com.sport.springboot.shop.model.ProductCategory;
+import com.sport.springboot.shop.model.ProductOrderDetail;
+import com.sport.springboot.shop.model.ProductOrderList;
 import com.sport.springboot.shop.service.ProductCategoryService;
 import com.sport.springboot.shop.service.ProductService;
 import com.sport.springboot.shop.validate.ProductValidator;
@@ -501,13 +503,13 @@ public class ProductController {
 		//System.out.println("@ModelAttribute productCategoryList = " + productCategoryList);
 	}
 	
+	//商城首頁
 	@GetMapping("/storeProductsAll")
 	public String storeHomePage(Model m, Integer category, String keyword) {
 		//m.addAttribute("productList",productService.getAllProducts());
 		m.addAttribute("category",category);
 		m.addAttribute("keyword",keyword);
-		//m.addAttribute("productCategoryList",productCategoryList);
-		
+		//m.addAttribute("productCategoryList",productCategoryList);	
 		return "shop/products/storeProductsAll";
 	}	
 	
@@ -517,10 +519,8 @@ public class ProductController {
 	public @ResponseBody Map<String, Object> getProductsAll(HttpSession httpSession, 
 			@RequestParam("category") String category,
 			@RequestParam("keyword") String keyword) {
-
-		System.out.println("CATEGORY================================================================================================ "+category);
-		System.out.println("KEYWORD================================================================================================ "+keyword);
-
+//		System.out.println("CATEGORY================================================================================================ "+category);
+//		System.out.println("KEYWORD================================================================================================ "+keyword);
 		Map<String, Object> map = new HashMap<>();
 		List<Product> productList = productService.getAllProducts();  //所有商品
 		
@@ -537,10 +537,7 @@ public class ProductController {
 			} else {
 				productList = productService.getProdByStatusByNameByCategory(keyword, "1", category);
 			}
-
 		}
-	    
-	    
 		@SuppressWarnings("unchecked")
 		Map<String,Integer> cmap = (Map<String, Integer>) httpSession.getAttribute("cart"); //獲取購物車session內容
 		Integer cartNum = 0; //初始化購物車內商品數量
@@ -551,7 +548,6 @@ public class ProductController {
             //獲取商品數量
     		for(Entry<String, Integer> prods : cmap.entrySet()){
     			cartNum+=prods.getValue();  //計算購物車數量
-    			//productList2.add(productService.getByName1(prods.getKey())); 
     		}		
         }
 		map.put("productList", productList);
@@ -562,10 +558,59 @@ public class ProductController {
 		if (checkmap!=null) {
 			checkmap.clear();
 		}
-		
-		
 		return map;
 	}
+	
+	
+	//商品詳細
+	@GetMapping("/storeProduct/{product_id}")
+	public String productDetail(@PathVariable("product_id") Integer product_id, Model m) {
+		String product_name = productService.get(product_id).getProduct_name();
+		m.addAttribute("product_id", product_id);
+		m.addAttribute("product_name", product_name);
+		return "shop/products/storeProductDetail";
+	}
+	
+	
+	//顯示商品詳細內容
+	@GetMapping(value = "storeProduct/getProductDetailJson/{product_id}")
+	public @ResponseBody Map<String, Object> getProductDetail(@PathVariable("product_id") Integer product_id, HttpSession httpSession) {
+		Map<String, Object> map = new HashMap<>();		
+		Product product = productService.get(product_id);
+		
+		@SuppressWarnings("unchecked")
+		Map<String,Integer> cmap = (Map<String, Integer>) httpSession.getAttribute("cart"); //獲取購物車session內容
+		Integer cartNum = 0; //初始化購物車內商品數量
+		Integer count = null;  
+        if (cmap == null) {  //第一次購物，創建購物車
+        	cartNum=0;
+        	
+        }else {
+            //購物車不為空，判斷購物車是否已經有該商品
+            //獲取商品數量
+    		for(Entry<String, Integer> prods : cmap.entrySet()){
+    			cartNum+=prods.getValue();  //計算購物車數量
+    		}
+    		if (cmap.get(product.getProduct_name())!= null) {
+    			count = cmap.get(product.getProduct_name());
+    		} else count = 0;
+        }
+  
+        
+		@SuppressWarnings("unchecked")
+		Map<String,Integer> checkmap = (Map<String, Integer>) httpSession.getAttribute("check"); //清除購物車的checkbox內容
+		if (checkmap!=null) {
+			checkmap.clear();
+		}
+		map.put("cartNum", cartNum);
+		map.put("product", product);
+		map.put("productNum", count);
+		return map;
+	}
+		
+	
+	
+	
 	
 
 	//將商品放入購物車
@@ -573,32 +618,43 @@ public class ProductController {
 	@ResponseBody
 	public String addProductToCart(@RequestBody Map<String, String> map, HttpSession httpSession) {
 		 String addCartId  = map.get("addCartId").toString();
-		 String addCartName = map.get("addCartName").toString();	
+		 String addCartName = map.get("addCartName").toString();
+		 String addCartNum = map.get("addCartNum");
+		 
 		 Product product = productService.get(Integer.parseInt(addCartId));
 		 Integer pStock = product.getProduct_stock();
 		 
 		@SuppressWarnings("unchecked")
 		Map<String,Integer> cmap = (Map<String, Integer>) httpSession.getAttribute("cart");
 	
-        Integer count = null;  //判斷購物車是否為空
-        if (cmap == null) {  //第一次購物，創建購物車
-        	cmap = new HashMap<>();  //將購物車放入session中
-        	httpSession.setAttribute("cart", cmap);
-            count = 1;
+        Integer count = null;  
+        if (cmap == null) {  //判斷購物車是否為空
+        	cmap = new HashMap<>();  //第一次購物，創建購物車
+        	httpSession.setAttribute("cart", cmap); //將購物車放入session中
+        	if(addCartNum != null) { //如果加入複數商品
+        		count = Integer.parseInt(addCartNum);
+        	} else count = 1;  //加入單筆商品
         }else {
             //購物車不為空，判斷購物車是否已經有該商品
             //獲取商品數量
             count = cmap.get(addCartName);
-            if(count == null) {
-                //購物車沒有該商品
-                count = 1;
+            if(count == null) { //購物車沒有該商品
+            	if(addCartNum != null) {
+            		count = Integer.parseInt(addCartNum);
+            	} else  count = 1;
             }else if(count >= pStock) {
             	System.out.println("超過庫存了GG");
             	return "OverStock";
             }
             else {
                 //購物車具有該商品
-                count++;
+            	if(addCartNum != null) {
+            		if (count+Integer.parseInt(addCartNum) > pStock) {
+                    	System.out.println("超過庫存了GG");
+                    	return "OverStock";
+            		} else count += Integer.parseInt(addCartNum);
+
+            	} else count ++;
             }
         }
         //將商品放入購物車

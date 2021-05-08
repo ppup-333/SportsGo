@@ -1,9 +1,13 @@
 package com.sport.springboot.field.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,6 +17,7 @@ import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sport.springboot.course_act.model.CATime;
 
 
 @Entity
@@ -50,6 +55,11 @@ public class Field {
 	@OneToMany(mappedBy = "field")
 	@JsonIgnore
 	private List<FieldOrderDetail> orderDetails;
+	
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "fieldbean",cascade = CascadeType.ALL)
+	private List<CATime> time;
+	
+	
 	
 	public Field() {
 		
@@ -163,6 +173,14 @@ public class Field {
 
 	public void setOrderDetails(List<FieldOrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
+	}
+
+	public List<CATime> getTime() {
+		return time;
+	}
+
+	public void setTime(List<CATime> time) {
+		this.time = time;
 	}
 	
 	
