@@ -14,6 +14,8 @@ import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
+import com.sport.springboot.field.model.Field;
+
 @Table(name = "CATime")
 @Entity
 @Component
@@ -26,6 +28,11 @@ public class CATime {
 	private String TimeStart;
 	private String TimeEnd;
 	private String Date;
+	
+	@Column(name="fieldId")
+	@Transient
+	private String fieldId;
+		
 	
 	@Column(name="courseId")
 	@Transient
@@ -44,9 +51,19 @@ public class CATime {
 	private courseBean coursebean;
 	
 	
-	private String fieldId;
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinColumn(name="fieldId")
+	private Field fieldbean;
 	
 	
+	public Field getFieldbean() {
+		return fieldbean;
+	}
+
+	public void setFieldbean(Field fieldbean) {
+		this.fieldbean = fieldbean;
+	}
+
 	public activityBean getActivitybean() {
 		return activitybean;
 	}

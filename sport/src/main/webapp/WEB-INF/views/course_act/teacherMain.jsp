@@ -8,10 +8,25 @@
 <meta charset="UTF-8">
 <title>teacherMain</title>
  <link rel="stylesheet" href="css/teacher.css">
+     <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<style type="text/css">
+table{
+margin-top:30px;
+margin-left: auto;
+margin-right: auto;
+}
+.main_body{
 
+text-align:center;
+}
+</style>
 </head>
 <body>
 
+<div class="main_body">
+
+<c:import url="../headerM.jsp" />
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <table>
 
 <tr><th>老師姓名<th>性別<th>電話<th>薪水<th>雇用日期<th><th>
@@ -33,36 +48,43 @@
 	<td><button class="delete" id="${teacher.teacherId}">刪除</button>
 </c:forEach>
 </table>
+	
 	<button  class="insert">新增</button>
+	</div>
 <script type="text/javascript">
 $(".update").on("click",function(){
-	let id=this.id;
-	 $.ajax({		 
-	     url: "/springsport/teacherUpdate?teacherId="+id,
-	     context: document.body,
-	    success: function(response){
-	      $('#sport').html(response);
-	    }
-	  });
+	 let xhr=new XMLHttpRequest();
+		xhr.open("GET","/sport/teacherUpdate?teacherId="+id,true);
+		 xhr.send();
+		 xhr.onreadystatechange=function(){
+			if(xhr.readyState==4&&xhr.status==200){
+			let response=xhr.responseText;
+			 $("body").empty();
+		     $("body").append(response);
+			}
+		 }
 });
 $(".insert").on("click",function(){
-	let id=this.id;
-	 $.ajax({		 
-	     url: "/springsport/teacherInsert",
-	     context: document.body,
-	    success: function(response){
-	      $('#sport').html(response);
-	    }
-	  });
+	 let xhr=new XMLHttpRequest();
+		xhr.open("GET","/sport/teacherInsert",true);
+		 xhr.send();
+		 xhr.onreadystatechange=function(){
+			if(xhr.readyState==4&&xhr.status==200){
+			let response=xhr.responseText;
+			 $("body").empty();
+		     $("body").append(response);
+			}
+		 }	
 });
 $(".delete").on("click",function(){
 	
 	if(confirm("確定要刪除嗎")){
 		let id=this.id;
 	 $.ajax({		 
-	     url: "/springsport/teacherDelete?teacherId="+id,
+	     url: "/sport/teacherDelete?teacherId="+id,
 	     context: document.body,
 	    success: function(response){
+	    	console.log(response);
 	      $('#sport').html(response);
 	    }
 	  });

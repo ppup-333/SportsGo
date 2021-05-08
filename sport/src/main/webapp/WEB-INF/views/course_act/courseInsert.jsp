@@ -11,6 +11,41 @@
 <title>Document</title>
 <script>
 	$(document).ready(function() {
+		
+		
+		let ckoption=["A 08:00~09:00","B 09:00~10:00","C 10:00~11:00","D 11:00~12:00",
+			"E 13:00~14:00","F 14:00~15:00","G 15:00~16:00","H 16:00~17:00"];
+		const ckresult=[];
+		
+		if($("#CK option").length!=0){
+			for(let i=0;i<ckoption.length;i++){
+			$("#CK option").each(function(){
+				
+			
+			   if( ckoption[i]==($(this).val())){				   
+				   
+			   }else{
+				   console.log(ckoption[i]);
+				   ckresult.push(ckoption[i]);
+			   }
+			   
+			});
+		 }
+		}else{
+			console.log(ckoption.length);
+			for(let i=0;i<ckoption.length;i++){
+				 ckresult.push(ckoption[i]);
+				
+			}
+		}
+		
+		$("#CK").empty();
+		for(let i=0;i<ckresult.length;i++){
+			$("#CK").append("<option value='"+ckresult[i]+"'>"+ckresult[i]+"</option>");
+		}
+		
+		
+		
 		$("#goCourseInsert").click(function() {
 			let isNull = true;
 			if ($("#from").val() == "") {
@@ -30,61 +65,22 @@
 			}
 		});
 
-		for (let i = 301; i < 306; i++) {
+		
+		$("#to").change(function() {
+			let toval=$("#to").val();
+			let total=toval*300;
+			$("#cost").attr("value",total);
+		});
+		
+		
+		/*for (let i = 301; i < 306; i++) {
 			let opt = document.createElement("option");
 			opt.setAttribute("value", i);
 			let optTxt = document.createTextNode(i);
 			opt.appendChild(optTxt);
 			$("#CP").append(opt);
-		}
-		$("#CN").change(function() {
-
-			$("#CP").empty();
-			var cn = $("#CN").val()
-			if (cn == "羽球") {
-				for (let i = 301; i < 306; i++) {
-					let opt = document.createElement("option");
-					opt.setAttribute("value", i);
-					let optTxt = document.createTextNode(i);
-					opt.appendChild(optTxt);
-					$("#CP").append(opt);
-				}
-			/*	let opt2 = document.createElement("option");
-				let optTxt2 = document.createTextNode("Tom");
-				opt2.value=101;
-				opt2.appendChild(optTxt2);
-				$("#teacherName").append(opt2);*/
-
-			} else if (cn == "桌球") {
-				for (let i = 401; i < 406; i++) {
-					let opt = document.createElement("option");
-					opt.setAttribute("value", i);
-					let optTxt = document.createTextNode(i);
-					opt.appendChild(optTxt);
-					$("#CP").append(opt);
-				}
-				/*	let opt2 = document.createElement("option");
-				let optTxt2 = document.createTextNode("Sandy");
-				opt2.value=102;
-				opt2.appendChild(optTxt2);
-				$("#teacherName").append(opt2);*/
-
-			} else if (cn == "籃球") {
-				for (let i = 201; i < 206; i++) {
-					let opt = document.createElement("option");
-					opt.setAttribute("value", i);
-					let optTxt = document.createTextNode(i);
-					opt.appendChild(optTxt);
-					$("#CP").append(opt);
-				}
-			/*	let opt2 = document.createElement("option");
+		}*/
 		
-				let optTxt2 = document.createTextNode("Jack");
-				opt2.value=103;
-				opt2.appendChild(optTxt2);
-				$("#teacherName").append(opt2);*/
-			}
-		});
 
 	});
 </script>
@@ -120,30 +116,27 @@ text-align:center;
 		<table class="courseInsertTable" border="1" style="text-align: center;">
 			<tr class="courseInsertTr">
 				<td>選擇運動
-				<td><select name="courseName" id="CN">
-					<option value="${courseName}">${courseName}</option>
-				</select>
-			<tr class="courseInsertTr">
+				<td><input type="text" id="CN" name="courseName" value="${courseName}" style="display:none"/>${courseName}				
+				<tr class="courseInsertTr">
 				<td>選擇時段
 				<td><select name="courseKind" id="CK">
 				<c:forEach var="item1" items="${Timeperiod}" varStatus="status">
-						<option>${item1}</option>
+						<option value="${item1}">${item1}</option>
 				</c:forEach>						
-						<option value="A 08:00~09:00">A 08:00~09:00</option>
+						<!--  <option value="A 08:00~09:00">A 08:00~09:00</option>
 						<option value="B 09:00~10:00">B 09:00~10:00</option>
 						<option value="C 10:00~11:00">C 10:00~11:00</option>
 						<option value="D 11:00~12:00">D 11:00~12:00</option>
 						<option value="E 13:00~14:00">E 13:00~14:00</option>
 						<option value="F 14:00~15:00">F 14:00~15:00</option>
 						<option value="G 15:00~16:00">F 15:00~16:00</option>
-						<option value="H 16:00~17:00">F 16:00~17:00</option>
+						<option value="H 16:00~17:00">F 16:00~17:00</option>-->
 				</select>
 			<tr class="courseInsertTr">
 				<td><p>
 						<label for="from">起始日期</label>
 					</p>
-				<td><input type="text" id="from" name="from" value="${time}" style="display:none"/>${time}<span
-					id="check" style="visibility: hidden;">請填入日期</span>
+				<td><input type="text" id="from" name="from" value="${time}" style="display:none"/>${time}
 			<tr class="courseInsertTr">
 				<td><p>
 						<label for="to">開課次數</label>
@@ -157,14 +150,18 @@ text-align:center;
 						<option value="6">6</option>
 						<option value="7">7</option>
 						<option value="8">8</option>
-				</select> <span id="check" style="visibility: hidden;">請填入次數</span></td>
+				</select> <span id="check" style="display:none;">請填入次數</span></td>
 			</tr>
 			<tr class="courseInsertTr">
 				<td>費用:
-				<td><input type="text" name="courseCost" maxlength="5"></input>
+				<td><input type="text" name="courseCost" id="cost" style="color:gray" value="300" readonly></input>
 			<tr class="courseInsertTr">
 				<td>場地:
-				<td><select name="coursePlace" id="CP"></select>
+				<td><select name="coursePlace" id="CP">
+					<c:forEach var="item1" items="${fieldList}" varStatus="status">
+						<option value="${item1.id}">${item1.name}</option>
+						</c:forEach>
+				</select>
 			<tr class="courseInsertTr">
 				<td>教師:
 				<td><select name="teacherId" id="teacherName">
@@ -174,10 +171,15 @@ text-align:center;
 					</select>
 			<tr class="courseInsertTr">
 				<td>最大學生數:
-				<td><input type="text" name="studentMaxNum" maxlength="2"></input>
+				<td><select name="studentMaxNum">
+				<option value="12">12</option>
+				<option value="24">24</option>
+				<option value="30">30</option>
+				<option value="36">36</option>
+				</select>
 			<tr class="courseInsertTr">
 				<td>課程介紹:
-				<td><textarea rows="30" cols="40" name="courseIntroduce"></textarea>
+				<td><textarea rows="10" cols="40" name="courseIntroduce"></textarea>
 					<input type="text" name="types" style="display: none;"
 					value="insert" />
 		</table>

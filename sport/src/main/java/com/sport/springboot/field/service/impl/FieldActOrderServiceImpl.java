@@ -1,15 +1,22 @@
 package com.sport.springboot.field.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.sport.springboot.field.model.Field;
 import com.sport.springboot.field.model.FieldActOrder;
 import com.sport.springboot.field.model.FieldOrderDetail;
+import com.sport.springboot.field.model.FieldPeriod;
 import com.sport.springboot.field.repository.FieldActOrderRepository;
 import com.sport.springboot.field.repository.FieldOrderDetailRepository;
+import com.sport.springboot.field.repository.FieldPeriodRepository;
 import com.sport.springboot.field.repository.FieldRepository;
 import com.sport.springboot.field.service.FieldActOrderService;
 
@@ -22,6 +29,8 @@ public class FieldActOrderServiceImpl implements FieldActOrderService {
 	FieldOrderDetailRepository fieldOrderDetailRepository;
 	@Autowired
 	FieldRepository fieldRepository;
+	@Autowired
+	FieldPeriodRepository fieldPeriodRepository;
 	
 	@Override
 	public FieldActOrder save(FieldActOrder fieldActOrder) {
@@ -49,31 +58,65 @@ public class FieldActOrderServiceImpl implements FieldActOrderService {
 	}
 
 	@Override
-	public boolean checkOrderTime() {
+	public List<FieldOrderDetail> checkOrderTime(String fieldId, String date, String startTime, String endTime) {
+		  
+		  Integer startTimeInt = Integer.parseInt(startTime.substring(0, 2));
+		  int hours = Integer.parseInt(endTime.substring(0, 2)) - startTimeInt;
+		  Field field = fieldRepository.getOne(fieldId);
+		  List<FieldOrderDetail> orderDetailList = fieldOrderDetailRepository.getByDateAndField(date, field);
+		  
+		  List<FieldOrderDetail> returnOrderDetailList = new ArrayList<>();
+		  
+		  if(orderDetailList.size() != 0) {
+		  
+		   for (int i = 0; i < hours; i++) {
+		    for (int j = 0; j < orderDetailList.size(); j++) {
+		     if (startTimeInt == orderDetailList.get(j).getFieldPeriod().getId()) {
+		      return null;
+		     }
+		    }
+		    
+		    FieldPeriod fieldPeriod = fieldPeriodRepository.getOne(startTimeInt);  
+		    FieldOrderDetail fieldOrderDetail = new FieldOrderDetail();
+		    fieldOrderDetail.setDate(date);
+		    fieldOrderDetail.setField(field);
+		    fieldOrderDetail.setFieldPeriod(fieldPeriod);
+		    returnOrderDetailList.add(fieldOrderDetail);
+		    startTimeInt ++;
+		   }
+		  }else {
+		   for(int i = 0; i < hours; i++) {
+		    FieldPeriod fieldPeriod = fieldPeriodRepository.getOne(startTimeInt);  
+		    FieldOrderDetail fieldOrderDetail = new FieldOrderDetail();
+		    fieldOrderDetail.setDate(date);
+		    fieldOrderDetail.setField(field);
+		    fieldOrderDetail.setFieldPeriod(fieldPeriod);
+		    returnOrderDetailList.add(fieldOrderDetail);
+		    startTimeInt ++;
+		   }
+		   
+		  }
+		  
+		  return returnOrderDetailList;  
+		 }
+	public void createActOrder(List<FieldOrderDetail> orderDetailList) {
+		FieldActOrder fieldActOrder = new FieldActOrder();
+		Date createDate = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateStr = dateFormat.format(createDate);
+		fieldActOrder.setCreateTime(dateStr);
+		//fieldActOrder.setOrderDetails(orderDetailList); //失望
+		fieldActOrderRepository.save(fieldActOrder);
 		
+	//	fieldOrderDetailRepository.saveAll(orderDetailList);
 		
-		for(int x = 0; x < 100; x++) {
-			String date = "";
-			Integer startTime = 0;
-			Integer hours = 0;
-			String fieldId = "";
-			Field field = fieldRepository.getOne(fieldId);
-			int periodCount = 0;
-			int[] timeList = new int[periodCount];
-			List<FieldOrderDetail> orderDetailList = fieldOrderDetailRepository.getByDateAndField(date, field);
-
-			for (int i = 0; i < timeList.length; i++) {
-				for (int j = 0; j < orderDetailList.size(); j++) {
-					if (timeList[i] == orderDetailList.get(j).getFieldPeriod().getId()) {
-						return false;
-					}
-				}
-			}
+		//如果上面那行fieldOrderDetailRepository.saveAll(orderDetailList);失敗的話就試下面的
+		for(int i = 0; i < orderDetailList.size(); i++) {
+			System.out.println(orderDetailList.get(i).getFieldPeriod().getId());
+			
 		}
 		
-		
-		
-		return true;
+		fieldOrderDetailRepository.saveAll(orderDetailList);
 	}
 
 }

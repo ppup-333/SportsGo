@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>teacherInsert</title>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style type="text/css">
 table {
 	border-collapse: collapse;
@@ -25,6 +27,10 @@ tr td:last-child {
 	padding: 20px;
 	background-color: #66B3FF;
 	border-right: 1px solid #D0D0D0;
+}
+.main_body{
+
+text-align:center;
 }
 </style>
 <script type="text/javascript">
@@ -89,6 +95,8 @@ function checkSalary(){
 </script>
 </head>
 <body>
+<c:import url="../headerM.jsp" />
+<div  class="main_body">
 <form id="insert" method="post" action="/springsport/teacherInsertImpl"  enctype="multipart/form-data">
 <table border="1" style="text-align: center;">
 		
@@ -100,6 +108,9 @@ function checkSalary(){
   		<tr><td>活動預覽圖: <td><input type="file" name="teacherPicture"/>
 </table>
 </form>
+  <button type="button" onclick="window.location.href='/sport/teacherHome'">上一步</button>
 <button id="goTeacherInsert">送出</button>
+</div>
+
 </body>
 </html>
