@@ -251,16 +251,44 @@ function sport(s){
 		        	  timeZone: 'UTC+8',
 		        	  locale: 'zh-tw'
 		        	});
-		        console.log(choose);
-		        console.log(today);
+		        let year=today.substring(0,4);
 		        
-		        if(choose<today){
-		        	$('#modalTitle').html("");
+		        let mc=choose.lastIndexOf("月");
+		        let mt=today.lastIndexOf("月");
+		        let monthChooseInt=parseInt(choose.substring(5,mc));
+		        let monthTodayInt=parseInt(today.substring(5,mt));
+		        
+		        let dd=choose.lastIndexOf("日");
+		        let ds=today.lastIndexOf("日");
+		        let chooseInt=parseInt(choose.substring(7,dd));
+		        let todayInt=parseInt(today.substring(7,dd));
+		        
+		        
+				console.log(info);
+		        if(monthChooseInt<monthTodayInt){
+		         	$('#modalTitle').html("");
 					$('#modalBody').html("過去不復返，請選擇今天以後的課程");
-					$('#calendarModal').modal();
+					$('#calendarModal').modal();		        	
+		        }else if(monthChooseInt>monthTodayInt){
+
+		        	let ymd;
+		        	if(monthChooseInt<10){
+			        	if(chooseInt<10){
+			        		ymd=year+"-0"+monthChooseInt+"-0"+chooseInt;
+			        	}else{
+			        		ymd=year+"-0"+monthChooseInt+"-"+chooseInt;
+			        	}
+			        }else{
+			        	if(chooseInt<10){
+			        		ymd=year+"-"+monthChooseInt+"-0"+chooseInt;
+			        	}else{
+			        		ymd=year+"-"+monthChooseInt+"-"+chooseInt;
+			        	}
+			        	
+			        }
 		        	
-		        }else{
-		        	xhr.open("GET","/sport/courseInsert",true);
+		        	
+		        	xhr.open("GET","/sport/courseInsert?ymd="+ymd,true);
 					 xhr.send();
 					 xhr.onreadystatechange=function(){
 						if(xhr.readyState==4&&xhr.status==200){
@@ -269,9 +297,47 @@ function sport(s){
 						$('#modalBody').html(response);
 						$('#calendarModal').modal();
 						}
-					 }
+					 }		        	
+		        }else{
 		        	
-		        }
+		        	if(chooseInt<todayInt){
+		        	$('#modalTitle').html("");
+					$('#modalBody').html("過去不復返，請選擇今天以後的課程");
+					$('#calendarModal').modal();
+		        	}else{
+		        		let ymd;
+			        	if(monthChooseInt<10){
+				        	if(chooseInt<10){
+				        		ymd=year+"-0"+monthChooseInt+"-0"+chooseInt;
+				        	}else{
+				        		
+				        	}ymd=year+"-0"+monthChooseInt+"-"+chooseInt;
+				        }else{
+				        	if(chooseInt<10){
+				        		ymd=year+"-"+monthChooseInt+"-0"+chooseInt;
+				        	}else{
+				        		ymd=year+"-"+monthChooseInt+"-"+chooseInt;
+				        	}
+				        	
+				        }
+			        	
+			        	
+			        	xhr.open("GET","/sport/courseInsert?ymd="+ymd,true);
+						 xhr.send();
+						 xhr.onreadystatechange=function(){
+							if(xhr.readyState==4&&xhr.status==200){
+								let response=xhr.responseText;
+							$('#modalTitle').html("新增課程");
+							$('#modalBody').html(response);
+							$('#calendarModal').modal();
+							}
+						 }		   
+		        		
+		        	}
+		        	
+		          }		        	
+		        
+		       
 		        	
 				/* 
 	            if(check<today) {

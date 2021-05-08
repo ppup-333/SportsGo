@@ -9,11 +9,10 @@
 <style>
     .st1{
         border-bottom: 3px dashed gray;
-        margin: 20px;
         padding-bottom: 10px;
-        width: 500px;
-        
-        
+        width: 400px;
+        margin:10px;
+     
     }   
     .sub{
         margin: 20px;
@@ -29,12 +28,11 @@
         background-color: rgb(216, 215, 215);
         border-radius: 6px;
         border: white;
-        margin-left: 30px;
+   
         
     }
     fieldset{
         width: 600px;
-        margin: 20px;
         border: 1px dashed green;
     }
     legend{
@@ -52,7 +50,7 @@
 </head>
 <body>
 
-<form  id="update" method="post" action="../springsport/courseUpdateImpl">
+<form  id="update" method="post" action="../sport/courseUpdateImpl">
 <fieldset>
             <legend>修改課程資料</legend>
          <input name="courseId" value="${course.courseId}" style="display:none"/>
@@ -111,16 +109,15 @@
         </div>
          <div class="st1">
            <label for="account" class="t1">課程介紹: </label>
-            <textarea rows="30" cols="40" name="courseIntroduce">${course.courseIntroduce}</textarea>
+            <textarea rows="10" cols="30" name="courseIntroduce">${course.courseIntroduce}</textarea>
         </div>
     </fieldset> 
     
 </form>
-	
-    <button type="button" class="back" id="${course.courseName}">上一步</button>
+   <!--   <button type="button" class="back" id="${course.courseName}">上一步</button>-->
     <button id="updateValue">修改</button>
 <script type="text/javascript">
-$(".back").on("click",function(){
+/*$(".back").on("click",function(){
 	let id=this.id;
 	 $.ajax({
 		 
@@ -130,7 +127,7 @@ $(".back").on("click",function(){
 	      $('#sport').html(response);
 	    }
 	  });
-});
+});*/
 
 $("#updateValue").on("click",function(){
 	let isNull=true;

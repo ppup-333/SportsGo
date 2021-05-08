@@ -115,19 +115,20 @@ text-align:center;
 </style>
 </head>
 <body>
-	<form id="insert" action="/springsport/courseInsertImpl">
+	<form id="insert" action="/sport/courseInsertImpl">
 
 		<table class="courseInsertTable" border="1" style="text-align: center;">
 			<tr class="courseInsertTr">
 				<td>選擇運動
 				<td><select name="courseName" id="CN">
-						<option value="羽球">羽球</option>
-						<option value="桌球">桌球</option>
-						<option value="籃球">籃球</option>
+					<option value="${courseName}">${courseName}</option>
 				</select>
 			<tr class="courseInsertTr">
 				<td>選擇時段
 				<td><select name="courseKind" id="CK">
+				<c:forEach var="item1" items="${Timeperiod}" varStatus="status">
+						<option>${item1}</option>
+				</c:forEach>						
 						<option value="A 08:00~09:00">A 08:00~09:00</option>
 						<option value="B 09:00~10:00">B 09:00~10:00</option>
 						<option value="C 10:00~11:00">C 10:00~11:00</option>
@@ -141,7 +142,7 @@ text-align:center;
 				<td><p>
 						<label for="from">起始日期</label>
 					</p>
-				<td><input type="date" id="from" name="from"><span
+				<td><input type="text" id="from" name="from" value="${time}" style="display:none"/>${time}<span
 					id="check" style="visibility: hidden;">請填入日期</span>
 			<tr class="courseInsertTr">
 				<td><p>
