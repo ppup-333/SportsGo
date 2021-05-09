@@ -18,91 +18,110 @@
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+
+/* CKEditor 編輯區塊 */
+.ck-editor__editable_inline {
+	/* 設定最低高度、寬度 */
+    min-height: 300px;
+    min-width: 600px;
+}
+
+/* 發文修改彈跳框 */
+.modal-dialog {
+	min-height: 400px;
+    min-width: 700px;
+}
+
+</style>
 </head>
 <body>
 
-	<div class="container-fluid pt-3">
+	<div class="container-fluid" style="position: relative; top: 50px;">
 		<div class="row">
-			<div class="col-2"></div>
-			<div class="col-8">
+			<div class="col-3"></div>
+			<div class="col-6 border">
 				<form id="select" name="select" action="bbsDelete" method="post"
-					onclick="return false">
+					onclick="return false" style="width: 90%; margin: 40px auto 10px auto;">
 				<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
 					<div>
-						<div>
-							<div class="row">
-								<h6 class="col-sm-1">${bbs.bbsType.typeName}</h6>
-								<h1 class="col-sm-11">${bbs.bbsTitle}</h1>
-							</div>
+						<p><sup class="badge badge-info">${bbs.bbsType.typeName}</sup> <span style="font-size: 30px; font-weight: bold;">${bbs.bbsTitle}</span></p>
+						<div class="row">
+							<p class="col"><i class="fas fa-user-circle"></i> ${bbs.users.account}</p>
+							<p class="col" align="right">
+							<c:if test="${bbs.bbsUpdateTime == null}">
+								建立時間：<fmt:formatDate value="${bbs.bbsSetupTime}"
+									pattern="YYYY-MM-dd HH:mm" />
+							</c:if>
+							<c:if test="${bbs.bbsUpdateTime != null}">
+								最後編輯：<fmt:formatDate value="${bbs.bbsUpdateTime}"
+									pattern="YYYY-MM-dd HH:mm" />
+							</c:if>
+							</p>
 						</div>
-							<div class="row">
-								<div class="col-sm-8">${bbs.users.account}</div>
-								<div class="col-sm-4">
-									<p>
-										建立時間：<fmt:formatDate value="${bbs.bbsSetupTime}"
-											pattern="YYYY-MM-dd HH:mm" />
-								<br>
-									<c:if test="${bbs.bbsUpdateTime != null}">
-										最後編輯：<fmt:formatDate value="${bbs.bbsUpdateTime}"
-											pattern="YYYY-MM-dd HH:mm" />
-									</c:if>
-									</p>
-								</div>
-							</div>
-							<div>${bbs.bbsMessageByDetail}</div>
-						</div>
-						<br>
-						<div>
-							<button type="submit" id="deteleBbs" class="btn btn-danger btn-sm">刪除</button>
-							<button type="button" id="upDateBbs" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update">編輯</button>
-						</div>
+						<div>${bbs.bbsMessageByDetail}</div>
+					</div>
+					<br>
+					<div>
+						<button type="button" id="upDateBbs" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update" style="position: relative; left: 84%;">編輯</button>
+						<button type="submit" id="deteleBbs" class="btn btn-danger btn-sm" style="position: relative; left: 86%;">刪除</button>
+					</div>
+					<br>
 				</form>
 			
 				<hr>
 	
 				<form:form modelAttribute="bbsReply" id="reply" name="reply"
-					action="bbsReplySuccess" method="post">
+					action="bbsReplySuccess" method="post" style="margin: 40px auto 0px auto;">
 				<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
-					<form:textarea id="replyMessage" name="replyMessage" path="reply"
-						rows="3" cols="40" style="resize: none" placeholder="敲下你的留言..."></form:textarea>
+					<form:textarea id="replyMessage" name="replyMessage" path="reply" 
+						rows="3" style="resize: none; width: 90%; position: relative; left: 5%;" 
+						placeholder="敲下你的留言..."></form:textarea>
 				</form:form>
 	
 				<br>
 		
-				<form id="replyForm" name="replyForm">
+				<form id="replyForm" name="replyForm" style="width: 90%; margin: 10px auto 0px auto;">
 				<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
 				<c:forEach var="reply" items="${replyList}">
 					<c:if test="${reply.replyDelete == 0}">
 						<div class="card">
-							<p class="card-header">No.${reply.replyRank}  <i class="far fa-user-circle"></i> ${reply.users.account}</p>
-							<div class="card-body">
+							<div class="card-header">
+							<div class="row">
+							<p class="col" style="margin: 0px;">No.${reply.replyRank}  <i class="far fa-user-circle"></i> ${reply.users.account}</p>
+								<P class="col" align="right" style="margin: 0px;">
+								<c:if test="${reply.replyUpdateTime == null}">
+									建立時間：<fmt:formatDate value="${reply.replySetupTime}"
+										pattern="YYYY-MM-dd HH:mm" />
+								</c:if>
+								<c:if test="${reply.replyUpdateTime != null}">
+									最後編輯：<fmt:formatDate value="${reply.replyUpdateTime}"
+										pattern="YYYY-MM-dd HH:mm" />
+								</c:if>
+								</P>
+							</div>
+							</div>
+							<div class="card-body" style="padding: 20px;">
 							<div class="card-title">
-								<div class="row">
-									<p class="card-text col-sm-8" id="div${reply.replyId}">${reply.replyByDetail}</p>
-									<P class="col-sm-4">
-										建立時間：<fmt:formatDate value="${reply.replySetupTime}"
-											pattern="YYYY-MM-dd HH:mm" />
-									<br>
-									<c:if test="${reply.replyUpdateTime != null}">
-										最後編輯：<fmt:formatDate value="${reply.replyUpdateTime}"
-											pattern="YYYY-MM-dd HH:mm" />
-									</c:if>
-									</P>
-								</div>
+								
+								<p class="card-text" id="div${reply.replyId}">${reply.replyByDetail}</p>
 							</div>
 							<div>
+								<button
+									onclick="javascript:document.replyForm.action='bbsReplyDelete'; document.replyForm.method='post'; return false;"
+									id="replyDelete${reply.replyId}" style="position: relative; left: 93%;"
+									class="replyDelete btn btn-danger btn-sm" rel="${reply.replyId}">刪除</button>
+								<button type="button" class="cancelEdit  btn btn-primary btn-sm" id="cancelEdit${reply.replyId}" 
+								style="display: none; position: relative; left: 93%;">取消</button>
 								<input type="button" class="replyEdit  btn btn-primary btn-sm" id="replyEdit${reply.replyId}"
-									rel="${reply.replyId}" value="編輯" />
-								<button id="modify${reply.replyId}" style="display: none;"
+									rel="${reply.replyId}" value="編輯" style="position: relative; left: 75%;" />
+								<button id="modify${reply.replyId}" style="display: none; position: relative; left: 75%;"
 									class="btn btn-primary btn-sm"
 									onclick="javascript:document.replyForm.action='bbsReplyUpdate'; document.replyForm.method='post'"
 									name="replyId" value="${reply.replyId}">修改</button>
-								<button
-									onclick="javascript:document.replyForm.action='bbsReplyDelete'; document.replyForm.method='post'; return false;"
-									id="replyDelete${reply.replyId}"
-									class="replyDelete btn btn-danger btn-sm" rel="${reply.replyId}">刪除</button>
 							</div>
 							</div>
 						</div>
@@ -122,7 +141,7 @@
 				</c:forEach>
 				</form>
 			</div>
-			<div class="col-2"></div>
+			<div class="col-3"></div>
 		</div>
 	</div>
 	
@@ -134,42 +153,39 @@
 			<div class="modal-content">
 				<!-- Modal body -->
 				<div class="modal-body">
-					<select name="typeId" id="selectGroup" class="custom-select-sm">
-						<optgroup label="賽事討論">
-						<c:forEach var="game" items="${gameList}">
-							<option value="${game.typeId}"
-							<c:if test="${game.typeId == bbs.bbsType.typeId}">selected</c:if>>${game.typeName}</option>
-						</c:forEach>
-						</optgroup>
-						<optgroup label="健康情報">
-						<c:forEach var="health" items="${healthList}">
-							<option value="${health.typeId}"
-							<c:if test="${health.typeId == bbs.bbsType.typeId}">selected</c:if>>${health.typeName}</option>
-						</c:forEach>
-						</optgroup>
-						<optgroup label="揪團運動">
-						<c:forEach var="sport" items="${sportList}">
-							<option value="${sport.typeId}"
-							<c:if test="${sport.typeId == bbs.bbsType.typeId}">selected</c:if>>${sport.typeName}</option>
-						</c:forEach>
-						</optgroup>
-					</select> 
-						
-					<input type="text" id="bbsTitle" name="bbsTitle" size="40"
-						value="${bbs.bbsTitle}">
-					<div>
-						<p>${bbs.users.account}</p>
-						<p align="right">
+					<div style="width: 440px; position: relative; top: 40px">
+						<select name="typeId" id="selectGroup" class="custom-select-sm">
+							<optgroup label="賽事討論">
+							<c:forEach var="game" items="${gameList}">
+								<option value="${game.typeId}"
+								<c:if test="${game.typeId == bbs.bbsType.typeId}">selected</c:if>>${game.typeName}</option>
+							</c:forEach>
+							</optgroup>
+							<optgroup label="健康情報">
+							<c:forEach var="health" items="${healthList}">
+								<option value="${health.typeId}"
+								<c:if test="${health.typeId == bbs.bbsType.typeId}">selected</c:if>>${health.typeName}</option>
+							</c:forEach>
+							</optgroup>
+							<optgroup label="揪團運動">
+							<c:forEach var="sport" items="${sportList}">
+								<option value="${sport.typeId}"
+								<c:if test="${sport.typeId == bbs.bbsType.typeId}">selected</c:if>>${sport.typeName}</option>
+							</c:forEach>
+							</optgroup>
+						</select> 
+						<input type="text" id="bbsTitle" name="bbsTitle" size="40"
+							value="${bbs.bbsTitle}">
+					</div>
+						<p style="width: 250px; position: relative; left: 450px">
 							建立時間：<fmt:formatDate value="${bbs.bbsSetupTime}" pattern="YYYY-MM-dd HH:mm" />
 						<br>
-						<c:if test="${bbs.bbsUpdateTime != null}">最後編輯：<fmt:formatDate value="${bbs.bbsUpdateTime}" 
+						<c:if test="${bbs.bbsUpdateTime != null}">上次編輯：<fmt:formatDate value="${bbs.bbsUpdateTime}" 
 							pattern="YYYY-MM-dd HH:mm" />
 						</c:if>
 						</p>
-					</div>
 					<div>
-						<textarea id="bbsMessage" name="bbsMessage" rows="15" cols="60"
-							style="resize: none">${bbs.bbsMessage}</textarea>
+						<textarea id="bbsMessage" name="bbsMessage">${bbs.bbsMessage}</textarea>
 					</div>
 				<!-- Modal footer -->
 				<div class="modal-footer">
@@ -219,8 +235,28 @@
 			});
 		});
 
+		//發文修改的文字編輯器
+		ClassicEditor.create(document.querySelector("#bbsMessage"), {
+			toolbar: {
+			    items: [
+			    	'heading', '|',
+			        'fontfamily', 'fontsize', '|',
+			        'undo', 'redo', '|',
+			        'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+			        'outdent', 'indent', '|',
+			        'bulletedList', 'numberedList', 'todoList', '|',
+			        'code', 'codeBlock', '|',
+			        'blockQuote', '|',
+			    ],
+			}
+		}).then(editor => {
+			window.editor = editor;
+		});
+		
 		//發文修改鈕
 		$("#upDateYN").on("click", function() {
+			var data = window.editor.getData();
+			$("#bbsMessage").val(data);
 			Swal.fire({
 				icon: "question",
 				showCancelButton: true,
@@ -278,8 +314,6 @@
 						hiddenField.setAttribute("name", "replyId");
 						hiddenField.setAttribute("value", id);
 						form.appendChild(hiddenField);
-						document.body.appendChild(form);
-						form.submit();
 						$("#replyForm").submit();
 					});
 				}
@@ -290,11 +324,19 @@
 		$(".replyEdit").on("click",	function() {
 			var id = $(this).attr("rel");
 			var text = $("#div" + id).html();
-			$("#div" + id).html("<textarea name='reply' style='resize:none' rows='3' cols='35'>"
+			$("#div" + id).html("<textarea name='reply' style='resize:none; width: 95%;"
+								+ "position: relative; left: 3%; margin: 10px auto 0px auto;' rows='3'>"
 								+ text + "</textarea>");
 			$(this).hide();
 			$("#modify" + id).show();
+			$("#replyDelete" + id).hide();
+			$("#cancelEdit" + id).show();
 		});
+		
+		//留言編輯取消鈕
+		$(".cancelEdit").on("click", function() {
+			window.location.reload();
+		})
 		
 	</script>
 

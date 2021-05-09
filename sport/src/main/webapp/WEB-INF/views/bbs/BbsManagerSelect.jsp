@@ -22,87 +22,95 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-	<div class="container-fluid pt-3">
+
+	<div class="container-fluid" style="position: relative; top: 50px;">
 		<div class="row">
-			<div class="col-2"></div>
-			<div class="col-8">
-				<form id="select" name="select">
+			<div class="col-3"></div>
+			<div class="col-6 border">
+				<form id="select" name="select"
+					style="width: 90%; margin: 40px auto 10px auto;">
 				<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
 					<div>
-						<div>
-							<div class="row">
-								<h6 class="col-sm-1">${bbs.bbsType.typeName}</h6>
-								<h1 class="col-sm-11">${bbs.bbsTitle}</h1>
-							</div>
-						</div>
-							<div class="row">
-								<div class="col-sm-8">${bbs.users.account}</div>
-								<div class="col-sm-4">
-									<p>
-										建立時間：<fmt:formatDate value="${bbs.bbsSetupTime}"
+						<p>
+							<sup class="badge badge-info">${bbs.bbsType.typeName}</sup> <span
+								style="font-size: 30px; font-weight: bold;">${bbs.bbsTitle}</span>
+						</p>
+					<div class="row">
+						<p class="col">
+							<i class="fas fa-user-circle"></i> ${bbs.users.account}
+						</p>
+						<p class="col" align="right">
+						<c:if test="${bbs.bbsUpdateTime == null}">
+							建立時間：<fmt:formatDate value="${bbs.bbsSetupTime}"
+								pattern="YYYY-MM-dd HH:mm" />
+						</c:if>
+						<c:if test="${bbs.bbsUpdateTime != null}">
+							最後編輯：<fmt:formatDate value="${bbs.bbsUpdateTime}"
+								pattern="YYYY-MM-dd HH:mm" />
+						</c:if>
+						</p>
+					</div>
+						<div>${bbs.bbsMessage}</div>
+					</div>
+					<br>
+					<div>
+						<button type="button" id="deteleBbs" style="display: none; position:relative; left: 90%;"
+							class="btn btn-danger btn-sm">刪除</button>
+						<button type="button" id="recoveryBbs" style="display: none; position:relative; left: 87%;"
+							class="btn btn-warning btn-sm">刪除還原</button>
+					</div>
+					<br>
+				</form>
+
+				<hr>
+
+				<form id="replyForm" name="replyForm" style="width: 90%; margin: 10px auto 0px auto;">
+					<c:forEach var="reply" items="${replyList}">
+					<input type="hidden" id="${reply.replyId}" name="${reply.replyId}"
+						value="${reply.replyId}">
+						<div class="card">
+							<c:if test="${reply.replyDelete == 0}">
+							<p class="card-header">No.${reply.replyRank} <i class="far fa-user-circle"></i>
+								${reply.users.account}
+							</p>
+							</c:if>
+							<c:if test="${reply.replyDelete == 1}">
+							<p class="card-header">No.${reply.replyRank} <i class="fas fa-running"></i> 已被留言者 ${reply.users.account} 刪除
+							</p>
+							</c:if>
+							<c:if test="${reply.replyDelete == 2}">
+								<p class="card-header">No.${reply.replyRank} <i class="fas fa-running"></i> 管理員刪除
+								</p>
+							</c:if>
+							<div class="card-body">
+							<div class="card-title">
+								<div class="row">
+									<p class="card-text col-7" id="div${reply.replyId}">${reply.reply}</p>
+									<P class="col-5" align="right">
+										建立時間：<fmt:formatDate value="${reply.replySetupTime}"
 											pattern="YYYY-MM-dd HH:mm" />
-							<br>
-									<c:if test="${bbs.bbsUpdateTime != null}">
-										最後編輯：<fmt:formatDate value="${bbs.bbsUpdateTime}"
+								<br>
+									<c:if test="${reply.replyUpdateTime != null}">
+										最後編輯：<fmt:formatDate value="${reply.replyUpdateTime}"
 											pattern="YYYY-MM-dd HH:mm" />
 									</c:if>
-									</p>
+									</P>
 								</div>
 							</div>
-							<div>${bbs.bbsMessage}</div>
-					</div>
-				<br>
-					<div>
-						<button type="button" id="deteleBbs" style="display: none;" class="btn btn-danger btn-sm">刪除</button>
-						<button type="button" id="recoveryBbs" style="display: none;" class="btn btn-warning btn-sm">刪除還原</button>
-					</div>
-		</form>
-	
-		<br>
-	
-		<form id="replyForm" name="replyForm">
-			<c:forEach var="reply" items="${replyList}">
-				<input type="hidden" id="${reply.replyId}" name="${reply.replyId}" value="${reply.replyId}">
-				<div class="card">
-					<c:if test="${reply.replyDelete == 0}">
-						<p class="card-header">No.${reply.replyRank} <i class="far fa-user-circle"></i> ${reply.users.account}</p>
-					</c:if>
-					<c:if test="${reply.replyDelete == 1}">
-						<p class="card-header">
-							No.${reply.replyRank} <i class="fas fa-running"></i> 已被留言者刪除
-						</p>
-					</c:if>
-					<c:if test="${reply.replyDelete == 2}">
-						<p class="card-header">
-							No.${reply.replyRank} <i class="fas fa-running"></i> 管理員刪除
-						</p>
-					</c:if>
-					<div class="card-body">
-						<div class="card-title">
-							<div class="row">
-								<p class="card-text col-sm-8" id="div${reply.replyId}">${reply.reply}</p>
-								<P class="col-sm-4">
-									建立時間：<fmt:formatDate value="${reply.replySetupTime}"
-										pattern="YYYY-MM-dd HH:mm" />
-									<br>
-								<c:if test="${reply.replyUpdateTime != null}">
-									最後編輯：<fmt:formatDate value="${reply.replyUpdateTime}"
-										pattern="YYYY-MM-dd HH:mm" />
-									</c:if>
-								</P>
+								<div>
+									<button type="button" id="deleteReply${reply.replyId}"
+										style="display: none;  position:relative; left: 93%;" 
+										class="btn btn-danger btn-sm">刪除</button>
+									<button type="button" id="recoveryReply${reply.replyId}"
+										style="display: none;  position:relative; left: 89%;" 
+										class="btn btn-warning btn-sm">刪除還原</button>
+								</div>
 							</div>
 						</div>
-						<div>
-							<button type="button" id="deleteReply${reply.replyId}" style="display: none;" class="btn btn-danger btn-sm">刪除</button>
-							<button type="button" id="recoveryReply${reply.replyId}" style="display: none;"	class="btn btn-warning btn-sm">刪除還原</button>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</form>
+					</c:forEach>
+				</form>
 			</div>
-			<div class="col-2"></div>
+			<div class="col-3"></div>
 		</div>
 	</div>
 

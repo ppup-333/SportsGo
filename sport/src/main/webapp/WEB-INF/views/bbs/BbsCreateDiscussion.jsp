@@ -5,16 +5,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <c:import url="../header.jsp"/> --%>
+<c:import url="../header.jsp"/>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+
+/* CKEditor 編輯區塊 */
+.ck-editor__editable_inline {
+	/* 設定最低高度、寬度 */
+    min-height: 300px;
+    min-width: 600px;
+}
+
+</style>
 </head>
 <body>
 
@@ -44,14 +55,14 @@
 					</form:select>
 					<form:input type="text" path="bbsTitle" id="bbsTitle" name="bbsTitle"
 						autocomplete="off" size="50" placeholder="輸入標題"></form:input>
-					<br><br>
-					<form:textarea rows="10" cols="70" path="bbsMessage" id="bbsMessage"
-						name="bbsMessage" style="resize: none" placeholder="輸入內文"
-						value="<c:out value='${bbs.bbsMessage}' />"></form:textarea>
-					<input type="button" onclick="formReset()" class="btn btn-warning btn-sm" value="清除" />
+					<input type="button" style="position: relative; top: -3px;" onclick="formReset()" class="btn btn-warning btn-sm" value="清除" />
 					<br>
-					<button type="button" id="cancelYN"class="btn btn-danger btn-sm">放棄發文</button>
-					<button type="submit" id="postYN"class="btn btn-success btn-sm">送出發文</button>
+					<form:textarea path="bbsMessage" id="bbsMessage" name="bbsMessage"
+						placeholder="輸入內文" value="<c:out value='${bbs.bbsMessage}' />"></form:textarea>
+					
+					<br>
+					<button type="button" id="cancelYN"class="btn btn-danger btn-sm" style="position: relative; left: 220px;">放棄發文</button>
+					<button type="submit" id="postYN"class="btn btn-success btn-sm" style="position: relative; left: 240px;">送出發文</button>
 				</form:form>
 			</div>
 			<div class="col"></div>
@@ -61,64 +72,89 @@
 	<script>
 		function formReset() {
 			document.getElementById("create").reset();
+			editor.data.set("");
 		}
 		
-				$("#postYN").on("click", function() {
-					if ($("#typeId").val() == "") {
-						$.confirm({
-							title : "別忘了選擇發文的類型呀~",
-							content : false,
-							buttons : {
-								來去選發文類型 : function() {
-								}
-							}
-						});
-					} else if ($("#bbsTitle").val() == "") {
-						$.confirm({
-							title : "發文要記得打標題唷~",
-							content : false,
-							buttons : {
-								來去補上標題 : function() {
-								}
-							}
-						});
-					} else if ($("#bbsMessage").val() == "") {
-						$.confirm({
-							title : "打完標題，內文也要記得啊~",
-							content : false,
-							buttons : {
-								來去打完內文 : function() {
-								}
-							}
-						});
-					} else {
-						$.confirm({
-							title : "是否送出發文？",
-							content : "選擇「是」送出發文；選擇「否」繼續編輯發文。",
-							buttons : {
-								是 : function() {
-									$("#create").submit();
-								},
-								否 : function() {
-								}
-							}
+		//發文修改的文字編輯器
+		ClassicEditor.create(document.querySelector("#bbsMessage"), {
+			toolbar: {
+			    items: [
+			        'heading', '|',
+			        'fontfamily', 'fontsize', '|',
+			        'undo', 'redo', '|',
+			        'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+			        'outdent', 'indent', '|',
+			        'bulletedList', 'numberedList', 'todoList', '|',
+			        'code', 'codeBlock', '|',
+			        'blockQuote', '|',
+			    ]
+			}
+		}).then(editor => {
+			window.editor = editor;
+		});
+		
+		$("#postYN").on("click", function() {
+			var data = window.editor.getData();
+			$("#bbsMessage").val(data);
+			if($("#typeId").val() == ""){
+				Swal.fire({
+					icon: "warning",
+					confirmButtonText: "知道了",
+					title: "請選擇發文類型！",
+				});
+			} else if($("#bbsTitle").val() == "") {
+				Swal.fire({
+					icon: "warning",
+					confirmButtonText: "知道了",
+					title: "請輸入標題！",
+				});
+			} else if($("#bbsMessage").val() == "") {
+				Swal.fire({
+					icon: "warning",
+					confirmButtonText: "知道了",
+					title: "請輸入內文！",
+				});
+			} else {
+				Swal.fire({
+					icon: "question",
+					showCancelButton: true,
+					confirmButtonText: "確定",
+					cancelButtonText: "取消",
+					title: "確定要送出發文嗎？",
+					text: "確認後送出發文；取消後繼續編輯發文。"
+				}).then((result) => {
+					if (result.isConfirmed) {
+						Swal.fire({
+							icon: "success",
+							title: "成功送出發文！",
+						}).then((result) => {
+							$("#create").submit();
 						});
 					}
 				});
-
-		$("#cancelYN").on("click", function() {
-			$.confirm({
-				title : "確定要放棄發文嗎？",
-				content : "選擇確定放棄發文並將導回討論區首頁；選擇取消繼續編輯發文。",
-				buttons : {
-					確定 : function() {
+			}
+		});
+		
+		$("#cancelYN").on("click", function(){
+			Swal.fire({
+				icon: "question",
+				showCancelButton: true,
+				confirmButtonText: "確定",
+				cancelButtonText: "取消",
+				title: "確定要放棄發文嗎？",
+				text: "放棄發文後將導回討論區首頁。",
+			}).then((result) => {
+				if (result.isConfirmed) {
+					Swal.fire({
+						icon: "success",
+						title: "已放棄發文",
+					}).then((result) => {
 						document.location.href = "bbs";
-					},
-					取消 : function() {
-					}
+					});
 				}
 			});
 		});
+
 	</script>
 
 </body>
