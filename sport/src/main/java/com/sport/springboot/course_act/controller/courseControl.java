@@ -208,6 +208,7 @@ public class courseControl {
 		course.setCourseCost(Integer.parseInt(courseCost));
 		course.setStudentMaxNum(Integer.parseInt(studentMaxNum));
 		course.setCourseIntroduce(courseIntroduce);
+		
 		String type = "course";
 		boolean b = courseservice.insertCourse(course, from, Integer.parseInt(freq), tId, courseTimeStart,
 				courseTimeEnd, coursePlace, type);
