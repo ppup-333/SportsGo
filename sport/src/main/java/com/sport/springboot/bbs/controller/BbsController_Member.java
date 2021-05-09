@@ -252,4 +252,10 @@ public class BbsController_Member {
 					return bbsVo;
 					}).collect(Collectors.toList());
 	}
+	
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
+	}
 }

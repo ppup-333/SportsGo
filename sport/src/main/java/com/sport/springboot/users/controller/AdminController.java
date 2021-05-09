@@ -431,4 +431,11 @@ public class AdminController {
 //		return null;
 //
 //	}
+	
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
+	}
+	
 }

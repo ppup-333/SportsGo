@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,6 +21,7 @@ import com.sport.springboot.course_act.model.EcpayOrderActBean;
 import com.sport.springboot.course_act.model.activityBean;
 import com.sport.springboot.course_act.service.impl.ActivityOrderService;
 import com.sport.springboot.course_act.service.impl.EcpayOrderActService;
+import com.sport.springboot.users.model.Users;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
@@ -135,5 +137,11 @@ public class EcpayActController {
 		return "course_act/ActOrderSelect";
 	}
 	
+	
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
+	}
 	
 }

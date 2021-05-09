@@ -24,6 +24,7 @@ import com.sport.springboot.field.model.FieldType;
 import com.sport.springboot.field.service.FieldService;
 import com.sport.springboot.field.service.FieldTypeService;
 import com.sport.springboot.field.validate.FieldValidator;
+import com.sport.springboot.users.model.Users;
 
 @Controller
 public class FieldController {
@@ -168,5 +169,11 @@ public class FieldController {
 		}
 		m.addAttribute("field", new Field());
 		m.addAttribute("fieldTypeList", fieldTypeList1);
-	}	
+	}
+	
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
+	}
 }

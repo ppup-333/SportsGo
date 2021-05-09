@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import com.sport.springboot.shop.service.ProductCategoryService;
 import com.sport.springboot.shop.service.ProductOrderDetailService;
 import com.sport.springboot.shop.service.ProductOrderListService;
 import com.sport.springboot.shop.service.ProductService;
+import com.sport.springboot.users.model.Users;
 
 @Controller
 @RequestMapping("/shop/order")
@@ -257,7 +259,11 @@ public class ProductOrderController {
 	
 	
 	
-	
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
+	}
 	
 	
 	

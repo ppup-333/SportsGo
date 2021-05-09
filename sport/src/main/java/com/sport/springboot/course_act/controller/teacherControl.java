@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ import com.sport.springboot.course_act.model.activityBean;
 import com.sport.springboot.course_act.model.courseBean;
 import com.sport.springboot.course_act.model.teacherBean;
 import com.sport.springboot.course_act.service.impl.teacherService;
+import com.sport.springboot.users.model.Users;
 
 @Controller
 public class teacherControl {
@@ -161,5 +163,11 @@ public class teacherControl {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
 	}
 }

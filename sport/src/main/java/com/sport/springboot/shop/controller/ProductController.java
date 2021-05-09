@@ -41,6 +41,7 @@ import com.sport.springboot.shop.model.ProductOrderList;
 import com.sport.springboot.shop.service.ProductCategoryService;
 import com.sport.springboot.shop.service.ProductService;
 import com.sport.springboot.shop.validate.ProductValidator;
+import com.sport.springboot.users.model.Users;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -796,6 +797,14 @@ public class ProductController {
 			checkmap.clear();
 		}
 		return "success";			
+	}
+	
+	
+	
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
 	}
 		
 	

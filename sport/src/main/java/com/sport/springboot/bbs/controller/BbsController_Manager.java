@@ -20,6 +20,7 @@ import com.sport.springboot.bbs.service.BbsReplyService;
 import com.sport.springboot.bbs.service.BbsService;
 import com.sport.springboot.bbs.service.BbsTypeService;
 import com.sport.springboot.bbs.vo.BbsVo;
+import com.sport.springboot.users.model.Users;
 
 @Controller
 public class BbsController_Manager {
@@ -176,4 +177,10 @@ public class BbsController_Manager {
 		return "OK";
 	}
 
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
+	}
+	
 }

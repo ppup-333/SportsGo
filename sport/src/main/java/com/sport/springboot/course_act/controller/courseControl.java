@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,6 +32,7 @@ import com.sport.springboot.course_act.service.impl.courseService;
 import com.sport.springboot.course_act.service.impl.teacherService;
 import com.sport.springboot.field.model.Field;
 import com.sport.springboot.field.service.FieldService;
+import com.sport.springboot.users.model.Users;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.QueryTradeInfoObj;
@@ -489,4 +491,10 @@ public class courseControl {
 		return "course_act/InsertOK";
 	}
 
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
+	}
+	
 }

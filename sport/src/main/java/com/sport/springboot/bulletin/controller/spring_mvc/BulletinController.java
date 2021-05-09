@@ -39,6 +39,7 @@ import com.sport.springboot.bulletin.model.Bulletin;
 import com.sport.springboot.bulletin.model.BulletinClass;
 import com.sport.springboot.bulletin.service.BulletinClassService;
 import com.sport.springboot.bulletin.service.BulletinService;
+import com.sport.springboot.users.model.Users;
 
 @Controller
 @RequestMapping("/Bulletin")
@@ -338,6 +339,12 @@ public class BulletinController {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
 	}
 	
 }

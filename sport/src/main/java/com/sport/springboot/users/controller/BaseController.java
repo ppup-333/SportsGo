@@ -16,6 +16,12 @@ public class BaseController {
 		
 	}
 	
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
+	}
+	
 //	@ModelAttribute
 //	void d(Model m) {
 //		m.addAttribute("loginPage", new Users());
