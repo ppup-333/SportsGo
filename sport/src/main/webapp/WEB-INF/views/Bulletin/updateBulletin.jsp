@@ -142,7 +142,7 @@
 </fieldset>
 <br>
 <div align="center">
-<a href="<c:url value='/Bulletin/showAllBulletin'/> " >回前頁</a>
+<a href="<c:url value='/Bulletin/showBulletinContent/${bulletin.id}'/> " >回前頁</a>
 </div>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 </body>
