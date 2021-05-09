@@ -105,7 +105,7 @@ public class UserController {
 		model.addAttribute("loginPage", users);
 
 		if (session.getAttribute("account") != null) {
-			return "users/LoginHomePage";
+			return "index";
 //			String account = session.getAttribute("account").toString();
 //			if (chkStatus(account)) {
 //				//////////////////////////////////////////////////////////////////////////////////////
@@ -290,7 +290,9 @@ public class UserController {
 		LoginValidator validator = new LoginValidator();
 		validator.validate(users, result);
 		if (result.hasErrors()) {
-			return "users/Login";
+//			return "users/Login";
+			session.setAttribute("loginErrorCode", "1");
+			return "index";
 		}
 
 		try {
@@ -314,23 +316,31 @@ public class UserController {
 
 			if (b == false) {
 				result.rejectValue("password", "", "帳號或密碼不正確");
-				return "users/Login";
+//				return "users/Login";
+				session.setAttribute("loginErrorCode", "1");
+				return "index";
 
 			} else if ("03".equals(userStatus)) {
 				result.rejectValue("password", "", "帳號已封鎖，請洽管理員");
-				return "users/Login";
+//				return "users/Login";
+				session.setAttribute("loginErrorCode", "1");
+				return "index";
 			} else if ("01".equals(userStatus)) {
 //				this.checkAccount = users.getAccount();
 				session.setAttribute("tempAccount", users.getAccount());
+				session.setAttribute("loginErrorCode", "1");
 				return "redirect:/user/ChkEmail";
 			}
 
 		} catch (Exception ex) {
 
 			result.rejectValue("password", "", "帳號或密碼不正確");
-			return "users/Login";
+//			return "users/Login";
+			session.setAttribute("loginErrorCode", "1");
+			return "index";
 		}
 
+		session.removeAttribute("loginErrorCode");
 		session.setAttribute("account", account);
 		session.setAttribute("username", usersService.get(account).getName());
 		System.out.println("session1=" + session.getAttribute("account"));

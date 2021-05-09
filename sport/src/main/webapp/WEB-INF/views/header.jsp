@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,41 +98,110 @@
                 </div>
             </div>
             <div id="loginDiv" class="btn-group">
-  				<button id="loginBtn" type="button" class="btn btn-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  				<button id="memberListBtn" type="button" class="btn btn-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     				登入
   				</button>
   				<div class="dropdown-menu dropdown-menu-md-left loginDropdown">
-    				<a class="dropdown-item" href="/sport/user/Login">登入</a>
+<!--     				<a class="dropdown-item" href="/sport/user/Login">登入</a> -->
+					<a class="dropdown-item" href="/sport/user/Login">登入</a>
+					<a class="dropdown-item" href="" id="loginBtn" data-toggle="modal" data-target="#exampleModal">
+					  測試登入
+					</a>
     				<a class="dropdown-item" href="/sport/user/RegisterEdit">註冊</a>
     				<a class="dropdown-item" href="/sport/admin/AdminLogin">管理員登入</a>
   				</div>  				
 			</div>
 			<div id="logoutDiv" style="display:none">
-				<button id="logoutBtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button id="memberBtn" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     				<i class="fas fa-user"></i>&nbsp;${sessionScope.username}
   				</button>
   				<form action="/sport/user/Logout" method="post" id="formLogout">
 	  				<div class="dropdown-menu dropdown-menu-md-left loginDropdown">
 	    				<a class="dropdown-item" href="#">會員中心</a>
-	    				<a class="dropdown-item" href="#" onclick="formLogout.submit()">登出</a>
+	    				<a class="dropdown-item" id="logoutBtn" href="#">登出</a>
 	  				</div>
   				</form>
 			</div>
         </div>
     </div>
 <!--end of header-->
+
+<!-- Login Modal -->
+<form:form method="POST" action="/sport/user/Login" modelAttribute="loginPage" enctype='multipart/form-data' id="form1">
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">會員登入</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+				<div>
+					<table>
+						<tr>
+							<td>帳號：<br>&nbsp;</td>
+							<td><form:input path="account"  /><br>&nbsp;
+								<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
+		<%-- 						<form:errors path='account' cssClass="error"/> --%>
+								</td>
+						</tr>
+						<tr>
+							<td>密碼：<br>&nbsp;</td>
+				  			<td width='360'><form:input path='password' type='password' /><br>&nbsp;	
+				     						<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><form:errors path='password' cssClass="error" id='loginError'/></td>
+						</tr>
+					</table>
+				</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="submit" class="btn btn-primary">送出</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</form:form>
+<!-- end of Login Modal -->
+
 <script>
-	// 檢查是否
+
+	<c:if test="${sessionScope.loginErrorCode !=null && sessionScope.loginErrorCode == 1}">
+		
+		alert("帳號或密碼不正確");
+
+		${sessionScope.remove("loginErrorCode")}
+	</c:if>
+		
+	// 檢查是否有登入
 	<c:if test="${sessionScope.account!=null && sessionScope.account!=''}">
-		var loginBtn = document.getElementById("loginBtn");
+		var memberListBtn = document.getElementById("memberListBtn");
 		var logoutDiv = document.getElementById("logoutDiv");
-		loginBtn.style.display='none';
+		memberListBtn.style.display='none';
 		logoutDiv.style.display='block';
 	</c:if>
+	
+	
+	$("#logoutBtn").click(function() {
+		if(!confirm("確定要登出？")){
+			$("#memberBtn").click();
+			return false;
+		}else{			
+			$("#formLogout").submit();
+		}
+	});
+	
+	
+	
 </script>
 	
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="http://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 </body>
 </html>

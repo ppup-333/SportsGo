@@ -318,4 +318,9 @@ public class FieldOrderController {
 		m.addAttribute("fieldList", fieldService.getAll());
 	}
 	
+	@ModelAttribute
+	public void headerModel(Model m) {
+		Users users = new Users();
+		m.addAttribute("loginPage", users);
+	}
 }

@@ -46,7 +46,7 @@
 <c:import url="header.jsp"/>
 
 <!-- main img-->
-    <div id="mainDiv" class="container">
+    <div id="mainDiv" class="container-fluid">
         <div class="row">
 <!--         	<div class="col-1"></div> -->
             <div id="imgDiv" class="col-12">
@@ -58,13 +58,13 @@
                     </ol>
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <img src="/sport/images/gym2.jpg" class="d-block w-100">
+                        <img src="/sport/images/gym3.jpg" class="d-block w-100">
                       </div>
                       <div class="carousel-item">
-                        <img src="/sport/images/swimmingpool2.jpg" class="d-block w-100">
+                        <img src="/sport/images/swimmingpool3.jpg" class="d-block w-100">
                       </div>
                       <div class="carousel-item">
-                        <img src="/sport/images/tabletennis2.jpg" class="d-block w-100">
+                        <img src="/sport/images/tabletennis3.jpg" class="d-block w-100">
                       </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
