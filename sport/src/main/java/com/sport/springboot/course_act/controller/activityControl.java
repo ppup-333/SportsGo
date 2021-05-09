@@ -126,8 +126,8 @@ public class activityControl {
 				CATime time = (CATime) it.next();
 				insideMap.add(time.getDate());
 				if (b) {
-					activityMap.put("TimeStart", time.getTimeStart());
-					activityMap.put("TimeEnd", time.getTimeEnd());
+					activityMap.put("TimeStart", time.getTimeStart().substring(0, 5));
+					activityMap.put("TimeEnd", time.getTimeEnd().substring(0, 5));
 					b = false;
 				}
 			}
