@@ -6,22 +6,39 @@
 <head>
 <title></title>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="/sport/scripts/bulletin/date.format.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 </head>
 <style>
-	.text {
-		width: 500px;
-		border: 1px solid black;
-		word-break: break-all;
-        word-wrap: break-word;
-        white-space: pre-wrap;
+	.box{
+		margin-top:100px;
+	
 	}
-	#id {
-		text-align:center;
+	.box-center{
+		border:1px solid black;
 	}
-	#contents{
-		text-align:left;
+	.title-container > h2{
+/* 		text-align:left; */
+	}
+	.image-container{
+ 		width:50%; 
+ 		
+		float:left;
+	}
+	.contents-container{
+ 		width:50%; 
+		float:right;
+		diplay:inline-block;
+	}
+	.contents-container > p{
+ 	
+	}
+	.control{
+		float:left;
+	}
+	.clear{
+		clear:both;
 	}
 </style>
 <script type='text/javascript'>
@@ -36,9 +53,9 @@ window.onload = function(){
 		if (this.readyState === 4 && this.status === 200) {
 			var data = JSON.parse(this.responseText);
 			console.log(data);
-			var title = "<h2>" + data.title + "</h2>"
+			var title = "<h4>【"+data.class_id.name+"】" + data.title + "</h4>"
 			var tempContents = data.contents.replace(/&nbsp;/g, ' ').replace(/<br\/>/g, '\r\n');
-			content = "<p>" + tempContents + "</p>";
+			content = "<p>" + data.contents + "</p>";
 			var titleDiv = document.getElementById("title");
 			var contentDiv = document.getElementById("contents");
 			titleDiv.innerHTML = title;
@@ -93,32 +110,43 @@ $(document).ready(function() {
 </script>
 <body>
 <c:import url="../header.jsp"/>
-<div id="view" align='center'>
-	<input id='bulletinId' type='hidden' value='${bulletin.id }'>
-		
-	<div id="title" class="text">
-		
+<input id='bulletinId' style='display:none' value='${bulletin.id }'>
+	<div class="box">
+		<div class="container">
+				
+			<div id="title" class="title-container">
+				
+			</div>
+			<div class="image-container">
+				<div id="picutre">
+					<c:choose>
+						<c:when test='${bulletin.image != null}'>
+							<img width='500' height='700' src='<c:url value="/Bulletin/picture/${bulletin.id }"/>'/>
+						</c:when>
+					</c:choose>	
+				</div>
+			</div>
+			<div id="contents" class="contents-container">
+				
+			</div>
+			<div class="clear"></div>
+		</div>
 	</div>
-	<div id="contents" class="text">
-		
-	</div>
-	<div id="picutre">
-		<c:choose>
-			<c:when test='${bulletin.image != null}'>
-				<img width='120' height='144' src='<c:url value="/Bulletin/picture/${bulletin.id }"/>'/>
-			</c:when>
-		</c:choose>	
-	</div>
-</div>
-<div align="center">
-	<input type="button" value="更新公告" onclick="location.href='<c:url value='/Bulletin/update/${bulletin.id}'/>'"/>
-	<form action="<c:url value='/'/>Bulletin/delete/${bulletin.id}" method='POST'>
-		<input type='hidden' name='_method' value='delete'>
-		<button type="submit" id='deletelink'>刪除公告</button>
-	</form>
-<%-- 	<a class='deletelink' href="<c:url value='/'/>Bulletin/delete/${bulletin.id}" >刪除公告</a> --%>
-	<a href="<c:url value='/Bulletin/showAllBulletin'/> " >回前頁</a>
-</div>
+
+
+	<div class="container">
+		<input type="button" value="更新公告" onclick="location.href='<c:url value='/Bulletin/update/${bulletin.id}'/>'"/>
+		<form action="<c:url value='/'/>Bulletin/delete/${bulletin.id}" method='POST'>
+			<input type='hidden' name='_method' value='delete'>
+			<button type="submit" id='deletelink'>刪除公告</button>
+		</form>
+	
+		<a href="<c:url value='/Bulletin/viewBulletin'/> " >回前頁</a>
+ 	</div> 
+
+
+
+
 
 <script src="/sport/scripts/bulletin/linkify.min.js"></script>
 <script src="/sport/scripts/bulletin/linkify-jquery.min.js"></script>
