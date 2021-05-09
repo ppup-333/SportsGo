@@ -86,7 +86,7 @@ public class FieldOrderController {
 	
 	
 	@GetMapping("/createPage")
-	public String orderCreatePage(Model m) {
+	public String orderCreatePage(Model m, HttpSession session) {
 		Date day1 = new Date();
 		long ms = day1.getTime() + 86400000 * 7;
 		Date day2 = new Date(ms);
@@ -97,9 +97,30 @@ public class FieldOrderController {
 		System.out.println(day1Str);
 		System.out.println(day2Str);
 		
+		List<FieldMemberOrder> memberOrderList = new ArrayList<>();
+		List<FieldMemberOrder> memberPastOrderList = new ArrayList<>();
+		if(session.getAttribute("account") != null) {
+			String account = session.getAttribute("account").toString();
+			memberOrderList = fieldMemberOrderService.getOrderByAccount(account);
+			memberPastOrderList = fieldMemberOrderService.getPastOrdersByAccount(account);
+		}
+		
+		boolean attendanceStatus = true;
+		int count = 0;
+		for(int i = 0; i < memberPastOrderList.size(); i++) {
+			if(memberPastOrderList.get(i).getAttendance() == -1 ) {
+				count++;
+				if(count == 3) {
+					attendanceStatus = false;
+					break;
+				}
+			}
+		}		
+		
 		m.addAttribute("day1", day1Str);
 		m.addAttribute("day2", day2Str);
-		
+		m.addAttribute("memberOrderCount", memberOrderList.size());
+		m.addAttribute("attendanceStatus", attendanceStatus);
 		return "fieldOrder/order_CreatePage";
 	}
 	
@@ -252,6 +273,7 @@ public class FieldOrderController {
 	@RequestMapping(value = "/updateAbsence")
 	@ResponseBody
 	public String updateAbsence(@RequestBody Map<String, Integer> map) {
+		
 		FieldMemberOrder fieldMemberOrder = fieldMemberOrderService.get(map.get("updateId"));
 		fieldMemberOrder.setAttendance(-1);
 		fieldMemberOrderService.save(fieldMemberOrder);
