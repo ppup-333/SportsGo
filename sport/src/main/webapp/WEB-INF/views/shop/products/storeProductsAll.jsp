@@ -159,7 +159,7 @@ border: none;
 text-decoration: none;
 background-color: white;
 color:red;
-font-weight: bolder;
+font-weight: bolder; 
 /* margin-left:1150px; */
 /* margin-top:-25px; */
 
