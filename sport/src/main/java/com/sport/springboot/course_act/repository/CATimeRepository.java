@@ -21,5 +21,8 @@ public interface CATimeRepository extends JpaRepository<CATime,Integer> {
 	@Query("delete from CATime c where coursebean.courseId=:courseId")
 	public void deleteTimeByCourseId(@Param("courseId")int courseId);
 	
+	@Modifying
+	@Query("delete from CATime c where activitybean.actId=:activityId")
+	public void deleteTimeByActId(@Param("activityId")int activityId);
 	
 }

@@ -3,8 +3,12 @@ package com.sport.springboot.course_act.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sport.springboot.course_act.model.CATime;
 import com.sport.springboot.course_act.model.activityBean;
 import com.sport.springboot.course_act.service.impl.activityService;
+import com.sport.springboot.field.model.Field;
+import com.sport.springboot.field.service.FieldService;
 import com.sport.springboot.users.model.Users;
 
 @Controller
@@ -33,12 +39,142 @@ public class activityControl {
 
 	@Autowired
 	private activityService activityservice;
-
+	@Autowired
+	FieldService fieldService;	
+	
 	@GetMapping("/activityInsert")
-	public String activityInsert(Model model) {
+	public String activityInsert(@RequestParam String ymd,Model model) {
 		String account = "mary123";
+		
+		List<Field> fieldList = fieldService.getAll();
 		model.addAttribute("account", account);
+		model.addAttribute("ymd", ymd);
+		model.addAttribute("fieldList",fieldList);
 		return "course_act/activityInsert";
+	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@GetMapping("/actUpdate")
+	public String actUpdate(@RequestParam String id, Model model) {
+		int actId = Integer.parseInt(id);
+		Optional<activityBean> a = activityservice.selectId(actId);
+		activityBean activity = a.get();
+		Map activityMap=new HashMap();
+		activityMap.put("actId", activity.getActId());
+		byte[] imgData = activity.getActPicture();
+		String base64data = "";
+		if (imgData != null) {
+			base64data = Base64.getEncoder().encodeToString(imgData);
+		} else {
+			String FilePath = "D:/_SpringBoot/images/user.png";
+			try {
+				FileInputStream fis1 = new FileInputStream(FilePath);
+				imgData = new byte[fis1.available()];
+				fis1.read(imgData);
+				base64data = Base64.getEncoder().encodeToString(imgData);
+				fis1.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		activityMap.put("account",activity.getAccount());
+		activityMap.put("actCost", activity.getActCost());
+		activityMap.put("actMaxNum", activity.getActMaxNum());
+		activityMap.put("actCurrentNum",activity.getActCurrentNum());
+		activityMap.put("actName", activity.getActName());
+		activityMap.put("actIntroduce", activity.getActIntroduce());
+		Iterator<CATime> it = activity.getTime().iterator();
+		List<String> tempList = new ArrayList<>();
+		boolean b = true;
+		int count = 0;
+		List<Field> fieldList = fieldService.getAll();
+		Field firstfield = fieldList.get(0);
+		while (it.hasNext()) {
+			CATime time = it.next();
+			tempList.add(time.getDate());
+			if (b) {
+				
+				for(int i=0;i<fieldList.size();i++) {
+					if(fieldList.get(i).getName().equals(time.getFieldbean().getName())) {
+						Field nowField = fieldList.get(i);
+						fieldList.set(i, firstfield);
+						fieldList.set(0, nowField);
+					}
+				}
+				activityMap.put("TimeStart", time.getTimeStart().substring(0, 5));
+				activityMap.put("TimeEnd", time.getTimeEnd().substring(0, 5));
+				b = false;
+			}
+			count++;
+		}
+		Collections.sort(tempList);
+		String DateStart = tempList.get(0);
+		String DateEnd = tempList.get(tempList.size() - 1);
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String nowDate=dateFormat.format(date);
+        
+        
+      
+        
+		activityMap.put("DateStart", DateStart);
+		activityMap.put("DateEnd", DateEnd);		
+		model.addAttribute("nowDate", nowDate);
+		model.addAttribute("activityMap", activityMap);
+		model.addAttribute("base64data", base64data);
+		model.addAttribute("fieldList",fieldList);
+
+		return  "course_act/manageActUpdate";
+	}
+	@PostMapping("actUpdateImpl")
+	public String actUpdateImpl(@RequestParam("actId") String actId,
+			@RequestParam("account") String account, @RequestParam("actName") String actName,
+			@RequestParam("actCost") String actCost, @RequestParam("DateStart") String DateStart,
+			@RequestParam("DateEnd") String DateEnd, @RequestParam("TimeStart") String TimeStart,
+			@RequestParam("TimeEnd") String TimeEnd, @RequestParam("place") String place,
+			@RequestParam("actMaxNum") String actMaxNum, @RequestParam("actIntroduce") String actIntroduce,
+			@RequestParam("actPicture") MultipartFile multipartfile, HttpServletRequest request,Model model) 
+					throws IllegalStateException, IOException{
+		 int id=Integer.parseInt(actId);
+
+		 activityBean act=activityservice.getOne(id);
+		 act.setAccount(account);
+		 act.setActName(actName);
+		 act.setActCost(Integer.parseInt(actCost));
+		 act.setActMaxNum(Integer.parseInt(actMaxNum));
+		 act.setActIntroduce(actIntroduce);
+		 
+			if (multipartfile.isEmpty()) {
+				Optional<activityBean> a=activityservice.selectId(id);
+				activityBean activity=a.get();
+				act.setActPicture(activity.getActPicture());
+			} else {
+				String filename = multipartfile.getOriginalFilename();	
+				String saveDirPath = request.getSession().getServletContext().getRealPath("/") + "uploadTempDir\\";
+				File fileDir = new File(saveDirPath);
+				fileDir.mkdirs();
+				String saveFilePath = saveDirPath + filename;
+				File saveFile = new File(saveFilePath);
+				System.out.println("saveFilePath:" + saveFilePath);			
+				multipartfile.transferTo(saveFile);
+				if (filename != null && filename.length() != 0) {
+					savePicture(act, filename, saveFilePath);
+
+				}
+			}
+		String type="activity";
+		boolean b=activityservice.updateActivity(act,DateStart, DateEnd, TimeStart, TimeEnd, place, type);
+
+		String result="";
+		if (b) {
+			result="更新成功";
+			System.out.println(true);
+		} else {
+			result="更新失敗,有衝突到其他時段";
+			System.out.println(false);
+		}
+		model.addAttribute("result", result);
+		return "course_act/updateOk";
 	}
 
 //	@GetMapping("/activityMain")
@@ -63,11 +199,14 @@ public class activityControl {
 		Iterator<CATime> time = a.getTime().iterator();
 		List<String> timeList = new ArrayList<>();
 		List<String> tempList = new ArrayList<>();
+		 String fieldName="";
+
 		boolean b = true;
 		while (time.hasNext()) {
 			CATime c = time.next();
 			tempList.add(c.getDate());
 			if (b) {
+				fieldName=c.getFieldbean().getName();
 				timeList.add(c.getTimeStart().substring(0, 5));
 				timeList.add(c.getTimeEnd().substring(0, 5));
 				b = false;
@@ -83,6 +222,7 @@ public class activityControl {
 		model.addAttribute("activity", a);
 		model.addAttribute("account", account);
 		model.addAttribute("timeList", timeList);
+		model.addAttribute("fieldName", fieldName);
 		return "course_act/activityCheckSignUp";
 	}
 
@@ -154,7 +294,7 @@ public class activityControl {
 			@RequestParam("DateEnd") String DateEnd, @RequestParam("TimeStart") String TimeStart,
 			@RequestParam("TimeEnd") String TimeEnd, @RequestParam("place") String place,
 			@RequestParam("actMaxNum") String actMaxNum, @RequestParam("actIntroduce") String actIntroduce,
-			@RequestParam("actPicture") MultipartFile multipartfile, HttpServletRequest request)
+			@RequestParam("actPicture") MultipartFile multipartfile, HttpServletRequest request,Model model)
 			throws IllegalStateException, IOException {
 		activityBean activitybean = new activityBean();
 
@@ -184,12 +324,15 @@ public class activityControl {
 		String type = "activity";
 		System.out.println(activitybean.getActPicture());
 		boolean b = activityservice.insertActivity(activitybean, DateStart, DateEnd, TimeStart, TimeEnd, place, type);
+		String result="";
 		if (b) {
+			result="新增成功";
 			System.out.println(true);
 		} else {
+			result="新增失敗,有衝突到其他時段";
 			System.out.println(false);
 		}
-
+		model.addAttribute("result", result);
 		return "course_act/InsertOK";
 	}
 

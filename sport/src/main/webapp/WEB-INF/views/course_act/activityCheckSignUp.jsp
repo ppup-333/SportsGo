@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>activityCheckSignUp</title>
+
 <style type="text/css">
 table{
  border-collapse:collapse;
@@ -34,11 +35,12 @@ text-align:center;
 </head>
 <body>
 <c:import url="../header.jsp"/>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <div class="main_body">
 <h1>${activity.actName}</h1>
-<table>
+<table class="activitytable">
 <tr><tr><th>活動時間<th>活動開始日期<th>活動結束日期<th>活動地點<th>活動費用
-	<tr><td>${timeList[0]}~${timeList[1]}<td>${timeList[2]}<td>${timeList[3]}<td><td>${activity.actCost}
+	<tr><td>${timeList[0]}~${timeList[1]}<td>${timeList[2]}<td>${timeList[3]}<td>${fieldName}<td>${activity.actCost}
 </table>
 
 <h2>活動介紹</h2>
@@ -95,22 +97,24 @@ $(document).ready(function(){
 	
 	$(".apply").on("click",function(){
 		let actName=$("h1").eq(0).text();
-		let actTime=$("td").eq(0).text();
-		let actDateStart=$("td").eq(1).text();
-		let actDateEnd=$("td").eq(2).text();
-		let actPlace=$("td").eq(3).text();
-		let actCost=$("td").eq(4).text();
+		let actTime=$(".activitytable tr td").eq(0).text();
+		let actDateStart=$(".activitytable tr td").eq(1).text();
+		let actDateEnd=$(".activitytable tr td").eq(2).text();
+		let actPlace=$(".activitytable tr td").eq(3).text();
+		let actCost=$(".activitytable tr td").eq(4).text();
+		console.log(actTime);
 		let id=this.id;
 		
 		if(actCost==0){
 			console.log("hello");
 		}else{
 			$.ajax({
-				url:"/springsport/confirmActivityApply?actId="+id+"&actName="+actName+"&actTime="+actTime+"&actDateStart="+actDateStart+"&actDateEnd="+actDateEnd+"&actPlace="+actPlace+"&actCost="+actCost,
+				url:"/sport/confirmActivityApply?actId="+id+"&actName="+actName+"&actTime="+actTime+"&actDateStart="+actDateStart+"&actDateEnd="+actDateEnd+"&actPlace="+actPlace+"&actCost="+actCost,
 			    context: document.body,
-			    success: function(result){
-			    	$("#sport").empty();
-			    	$("#sport").html(result);
+			    success: function(result){			    	
+			    	console.log(result);
+			    	$(".main_body").empty();
+			    	$(".main_body").html(result);
 			   }
 			});	
 		}

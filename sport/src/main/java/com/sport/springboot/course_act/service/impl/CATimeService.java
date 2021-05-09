@@ -142,7 +142,7 @@ public class CATimeService {
 			
 			 if(newOrderDetailList != null && newOrderDetailList.size() > 0) {
 				   fieldActOrderService.createActOrder(newOrderDetailList);
-				   System.out.println("場地預約已建立好");
+				   System.out.println("課程場地預約已建立好");
 				  }else {
 					  return false;
 				  }
@@ -175,6 +175,15 @@ public class CATimeService {
 				insertList.add(time);
 				timeSet.add(time);			
 				orderDetailList = fieldActOrderService.checkOrderTime(Place,Date,TimeStart,TimeEnd);
+				
+				if(orderDetailList==null) {
+					return false;
+				}else {
+					System.out.println(orderDetailList.size());
+					for(int j = 0; j < orderDetailList.size(); j++) {
+					   newOrderDetailList.add(orderDetailList.get(j));
+					  }
+				}
 			}else {
 				return false;
 			}
@@ -184,14 +193,14 @@ public class CATimeService {
 			System.out.println(Date);
 			Date=convertCourseDate(Date);
 		}	
+
+			 if(newOrderDetailList != null && newOrderDetailList.size() > 0) {
+				   fieldActOrderService.createActOrder(newOrderDetailList);
+				   System.out.println("活動場地預約已建立好");
+				  }else {
+					  return false;
+				  }
 			
-			
-			if(orderDetailList!=null&&orderDetailList.size()!=0) {
-				fieldActOrderService.createActOrder(orderDetailList);
-				
-			}else {
-				return false;
-			}
 			boolean b =insertTime(insertList);
 			if(b) {
 				
@@ -221,6 +230,15 @@ public class CATimeService {
 	public boolean deleteTimeByCourse(courseBean course){
 		try {
 			 CATimeDao.deleteTimeByCourseId(course.getCourseId());
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	public boolean deleteTimeByAct(activityBean activity){
+		try {
+			 CATimeDao.deleteTimeByActId(activity.getActId());
 		}catch(Exception e) {
 			e.printStackTrace();
 			return false;

@@ -122,9 +122,6 @@ var DateDiff = function (sDate1, sDate2) { // sDate1 和 sDate2 是 2016-06-18 �
 	  return iDays;
 	};
 
-document.addEventListener('DOMContentLoaded', function() {
-    
-  });
 function sport(s){
 	$("#animation").addClass("loader");		
 	let xhr=new XMLHttpRequest();
