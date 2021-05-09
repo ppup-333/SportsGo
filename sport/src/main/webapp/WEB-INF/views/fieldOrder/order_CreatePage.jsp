@@ -7,17 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<!-- jQuery -->
-<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
-<!-- <script src="http://code.jquery.com/jquery-1.12.4.js"></script> -->
-<!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
-
-<!-- bootstrap -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<!-- <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
-<!-- <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-
 <style>
 #div_DateType {
 	text-align: center;
@@ -31,8 +20,20 @@
 /* 	left: 30%; */
 } 
 
-th, td {
- 	width: 80px; 
+#queryTable {
+	background-color: rgb(230,230,230);
+}
+
+.orderedTime {
+	font-size:120%;
+	font-weight:550;
+	color: red;
+	background-color: rgb(255, 220, 190);
+	box-shadow: 0px 0px 5px inset gray;
+}
+
+th, td { 
+	width: 80px;
 	height: 40px;
 	text-align: center;
 }
@@ -80,7 +81,7 @@ th, td {
 							
 								</div>
 							</div>
-							<div class="col-5">
+							<div id="chooseDiv" class="col-5" style="display:none">
 								場　地　：
 								<select id="fieldSelect" name="fieldId">
 									<option value="0">- 請選擇 -</option>
@@ -122,6 +123,16 @@ th, td {
 	</form>				
 	
 <script>
+// <c:if test="${memberOrderCount >= 2}">
+// 	var div_DateType = document.getElementById("div_DateType");
+// 	div_DateType.innerHTML = "<h4>您的預約已達上限</h4>";
+// </c:if>
+
+<c:if test="${attendanceStatus == false}">
+	var div_DateType = document.getElementById("div_DateType");
+	div_DateType.innerHTML = "<h4>預約未到太多次，您的預約功能已被封鎖</h4>";
+</c:if>
+
 var typeSelect = document.getElementById("typeSelect");
 var hoursSelect = document.getElementById("period");
 	
@@ -153,7 +164,7 @@ function xhrFunction(){
 }
 
 
-function displayFields(responseText){
+function displayFields(responseText){	
 	//重製fieldSelect
 	var fieldSelect = document.getElementById("fieldSelect");
 	fieldSelect.value = "0";
@@ -175,6 +186,7 @@ function displayFields(responseText){
 	//輸出預約查詢表
 	var content;	
 	if(typeSelect.value != 0){
+		$("#chooseDiv").show();
 		mapData = JSON.parse(responseText);	
 		
 		var fieldList = mapData.fieldList;
@@ -205,7 +217,7 @@ function displayFields(responseText){
 		}
 		console.log(orderedList);		
 		
-		content = "<table id='queryTable' border='1'>"
+		content = "<table id='queryTable' class='table table-bordered'>"
 				+		"<thead><tr><th id='thPeriod' class='th'>時段" + fieldNameListStr + "</thead>" + periodOrderListStr 
 				+ "</table>"
 		
@@ -213,9 +225,11 @@ function displayFields(responseText){
 		
 		for(var i = 0; i < orderedList.length; i++){
 			var ordered = document.getElementById(orderedList[i]);
+			ordered.className = "orderedTime"
 			ordered.innerHTML = "(已預定)";
 		}
 	}else{
+		$("#chooseDiv").hide();
 		queryByType.innerHTML = "";
 	}
 	
