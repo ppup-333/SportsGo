@@ -155,18 +155,18 @@ height:120px;
 
 
 .cart{
-/* float:right; */
-/* min-height:80px; */
 border: none;
-  text-decoration: none;
-  background-color: white;
-  margin-left:1150px;
-/*   margin-right:50px; */
-/* margin-top:-10px; */
+text-decoration: none;
+background-color: white;
 color:red;
-font-weight: bolder;
-margin-top:-25px
+font-weight: bolder; 
+/* margin-left:1150px; */
+/* margin-top:-25px; */
 
+  position:fixed;
+/* 　top:1280px; */
+  right: 45px;
+  top:115px;
 
 }
 

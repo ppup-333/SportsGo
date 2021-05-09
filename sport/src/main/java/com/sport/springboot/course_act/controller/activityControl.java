@@ -89,6 +89,13 @@ public class activityControl {
 		return "course_act/NewActMain";
 	}
 	
+	@GetMapping("/NewManageActivityMain")
+	public String NewManageActivityMain() {
+		return "course_act/NewManageActivityMain";
+	}
+	
+	
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@GetMapping("/activity")
 	@ResponseBody

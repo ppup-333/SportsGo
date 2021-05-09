@@ -161,7 +161,8 @@ input[type=number]::-webkit-inner-spin-button {
   font-weight: bolder;
   position:fixed;
 /* 　top:1280px; */
-  right: 20px;
+  top:115px;
+  right: 45px;
 
 
 }
@@ -275,7 +276,12 @@ function productDetails(responseText){
  	pName.innerHTML = product.product_name;
  	pPrice.innerHTML = "售價 : $"+product.product_price+" 元";
  	pStock.innerHTML = "庫存數量 : "+product.product_stock+" 件";
- 	addCart.innerHTML = "<button class='addCartButton'><i class='fas fa-cart-plus'>  加入購物車</i></button>("+productNum+")";
+ 	
+ 	if (productNum != null && productNum!= 0){
+ 		addCart.innerHTML = "<button class='addCartButton'><i class='fas fa-cart-plus'>  加入購物車</i></button>&emsp;("+productNum+")";
+ 	} else {
+ 		addCart.innerHTML = "<button class='addCartButton'><i class='fas fa-cart-plus'>  加入購物車</i></button>";
+ 	}
  	
 	contentRemark = product.product_remark;
 	productRemark.innerHTML = contentRemark;
@@ -341,13 +347,9 @@ $('.addCartButton').click(function() {
 
 $('.adder').click(function() {  //增加商品
 	var count = $('#buy_count').val();
-	console.log("count = "+count);
-	console.log("product.product_stock = "+product.product_stock);
 	if (count < product.product_stock) {
 		count = parseInt(count)+1;
 		$('#buy_count').val(count);
-		console.log("count  = "+count);
-
 		} else {
 			Swal.fire({
     		    toast: true,
@@ -370,7 +372,6 @@ $('.minuser').click(function() {  //減少商品
 	});
 	
 	
-
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 
