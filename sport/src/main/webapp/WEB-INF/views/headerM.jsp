@@ -84,7 +84,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">討論區管理</a>        
+            <a class="nav-link" href="/sport/bbsM">討論區管理</a>        
             <!-- <div class="btn-group">
                 <span class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     討論區
