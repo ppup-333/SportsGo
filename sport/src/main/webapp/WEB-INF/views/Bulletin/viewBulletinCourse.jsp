@@ -9,7 +9,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>公告</title>
+<title>課程異動</title>
 </head>
 <style>
 	.box{
@@ -104,7 +104,7 @@
 		
 	})
 function generatePage(currentPage){
-		$.getJSON("getPageInfo?classId=" + 0,function(data){
+		$.getJSON("getPageInfo?classId=" + 2,function(data){
 				console.log(data.totalPage);
 				console.log(data.totalBulletin);
 				console.log(currentPage);
@@ -200,7 +200,7 @@ function generatePage(currentPage){
 function showBulletin(nowPage) {
 	
 	globalClassId = 0;
-	dataUrl = "/sport/Bulletin/bulletinPaging/" + nowPage;
+	dataUrl = "bulletinPagingClass?nowPage=" + nowPage + "&classId=2";
 	var xhr = new XMLHttpRequest()
 	xhr.open('GET', dataUrl, true)
 	xhr.send()
