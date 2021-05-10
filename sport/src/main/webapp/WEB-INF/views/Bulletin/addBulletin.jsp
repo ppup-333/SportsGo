@@ -14,6 +14,10 @@
 <%-- <link rel='stylesheet' href="<c:url value='/css/style.css' />" type="text/css" /> --%>
 </head>
 <style type="text/css">
+.box{
+	margin-top:50px;
+	
+}
 img[src=""],img:not([src]){
             opacity:0;
         }
@@ -106,55 +110,88 @@ span.error {
 		$('#imgInput').val('');
 		$('#previewImg').attr('src','');
 	}
-
+	
+	
+	function checkEdit(){
+		let flag1 = false, flag2 = false;
+		var frm = document.forms["insertForm"];
+		let title = frm.title.value;
+		let contents = frm.contents.value;
+		let className = document.getElementById("className").value;
+		let subtitle = frm.subtitle.value;
+		
+		if(title != "" || contents != "" || className != "-1" || subtitle != ""){
+			Swal.fire({
+				title:"正在編輯中，確定要返回嗎?",
+				text:"返回後不會保存已編輯內容!",
+				icon:'warning',
+				showCancelButton:true,
+				confirmButtonColor: '#3085d6',
+		      	cancelButtonColor: '#d33',
+		      	confirmButtonText: '確定',
+		      	cancelButtonText:'取消',
+			}).then(result => {
+				if(result.value){
+					window.location.href = "/sport/Bulletin/showAllBulletin";
+				}
+			})
+		}else{
+			window.location.href = "/sport/Bulletin/showAllBulletin";
+		}
+	}
+	
+	
 </script>
 
 
 <body>
 <c:import url="../headerM.jsp"/>
-	<div class="container">
-	<fieldset>
-		<legend>新增公告</legend>	
-		<form:form id="insertForm" name="insertForm" method="POST" modelAttribute="bulletin" enctype='multipart/form-data'>
-				<div class="form-group">
-					<label for="BulletinTitle">公告標題：</label>
-					<form:input id="BulletinTitle" name="title" path='title' class="form-control" aria-describedby="titleHelp" placeholder="請輸入標題"/> 
-					<form:errors path='title' cssClass="error" />
-<!-- 					<small id="titleHelp" class="form-text text-muted"></small> -->
-				</div>
-				<div class="form-group">
-					<label for="BulletinSubTitle">副標題：</label>
-					<form:textarea id="BulletinSubtitle" name="subtitle" path='subtitle' class="form-control" aria-describedby="subtitleHelp" placeholder="請輸入副標題" rows="2"></form:textarea> 
-					<form:errors path='subtitle' cssClass="error" />
-<!-- 					<small id="titleHelp" class="form-text text-muted"></small> -->
-				</div>
-				<div class="form-group">
-					<label for="BulletinContent">公告內容：</label>
-					<form:textarea id="BulletinContent" name="contents" path="contents" class="form-control" aria-describedby="subtitleHelp" placeholder="請輸入公告內容" rows="3" ></form:textarea>
-					<form:errors path='contents' cssClass="error" />
-				</div>
-				<div class="form-group"> 
-					<label for="className">公告分類:</label>
-					<form:select id="className" path="class_id.id" class="form-control" aria-describedby="classNameHelp" >
-						<form:option label="請挑選公告分類" value="-1" />
-						<form:options items="${classList}" itemLabel='name' itemValue='id' />
-					</form:select> <form:errors path="class" cssClass="error" />
-				</div>
-				<div class="form-group">
-					<label for="imgInput">上傳公告圖片</label>
-						<form:input id="imgInput" class="form-control-file"  path="productImage" type='file' value="新增圖片" />
-						<form:errors path="productImage" cssClass="error" />
-						<img width='180'height='216' id="previewImg" />
-						
-				</div>	
-				<input type='button' onclick="resetImg();" value='清空圖片' />
-				<input type='button' value="發布公告" onclick='checkForm();' />
-		</form:form>	
-	</fieldset>
+	<div class="box">
+		<div class="container">
+		<fieldset>
+			<legend align="center">新增公告</legend>	
+			<form:form id="insertForm" name="insertForm" method="POST" modelAttribute="bulletin" enctype='multipart/form-data'>
+					<div class="form-group">
+						<label for="BulletinTitle">公告標題：</label>
+						<form:input id="BulletinTitle" name="title" path='title' class="form-control" aria-describedby="titleHelp" placeholder="請輸入標題"/> 
+						<form:errors path='title' cssClass="error" />
+	<!-- 					<small id="titleHelp" class="form-text text-muted"></small> -->
+					</div>
+					<div class="form-group">
+						<label for="BulletinSubTitle">副標題：</label>
+						<form:textarea id="BulletinSubtitle" name="subtitle" path='subtitle' class="form-control" aria-describedby="subtitleHelp" placeholder="請輸入副標題" rows="2"></form:textarea> 
+						<form:errors path='subtitle' cssClass="error" />
+	<!-- 					<small id="titleHelp" class="form-text text-muted"></small> -->
+					</div>
+					<div class="form-group">
+						<label for="BulletinContent">公告內容：</label>
+						<form:textarea id="BulletinContent" name="contents" path="contents" class="form-control" aria-describedby="subtitleHelp" placeholder="請輸入公告內容" rows="6" ></form:textarea>
+						<form:errors path='contents' cssClass="error" />
+					</div>
+					<div class="form-group"> 
+						<label for="className">公告分類:</label>
+						<form:select id="className" path="class_id.id" class="form-control" aria-describedby="classNameHelp" >
+							<form:option label="請挑選公告分類" value="-1" />
+							<form:options items="${classList}" itemLabel='name' itemValue='id' />
+						</form:select> <form:errors path="class" cssClass="error" />
+					</div>
+					<div class="form-group">
+						<label for="imgInput">上傳公告圖片</label>
+							<form:input id="imgInput" class="form-control-file"  path="productImage" type='file' value="新增圖片" />
+							<form:errors path="productImage" cssClass="error" />
+							<img width='180'height='216' id="previewImg" />
+							
+					</div>	
+					<input type='button' onclick="resetImg();" value='清空圖片' />
+					<input type='button' value="發布公告" onclick='checkForm();' />
+			</form:form>	
+		</fieldset>
+		</div>
 	</div>
 	<br>
 	<div align="center">
-		<a href="<c:url value='/Bulletin/showAllBulletin'/> ">回前頁</a>
+		<input type="button" onclick="checkEdit()" value="返回" />
+<%-- 		<a href="<c:url value='/Bulletin/showAllBulletin'/> ">回前頁</a> --%>
 	</div>
 	
 	

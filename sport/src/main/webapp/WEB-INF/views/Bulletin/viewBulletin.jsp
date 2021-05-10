@@ -13,6 +13,7 @@
 </head>
 <style>
 	.box{
+		margin-top:50px;
 		margin-left:auto;
 		margin-right:auto;
 	}
