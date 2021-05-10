@@ -35,14 +35,20 @@ background-color: #f5f5f5;
 }
 
 .pname{
-width:550px;
+  min-width:550px;
+
+  text-align:center;
+  
+}
+.pname2{
+   max-width:550px;
+   font-weight: bold; 
+   font-size:16px;
+
+   
   overflow:hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  text-align:center;
-}
-.pname2{
-   font-weight: bold; 
 
 }
 .pprice{
@@ -315,7 +321,10 @@ function orderDetails(responseText){
 	
 	contentfoot ="<a href='../orderList'><input class='continue' type='button' value='回訂單列表'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
 				+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;";
-
+				
+	if (orderList.order_status =="未付款"){
+		contentfoot += "<input class='payBill' type='button' value='付款'/><br><br>";
+	}
 
 	orderDetailList.innerHTML = content;
 	
@@ -329,16 +338,43 @@ function orderDetails(responseText){
 	
 	orderFooter.innerHTML = contentfoot;
 	$(".All").show();
+	
+	
+	$('.payBill').click(function() {
+		Swal.fire({ 
+	      	  title: '訂單付款', 
+	      	  text: '是否進行付款?', 
+	      	  icon: 'question',
+	      	  showCancelButton: true, 
+	      	  confirmButtonColor: '#3085d6',
+	      	  cancelButtonColor: '#d33',
+	      	  confirmButtonText: '付款去!',
+	      	  backdrop: false,
+	      	  }).then(result => {
+	      		  if (result.value) {	  
+	      		var form = document.createElement('form');
+        		form.action = '../productEcpay/'+orderList.order_id;
+        		form.target = '_blank';
+        		form.method = 'POST';
+        		document.body.appendChild(form);
+        		form.submit();
+        	
+        		Swal.fire({
+    				  title: '訂單付款',
+    				  text: '付款頁面已開啟，請盡快付款。',
+    				  icon: 'success',
+    				  backdrop: false,
+    			  }).then(function(){
+    				  window.location.href = "../orderList";  	 
+    	  		     });
+	      		  
+	  		     };
+		});
+	});
 		
 
-    function priceSum(){
-    	sumPrice2 = sumPrice + fee;
-    	console.log("fee  = "+fee);
-        var contentPrice="訂單總金額 : <span class='sumPrices'>"+sumPrice2+"</span> 元<hr><br>";
-        sumPriceZone.innerHTML = contentPrice;
-        feePrice.innerHTML = fee;
-    }
-		
+
+
 	
 
 

@@ -301,6 +301,20 @@ function productDetails(responseText){
 
 $('.addCartButton').click(function() {
 	var addCartNum = $('#buy_count').val(); 
+	if (addCartNum == 0 ){
+		Swal.fire({
+		    toast: true,
+		    position: 'top-end',
+		    showConfirmButton: false,
+		    timer: 2000,
+		    icon: 'error',
+		    title: '加入購物車失敗',
+		    text: "數量請選擇至少一件!",
+		})
+		return false;
+	}
+	
+	
 	var json = {"addCartId" : product_id, "addCartName" : product.product_name, "addCartNum" : addCartNum};
 	 $.ajax({
 	        url: '../addCart',              // 要傳送的頁面

@@ -546,8 +546,11 @@ function orderProducts(responseText){
 	    		        method: 'POST',               // 使用 POST 方法傳送請求
 	    		        dataType: 'text',             // 回傳資料會是 json 格式
 	    		        data: JSON.stringify(json),  // 將表單資料用打包起來送出去
-	    		        success: function(response){ // 成功以後會執行這個方法   
-	    		        	if (response != "success"){
+	    		        success: function(response){ // 成功以後會執行這個方法  
+// 	    		        	if (response != "success"){
+	    		        	var checkResponse = response.indexOf("fail");
+	    		        	if (checkResponse == 0) {
+	    		        		var str = response.split("d");
 	    		        		Swal.fire({
 					    		    toast: true,
 					    		    position: 'center',
@@ -555,12 +558,32 @@ function orderProducts(responseText){
 					    		    timer: 3500,
 					    		    icon: 'error',
 					    		    title: '結帳失敗',
-					    		    html: response+" 的庫存數量不足! <br><br><p style='text-align:center;font-size:18px;font-weight:bold;'>請回購物車重新選擇數量。</p>",
+					    		    html: str[1]+" 的庫存數量不足! <br><br><p style='text-align:center;font-size:18px;font-weight:bold;'>請回購物車重新選擇數量。</p>",
 					    		    //text: response+" 的庫存數量不足! \\n請回購物車重新選擇數量。",
 					    		})
 	    		        	} else {
 	    		        		console.log("response = "+response)
-	    		        	    alert("success");
+// 	    		        	    alert("success orderId="+response);
+	    		        		
+	    		        		var form = document.createElement('form');
+	    		        		form.action = 'productEcpay/'+response;
+	    		        		form.target = '_blank';
+	    		        		form.method = 'POST';
+	    		        		document.body.appendChild(form);
+	    		        		form.submit();
+	    		        		
+	    		        		
+	    		        		Swal.fire({
+	    	        				  title: '訂單成立',
+	    	        				  text: '您的訂單已成功創立，請盡快付款。',
+	    	        				  icon: 'success',
+	    	        				  backdrop: false,
+	    	        			  }).then(function(){
+	    	        				  window.location.href = "orderList";  	 
+	    	        	  		     });
+	    		        		
+	    		        		
+	    		        		
 	    		        	}
 	    		        	    
 	    		        },

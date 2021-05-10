@@ -1,5 +1,6 @@
 package com.sport.springboot.shop.controller;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,22 +12,31 @@ import java.util.Map.Entry;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.BasicConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.sport.springboot.shop.model.Product;
 import com.sport.springboot.shop.model.ProductOrderDetail;
 import com.sport.springboot.shop.model.ProductOrderList;
+import com.sport.springboot.shop.repository.ProductOrderListRepository;
 import com.sport.springboot.shop.service.ProductCategoryService;
 import com.sport.springboot.shop.service.ProductOrderDetailService;
 import com.sport.springboot.shop.service.ProductOrderListService;
 import com.sport.springboot.shop.service.ProductService;
+
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutALL;
+import ecpay.payment.integration.domain.QueryTradeInfoObj;
 
 @Controller
 @RequestMapping("/shop/order")
@@ -40,6 +50,9 @@ public class ProductOrderController {
 	
 	@Autowired
 	ProductOrderListService productOrderListService;
+	
+	@Autowired
+	private ProductOrderListRepository productOrderListRepository;
 	
 	@Autowired
 	ProductOrderDetailService productOrderDetailService;
@@ -107,7 +120,7 @@ public class ProductOrderController {
 	}
 	
 	
-	//訂單
+	//創建訂單
 	@RequestMapping(value = "/OrderCreate")
 	@ResponseBody
 	public String OrderCreate(@RequestBody Map<String, String> map, HttpSession httpSession) {
@@ -117,7 +130,7 @@ public class ProductOrderController {
 		
 		for(Entry<String, Integer> prods : omap.entrySet()){
     		if ( prods.getValue() > productService.getByName1(prods.getKey()).getProduct_stock() ) { //判斷下定數量是否大於庫存
-    			return ""+prods.getKey();
+    			return "failed"+prods.getKey();
     		}
 		}	
 		
@@ -138,6 +151,7 @@ public class ProductOrderController {
 		order.setShip(ship);
 		order.setMember_id(account);
 		order.setOrder_price(order_price);
+		order.setOrder_status("未付款");
 		if(ship == 100) {
 			order.setShipway("宅配");
 		} else order.setShipway("自取");
@@ -165,7 +179,9 @@ public class ProductOrderController {
 		}
 		omap.clear();
 		
-		return "success";
+		Integer id = order.getOrder_id();
+		
+		return ""+id;
 	}
 	
 	
@@ -200,6 +216,7 @@ public class ProductOrderController {
 	public @ResponseBody Map<String, Object> getOrderList(HttpSession httpSession) {
 		
 		String account = (String) httpSession.getAttribute("account");
+		String MerchantTradeNo="";
 		
 		Map<String, Object> map = new HashMap<>();		
 		List<ProductOrderList> orderList = productOrderListService.getByAccount(account);
@@ -210,12 +227,36 @@ public class ProductOrderController {
 		for(int i = 0; i<orderList.size(); i++) {
 			orderDetail.addAll(productOrderDetailService.getAllById(orderList.get(i).getOrder_id()));
 			System.out.println("orderDetail.size() = "+orderDetail.size());
+			
 			num = 0;
 			for(int j = 0; j<orderDetail.size(); j++) {
 				num += orderDetail.get(j).getProduct_number();
 			}
 			orderDetail.clear();
 			orderNumber.add(num);
+			
+			
+			orderList.get(i).getOrder_id();
+			
+			ProductOrderList orderList2 = orderList.get(i);
+			MerchantTradeNo=orderList2.getMerchantTradeNo();
+			String status="";
+			BasicConfigurator.configure();
+			AllInOne ecpay=new AllInOne(properties);
+			QueryTradeInfoObj trade=new QueryTradeInfoObj();
+			trade.setMerchantTradeNo(MerchantTradeNo);
+			status=ecpay.queryTradeInfo(trade);
+			System.out.println(status);
+			String[] statusSplit=status.split("&");				
+			String Status=statusSplit[statusSplit.length-2];//交易狀態
+			String TradeStatus=(Status.split("="))[1];
+			System.out.println(TradeStatus);
+				if(Integer.parseInt(TradeStatus)==1) {
+					orderList2.setOrder_status("已付款");
+					productOrderListService.update(orderList2);
+				}
+	
+			
 		}	
 		System.out.println("Size = "+orderList.size());	
 		map.put("orderList", orderList);
@@ -253,6 +294,68 @@ public class ProductOrderController {
 		map.put("productList", productList);
 		return map;
 	}
+	
+	
+
+	
+	private final String properties="D:\\git\\SportsGo\\sport\\src\\main\\java\\ecpay\\payment\\integration";
+	
+	//串接綠界處理付款
+	@PostMapping("/productEcpay/{order_Id}")
+	public String productEcpay(@PathVariable("order_Id") Integer order_Id, Model model) {
+		
+		ProductOrderList orderList = productOrderListService.get(order_Id);
+		BasicConfigurator.configure();	
+		String ReturnURL="http://localhost:8080/springEcpay/productEcpayReturn";
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		Date date = new Date();
+        String orderDate=dateFormat.format(date);
+        String d=orderDate.split(" ")[0];
+        String t=orderDate.split(" ")[1];
+        String[] d1=d.split("/");
+        String[] d2=t.split(":");
+        String context="";
+        for(int i=1;i<d1.length;i++) {
+        	context+=d1[i];
+        }
+        for(int i=0;i<d2.length;i++) {
+        	context+=d2[i];
+        }
+        String MerchantTradeNo = order_Id+context;
+        String TradeDesc = "_courseApply";
+        System.out.println("Product MerchantTradeNo  = "+MerchantTradeNo);
+        orderList.setMerchantTradeNo(MerchantTradeNo);
+        
+        String totalAmount = Integer.toString(orderList.getOrder_price());
+        
+        productOrderListRepository.save(orderList);
+        
+        List<ProductOrderDetail> orderDetail = productOrderDetailService.getAllById(order_Id);
+        String detail = "";
+        for(int i = 0; i<orderDetail.size(); i++) {
+        	detail += orderDetail.get(i).getProduct().getProduct_name() + "   單價 ";
+        	detail += orderDetail.get(i).getProduct().getProduct_price() + " 元 x ";
+        	detail += orderDetail.get(i).getProduct_number() + " # ";
+		}	
+        
+
+        
+        AioCheckOutALL atm=new AioCheckOutALL();
+		atm.setTotalAmount(totalAmount);
+		atm.setItemName(detail); //處理名稱
+		atm.setMerchantTradeNo(MerchantTradeNo);
+		atm.setMerchantTradeDate(orderDate);
+		atm.setTradeDesc(TradeDesc);
+		atm.setReturnURL(ReturnURL);
+		
+		
+		AllInOne ecpay=new AllInOne(properties);	
+		String htmlform=ecpay.aioCheckOut(atm, null);
+		model.addAttribute("htmlform", htmlform);
+		return "shop/productsOrder/productEcpay";
+	}
+
+	
 	
 	
 	
