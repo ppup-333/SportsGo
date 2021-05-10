@@ -8,6 +8,8 @@
 <c:import url="../header.jsp"/>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script	src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+<script src="http://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <meta charset="UTF-8">
@@ -15,30 +17,30 @@
 <style>
 
 a {
-text-decoration: none;
-color: black;
+	text-decoration: none;
+	color: black;
 }
 
 a:link {
-text-decoration: none;
-color: black;
+	text-decoration: none;
+	color: black;
 }
 
 a:hover {
-color: black;
+	color: black;
 }
 
-table {
-cursor: pointer;
+tbody {
+	cursor: pointer;
 }
 
 #po {
-background-color: white;
-color: black;
-border: 1px solid black;
-border-radius: 2px;
-font-size: 14px;
-height: 30px;
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+	border-radius: 2px;
+	font-size: 14px;
+	height: 31px;
 
 }
 
@@ -46,15 +48,13 @@ height: 30px;
 </head>
 <body>
 	
-<!-- 	<a href="bbsMemberPrivate"><button type="button" class="btn btn-primary btn-sm">我的發文與留言</button></a> -->
-
 	<div class="container-fluid pt-3">
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
 				<div class="row">
 					<div class="col-3">
-						<a href="bbsdiscussion.c"><button type="button" class="btn btn-primary btn-sm" style="position: relative; left: 10%;">發文</button></a>
+						<button type="button" id="createBbs" class="btn btn-primary btn-sm" style="position: relative; left: 10%;">發文</button>
 					</div>
 					<div class="col-6">
 						<a href="bbs"><button type="button" id="po"> -- 全部 -- </button></a> 
@@ -86,7 +86,7 @@ height: 30px;
 						<input type="search" id="search" name="search" autocomplete="off"
 							placeholder="輸入查詢字串...">
 						<input id="searchImage"
-							type="image" src="images/magnifier.png" width="20" height="20">
+							type="image" src="images/magnifier.png" width="25" height="25">
 					</div>
 				</div>
 			<div class="col-2"></div>
@@ -168,9 +168,9 @@ height: 30px;
 			
 		function TitleFormatter(value, row, index) {
 			if (row.bbsDelete == 2) {
-				return "<p class='text-muted font-weight-light'><b>" + value + "</b><br><span class='badge badge-secondary'>發文不存在</span></p>";
+				return "<p class='text-muted font-weight-light'><b style='font-size: 20px'>" + row.bbsTitleByDetail + "</b><br><span style='font-size: 12px' class='badge badge-secondary'>發文不存在</span></p>";
 			} else {
-				return "<a href='bbsSelect?bbsId=" + row.bbsId + "'><b style='font-size: 20px'>" + value + "</b><br>" + row.bbsMessage + "</a>";
+				return "<a href='bbsSelect?bbsId=" + row.bbsId + "'><b style='font-size: 20px'>" + row.bbsTitleByDetail + "</b><br>" + row.bbsMessage + "</a>";
 			}
 		}
 
@@ -207,6 +207,16 @@ height: 30px;
 // 				$table.bootstrapTable('load', data);
 // 			});
 // 		})
+
+		$("#createBbs").on("click", function(){
+			if(${sessionScope.account == null}) {
+				$("#exampleModal").modal("show");
+				return false;
+			}else {
+				window.location.href="bbsdiscussion.c";
+			}
+		})
+
 	</script>
 </body>
 </html>

@@ -36,14 +36,14 @@
 	<div class="container-fluid" style="position: relative; top: 50px;">
 		<div class="row">
 			<div class="col-3"></div>
-			<div class="col-6 border">
+			<div class="col-6 border" style="padding-bottom: 30px;">
 				<form id="select" name="select" action="bbsDelete" method="post"
 					onclick="return false" style="width: 90%; margin: 40px auto 10px auto;">
 				<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
 					<div>
 						<p><sup class="badge badge-info">${bbs.bbsType.typeName}</sup> <span style="font-size: 30px; font-weight: bold;">${bbs.bbsTitleByDetail}</span></p>
 						<div class="row">
-							<p class="col"><i class="fas fa-user-circle"></i> ${bbs.users.account}</p>
+							<p class="col"><i class="fas fa-user-circle"></i> ${bbs.users.name}(${bbs.users.account})</p>
 							<p class="col" align="right">
 							<c:if test="${bbs.bbsUpdateTime == null}">
 								建立時間：<fmt:formatDate value="${bbs.bbsSetupTime}"
@@ -55,7 +55,7 @@
 							</c:if>
 							</p>
 						</div>
-						<div>${bbs.bbsMessageByDetail}</div>
+						<div><p>${bbs.bbsMessageByDetail}</p></div>
 					</div>
 					<br>
 					<div>
@@ -84,7 +84,7 @@
 						<div class="card">
 							<div class="card-header">
 							<div class="row">
-							<p class="col" style="margin: 0px;">No.${reply.replyRank}  <i class="far fa-user-circle"></i> ${reply.users.account}</p>
+							<p class="col" style="margin: 0px;">No.${reply.replyRank}  <i class="far fa-user-circle"></i> ${bbs.users.name}(${bbs.users.account})</p>
 								<P class="col" align="right" style="margin: 0px;">
 								<c:if test="${reply.replyUpdateTime == null}">
 									建立時間：<fmt:formatDate value="${reply.replySetupTime}"
