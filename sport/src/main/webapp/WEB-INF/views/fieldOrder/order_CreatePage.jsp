@@ -12,6 +12,10 @@
 	text-align: center;
 }
 
+#div2 {
+	width: 700px;
+}
+
 #queryByType { 
 	margin-top: 20px;
 /* 	width: 700px; */
@@ -20,21 +24,20 @@
 /* 	left: 30%; */
 } 
 
-#queryTable {
-	background-color: rgb(230,230,230);
-}
+/* #queryTable { */
+/* 	background-color: rgb(230,230,230); */
+/* } */
 
 .orderedTime {
-	font-size:120%;
 	font-weight:550;
 	color: red;
 	background-color: rgb(255, 220, 190);
 	box-shadow: 0px 0px 5px inset gray;
 }
 
-th, td { 
+th, td {
 	width: 80px;
-	height: 40px;
+	height: 10px;
 	text-align: center;
 }
 
@@ -50,12 +53,25 @@ th, td {
 	float: right;
 }
 
+#chooseDiv p {
+	text-align: center;
+	margin-bottom: 6px;
+}
+
+.chooseTd {
+	background-color: blue;
+}
+
+/* #chooseDiv input, #chooseDiv select { */
+/* 	margin-bottom: 5px; */
+/* } */
+
 </style>
 
 </head>
 <body>
 	<c:import url="../header.jsp"/>
-	<h2>一般會員預約</h2>
+	<h3>一般會員預約</h3>
 	<form action="createMemberOrder" method="post">
 		<div class="container">
 			<div class="row">
@@ -72,50 +88,49 @@ th, td {
 						</select><br>
 					</div>
 					
-					<div class="container">
+					<div id="div2" class="container">
 						<div class="row">
-							<div class="col-7">
+							<div class="col-12">
 								<div id=queryByType>
 						
 									<!-- 回傳查詢的資料放入 -->
 							
 								</div>
 							</div>
-							<div id="chooseDiv" class="col-5" style="display:none">
-								場　地　：
-								<select id="fieldSelect" name="fieldId">
-									<option value="0">- 請選擇 -</option>
-									<c:forEach var="field" items="${fieldList}">			
-										<option class="${field.fieldType.id}" value="${field.id}" style="display:none">${field.name}</option>
-									</c:forEach>
-								</select>
-								<br>
-								起始時間：
-								<select id="period" name="periodId">
-									<option value="0">- 請選擇 -</option>
-									<c:forEach var="periods" items="${periodList}">			
-										<option value="${periods.id}" style="display:none">${periods.id} 點</option>
-									</c:forEach>
-								</select>
-								<br>
-								時　數　：
-								<select id="hoursSelect" name="hours">
-									<option value="0">- 請選擇 -</option>
-									<option value="1" style="display:none">1</option>
-									<option value="2" style="display:none">2</option>
-									<option value="3" style="display:none">3</option>
-								</select>
+							<div id="chooseDiv" class="col-12" style="display:none">
+								<p>場　地　：
+									<select id="fieldSelect" name="fieldId">
+										<option value="0">- 請選擇 -</option>
+										<c:forEach var="field" items="${fieldList}">			
+											<option class="${field.fieldType.id}" value="${field.id}" style="display:none">${field.name}</option>
+										</c:forEach>
+									</select>
+								</p>								
+								<p>起始時間：
+									<select id="period" name="periodId">
+										<option value="0">- 請選擇 -</option>
+										<c:forEach var="periods" items="${periodList}">			
+											<option value="${periods.id}" style="display:none">${periods.id} 點</option>
+										</c:forEach>
+									</select>
+								</p>
+								<p>時　數　：
+									<select id="hoursSelect" name="hours">
+										<option value="0">- 請選擇 -</option>
+										<option value="1" style="display:none">1</option>
+										<option value="2" style="display:none">2</option>
+										<option value="3" style="display:none">3</option>
+									</select>
+								</p>
+								<hr>
+								<p>
+									<button class="btn btn-primary" type="submit">送出</button>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<button class="btn btn-secondary" type="reset">清除</button>
+								</p>
 							</div>
 						</div>
 					</div>
-						
-						
-					
-						
-					
-					<br>
-						
-					<button type="submit">送出</button>
 				</div>
 			</div>
 		</div>
@@ -144,6 +159,49 @@ $("#typeSelect").change(xhrFunction);
 $("#date").change(xhrFunction);
 $("#fieldSelect").change(periodFunction);
 $("#period").change(hoursFunction);
+$("#hoursSelect").change(chooseFunction);
+
+var field;
+var period;
+var chooseId = [];
+var hours;
+
+//重製chooseTd
+function resetChooseTd(){
+	var chooseTd = [];
+	if(chooseId != null){
+		for(var i = 0; i < hours; i++){
+			chooseId[i] = "td" + (field - 1) + (period + i) ;
+			chooseTd[i] = document.getElementById(chooseId[i]);
+			chooseTd[i].className = "p-2";
+		}
+	}
+}
+
+
+function chooseFunction(){
+	//重製chooseTd
+	resetChooseTd()
+	
+	field = parseInt(document.getElementById("fieldSelect").value.substr(2));
+	period = parseInt(document.getElementById("period").value);
+	hours = document.getElementById("hoursSelect").value;
+	
+	var chooseTd = [];
+	
+	for(var i = 0; i < hours; i++){
+		chooseId[i] = "td" + (field - 1) + (period + i) ;
+		chooseTd[i] = document.getElementById(chooseId[i]);
+		chooseTd[i].className = "chooseTd p-2";
+	}
+	
+// 	chooseId = "td" + (field - 1) + period ;
+// 	var chooseTd = document.getElementById(chooseId);
+	
+// 	chooseTd.className = "chooseTd p-2";
+	
+	
+}
 
 function xhrFunction(){
 	var tid = parseInt(typeSelect.value);
@@ -172,6 +230,8 @@ function displayFields(responseText){
 	periodSelectReset();
 	//重製hoursSelect
 	hoursSelectReset();
+	//重製chooseTd
+	resetChooseTd()
 
 	//依據選擇的類型改變feildSelect內容
 	var fieldSelectOptions = fieldSelect.getElementsByTagName("option");
@@ -195,14 +255,14 @@ function displayFields(responseText){
 		
 		var fieldNameListStr = "";
 		for(var i = 0; i < fieldList.length; i++){
-			fieldNameListStr += "<th class='th'>" + fieldList[i].name + "</th>";
+			fieldNameListStr += "<th class='th' style='border-color:gray;'>" + fieldList[i].name + "</th>";
 		}	
 		
 		var periodOrderListStr = "";
 		for(var i = 0; i < fieldPeriodList.length; i++){
-			periodOrderListStr += "<tr><td>" + fieldPeriodList[i].period + "</td>";
+			periodOrderListStr += "<tr><td class='p-2' style='border-color:gray;'>" + fieldPeriodList[i].period + "</td>";
 			for(var j = 0; j < fieldList.length; j++){
-				periodOrderListStr += "<td id='td" + j + (i+9) + "'></td>"; 
+				periodOrderListStr += "<td class='p-2' style='border-color:gray;' id='td" + j + (i+9) + "'></td>"; 
 			}		
 		}
 		
@@ -218,14 +278,14 @@ function displayFields(responseText){
 		console.log(orderedList);		
 		
 		content = "<table id='queryTable' class='table table-bordered'>"
-				+		"<thead><tr><th id='thPeriod' class='th'>時段" + fieldNameListStr + "</thead>" + periodOrderListStr 
+				+		"<thead><tr><th style='border-color:gray;' id='thPeriod' class='th'>時段" + fieldNameListStr + "</thead>" + periodOrderListStr 
 				+ "</table>"
 		
 		queryByType.innerHTML = content;
 		
 		for(var i = 0; i < orderedList.length; i++){
 			var ordered = document.getElementById(orderedList[i]);
-			ordered.className = "orderedTime"
+			ordered.className = "orderedTime p-2"
 			ordered.innerHTML = "(已預定)";
 		}
 	}else{
@@ -247,6 +307,8 @@ function periodFunction(){
 	periodSelectReset();
 	//重製hoursSelect
 	hoursSelectReset();
+	//重製chooseTd
+	resetChooseTd()
 	
 	var fieldSelect = document.getElementById("fieldSelect");	
 	if(parseInt(fieldSelect.value) != 0){
@@ -272,7 +334,9 @@ function periodFunction(){
 
 function hoursFunction(){
 	//重製hoursSelect
-	hoursSelectReset();	
+	hoursSelectReset();
+	//重製chooseTd
+	resetChooseTd()
 	
 	var hoursSelect = document.getElementById("hoursSelect");
 	var periodSelect = document.getElementById("period");
@@ -347,7 +411,6 @@ function hoursSelectReset(){
 		hoursList[i].style.display = "none";
 	}
 }
-
 
 
 </script>
