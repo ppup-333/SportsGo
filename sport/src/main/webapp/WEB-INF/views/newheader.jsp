@@ -89,7 +89,7 @@
   				<div class="dropdown-menu dropdown-menu-md-left loginDropdown">
 <!--     				<a class="dropdown-item" href="/sport/user/Login">登入</a> -->
 					<a class="dropdown-item" href="/sport/user/Login">登入</a>
-					<a class="dropdown-item" href="" id="loginBtn" data-toggle="modal" data-target="#exampleModal">
+					<a class="dropdown-item" href="" id="loginBtn" data-toggle="modal" data-target="#loginModal">
 					  測試登入
 					</a>
     				<a class="dropdown-item" href="/sport/user/RegisterEdit">註冊</a>
@@ -113,11 +113,11 @@
 
 <!-- Login Modal -->
 <form:form method="POST" action="/sport/user/Login" modelAttribute="loginPage" enctype='multipart/form-data' id="form1">
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">會員登入</h5>
+	        <h5 class="modal-title" id="loginModalLabel">會員登入</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -177,6 +177,16 @@
 			return false;
 		}else{			
 			$("#formLogout").submit();
+		}
+	});
+	
+	$("#fieldOrder").children("a").click(function(){
+		alert(${sessionScope.account == null})
+		if(${sessionScope.account == null}){
+			alert("請先登入");
+			$("#loginModal").modal("show");
+// 			$("#loginBtn").click();
+			return false;
 		}
 	});
 	

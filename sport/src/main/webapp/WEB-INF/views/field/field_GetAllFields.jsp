@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:import url="../headerM.jsp"/>
 
+<c:import url="../headerScript.jsp"/>
 <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.js"></script> -->
 <!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
@@ -21,37 +21,68 @@
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css"> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script> -->
 <style>
-th, td {
+#typeP, #createP {
+	text-align: center;
+}
+
+#queryByType th,#queryByType td {
 	text-align: center;
 	padding: 5px 10px;
 }
 
 #queryByType {
-	width: 1350px;
+	width: 1200px;
 	margin: auto;
+}
+
+#createDataDiv td {
+	padding: 3px 8px;
+}
+
+.errorTd {
+	font-size: 85%;
+	color: red;
+}
+
+.bg-info th {
+	font-size: 17px;
+	font-weight: 540;
+	color: white;
+}
+
+.ySpan {
+	padding: 2px 7px;
+	border-radius: 30px;
+}
+
+.nSpan {
+	padding: 2px 7px;
+	border-radius: 30px;
 }
 
 </style>
 
 </head>
 <body>
-	
+	<c:import url="../newheaderM.jsp"/>
 	<h2>場地管理</h2>
 	<!-- startCode -->
 	<input style="display:none" id="startCode" value="${startCode}">
-	
-	<select id="ts" name="typeId">
-		<option value="0" <c:if test="${typeId==0}">selected</c:if>>- ALL -</option>
-		<c:forEach var="fieldType" items="${fieldTypeList}">
-			<option value="${fieldType.id}" <c:if test="${typeId==fieldType.id}">selected</c:if>>${fieldType.name}</option>
-		</c:forEach>
-	</select>
-	<hr>
+	<p id="typeP">
+		類型：
+		<select id="ts" name="typeId">
+			<option value="0" <c:if test="${typeId==0}">selected</c:if>>- ALL -</option>
+			<c:forEach var="fieldType" items="${fieldTypeList}">
+				<option value="${fieldType.id}" <c:if test="${typeId==fieldType.id}">selected</c:if>>${fieldType.name}</option>
+			</c:forEach>
+		</select>
+	</p>
 	<div id=queryByType>
 		<!-- 回傳查詢的資料放入 -->
 	</div>
-	<input type="button" id="createFieldBtn" data-toggle="modal" data-target="#myModal" value="測試新增"/>
-	
+	<p id="createP">
+		<input type="button" id="createFieldBtn" data-toggle="modal" data-target="#myModal" value="新增場地"/>
+	</p>
 	<!-- The Modal -->
 	<form:form modelAttribute="field" action="updateField" method="post">
 		<div class="modal fade" id="myModal">
@@ -66,15 +97,15 @@ th, td {
 	
 					<!-- Modal body -->
 					<div class="modal-body">
-						<div style="width:480px; margin:auto">						
+						<div id="createDataDiv" style="width:410px; margin:auto">						
 								<input id='typeIdHide' name="typeIdHide" style="display: none" value="${typeId}"/>
 								<table>
 									<tr><td><form:label path="id">編號</form:label></td>
 										<td><form:input path="id" id="createFieldId"/></td>
-										<td><form:errors path="id"/></td><td id="createIdError"></td>
+										<td id="createIdError" class="errorTd"><form:errors path="id"/></td><td class="errorTd"></td>
 									<tr><td><form:label path="name">名稱</form:label>
 										<td><form:input path="name" id="createFieldName"/>
-										<td><form:errors path="name"/></td><td id="createNameError"></td>
+										<td class="errorTd"><form:errors path="name"/></td><td id="createNameError" class="errorTd"></td>
 									<tr><td><form:label path="fieldType">類型</form:label>
 										<td><form:select path="fieldType">
 												<option value="0">- 請選擇 -</option>
@@ -84,7 +115,7 @@ th, td {
 												<option value="4">桌球</option>
 												<option value="5">排球</option>
 											</form:select>
-										<td><form:errors path="fieldType"/></td>
+										<td class="errorTd"><form:errors path="fieldType"/></td>
 									<tr><td><form:label path="position">位置</form:label>
 										<td><form:select path="position">				
 												<option value="5F">5F</option>
@@ -96,10 +127,10 @@ th, td {
 											</form:select>
 									<tr><td><form:label path="rentForMember">租金(會員)</form:label>
 										<td><form:input path="rentForMember"/>
-										<td><form:errors path="rentForMember"/></td>
+										<td class="errorTd"><form:errors path="rentForMember"/></td>
 									<tr><td><form:label path="rentForAct">租金(活動)</form:label>
 										<td><form:input path="rentForAct"/>
-										<td><form:errors path="rentForAct"/></td>
+										<td class="errorTd"><form:errors path="rentForAct"/></td>
 									<tr><td><form:label path="situation">狀態</form:label>
 										<td><form:select path="situation">
 												<option value="1">可使用</option>
@@ -124,6 +155,7 @@ th, td {
 			</div>
 		</div>
 	</form:form>
+	
 	
 <script>
 
@@ -204,42 +236,41 @@ function displayFields(responseText){
 
 	var content;
 	if(fieldList.length > 0){			
-		content = "<table class='table table-hover'><tr>"
-				+ "<thead><th>編號<th>名稱<th>類型<th>位置	<th>租金(會員)	<th>租金(活動)"
-				+ "<th>狀況<th>備註<th>創建日期<th>資料建立日期<th>資料修改日期<th>編輯</tr></thead>";
+		content = "<table class='table table-hover'><tr class='bg-info'>"
+				+ "<th>編號<th>名稱<th>類型<th>位置<th>租金(會員)<th>租金(活動)"
+				+ "<th>狀況<th>創建日期<th>資料建立日期<th>最近修改時間<th>編輯<th></tr>";
 		console.log(fieldList);
 		for(var i=0; i < fieldList.length; i++){
 			var situation;
 			if(fieldList[i].situation==1){
-				situation="可使用"
+				situation="<span class='btn btn-primary ySpan'>可使用</span>"
 			}else{
-				situation="不可使用"
+				situation="<span class='btn btn-danger nSpan'>不可使用</span>"
 			}
 			var updateDateStr = (fieldUpdateDateStrList[i]==null)?"":fieldUpdateDateStrList[i];
 			var remark = (fieldList[i].remark==null||fieldList[i].remark=="")?"(無)":fieldList[i].remark;
 			content += "<tr><td>"+fieldList[i].id+"<td>"+fieldList[i].name+"<td>"+fieldList[i].fieldType.name
 					 + "<td>"+fieldList[i].position+"<td>"+fieldList[i].rentForMember+"<td>"+fieldList[i].rentForAct
 					 + "<td>"+situation
-					 + "<td>"+remark+"<td>"+fieldList[i].buildDate+"<td>"+fieldCreateDateStrList[i]
+					 + "<td>"+fieldList[i].buildDate+"<td>"+fieldCreateDateStrList[i]
 					 + "<td>"+updateDateStr
 					 + "<td><form class='formUpdate' action='updateFieldPage' method='post'>"
 					 + "<input name='typeId' style='display: none' value='"+typeId+"'/>"
 					 + "<button type='submit' name='updateId' value='"+fieldList[i].id+"'>修改</button></form>"
 					 + "<form class='formDelete' action='deleteField' method='post'>"
 					 + "<button type='submit' name='deleteId' class='deleteButton' value='"+fieldList[i].id+"'>刪除</button>"
-					 + "</form>"
-					 + "<td><input type='button' class='updateBtn' value='修改'/>";					
+					 + "</form>";					
 		}
-		content += "</table>"
+		content += "</table><hr>"
 	}else if(fieldList.length == 0){
 		content = "<h3>此類型沒有資料</h3>"; 
 	}
 	
-	content += "<form action='field_CreatePage' method='get'>"
-				+ "<input style='display:none' name='typeId' value='"+typeId+"'>"
-				+ "<button type='submit'>新增場地</button>"
-				+ '<td><input type="button" id="createFieldBtn" data-toggle="modal" data-target="#myModal" value="測試"/>'
-			 + "</form>"
+// 	content += "<form action='field_CreatePage' method='get'>"
+// 				+ "<input style='display:none' name='typeId' value='"+typeId+"'>"
+// 				+ "<button type='submit'>新增場地</button>"
+// 				+ '<td><input type="button" id="createFieldBtn" data-toggle="modal" data-target="#myModal" value="測試"/>'
+// 			 + "</form>"
 	
 	queryByType.innerHTML = content;
 		

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<c:import url="../headerScript.jsp"/>
 <!-- jQuery -->
 <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.js"></script> -->
@@ -16,46 +17,73 @@
 <!-- <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
 <!-- <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 <style>
-th, td {
+#searchDiv {
+	width: 600px;
+	margin: auto;
+}
+
+#div_DateType {
+	margin-top: 10px;
+}
+
+#queryDiv {
+	margin: 10px auto;
+	width: 1100px;
+}
+
+#orderTable th, #orderTable td {
+	text-align: center;
 	padding: 5px 10px;
 }
+
+.statusSpan {
+	padding: 2px 7px;
+	border-radius: 30px;
+}
+
+.bg-info th {
+	color: white;
+	font-size: 17px;
+	font-weight: 550;
+}
+
 </style>
 
 
 </head>
 <body>
-	<c:import url="../headerM.jsp"/>
-	<h2>訂單查詢</h2>
-	<hr>
-	<!-- 	<form action="getMemberOrderJsonByAccount" method="post"> -->
-	<input type="text" name="account" id="account" />
-	<button id="search">搜尋</button>
-	<button id="searchPast">查詢歷史訂單</button>
-	<button id="searchAll">查詢全部訂單</button>
-	<br>
-	<div id="div_DateType">
-		類型：	
-		<select id="typeSelect" name="typeSelect">
-			<option value="0">- 請選擇 -</option>
-			<c:forEach var="fieldType" items="${fieldTypeList}">
-				<option value="${fieldType.id}">${fieldType.name}</option>
-			</c:forEach>
-		</select>
-		日期：
-		<input id="date" name="date" type="date" value="${day1}" min="${day1}" max="${day2}">&nbsp;&nbsp;
-		時段：
-		<select id="period" name="periodId">
-			<option value="0">- 請選擇 -</option>
-			<c:forEach var="periods" items="${periodList}">			
-				<option value="${periods.id}">${periods.period}</option>
-			</c:forEach>
-		</select>
-		<button id="search2">送出</button>
-		
+	<c:import url="../newheaderM.jsp"/>
+	<h2>訂單管理</h2>
+	<div id="searchDiv">
+		帳號：
+		<input type="text" name="account" id="account" />
+		<button id="search">搜尋目前訂單</button>
+		<button id="searchPast">查詢歷史訂單</button>
+		<button id="searchAll">查詢全部訂單</button>
 		<br>
+		<div id="div_DateType">
+			類型：	
+			<select id="typeSelect" name="typeSelect">
+				<option value="0">- 請選擇 -</option>
+				<c:forEach var="fieldType" items="${fieldTypeList}">
+					<option value="${fieldType.id}">${fieldType.name}</option>
+				</c:forEach>
+			</select>
+			日期：
+			<input id="date" name="date" type="date" value="${day1}" min="${day1}" max="${day2}">&nbsp;&nbsp;
+			時段：
+			<select id="period" name="periodId">
+				<option value="0">- 請選擇 -</option>
+				<c:forEach var="periods" items="${periodList}">			
+					<option value="${periods.id}">${periods.period}</option>
+				</c:forEach>
+			</select>
+			<button id="search2">送出</button>
+			
+			<br>
+		</div>
 	</div>
 	
-	<!-- 	</form> -->
 	<div id="queryDiv"></div>
 
 	<!-- The Modal -->
@@ -177,22 +205,23 @@ th, td {
 		
 		if(fieldMemberOrderList.length != 0){
 			var content = "";
-			content += "<table border='1'>"
-					 + "<tr><th>訂單編號<th>帳號<th>建立時間<th>預約明細<th>出席狀態<th><th>訂單狀態";
+			content += "<table id='orderTable' class='table table-hover'>"
+					 + "<tr class='bg-info'><th>訂單編號<th>帳號<th>預約場地<th>建立時間<th>預約明細<th>出席狀態<th>出席狀態編輯<th>訂單狀態<th>訂單狀態編輯";
 	
 			for (var i = 0; i < fieldMemberOrderList.length; i++) {
 				var createTime = fieldMemberOrderList[i].createTime.substr(0,19);
 				var attendance = "";
 				if (fieldMemberOrderList[i].attendance == 1) {
-					attendance = "出席";
+					attendance = "<span class='btn btn-secondary statusSpan'>出席</span>";
 				} else if (fieldMemberOrderList[i].attendance == -1) {
-					attendance = "缺席";
+					attendance = "<span class='btn btn-danger statusSpan'>缺席</span>";
 				}
-				var orderStatus = (fieldMemberOrderList[i].orderStatus == 0) ? "已取消" : "成立";
+				var orderStatus = (fieldMemberOrderList[i].orderStatus == 0) ? "<span class='btn btn-warning statusSpan'>已取消</span>" : "<span class='btn btn-primary statusSpan'>成立</span>";
 				var remark = (fieldMemberOrderList[i].remark == null) ? "無" : fieldMemberOrderList[i].remark;
 					content += "<tr>"
 							+ "<td>" + fieldMemberOrderList[i].id
 							+ "<td>" + fieldMemberOrderList[i].users.account
+							+ "<td>" + fieldMemberOrderList[i].orderDetails[0].field.name
 							+ "<td>" + createTime
 							+ '<td><input type="button" displayId="'+fieldMemberOrderList[i].id+'" class="displayDetail" data-toggle="modal" data-target="#myModal" value="瀏覽"/>'
 							+ "<td>" + attendance

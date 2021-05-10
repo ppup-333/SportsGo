@@ -131,7 +131,7 @@
         </div>
         <div class="row">
             <div id="fieldsDiv2" class="col-12">
-                <nav>
+                <nav id="fieldNav">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                       <a class="nav-link active" id="nav-b1-tab" data-toggle="tab" href="#nav-b1" role="tab" aria-controls="nav-b1" aria-selected="true">游泳</a>
                       <a class="nav-link" id="nav-1f-tab" data-toggle="tab" href="#nav-1f" role="tab" aria-controls="nav-1f" aria-selected="false">羽球</a>
