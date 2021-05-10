@@ -92,3 +92,8 @@ span.error {
 	display: inline-block;
 	font-size: 13pt;
 }
+
+.spLogin {
+  	color: darkgrey;
+	font-size: 1px;
+}
