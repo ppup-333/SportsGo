@@ -47,7 +47,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
 <body>
-
+<c:import url="../headerM.jsp"/>
 
 <fieldset>
 	<legend>管理者資料查詢</legend>
@@ -76,7 +76,7 @@
       				<div class="modal-body">
       					<table>
 							<tr>
-								<td>確認移除的帳號：&nbsp;</td>
+								<td>確認要移除權限的帳號：&nbsp;</td>
 								<td><input type='text' readonly id='selectAct' name='selectAct'/>&nbsp;&nbsp;</td>
 							</tr>
 						</table>
