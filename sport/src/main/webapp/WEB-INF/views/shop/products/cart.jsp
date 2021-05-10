@@ -395,7 +395,7 @@ function cartProducts(responseText){
 				content += "<hr><div class='productInCart'><label>&nbsp;"
 						+"<input type='checkbox' name='selectProduct' check="+checks[i]+"  value='"+productList[i].product_price*productNums[i]+"' selectName='"+productList[i].product_name+"' selectNum='"+productNums[i]+"' ></label>"
 						+"<a><img class='prodPic' width='72' height='72' src='picture/"+productList[i].product_id+"'/></a>"
-						+"<div class='pnamebox'><p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='<c:url value='/'/>'>"+productList[i].product_name+"</a><br>"
+						+"<div class='pnamebox'><p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='storeProduct/"+productList[i].product_id+"'>"+productList[i].product_name+"</a><br>"
 						+"<span class='price'>&nbsp;NT$&nbsp;</span><span class='pprice'>"+productList[i].product_price+"</span></p></div>&nbsp;&nbsp;"
 						+"<div class='buttons'>"
 						+"<ul class='counter'>"

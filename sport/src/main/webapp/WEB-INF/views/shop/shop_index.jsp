@@ -31,6 +31,11 @@
 	<div style="text-align:center">
 	<a href='shop/order/orderList'><button>會員訂單(暫)</button></a><br>
 	</div>
+	<br>
+	<div style="text-align:center">
+	<a href='shop/order/orderListManage'><button>訂單管理(暫)</button></a><br>
+	</div>
+	
 	
 	
 	

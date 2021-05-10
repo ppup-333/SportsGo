@@ -56,6 +56,9 @@ form{margin:0px; display:inline}
   
 </head>
 <body>
+
+<c:import url="../../headerM.jsp" />
+
 <div align='center'>
 <h3>商品資料後台管理</h3>
 <a class='create' href='pro/${currentPage}?status=${status}&category=${category}'><button>新增商品</button></a> &nbsp;&nbsp;&nbsp;
@@ -486,6 +489,6 @@ form{margin:0px; display:inline}
 </script>
 
  
-
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 </body>
 </html>

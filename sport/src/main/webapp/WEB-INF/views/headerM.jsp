@@ -78,8 +78,8 @@
                     購物商城
                 </span>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">商品管理</a>
-                    <a class="dropdown-item" href="#">訂單管理</a>
+                    <a class="dropdown-item" href="/sport/shop/showAllProducts">商品管理</a>
+                    <a class="dropdown-item" href="/sport/shop/order/orderListManage">訂單管理</a>
                 </div>
             </div>
         </li>
