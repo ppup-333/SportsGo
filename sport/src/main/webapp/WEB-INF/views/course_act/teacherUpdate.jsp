@@ -65,7 +65,7 @@ text-align:center;
 <div class="main_body">
 
 
-<form  id="update" method="post" action="../springsport/teacherUpdateImpl" enctype="multipart/form-data">
+<form  id="update" method="post" action="../sport/teacherUpdateImpl" enctype="multipart/form-data">
 <div>
  			<h1>修改教師資料</h1>
  		 <input name="teacherId" value="${teacher.teacherId}" style="display:none"/>

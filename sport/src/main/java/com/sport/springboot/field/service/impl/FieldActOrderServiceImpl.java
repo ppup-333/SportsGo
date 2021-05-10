@@ -7,9 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import com.sport.springboot.course_act.model.activityBean;
+import com.sport.springboot.course_act.model.courseBean;
 import com.sport.springboot.field.model.Field;
 import com.sport.springboot.field.model.FieldActOrder;
 import com.sport.springboot.field.model.FieldOrderDetail;
@@ -99,12 +100,20 @@ public class FieldActOrderServiceImpl implements FieldActOrderService {
 		  
 		  return returnOrderDetailList;  
 		 }
-	public void createActOrder(List<FieldOrderDetail> orderDetailList) {
+	public void createActOrder(List<FieldOrderDetail> orderDetailList,activityBean activity,courseBean course) {
 		FieldActOrder fieldActOrder = new FieldActOrder();
 		Date createDate = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateStr = dateFormat.format(createDate);
-		fieldActOrder.setCreateTime(dateStr);
+		
+		if(activity!=null) {
+			fieldActOrder.setActivitybean(activity);
+		}
+		if(course!=null) {
+			fieldActOrder.setCoursebean(course);
+		}				
+		
+		fieldActOrder.setCreateTime(dateStr);		
 		//fieldActOrder.setOrderDetails(orderDetailList); //失望
 		fieldActOrderRepository.save(fieldActOrder);
 		

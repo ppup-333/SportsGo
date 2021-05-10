@@ -8,8 +8,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.sport.springboot.course_act.model.activityBean;
+import com.sport.springboot.course_act.model.courseBean;
 
 @Entity
 @Table(name = "fieldActOrder")
@@ -19,8 +25,10 @@ public class FieldActOrder {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Transient
 	private Integer courseId;
 	
+	@Transient
 	private Integer actId;
 	
 	private String createTime;
@@ -38,7 +46,15 @@ public class FieldActOrder {
 	@OneToMany(mappedBy = "fieldActOrder",
 			cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<FieldOrderDetail> orderDetails;
+	
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinColumn(name="actId")
+	private activityBean activitybean;
 
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@JoinColumn(name="courseId")
+	private courseBean coursebean;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -117,6 +133,22 @@ public class FieldActOrder {
 
 	public void setOrderDetails(List<FieldOrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
+	}
+
+	public activityBean getActivitybean() {
+		return activitybean;
+	}
+
+	public void setActivitybean(activityBean activitybean) {
+		this.activitybean = activitybean;
+	}
+
+	public courseBean getCoursebean() {
+		return coursebean;
+	}
+
+	public void setCoursebean(courseBean coursebean) {
+		this.coursebean = coursebean;
 	}
 
 	
