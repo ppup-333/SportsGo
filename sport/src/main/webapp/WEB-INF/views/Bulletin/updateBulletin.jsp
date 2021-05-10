@@ -6,7 +6,10 @@
 
 <html>
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -38,13 +41,25 @@ textarea {
 		let className = document.getElementById("className").value;
 		let subtitle = frm.subtitle.value;
 		if(title == ""){
-			alert("請輸入公告標題");
+			Swal.fire({
+				title:"請輸入公告標題",
+				icon:'warning',
+			})
 		}else if(contents == ""){
-			alert("請輸入公告內容");
+			Swal.fire({
+				title:"請輸入公告內容",
+				icon:'warning',
+			})
 		}else if(subtitle == ""){
-			alert("請輸入副標題");
+			Swal.fire({
+				title:"請輸入副標題",
+				icon:'warning',
+			})
 		}else if(className == "-1"){
-			alert("請選擇公告分類");
+			Swal.fire({
+				title:"請選擇公告分類",
+				icon:'warning',
+			})
 		}else{
 			flag1 = true;
 		}
@@ -54,7 +69,20 @@ textarea {
 			subtitle = subtitle.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
 			document.forms['updateForm'].contents.value = contents;
 			document.forms['updateForm'].subtitle.value = subtitle;
-			frm.submit();
+			
+			Swal.fire({
+				title:'確定更新公告嗎?',
+				icon:'question',
+		      	showCancelButton: true, 
+		      	confirmButtonColor: '#3085d6',
+		      	cancelButtonColor: '#d33',
+		      	confirmButtonText: '確定',
+		      	cancelButtonText:'取消',
+			}).then(result => {
+				if(result.value){
+					frm.submit();
+				}
+			})
 		}
 	}
 	
@@ -95,7 +123,7 @@ textarea {
 
 
 <body>
-	<c:import url="../header.jsp" />
+	<c:import url="../headerM.jsp" />
 	<div class="container">
 		<fieldset>
 			<legend>更新公告</legend>
@@ -164,7 +192,7 @@ textarea {
 	<br>
 	<div align="center">
 		<a
-			href="<c:url value='/Bulletin/showBulletinContent/${bulletin.id}'/> ">回前頁</a>
+			href="<c:url value='/Bulletin/showAllBulletin'/> ">回前頁</a>
 	</div>
 	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 </body>

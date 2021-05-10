@@ -5,7 +5,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
+
 
 <meta charset="UTF-8">
 <%-- <link rel='stylesheet' href="<c:url value='/css/style.css' />" type="text/css" /> --%>
@@ -33,13 +36,25 @@ span.error {
 		let className = document.getElementById("className").value;
 		let subtitle = frm.subtitle.value;
 		if(title == ""){
-			alert("請輸入公告標題");
+			Swal.fire({
+				title:"請輸入公告標題",
+				icon:'warning',
+			})
 		}else if(contents == ""){
-			alert("請輸入公告內容");
+			Swal.fire({
+				title:"請輸入公告內容",
+				icon:'warning',
+			})
 		}else if(subtitle == ""){
-			alert("請輸入副標題");
+			Swal.fire({
+				title:"請輸入副標題",
+				icon:'warning',
+			})
 		}else if(className == "-1"){
-			alert("請選擇公告分類");
+			Swal.fire({
+				title:"請選擇公告分類",
+				icon:'warning',
+			})
 		}else{
 			flag1 = true;
 		}
@@ -49,7 +64,24 @@ span.error {
 			subtitle = subtitle.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
 			document.forms['insertForm'].contents.value = contents;
 			document.forms['insertForm'].subtitle.value = subtitle;
-			frm.submit();
+			
+			Swal.fire({
+				title:'確定發布公告嗎?',
+				icon:'question',
+		      	showCancelButton: true, 
+		      	confirmButtonColor: '#3085d6',
+		      	cancelButtonColor: '#d33',
+		      	confirmButtonText: '確定',
+		      	cancelButtonText:'取消',
+			}).then(result => {
+				if(result.value){
+					frm.submit();
+				}
+			})
+			
+			
+			
+			
 		}
 	}
 	$(document).ready(function(){
@@ -79,7 +111,7 @@ span.error {
 
 
 <body>
-<c:import url="../header.jsp"/>
+<c:import url="../headerM.jsp"/>
 	<div class="container">
 	<fieldset>
 		<legend>新增公告</legend>	

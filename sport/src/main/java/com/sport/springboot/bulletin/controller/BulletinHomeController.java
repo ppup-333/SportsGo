@@ -20,6 +20,11 @@ public class BulletinHomeController {
 		return "Bulletin/viewBulletin";
 	}
 	
+	@RequestMapping("Bulletin/viewBulletinCourse")
+	public String viewBulletinCourse() {
+		return "Bulletin/viewBulletinCourse";
+	}
+	
 	@ModelAttribute
 	public void headerModel(Model m) {
 		Users users = new Users();

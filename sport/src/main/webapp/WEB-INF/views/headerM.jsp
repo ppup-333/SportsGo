@@ -35,7 +35,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">公告管理</a>
+            <a class="nav-link" href="/sport/Bulletin/showAllBulletin">公告管理</a>
             <!-- <div class="btn-group">
                 <span class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     公告管理
