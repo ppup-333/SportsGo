@@ -24,8 +24,7 @@ text-align: center;
 }
 
 .All2 {
-
-	min-height:680px;
+min-height:800px;
 
 }
 
@@ -33,6 +32,16 @@ text-align: center;
 table,th,td{
 border: 1px black solid;
 font-size:16px;
+}
+
+.oid{
+text-align:center;
+width: 90px;
+}
+
+.member{
+text-align:center;
+width:140px;
 }
 
 .time{
@@ -62,20 +71,24 @@ width: 90px;
 }
 
 .cancel{
+
 text-align:center;
 width: 90px;
 }
 
 
+
 #orderlist{
-   width: 830px;
+   width: 1280px;
 /*    border: 1px black solid; */
    margin-top:30px;  
-   margin-left:220px;
+   margin-left:100px;
    padding:10px 0px;
 }
 .order{
-  margin-left:40px;
+  width: 1080px; 
+  text-align:center;
+  margin-left:0px;
 }
 
 .listnum{
@@ -136,12 +149,14 @@ background-color: #f5f5f5;
 </head>
 <body>
 
-<c:import url="../../header.jsp" />
+<c:import url="../../headerM.jsp" />
 
 <div class="All2">
 <div class="All">
 
-    <p id="title" class="title">訂單列表</p>
+
+
+    <p class="title">訂單列表後台管理</p>
 	
 	<div id="orderlist">
 	
@@ -162,6 +177,8 @@ background-color: #f5f5f5;
 <!-- 			</tr> -->
 <!-- 		</table> -->
 	</div>
+	
+	<div id="orderNum"> </div>
 
 	<div id="allOrder">
 		
@@ -175,7 +192,7 @@ background-color: #f5f5f5;
 <!--  		<input class="checkBill" type="button" value="結帳去"/>  -->
 	</div><br><br><br>
 	
-</div>
+	</div>
 </div>
 <script type='text/javascript'>
 
@@ -183,7 +200,7 @@ $(document).ready(xhrFunction);
 
 function xhrFunction(){
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET","<c:url value='getOrderListJson'/>",true);
+	xhr.open("GET","<c:url value='getOrderListManageJson'/>",true);
 	xhr.send();
 	if(xhr!=null){
 		xhr.onreadystatechange=function(){
@@ -200,25 +217,18 @@ function orderLists(responseText){
 	var orderList = mapData.orderList;
 	var orderDetail = mapData.orderDetail;
 	var orderNumber = mapData.orderNumber;
-	var account = mapData.account;
-	var sumPrice=0;
-	var fee = 0;
 	
 	
-	if (account == "") {
+	if (orderList.length==0){
 		
-		content= "<p class='listnone'>請先登入以查看訂單紀錄。</p>";
-		
-	}
-	
-	else if (orderList.length==0){
-		
-		content= "<p class='listnone'>目前沒有訂單紀錄，請去消費再來^.<</p>";
+		content= "<p class='listnone'>目前沒有訂單紀錄</p>";
 		
 	}
 	
 	else {
 	content = "<table class='order'><tr>"
+			+ "<th class='oid'>訂單編號</th>"
+			+ "<th class='member'>會員帳號</th>"
 			+ "<th class='time'>訂單時間</th>"
 			+ "<th class='product'>訂單內容</th>"
 			+ "<th class='price'>訂單總價</th>"
@@ -228,12 +238,14 @@ function orderLists(responseText){
 			+ "<th class='cancel'>訂單取消</th></tr>";
 				
 	for(var i=0; i < orderList.length; i++){	
-		content += "<tr><td class='time'>"+orderList[i].order_create_date+"</td>"
+		content += "<tr><td class='oid'>"+orderList[i].order_id+"</td>"
+				 + "<td class='member'>"+orderList[i].member_id+"</td>"
+				 + "<td class='time'>"+orderList[i].order_create_date+"</td>"
 				 + "<td class='product'>"+orderList[i].name+" (共 "+orderNumber[i]+" 件商品)</td>"
 				 + "<td class='price'>"+orderList[i].order_price+"</td>"
 				 + "<td class='shipway'>"+orderList[i].shipway+"</td>"
 				 + "<td class='status'>"+orderList[i].order_status+"</td>"
-				 + "<td class='detail'><a href='orderDetail/"+orderList[i].order_id+"'><input type='button' value='確認'></td>"
+				 + "<td class='detail'><a href='orderDetailManage/"+orderList[i].order_id+"'><input class='detailBtn' type='button' value='確認'></td>";
 				 
 				 if (orderList[i].order_status == "已取消"){
 					 content += "<td class='cancel'><input class='cancelBtn' cancelId='"+orderList[i].order_id+"' type='button' value='取消' disabled='disabled'></td></tr>"; 
@@ -243,9 +255,7 @@ function orderLists(responseText){
 	}
 	content+="</table>";
 
-	content+="<p class='listnum'>共 "+orderList.length+" 筆訂單</p>";
-	
-	title.innerHTML = account+"的訂單列表";
+	orderNum.innerHTML = "<p class='listnum'>共 "+orderList.length+" 筆訂單</p>";
 	
 	}
 	
@@ -254,8 +264,8 @@ function orderLists(responseText){
 	orderlist.innerHTML = content;
 	orderFooter.innerHTML = contentfoot;
 	$(".All").show();
-		
-
+	
+	
 	$('.cancelBtn').click(function() {
 		Swal.fire({ 
 	      	  title: '取消訂單', 
@@ -312,6 +322,13 @@ function orderLists(responseText){
 	      			 }
 	      		  });
 		});
+	
+	
+	
+	
+	
+	
+	
 		
 	
 

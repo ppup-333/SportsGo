@@ -218,6 +218,11 @@ public class ProductOrderController {
 	public @ResponseBody Map<String, Object> getOrderList(HttpSession httpSession) {
 		
 		String account = (String) httpSession.getAttribute("account");
+		
+		System.out.println("account ======================================================================================"+account);
+		if (account == null) {
+			account="";
+		}
 		String MerchantTradeNo="";
 		
 		Map<String, Object> map = new HashMap<>();		
@@ -239,7 +244,10 @@ public class ProductOrderController {
 			
 			
 			orderList.get(i).getOrder_id();
+			System.out.println("statue ==========================================================================="+orderList.get(i).getOrder_status() );
 			
+			if (orderList.get(i).getOrder_status().equals("未付款")) {
+				System.out.println("進入迴圈111111111111111111111111111````````````wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
 			ProductOrderList orderList2 = orderList.get(i);
 			MerchantTradeNo=orderList2.getMerchantTradeNo();
 			String status="";
@@ -258,9 +266,11 @@ public class ProductOrderController {
 					productOrderListService.update(orderList2);
 				}
 	
-			
+			}
+
 		}	
 		System.out.println("Size = "+orderList.size());	
+		map.put("account", account);
 		map.put("orderList", orderList);
 		map.put("orderNumber", orderNumber);
 		map.put("orderDetail", orderDetail);
@@ -357,6 +367,173 @@ public class ProductOrderController {
 		return "shop/productsOrder/productEcpay";
 	}
 
+	
+	
+	
+	
+	//後台管理訂單列表
+	@GetMapping("/orderListManage")
+	public String orderListManage() {
+		//m.addAttribute("productList",productService.getAllProducts());
+		return "shop/productsOrder/orderListManage";
+	}
+		
+	//後台顯示所有訂單列表
+	@GetMapping(value = "/getOrderListManageJson")
+	public @ResponseBody Map<String, Object> getOrderListManage(HttpSession httpSession) {
+		
+//		String account = (String) httpSession.getAttribute("account");
+//		
+//		System.out.println("account ======================================================================================"+account);
+//		if (account == null) {
+//			account="";
+//		}
+		
+		String MerchantTradeNo="";
+		Map<String, Object> map = new HashMap<>();		
+		List<ProductOrderList> orderList = productOrderListService.getAll();
+		List<ProductOrderDetail> orderDetail = new ArrayList<>(); 
+		List<Integer> orderNumber = new ArrayList<>();
+		Integer num = 0;
+		
+		for(int i = 0; i<orderList.size(); i++) {
+			orderDetail.addAll(productOrderDetailService.getAllById(orderList.get(i).getOrder_id()));
+			System.out.println("orderDetail.size() = "+orderDetail.size());
+			
+			num = 0;
+			for(int j = 0; j<orderDetail.size(); j++) {
+				num += orderDetail.get(j).getProduct_number();
+			}
+			orderDetail.clear();
+			orderNumber.add(num);
+			
+			//orderList.get(i).getOrder_id();
+			
+			if (orderList.get(i).getOrder_status().equals("未付款")) {
+				ProductOrderList orderList2 = orderList.get(i);
+				MerchantTradeNo=orderList2.getMerchantTradeNo();
+				String status="";
+				BasicConfigurator.configure();
+				AllInOne ecpay=new AllInOne(properties);
+				QueryTradeInfoObj trade=new QueryTradeInfoObj();
+				trade.setMerchantTradeNo(MerchantTradeNo);
+				status=ecpay.queryTradeInfo(trade);
+				System.out.println(status);
+				String[] statusSplit=status.split("&");				
+				String Status=statusSplit[statusSplit.length-2];//交易狀態
+				String TradeStatus=(Status.split("="))[1];
+				System.out.println(TradeStatus);
+					if(Integer.parseInt(TradeStatus)==1) {
+						orderList2.setOrder_status("已付款");
+						productOrderListService.update(orderList2);
+					}	
+			}
+			
+			
+		}	
+		
+		System.out.println("Size = "+orderList.size());	
+		
+		
+		map.put("orderList", orderList);
+		map.put("orderNumber", orderNumber);
+		map.put("orderDetail", orderDetail);
+		return map;
+	}
+	
+	
+	
+	//後台顯示會員訂單詳細
+	@GetMapping("/orderDetailManage/{order_Id}")
+	public String orderDetailManage(@PathVariable("order_Id") Integer order_Id, Model m) {
+		m.addAttribute("order_Id", order_Id);
+		return "shop/productsOrder/orderDetailManage";
+	}
+	
+	
+	//顯示用戶的訂單詳細內容
+	@GetMapping(value = "orderDetailManage/getOrderDetailMJson/{order_Id}")
+	public @ResponseBody Map<String, Object> getOrderDetailManage(@PathVariable("order_Id") Integer order_Id, HttpSession httpSession) {
+		Map<String, Object> map = new HashMap<>();		
+		
+		List<ProductOrderDetail> orderDetail = productOrderDetailService.getAllById(order_Id);
+		List<Product> productList = new ArrayList<>();
+		ProductOrderList orderList = productOrderListService.get(order_Id);
+
+		for(int i = 0; i<orderDetail.size(); i++) {
+			productList.add(i, orderDetail.get(i).getProduct());
+		}	
+
+		System.out.println("orderList = "+orderList);
+		System.out.println("orderDetail = "+orderDetail);
+		System.out.println("productList = "+productList);
+		map.put("orderList", orderList);
+		map.put("orderDetail", orderDetail);
+		map.put("productList", productList);
+		return map;
+	}
+	
+	
+	
+	
+	//取消訂單
+	@RequestMapping(value = "/cancelOrder")
+	@ResponseBody
+	public String cancelOrder(@RequestBody Map<String, String> map) {
+		Integer oid = Integer.parseInt(map.get("cancelId"));
+		ProductOrderList orderList = productOrderListService.get(oid);
+		
+		orderList.setOrder_status("已取消");
+		productOrderListRepository.save(orderList);
+
+				
+		List<ProductOrderDetail> orderDetail = productOrderDetailService.getAllById(oid);
+		Product product = null;
+		Integer pnum = 0;
+		Integer pid = 0;
+		for(int i = 0; i<orderDetail.size(); i++) {
+			pid = orderDetail.get(i).getProduct().getProduct_id();
+			pnum = orderDetail.get(i).getProduct_number();
+			product = productService.get(pid);
+			product.setProduct_stock(product.getProduct_stock() + pnum);
+			productService.save(product);
+		}
+		
+		return "success";
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
