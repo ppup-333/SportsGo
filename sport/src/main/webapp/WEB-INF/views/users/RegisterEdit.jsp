@@ -14,7 +14,7 @@
 <style>
 
 	td {
-		height: 50px;
+		height: auto;
 		width: auto;
 		
 	}
@@ -45,20 +45,30 @@
 		font-size: 5pt;
 	}
 	
-</style>
+ 	.f1{ 
+ 	font-size:15px; 
+ 	width:520px; 
+ 	margin-left:780px; 
+ 	margin-top:50px;
+ 	} 
 
+ 	.d1{ 
+ 	margin:20px 780px; 
+ 	} 
+	
+</style>
 
 
 </head>
 <body>
-	<fieldset>
-		<legend >新增會員資料</legend>
+<c:import url="../header.jsp"/>
+	<fieldset class='f1'>
 		<form:form method="POST" modelAttribute="users" enctype='multipart/form-data' id="form1">
 			<div>
 				<table>
 					<tr>
 	      				<td>帳號：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='account' name='account' id='account'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  				<td width='360'><form:input path='account' name='account' id='inputAct'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		  					<a href='#'><input type="button" value="檢查帳號" id='repeatAccount'></a><br>&nbsp;	
 		     				<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
 		     				<form:errors path='account' cssClass="error"/></td>
@@ -131,16 +141,14 @@
 		     				<form:errors path='mobile' cssClass="error"/></td>
 		     		</tr>
 					
-<!-- 					<tr> -->
-<!-- 						<td><input type='submit'></td> -->
-						
-<!-- 					</tr> -->
 				</table>			
 			</div>
 		</form:form>
 	</fieldset>
-	<input type='button' value='送出' onclick='chkSubmit()'>
-	<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
+	<div class='d1'>
+		<input type='button' value='送出' onclick='chkSubmit()'>
+		<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
+	</div>
 	
 <script>
 $(document).ready(function(){ 
@@ -166,7 +174,7 @@ window.onload = function() {
 	var div = document.getElementById('result0c');
 	alink.onclick = function() {
 		
-		var account = document.getElementById("account").value;
+		var account = document.getElementById("inputAct").value;
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "<c:url value='/user/chkAccount' />", true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -221,11 +229,13 @@ window.onload = function() {
 
 function chkSubmit(){
 	
-	if(pass){
-		console.log(pass);
-		$('#form1').submit();
-	} else {
+	if(pass == false){
 		alert("請先檢查帳號是否可以使用")
+	} else {
+		if(confirm("確定註冊資料？")){
+// 		 	window.alert("註冊成功，請至信箱收取驗證碼機活此帳號")
+			$('#form1').submit();
+		}
 	}
 }
 	

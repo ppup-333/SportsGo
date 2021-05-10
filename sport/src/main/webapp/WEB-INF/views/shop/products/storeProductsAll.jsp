@@ -273,15 +273,18 @@ margin-left:55px;
 <title>運動中心商城</title>
 <!--引用css-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
-<!--引用SweetAlert2.js-->
+<!--引用SweetAlert2.js-->	
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 
 </head>
 <body>
 
     <div class="All2">
-	
 	<c:import url="../../header.jsp" />
+
 	
 	<div class="All">
 
@@ -582,8 +585,17 @@ function testProducts(responseText){
 		
 		
 	</script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-	type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+
+<!-- <script src="http://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+
+<!--  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>  -->
+
+
+
+
 </body>
 
 

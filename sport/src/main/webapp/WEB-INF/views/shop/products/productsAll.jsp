@@ -26,36 +26,21 @@ form{margin:0px; display:inline}
 <script type='text/javascript' src="<c:url value='/' />/scripts/jquery-1.9.1.min.js"></script>
 
 <title>商品一覽</title>
-<%-- <link rel='stylesheet' href="<c:url value='/css/style.css' />" type="text/css" /> --%>
 
         <!--引用css-->
-<!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" /> -->
     <link rel="stylesheet" href="    https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
-
         <!--引用jQuery-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
     <!--引用SweetAlert2.js-->
-<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.js" type="text/javascript"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
     
-
-
-
-
-
-
-<!--   <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> -->
-<!--   <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
-<!--   <script src="https://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> -->
-<!--   <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css"> -->
-
-<!--   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"> -->
-<!--   <script src="http://code.jquery.com/jquery-1.12.4.js"></script> -->
-<!--   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
 
   
 </head>
 <body>
+
+<c:import url="../../headerM.jsp" />
+
 <div align='center'>
 <h3>商品資料後台管理</h3>
 <a class='create' href='pro/${currentPage}?status=${status}&category=${category}'><button>新增商品</button></a> &nbsp;&nbsp;&nbsp;
@@ -232,31 +217,6 @@ form{margin:0px; display:inline}
 
     $(document).ready(function() {
     	
-    	
-    	
-    	
-//     	submitForms = function(){
-//     	    document.getElementById("form3").submit();
-    	    //document.getElementById("form4").submit();
-    	//}
-    	
-//     	$('.create').click(function() {
-//  	 var href = $(this).attr('myhref');
-//  	 //$('#form1').attr('action', href).submit();
-//  	 console.log(href);
-//  	 window.open(href,"新增商品","width=610,height=550")
-
-//  	 });
-    
-    	
-//         $('.deletelink').click(function() {
-//         	if (confirm('是否永久刪除此商品? ')) {
-//         		var href = $(this).attr('href');
-//         		alert('刪除成功!');
-//                 $('form').attr('action', href).submit();
-//         	} 
-//         	return false;    
-//         });
         
         $('.deletelink').click(function() {
        	 var href = $(this).attr('myhref');
@@ -285,46 +245,6 @@ form{margin:0px; display:inline}
        	    })
        	});
     
-        
-//         $('.proDown').click(function() {
-//         	if (confirm('是否下架?')) {
-//         		var href = $(this).attr('myhref');
-//         		alert('下架成功!');
-//                 $('form').attr('action', href).submit();
-//         	} 
-//         	return false;    
-//         });
-        
-//            $('.proDown').click(function() {
-//         	 var href = $(this).attr('myhref');
-//         	 Swal.fire({ 
-//         	  title: '下架商品', 
-//         	  text: '是否將商品下架', 
-//         	  showCancelButton: true, 
-//         	  confirmButtonColor: '#3085d6',
-//         	  cancelButtonColor: '#d33',
-//         	  confirmButtonText: '下架他！',
-//         	  animation: false,
-//         	  backdrop: false,
-
-//         	  }).then(function(){
-//         		  Swal.fire(
-//         					'下架完成',
-//         					'所選商品已經下架。',
-//         					'success'
-//         	  		     ).then(function(){
-//         	        			$('form').attr('action', href).submit();	    	 
-//         	  		     }); 
-//         			}, function(dismiss) {
-//         				if (dismiss === 'cancel') {
-//             				return false;
-//         			}
-//         	    })
-//         	});
-
-
-
-
 
            $('.proUp').click(function() {
         	 var href = $(this).attr('myhref');
@@ -407,85 +327,13 @@ form{margin:0px; display:inline}
         
     })
     
-//     $(function () {
-//         $("input:button").click(function (${product.product_id}) {
-//         	var proArr = [], proObj;
-        	
-//         	<c:forEach var='product' items='${products}'>
-//         	proObj = {"name" : '${product.product_remark}' };
-//         	proArr.push(proObj);
-//         	</c:forEach>
-//         	const idList = Object.values(proArr);
+    
 
-//             //var testVar =  $(this).attr('product.product_remark');
-//             //var remark = $(this).getElementById('remark');
-//             //var a = '${product.product_id}';
-//             //var b = $(this).getElementById('remark');
-//             console.log(idList);
-//             console.log(idList[0]);
-            
-//             console.log(proArr);
-//             var a = idList[0];
-
-            
-//             swal({
-//               title: "商品描述",
-//               text:  a,
-
-//               confirmButtonText: "OK" 
-//              });
-            
-
-//         });
-//     });
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//     $(function () {
-//         $("input:button").click(function () {
-//         	var proArr = [], proObj;
-        	
-//         	<c:forEach var='product' items='${products}'>
-//         	proObj = {"name" : '${product.product_remark}' };
-//         	proArr.push(proObj);
-//         	</c:forEach>
-//         	const idList = Object.values(proArr);
-
-//             //var testVar =  $(this).attr('product.product_remark');
-//             //var remark = $(this).getElementById('remark');
-//             //var a = '${product.product_id}';
-//             //var b = $(this).getElementById('remark');
-//             console.log(idList);
-//             console.log(idList[0]);
-            
-//             console.log(proArr);
-//             var a = idList[0];
-
-            
-//             swal({
-//               title: "商品描述",
-//               text:  a,
-
-//               confirmButtonText: "OK" 
-//              });
-            
-
-//         });
-//     });
     
 </script>
 
  
-
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 </body>
 </html>

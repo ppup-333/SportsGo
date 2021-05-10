@@ -29,13 +29,13 @@
                     帳號管理
                 </span>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">會員資料查詢／異動</a>
-                    <a class="dropdown-item" href="#">管理員查詢／異動</a>
+                    <a class="dropdown-item" href="/sport/admin/resultAllUsers">會員資料查詢／異動</a>
+                    <a class="dropdown-item" href="/sport/admin/resultAllAdmins">管理員查詢／異動</a>
                 </div>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">公告管理</a>
+            <a class="nav-link" href="/sport/Bulletin/showAllBulletin">公告管理</a>
             <!-- <div class="btn-group">
                 <span class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     公告管理
@@ -78,8 +78,8 @@
                     購物商城
                 </span>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">商品管理</a>
-                    <a class="dropdown-item" href="#">訂單管理</a>
+                    <a class="dropdown-item" href="/sport/shop/showAllProducts">商品管理</a>
+                    <a class="dropdown-item" href="/sport/shop/order/orderListManage">訂單管理</a>
                 </div>
             </div>
         </li>

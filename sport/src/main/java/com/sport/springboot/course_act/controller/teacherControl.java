@@ -102,7 +102,7 @@ public class teacherControl {
 		} else {
 			System.out.println("update not ok");
 		}
-		return "course_act/InsertOK";
+		return "redirect:teacherHome";
 	}
 
 	@GetMapping("teacherDelete")
@@ -146,7 +146,7 @@ public class teacherControl {
 
 		teacherservice.InsertTeacher(teacher, teacherName, g, phone, s);
 
-		return "course_act/InsertOK";
+		return "redirect:teacherHome";
 	}
 
 

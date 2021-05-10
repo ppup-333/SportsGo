@@ -37,6 +37,17 @@
 		font-size: 5pt;
 	}
 	
+	
+	.d1{
+		height:100px;
+	}
+	
+	.d2{
+		position:relative;
+		top:-50px;
+    	left:950px;
+	}
+	
 </style>
 <meta charset="UTF-8">
 <title>會員資料管理</title>
@@ -47,10 +58,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
 <body>
+<c:import url="../headerM.jsp"/>
 <fieldset>
 	<legend>會員資料查詢</legend>
 	<form:form method="POST" modelAttribute="adminResultUsers" enctype='multipart/form-data' >
-		<div >
+		<div class='d1'>
 			<table>
 				<tr>
 					<td>帳號：&nbsp;</td>
@@ -97,13 +109,23 @@
       				</div>
       			<form method="POST" action="UpdateStatus" id="form1" name="form1">
       				<div class="modal-body">
-      					<input type='text' readonly id='selectAct' name='selectAct'/>&nbsp;&nbsp;
-      					
-      					<select id="selectStatus" name='selectStatus'>
-      						<option value='01'>未驗證</option>
-      						<option value='02'>正常使用</option>
-      						<option value='03'>封鎖</option>
-      					</select>
+      					<table>
+      						<tr>
+      							<td>帳號：&nbsp;</td>
+      							<td>
+      								<input type='text' readonly id='selectAct' name='selectAct'/>&nbsp;&nbsp;
+      							</td>
+      							<td>狀態：&nbsp;</td>
+      							<td>
+      								<select id="selectStatus" name='selectStatus'>
+      									<option value='00' id='selectValue'>請選擇</option>
+      									<option value='01'>未驗證</option>
+      									<option value='02'>正常使用</option>
+      									<option value='03'>封鎖</option>
+      								</select>
+      							</td>
+      						</tr>
+      					</table>
       				</div>
       			</form>
       				<div class="modal-footer">
@@ -115,12 +137,9 @@
 		</div>
 	
 </fieldset>
-		<div><br></div>
-		<div>
-			<button id='search'>搜尋會員</button>
-			<input type='button' value='回上一頁' onclick='location.href="adminUserHomePage"'>
+		<div class='d2'>
+			<button id='search'>搜尋會員資料</button>
 		</div>
-		<div><br></div>
 		<div id='searchResultDiv' ></div>
 
 <script>
@@ -236,10 +255,18 @@ function select1(){
 
 
 function submitStatus() {
-	window.alert("修改成功")
-	form1.submit();
+	
+	var selectValue = document.getElementById("selectStatus").value;
+	
+	if (selectValue == 00){
+		window.alert("請選擇帳號修改的狀態")
+	} else {
+		if(confirm("確定要修改？")){
+		 	window.alert("修改成功")
+		 	form1.submit();
+		}
+	}
 }
-
 
 
 

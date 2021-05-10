@@ -5,11 +5,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+
+.f1{
+	font-size:15px;
+	width:600px;
+	margin:auto;
+}
+
+.d1{
+	margin:20px 630px;
+}
+
+</style>
 <meta charset="UTF-8">
 <title>會員資料</title>
 </head>
 <body>
-	<fieldset>
+	<fieldset class='f1'>
 		<legend >會員資料</legend>
 		<div>
 			<table>
@@ -61,8 +74,10 @@
 			</table>
 		</div>
 	</fieldset>
-		<input type='button' value='修改資料' onclick='location.href="userUpdate"'>
-		<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'>
-		<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
+		<div class='d1'>
+			<input type='button' value='修改資料' onclick='location.href="userUpdate"'>
+			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'>
+			<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
+		</div>
 </body>
 </html>

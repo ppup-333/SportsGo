@@ -4,10 +4,14 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="zh-Hant-TW">
 <head>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>公告欄</title>
+<title>公告管理</title>
 </head>
 <style>
 .container {
@@ -101,17 +105,20 @@
 				$("#allBulletins").empty();
 				var $table = $('<table border="1">').appendTo(
 						$('#allBulletins')).append(
-						"<tr><th>公告類型</th><th>公告標題</th><th>公告時間</th></tr>");
+						"<tr><th>公告類型</th><th>公告標題</th><th>公告更新時間</th><th>編輯公告</th><th>刪除公告</th></tr>");
 				$('#allBulletins').append($table);
 				$.each(data, function(index, bulletin) {
 					var tmp = "<c:url value='/' />Bulletin/showBulletinContent/" + bulletin.id;
 					var updateTime = new Date(bulletin.update_time).toLocaleString('zh-TW');
-					
+					var updateLink = "/Bulletin/update/" + bulletin.id;
 					$('<tr>').appendTo($table)
 							.append($('<td>').text(bulletin.class_id.name))
 							.append($('<td>').html('<a href=' + tmp + '>' + bulletin.title + '</a>'))
-							.append($('<td>').text(updateTime));
+							.append($('<td>').text(updateTime))
+							.append($('<td>').html('<input class="btn btn-outline-warning" id="updateBtn'+index+'" type="button" value="編輯" />'))
+							.append($('<td>').html('<input class="btn btn-outline-danger" id="deleteBtn'+index+'" type="button" value="刪除" onclick="deleteBulletin('+bulletin.id+');"/>'));
 // 					$("table>tr").find("td:eq(1)").append('<a>').attr("href",tmp);
+							$('#updateBtn' + index).attr('onclick','location.href="/sport/Bulletin/update/'+bulletin.id+'"');
 				});
 				$.getJSON("getPageInfo?classId=" + globalClassId, function(data){
 					$("#pageInfo").empty();
@@ -136,16 +143,21 @@
 				$("#allBulletins").empty();
 				var $table = $('<table border="1">').appendTo(
 						$('#allBulletins')).append(
-						"<tr><th>公告類型</th><th>公告標題</th><th>公告時間</th></tr>");
+						"<tr><th>公告類型</th><th>公告標題</th><th>公告更新時間</th><th>編輯公告</th><th>刪除公告</th></tr>");
 				$('#allBulletins').append($table);
 				$.each(data, function(index, bulletin) {
 					var tmp = "<c:url value='/' />Bulletin/showBulletinContent/" + bulletin.id;
+					var updateLink = "<c:url value='/' />Bulletin/update/" + bulletin.id;
 					var updateTime = new Date(bulletin.update_time).toLocaleString('zh-TW');
 					$('<tr>').appendTo($table)
 							.append($('<td>').text(bulletin.class_id.name))
 							.append($('<td>').html('<a href=' + tmp + '>' + bulletin.title + '</a>'))
-							.append($('<td>').text(updateTime));
+							.append($('<td>').text(updateTime))
+							.append($('<td>').html('<input class="btn btn-outline-warning" id="updateBtn'+index+'" type="button" value="編輯" />'))
+							.append($('<td>').html('<input class="btn btn-outline-danger" id="deleteBtn'+index+'" type="button" value="刪除" onclick="deleteBulletin('+bulletin.id+');"/>'));
+							
 // 					$("table>tr").find("td:eq(1)").append('<a>').attr("href",tmp);
+							$('#updateBtn' + index).attr('onclick','location.href="/sport/Bulletin/update/'+bulletin.id+'"');
 				});
 				$.getJSON("getPageInfo?classId=" + globalClassId, function(data){
 					$("#pageInfo").empty();
@@ -160,23 +172,82 @@
 		$('#nowPage').empty();
 		$('#nowPage').append($('<p>').text('目前頁數:' + nowPage));
 	}
+	
+	function deleteBulletin(id){
+		Swal.fire({ 
+	      	  title: '確定刪除嗎?', 
+	      	  text: '刪除後無法復原!', 
+	      	  icon: 'warning',
+	      	  showCancelButton: true, 
+	      	  confirmButtonColor: '#3085d6',
+	      	  cancelButtonColor: '#d33',
+	      	  confirmButtonText: '確定',
+	      	  cancelButtonText:'取消',
+	      	  backdrop: false,
+		}).then(result => {
+			if(result.value){
+				$.ajax({
+					url: '/sport/Bulletin/delete/' + id,
+					type: 'DELETE',
+					success: function(response){
+						
+						Swal.fire({
+	        				  title: '刪除成功!',
+	        				  text: '公告已經刪除，回不去了',
+	        				  icon: 'success',
+	        				  backdrop: false,
+	        			  }).then(function(){
+	        				  window.location.href = "/sport/Bulletin/showAllBulletin";  	 
+	        	  		     });
+					}
+				})
+			}
+		});
+		
+		
+		
+// 		if(confirm('確定刪除公告嗎?')){
+// 			$.ajax({
+// 				url: '/sport/Bulletin/delete/' + id,
+// 				type: 'DELETE',
+// 				success: function(result){
+// 					swal('刪除成功!');
+// 					window.location.href="/sport/Bulletin/showAllBulletin";
+// 				}
+// 			})
+// 		}
+	}
 </script>
 
 
 <body>
-<c:import url="../header.jsp"/>
-	<div align="center" class="All">
-		<div>
-			<h3>公告欄</h3>
-			<a href='add'>新增公告</a> &nbsp;&nbsp;&nbsp;<a href="<c:url value='/'/> ">回前頁</a>
-			<br>
-			&nbsp;&nbsp;&nbsp;<a href="#" onclick="showBulletin(1);initNowPage()">所有公告</a>
-			&nbsp;&nbsp;&nbsp;<a href="#" onclick="showBulletinByClass(1,1);initNowPage()">一般公告</a>
-			&nbsp;&nbsp;&nbsp;<a href="#" onclick="showBulletinByClass(3,1);initNowPage()">緊急公告</a>
-			&nbsp;&nbsp;&nbsp;<a href="#" onclick="showBulletinByClass(2,1);initNowPage()">課程異動</a>
+<c:import url="../headerM.jsp"/>
+	<div  class="container">
+		<div class="container">
+			<h3>公告管理</h3>
+			<table>
+				<tr>
+					<td>
+						<div class="dropdown show">
+			  				<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="classChooseLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">公告分類</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item" href="#" onclick="showBulletin(1);initNowPage()">所有公告</a>
+							    <a class="dropdown-item" href="#" onclick="showBulletinByClass(1,1);initNowPage()">一般公告</a>
+							    <a class="dropdown-item" href="#" onclick="showBulletinByClass(3,1);initNowPage()">緊急公告</a>
+							    <a class="dropdown-item" href="#" onclick="showBulletinByClass(2,1);initNowPage()">課程異動</a>
+						 	</div>
+						</div>				
+					</td>
+					<td><a class="btn btn-secondary" href='add'>新增公告</a></td>
+<%-- 					<td><a class="btn btn-secondary" href="<c:url value='/'/> ">回前頁</a></td> --%>
+				</tr>
+			</table>
+			
+			
+			
 			<hr>
 		</div>
-		<div id="allBulletins" class="allBulletins"></div>
+		<div id="allBulletins" class="container"></div>
 		<div class="container">
 			<ul class="pagination">
 				<li class="page-item"><a class="page-link" id="prevPage"

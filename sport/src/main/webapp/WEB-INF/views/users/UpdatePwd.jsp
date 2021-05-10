@@ -33,6 +33,16 @@
 		display: inline-block;
 		font-size: 5pt;
 	}
+	
+	.f1{
+	font-size:15px;
+	width:450px;
+	margin:auto;
+	}
+
+	.d1{
+	margin:20px 715px;
+	}
 </style>
 <meta charset="UTF-8">
 <title>輸入新密碼</title>
@@ -42,7 +52,7 @@
 <link rel="stylesheet" href="jqueryui/style.css">
 </head>
 <body>
-	<fieldset>
+	<fieldset class='f1'>
 		<legend>輸入新密碼</legend>
 		<form:form method="POST" modelAttribute="updatePwd" enctype='multipart/form-data' action='UpdatePwd' id="form1">
 			<div>
@@ -71,9 +81,21 @@
 			</div>
 		</form:form>
 	</fieldset>
-	<div>
-		<input type='button' value='送出' onclick='form1.submit()'>
+	<div class='d1'>
+		<input type='button' value='送出' onclick='dataSubmit()'>
 		<input type='button' value='返回登入頁面' onclick='location.href="Login"'>
 	</div>
+	
+<script>
+
+function dataSubmit(){
+	if(confirm("確定要修改密碼？")){
+		$('#form1').submit();
+	}
+}
+
+</script>
+	
+
 </body>
 </html>

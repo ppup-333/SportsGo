@@ -212,7 +212,7 @@ cursor:pointer;
 
 <body>
 
-<c:import url="../../header.jsp" />
+<c:import url="../../headerM.jsp" />
 
 <input type='hidden' id='order_Id' value='${order_Id}'>
 
@@ -274,7 +274,7 @@ var order_Id = document.getElementById("order_Id").value;
 $(document).ready(xhrFunction);
 function xhrFunction(){
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET","<c:url value='getOrderDetailJson/"+order_Id+"'/>",true);
+	xhr.open("GET","<c:url value='getOrderDetailMJson/"+order_Id+"'/>",true);
 	xhr.send();
 	if(xhr!=null){
 		xhr.onreadystatechange=function(){
@@ -323,12 +323,10 @@ function orderDetails(responseText){
 	
 	contentmain="";
 	
-	contentfoot ="<a href='../orderList'><input class='continue' type='button' value='回訂單列表'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+	contentfoot ="<a href='../orderListManage'><input class='continue' type='button' value='回訂單列表'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
 				+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 				
-	if (orderList.order_status =="未付款"){
-		contentfoot += "<input class='payBill' type='button' value='付款'/><br><br>";
-	}
+
 
 	orderDetailList.innerHTML = content;
 	
@@ -344,38 +342,7 @@ function orderDetails(responseText){
 	$(".All").show();
 	
 	
-	$('.payBill').click(function() {
-		Swal.fire({ 
-	      	  title: '訂單付款', 
-	      	  text: '是否進行付款?', 
-	      	  icon: 'question',
-	      	  showCancelButton: true, 
-	      	  confirmButtonColor: '#3085d6',
-	      	  cancelButtonColor: '#d33',
-	      	  confirmButtonText: '付款去!',
-	      	  backdrop: false,
-	      	  }).then(result => {
-	      		  if (result.value) {	  
-	      		var form = document.createElement('form');
-        		form.action = '../productEcpay/'+orderList.order_id;
-        		form.target = '_blank';
-        		form.method = 'POST';
-        		document.body.appendChild(form);
-        		form.submit();
-        	
-        		Swal.fire({
-    				  title: '訂單付款',
-    				  text: '付款頁面已開啟，請盡快付款。',
-    				  icon: 'success',
-    				  backdrop: false,
-    			  }).then(function(){
-    				  window.location.href = "../orderList";  	 
-    	  		     });
-	      		  
-	  		     };
-		});
-	});
-		
+
 
 
 
@@ -389,10 +356,6 @@ function orderDetails(responseText){
 
 </body>
 </html>
-
-
-
-
 
 
 

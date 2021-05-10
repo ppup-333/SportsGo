@@ -189,9 +189,26 @@ public class BulletinController {
 	public String showDataForm(@PathVariable("id")Integer id, Model model) {
 		Bulletin bulletin = bulletinService.get(id);
 		String contents = bulletin.getContents();
-		contents = contents.replaceAll("<br/>", "\n");
-		contents = contents.replaceAll("&nbsp;", " ");
-		bulletin.setContents(contents);
+		//空白與換行處理
+		if(contents != null) {
+			contents = contents.replaceAll("<br/>", "\n");
+			contents = contents.replaceAll("&nbsp;", " ");
+			bulletin.setContents(contents);
+		}
+		String subtitle = bulletin.getSubtitle();
+		//空白與換行處理
+		if(subtitle != null) {
+			subtitle = subtitle.replaceAll("<br/>", "\n");
+			subtitle = subtitle.replaceAll("&nbsp;", " ");
+			bulletin.setSubtitle(subtitle);
+		}
+		System.out.println("==============" +  bulletin.getSubtitle());
+//		if(bulletin.getSubtitle() == null) {
+//			bulletin.setSubtitle("");
+//			System.out.println("==============" +  bulletin.getSubtitle());
+//		}
+		
+		
 		model.addAttribute(bulletin);
 		return "Bulletin/updateBulletin";
 	}
@@ -246,9 +263,9 @@ public class BulletinController {
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
-	public String delete(@PathVariable("id")Integer id) {
+	@ResponseBody
+	public void delete(@PathVariable("id")Integer id) {
 		bulletinService.delete(id);
-		return "redirect:/Bulletin/showAllBulletin";
 	}
 	
 	//通過id找尋資料庫中文章使用的圖片
