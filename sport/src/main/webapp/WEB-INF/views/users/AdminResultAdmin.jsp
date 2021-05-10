@@ -244,17 +244,19 @@ function addAdmin(){
 	} else if (inputAct.indexOf(" ") != -1){
 		window.alert("不可輸入空白字元")
 	} else {
-		
-		
-	window.alert("新稱成功")
-	form2.submit();
+		if(confirm("確定新增此帳號為管理員？")){
+		 	window.alert("新增成功")
+		 	form2.submit();
+		}
 	}
-	
 }
 
 function deleteAdmin() {
-	window.alert("修改成功")
-	form1.submit();
+	
+	if(confirm("確定刪除此帳號的管理員權限？")){
+	 	window.alert("刪除成功")
+	 	form1.submit();
+	}
 }
 
 </script>

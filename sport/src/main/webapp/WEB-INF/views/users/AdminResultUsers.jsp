@@ -98,13 +98,23 @@
       				</div>
       			<form method="POST" action="UpdateStatus" id="form1" name="form1">
       				<div class="modal-body">
-      					<input type='text' readonly id='selectAct' name='selectAct'/>&nbsp;&nbsp;
-      					
-      					<select id="selectStatus" name='selectStatus'>
-      						<option value='01'>未驗證</option>
-      						<option value='02'>正常使用</option>
-      						<option value='03'>封鎖</option>
-      					</select>
+      					<table>
+      						<tr>
+      							<td>帳號：&nbsp;</td>
+      							<td>
+      								<input type='text' readonly id='selectAct' name='selectAct'/>&nbsp;&nbsp;
+      							</td>
+      							<td>狀態：&nbsp;</td>
+      							<td>
+      								<select id="selectStatus" name='selectStatus'>
+      									<option value='00' id='selectValue'>請選擇</option>
+      									<option value='01'>未驗證</option>
+      									<option value='02'>正常使用</option>
+      									<option value='03'>封鎖</option>
+      								</select>
+      							</td>
+      						</tr>
+      					</table>
       				</div>
       			</form>
       				<div class="modal-footer">
@@ -237,10 +247,18 @@ function select1(){
 
 
 function submitStatus() {
-	window.alert("修改成功")
-	form1.submit();
+	
+	var selectValue = document.getElementById("selectStatus").value;
+	
+	if (selectValue == 00){
+		window.alert("請選擇帳號修改的狀態")
+	} else {
+		if(confirm("確定要修改？")){
+		 	window.alert("修改成功")
+		 	form1.submit();
+		}
+	}
 }
-
 
 
 
