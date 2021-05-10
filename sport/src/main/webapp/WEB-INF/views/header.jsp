@@ -143,14 +143,14 @@
 						<tr>
 							<td>帳號：<br>&nbsp;</td>
 							<td><form:input path="account"  /><br>&nbsp;
-								<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
+								<span class="spLogin">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
 		<%-- 						<form:errors path='account' cssClass="error"/> --%>
 								</td>
 						</tr>
 						<tr>
 							<td>密碼：<br>&nbsp;</td>
 				  			<td width='360'><form:input path='password' type='password' /><br>&nbsp;	
-				     						<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/></td>
+				     						<span class="spLogin">8~16位英文字母和數字的組合(區分大小寫)</span><br/></td>
 						</tr>
 						<tr>
 							<td></td>
