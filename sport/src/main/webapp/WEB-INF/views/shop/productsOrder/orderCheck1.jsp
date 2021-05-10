@@ -423,7 +423,7 @@ function orderProducts(responseText){
 		
 		contentfoot = "<span id='sumPriceZone'>訂單總金額 : <span class='sumPrices'>"+sumPrice+"</span> 元<hr><br></span>"
 					+"<a href='../myShoppingCart'><input class='continue' type='button' value='回購物車'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-					+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+					+"<a href='<c:url value='../storeProductsAll'/>'><input class='home' type='button' value='回到商城'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
 					+"<input class='payBill' type='button' value='付款'/><br><br>";
 
 		allProductInOrder.innerHTML = content;
