@@ -131,10 +131,6 @@
 		     				<form:errors path='mobile' cssClass="error"/></td>
 		     		</tr>
 					
-<!-- 					<tr> -->
-<!-- 						<td><input type='submit'></td> -->
-						
-<!-- 					</tr> -->
 				</table>			
 			</div>
 		</form:form>
@@ -221,11 +217,13 @@ window.onload = function() {
 
 function chkSubmit(){
 	
-	if(pass){
-		console.log(pass);
-		$('#form1').submit();
-	} else {
+	if(pass == false){
 		alert("請先檢查帳號是否可以使用")
+	} else {
+		if(confirm("確定註冊資料？")){
+// 		 	window.alert("註冊成功，請至信箱收取驗證碼機活此帳號")
+			$('#form1').submit();
+		}
 	}
 }
 	

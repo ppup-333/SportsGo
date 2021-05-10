@@ -46,55 +46,7 @@
 	}
 	
 </style>
-<script>
-$(document).ready(function(){ 
-    $.datepicker.regional['zh-TW']={
-      dayNames:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
-      dayNamesMin:["日","一","二","三","四","五","六"],
-      monthNames:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-      monthNamesShort:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-      prevText:"上月",
-      nextText:"次月",
-      weekHeader:"週"
-      };
-    $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
-  
-    $("#datepicker").datepicker({changeYear: true, changeMonth: true, showMonthAfterYear: true,yearRange:"1920:2021"});
-});
-</script>
-<script>
-window.onload = function() {
-	
-	
-	
-	var blink = document.getElementById("aaaa");
-	blink.onchange = function() {
-// 	var $("#aaaa").change(function(){
-		var cityDistrict = document.getElementById("cityDistrict");
-		
-		cityDistrict.options.length = 0;
-		cityDistrict.add(new Option("鄉鎮市區", 1000));
-		var cityCode = blink.value;
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "<c:url value='/user/getDistrict' />", true);
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send("cityCode=" + cityCode);
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				var result = JSON.parse(xhr.responseText);
-				for (var i = 0; i < result.length; i++) {
-					cityDistrict.add(new Option(result[i].district, result[i].userDistrictCode));
-				}
-			}
-		}
-	};
-// 	 cityCode.trigger("change");
-	var aaaa = $("#aaaa");
-	aaaa.trigger("change");
-// 	alert("bbb");
 
-}
-</script>
 </head>
 <body>
 	<fieldset>
@@ -105,25 +57,10 @@ window.onload = function() {
 					<tr>
 	      				<td>帳號：<br>&nbsp;</td>
 		  				<td width='360'><form:input path='account' name='account' id='account' readonly="true"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<!-- 		  					<a href='#'><input type="button" value="檢查帳號" id='repeatAccount' ></a><br>&nbsp;	 -->
-<!-- 		     				<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/> -->
-<%-- 		     				<form:errors path='account' cssClass="error"/></td> --%>
 		     			<td>
 		     				<div id='result0c'></div><br>
 		     			</td>
 		     		</tr>
-<!-- 		     		<tr> -->
-<!-- 	      				<td>密碼：<br>&nbsp;</td> -->
-<%-- 		  				<td width='360'><form:input path='password' type='password' readonly="true"/><br>&nbsp;	 --%>
-<!-- 		     				<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/> -->
-<%-- 		     				<form:errors path='password' cssClass="error"/></td> --%>
-<!-- 		     		</tr> -->
-<!-- 		     		<tr> -->
-<!-- 	      				<td>確認密碼：<br>&nbsp;</td> -->
-<%-- 		  				<td width='360'><form:input path='dbChkPwd' type='password'/><br>&nbsp;	 --%>
-<!-- 		     				<span class="sp">必須與密碼相同</span><br/> -->
-<%-- 		     				<form:errors path='dbChkPwd' cssClass="error"/></td> --%>
-<!-- 		     		</tr> -->
    					<tr>
 	      				<td>姓名：<br>&nbsp;</td>
 		  				<td width='360'><form:input path='name' /><br>&nbsp;	
@@ -132,8 +69,6 @@ window.onload = function() {
 		     		<tr>
 	      				<td>身分證字號：<br>&nbsp;</td>
 		  				<td width='360'><form:input path='id' readonly="true"/><br>&nbsp;
-<!-- 		  					<span class="sp">第一個英文字母大寫</span><br/>	 -->
-<%-- 		     				<form:errors path='id' cssClass="error"/></td> --%>
 		     		</tr>
 		     		<tr>
 	      				<td>性別：<br>&nbsp;</td>
@@ -175,17 +110,71 @@ window.onload = function() {
 		  					<span class="sp">市內電話與行動電話至少填寫一項</span><br/>
 		     				<form:errors path='mobile' cssClass="error"/></td>
 		     		</tr>
-					
-<!-- 					<tr> -->
-<!-- 						<td><input type='submit'></td> -->
-						
-<!-- 					</tr> -->
 				</table>			
 			</div>
 		</form:form>
 	</fieldset>
-	<input type='button' value='送出' onclick='form1.submit()'>
+	<input type='button' value='送出' onclick='dataSubmit()'>
 	<input type='button' value='回上一頁' onclick='location.href="userResult"'>
-<%-- 	<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'> --%>
+	
+	
+<script>
+$(document).ready(function(){ 
+    $.datepicker.regional['zh-TW']={
+      dayNames:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
+      dayNamesMin:["日","一","二","三","四","五","六"],
+      monthNames:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+      monthNamesShort:["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+      prevText:"上月",
+      nextText:"次月",
+      weekHeader:"週"
+      };
+    $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
+  
+    $("#datepicker").datepicker({changeYear: true, changeMonth: true, showMonthAfterYear: true,yearRange:"1920:2021"});
+});
+
+window.onload = function() {
+	
+	var blink = document.getElementById("aaaa");
+	blink.onchange = function() {
+// 	var $("#aaaa").change(function(){
+		var cityDistrict = document.getElementById("cityDistrict");
+		
+		cityDistrict.options.length = 0;
+		cityDistrict.add(new Option("鄉鎮市區", 1000));
+		var cityCode = blink.value;
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "<c:url value='/user/getDistrict' />", true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("cityCode=" + cityCode);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var result = JSON.parse(xhr.responseText);
+				for (var i = 0; i < result.length; i++) {
+					cityDistrict.add(new Option(result[i].district, result[i].userDistrictCode));
+				}
+			}
+		}
+	};
+// 	 cityCode.trigger("change");
+	var aaaa = $("#aaaa");
+	aaaa.trigger("change");
+// 	alert("bbb");
+
+}
+
+function dataSubmit(){
+	if(confirm("確定修改資料？")){
+		$('#form1').submit();
+	}
+}
+
+
+</script>
+	
+	
+	
+	
 </body>
 </html>

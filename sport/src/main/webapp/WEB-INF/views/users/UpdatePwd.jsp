@@ -72,8 +72,20 @@
 		</form:form>
 	</fieldset>
 	<div>
-		<input type='button' value='送出' onclick='form1.submit()'>
+		<input type='button' value='送出' onclick='dataSubmit()'>
 		<input type='button' value='返回登入頁面' onclick='location.href="Login"'>
 	</div>
+	
+<script>
+
+function dataSubmit(){
+	if(confirm("確定要修改密碼？")){
+		$('#form1').submit();
+	}
+}
+
+</script>
+	
+
 </body>
 </html>
