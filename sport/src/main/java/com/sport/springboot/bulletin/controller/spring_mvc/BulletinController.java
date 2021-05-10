@@ -116,6 +116,58 @@ public class BulletinController {
 	} 
 	
 	
+	//分頁查詢 查詢客製化
+		@GetMapping("/bulletinPagingCustomize")
+		@ResponseBody
+		public String pageableCustomize(@RequestParam("nowPage")Integer pageNum,@RequestParam("pageSize")Integer pageSize, Model model) {
+//			int pageSize = 4;
+			Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.Direction.DESC, "id"); 
+			int id = 0; 
+			Page<Bulletin> pageList = bulletinService.findByIdSort(id, pageable);
+			List<Bulletin> dataList = pageList.getContent(); 
+			Gson gson = new Gson();
+			String jsonStr = gson.toJson(dataList);
+//			for (Bulletin bulletin : pageList.getContent()) {
+//				System.out.println(bulletin.toString()); 
+//			 } 
+//			model.addAttribute("totalPage", pageList.getTotalPages());
+//			model.addAttribute("totalBulletin", pageList.getTotalElements());
+			 return jsonStr; 
+		}
+	
+	//分類查詢 一頁顯示數客製化
+		@GetMapping("/bulletinPagingClassCustomize")
+		@ResponseBody
+		public String pageableAndClassCustomize(@RequestParam("nowPage")Integer pageNum,@RequestParam("classId")Integer classId,@RequestParam("pageSize")Integer pageSize, Model model) {
+//			int pageSize = 4;
+			Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.Direction.DESC, "id"); 
+			int id = 0; 
+			Page<Bulletin> pageList = bulletinService.findByIdAndClassId(id, classId, pageable);
+			List<Bulletin> dataList = pageList.getContent(); 
+			Gson gson = new Gson();
+			String jsonStr = gson.toJson(dataList);
+
+			 return jsonStr; 
+		} 
+		//一頁顯示數客製化
+		@GetMapping("/getPageInfoCustomize")
+		public @ResponseBody Map<String, Integer> getPageInfoCustomize(@RequestParam("classId")Integer classId,@RequestParam("pageSize")Integer pageSize){
+			Map<String, Integer> map = new HashMap<>();
+//			int pageSize = 4;
+			Pageable pageable = PageRequest.of(0, pageSize, Sort.Direction.DESC, "id"); 
+			int id = 0; 
+			if(classId == 0) {
+				Page<Bulletin> pageList = bulletinService.findByIdSort(id, pageable);
+				map.put("totalPage", pageList.getTotalPages());
+				map.put("totalBulletin", (int)(pageList.getTotalElements()));
+			}else{
+				Page<Bulletin> pageList = bulletinService.findByIdAndClassId(id, classId, pageable);
+				map.put("totalPage", pageList.getTotalPages());
+				map.put("totalBulletin", (int)(pageList.getTotalElements()));
+			}
+			return map;
+		}
+	
 	//查看公告內容
 	@GetMapping("/showBulletinContent/{id}")
 	public String showBulletinContent(@PathVariable("id")Integer id,Model model) {

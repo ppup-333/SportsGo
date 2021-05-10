@@ -14,6 +14,10 @@
 <title>公告管理</title>
 </head>
 <style>
+.box{
+		margin-top:50px;
+	
+	}
 .container {
 	align: center;
 	text-align: center;
@@ -26,6 +30,12 @@
 
 .container li {
 	float: left;
+}
+.chosen > a{
+	background:	#E0E0E0;
+}
+.myMOUSE{ 
+	cursor: pointer; 
 }
 </style>
 
@@ -44,57 +54,165 @@
 	var globalClassId = 0;
 	
 	$(document).ready(function() {
-		initNowPage();
-		showBulletin(nowPage);
+// 		initNowPage();
+// 		showBulletin(nowPage);
 // 		changePage(globalClassId);
+		generatePage(1,0);
 		
-		$('#prevPage').click(function(){
-			$.getJSON("getPageInfo?classId=" + globalClassId, function(data){
-				console.log(data.totalPage);
-				console.log(data.totalBulletin);
-				if (nowPage <= 1) {
-					alert("目前是第一頁");
-				} else {
-					nowPage = nowPage - 1;
-					$('#nowPage').empty();
-					$('#nowPage').append($('<p>').text('目前頁數:' + nowPage));
-					if(globalClassId == 0){
-						showBulletin(nowPage);
+// 		$('#prevPage').click(function(){
+// 			$.getJSON("getPageInfo?classId=" + globalClassId, function(data){
+// 				console.log(data.totalPage);
+// 				console.log(data.totalBulletin);
+// 				if (nowPage <= 1) {
+// 					alert("目前是第一頁");
+// 				} else {
+// 					nowPage = nowPage - 1;
+// 					$('#nowPage').empty();
+// 					$('#nowPage').append($('<p>').text('目前頁數:' + nowPage));
+// 					if(globalClassId == 0){
+// 						showBulletin(nowPage);
 						
-					}
-					else{
-						showBulletinByClass(globalClassId, nowPage);
+// 					}
+// 					else{
+// 						showBulletinByClass(globalClassId, nowPage);
 						
-					}
-				}
-			});
-		});
-		$('#nextPage').click(function(){
-			$.getJSON("getPageInfo?classId=" + globalClassId, function(data){
-				console.log(data.totalPage);
-				console.log(data.totalBulletin);
-				if (nowPage >= data.totalPage){
-					alert("目前是最後一頁");
-				}else{
-					nowPage = nowPage + 1;
-					$('#nowPage').empty();
-					$('#nowPage').append($('<p>').text('目前頁數:' + nowPage));
-					if(globalClassId == 0){
-						showBulletin(nowPage);
+// 					}
+// 				}
+// 			});
+// 		});
+// 		$('#nextPage').click(function(){
+// 			$.getJSON("getPageInfo?classId=" + globalClassId, function(data){
+// 				console.log(data.totalPage);
+// 				console.log(data.totalBulletin);
+// 				if (nowPage >= data.totalPage){
+// 					alert("目前是最後一頁");
+// 				}else{
+// 					nowPage = nowPage + 1;
+// 					$('#nowPage').empty();
+// 					$('#nowPage').append($('<p>').text('目前頁數:' + nowPage));
+// 					if(globalClassId == 0){
+// 						showBulletin(nowPage);
 						
-					}
-					else{
-						showBulletinByClass(globalClassId, nowPage);
+// 					}
+// 					else{
+// 						showBulletinByClass(globalClassId, nowPage);
 						
-					}
-				}
-			});
-		});
+// 					}
+// 				}
+// 			});
+// 		});
+// 		function initNowPage(){
+// 			nowPage = 1;
+// 			$('#nowPage').empty();
+// 			$('#nowPage').append($('<p>').text('目前頁數:' + nowPage));
+// 		}
 	})
 
+	
+	function generatePage(currentPage,classId){
+		$.getJSON("getPageInfoCustomize?classId=" + classId + "&pageSize=" + 10,function(data){
+				console.log(data.totalPage);
+				console.log(data.totalBulletin);
+				console.log(currentPage);
+				$(".pagination li").remove();
+				
+				if(classId == 0){
+					showBulletin(currentPage);
+				}else{
+					showBulletinByClass(currentPage,classId);
+				}
+// 				var content = '<li id="prevPage" class="page-item"><a class="page-link" href="#">Previous</a></li>'
+// 				for(var i = 1; i <= data.totalPage; i++){
+// 					content += '<li id="page' + i + '" class="page-item"><a class="page-link" href="#">' + i + '</a></li>'
+// 				}
+				
+// 				content += '<li id="nextPage" class="page-item"><a class="page-link" href="#">Next</a></li>';
+// 				$('.pagination').html(content);
+				var total = data.totalPage;
+				var pageNum = currentPage;
+				var firstPage = 1;
+				var prePage = pageNum - 1;//上一页
+				var nextPage = pageNum + 1;//下一页
+				var lastPage = total;
+				
+				var firstPageStr = "generatePage(1,"+ classId +")";
+				var prePageStr = "generatePage("+ prePage +","+ classId +")";
+				var nextPageStr = "generatePage("+ nextPage +","+ classId +")";
+				var lastPageStr = "generatePage("+ lastPage +","+ classId +")";
+				
+				
+				if(currentPage == lastPage){
+					
+				}
+				 //做判断，满足某些条件时，不能点击
+				 //生成首頁
+				if(firstPage == pageNum){
+// 					$('.pagination').append('<li class="page-item"><a class="page-link"   onclick="" >首頁</a></li>');
+				}else{
+// 					$('.pagination').append('<li class="page-item"><a class="page-link myMOUSE"  onclick="'+firstPageStr+'" >首頁</a></li>');
+				}//上一頁
+				if(prePage<=0){
+// 					$('.pagination').append('<li class="page-item"><a class="page-link"   onclick="" >上一頁</a></li>');
+				}else{
+					$('.pagination').append('<li class="page-item"><a class="page-link myMOUSE"   onclick="'+prePageStr+'" >上一頁</a></li>');
+				}
+			
+				if(pageNum <= 3){
+					for(var i=1; i<=(total<=5?total:5); i++){
+						if(i==pageNum){
+							$('.pagination').append('<li class="page-item"><a id="link'+i+'" class="page-link myMOUSE"  onclick="" >'+ i +'</a></li>');
+						}else{
+							var pageNumber = "generatePage("+ i +","+ classId +")"
+							$('.pagination').append('<li class="page-item"><a id="link'+i+'" class="page-link myMOUSE"  onclick="'+ pageNumber + '" >'+ i +'</a></li>');
+						}
+					}
+				}else if(pageNum > 3 && total <= (pageNum+2)){
+					for(var i = total - 4; i <=total; i++){
+						if(i == pageNum){
+							$('.pagination').append('<li class="page-item"><a id="link'+i+'" class="page-link myMOUSE"  onclick="" >'+ i +'</a></li>');
+						}else{
+							var pageNumber = "generatePage("+ i +","+ classId +")"
+							$('.pagination').append('<li class="page-item"><a id="link'+i+'" class="page-link myMOUSE"  onclick="'+ pageNumber + '" >'+ i +'</a></li>');
+						}
+					}
+				}else if(pageNum > 3 && total > (pageNum + 2)){
+					for(var i = pageNum - 2; i <= pageNum + 2; i ++){
+						if(i == pageNum){
+							$('.pagination').append('<li class="page-item"><a id="link'+i+'" class="page-link myMOUSE"  onclick="" >'+ i +'</a></li>');
+						}else{
+							var pageNumber = "generatePage("+ i +","+ classId +")"
+							$('.pagination').append('<li class="page-item"><a id="link'+i+'" class="page-link myMOUSE"  onclick="'+ pageNumber + '" >'+ i +'</a></li>');
+						}
+					}
+				}
+				
+				if(nextPage <= 0 || nextPage > total){
+// 					$('.pagination').append('<li class="page-item"><a class="page-link"  onclick="">下一頁</a></li>');
+				}else{
+					$('.pagination').append('<li class="page-item"><a class="page-link myMOUSE"  onclick="'+nextPageStr+'">下一頁</a></li>');
+				}
+				if(lastPage == pageNum){
+// 					$('.pagination').append('<li class="page-item"><a class="page-link"  onclick="">尾頁</a></li>');
+				}else{
+// 					$('.pagination').append('<li class="page-item"><a class="page-link myMOUSE"  onclick="'+lastPageStr+'">尾頁</a></li>');
+				}
+				$('#link' + currentPage).parent().addClass("chosen");
+				
+				$.getJSON("getPageInfoCustomize?classId=" + globalClassId +"&pageSize=" + 10, function(data){
+					$("#pageInfo").empty();
+					$('#pageInfo').append($('<p>').text('總頁數:' + data.totalPage));
+				});	
+				
+				
+			});	
+		}
+	
+	
+	
 	function showBulletin(nowPage) {
 		globalClassId = 0;
-		dataUrl = "bulletinPaging/" + nowPage
+		$('#classChooseLink').text('所有公告');
+		dataUrl = "bulletinPagingCustomize?nowPage=" + nowPage + "&pageSize=" + 10; 
 		var xhr = new XMLHttpRequest()
 		xhr.open('GET', dataUrl, true)
 		xhr.send()
@@ -103,7 +221,7 @@
 				var data = JSON.parse(this.responseText);
 				console.log(data);
 				$("#allBulletins").empty();
-				var $table = $('<table border="1">').appendTo(
+				var $table = $('<table class="table table-striped">').appendTo(
 						$('#allBulletins')).append(
 						"<tr><th>公告類型</th><th>公告標題</th><th>公告更新時間</th><th>編輯公告</th><th>刪除公告</th></tr>");
 				$('#allBulletins').append($table);
@@ -116,23 +234,30 @@
 							.append($('<td>').html('<a href=' + tmp + '>' + bulletin.title + '</a>'))
 							.append($('<td>').text(updateTime))
 							.append($('<td>').html('<input class="btn btn-outline-warning" id="updateBtn'+index+'" type="button" value="編輯" />'))
-							.append($('<td>').html('<input class="btn btn-outline-danger" id="deleteBtn'+index+'" type="button" value="刪除" onclick="deleteBulletin('+bulletin.id+');"/>'));
+							.append($('<td>').html('<input class="btn btn-outline-danger" id="deleteBtn'+index+'" type="button" value="刪除" onclick="deleteBulletin('+bulletin.id+','+nowPage+',0);"/>'));
 // 					$("table>tr").find("td:eq(1)").append('<a>').attr("href",tmp);
 							$('#updateBtn' + index).attr('onclick','location.href="/sport/Bulletin/update/'+bulletin.id+'"');
 				});
-				$.getJSON("getPageInfo?classId=" + globalClassId, function(data){
-					$("#pageInfo").empty();
-					$('#pageInfo').append($('<p>').text('總頁數:' + data.totalPage));
+// 				$.getJSON("getPageInfoCustomize?classId=" + globalClassId +"&pageSize=" + 10, function(data){
+// 					$("#pageInfo").empty();
+// 					$('#pageInfo').append($('<p>').text('總頁數:' + data.totalPage));
 					
-				});
+// 				});
 			}
 		}
 	}
 
 	
-	function showBulletinByClass(classId, nowPage){
+	function showBulletinByClass(nowPage, classId){
 		globalClassId = classId;
-		dataUrl = "bulletinPagingClass?nowPage=" + nowPage + "&classId=" + classId;
+		if(classId == 1){
+			$('#classChooseLink').text('一般公告');
+		}else if(classId == 2){
+			$('#classChooseLink').text('課程異動');
+		}else if(classId == 3){
+			$('#classChooseLink').text('緊急公告');
+		}
+		dataUrl = "bulletinPagingClassCustomize?nowPage=" + nowPage + "&classId=" + classId +"&pageSize=" + 10;
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', dataUrl, true)
 		xhr.send()
@@ -141,7 +266,7 @@
 				var data = JSON.parse(this.responseText);
 				console.log(data);
 				$("#allBulletins").empty();
-				var $table = $('<table border="1">').appendTo(
+				var $table = $('<table class="table table-striped">').appendTo(
 						$('#allBulletins')).append(
 						"<tr><th>公告類型</th><th>公告標題</th><th>公告更新時間</th><th>編輯公告</th><th>刪除公告</th></tr>");
 				$('#allBulletins').append($table);
@@ -154,26 +279,21 @@
 							.append($('<td>').html('<a href=' + tmp + '>' + bulletin.title + '</a>'))
 							.append($('<td>').text(updateTime))
 							.append($('<td>').html('<input class="btn btn-outline-warning" id="updateBtn'+index+'" type="button" value="編輯" />'))
-							.append($('<td>').html('<input class="btn btn-outline-danger" id="deleteBtn'+index+'" type="button" value="刪除" onclick="deleteBulletin('+bulletin.id+');"/>'));
+							.append($('<td>').html('<input class="btn btn-outline-danger" id="deleteBtn'+index+'" type="button" value="刪除" onclick="deleteBulletin('+bulletin.id+','+nowPage+','+classId+');"/>'));
 							
 // 					$("table>tr").find("td:eq(1)").append('<a>').attr("href",tmp);
 							$('#updateBtn' + index).attr('onclick','location.href="/sport/Bulletin/update/'+bulletin.id+'"');
 				});
-				$.getJSON("getPageInfo?classId=" + globalClassId, function(data){
-					$("#pageInfo").empty();
-					$('#pageInfo').append($('<p>').text('總頁數:' + data.totalPage));
-					
-				});
+// 				$.getJSON("getPageInfo?classId=" + globalClassId +"&pageSize=" + 10, function(data){
+// 					$("#pageInfo").empty();
+// 					$('#pageInfo').append($('<p>').text('總頁數:' + data.totalPage));		
+// 				});
 			}
 		}
 	}
-	function initNowPage(){
-		nowPage = 1;
-		$('#nowPage').empty();
-		$('#nowPage').append($('<p>').text('目前頁數:' + nowPage));
-	}
 	
-	function deleteBulletin(id){
+	
+	function deleteBulletin(id,currentPage,classId){
 		Swal.fire({ 
 	      	  title: '確定刪除嗎?', 
 	      	  text: '刪除後無法復原!', 
@@ -197,7 +317,8 @@
 	        				  icon: 'success',
 	        				  backdrop: false,
 	        			  }).then(function(){
-	        				  window.location.href = "/sport/Bulletin/showAllBulletin";  	 
+// 	        				  window.location.href = "/sport/Bulletin/showAllBulletin";  	
+								generatePage(currentPage,classId)
 	        	  		     });
 					}
 				})
@@ -222,7 +343,7 @@
 
 <body>
 <c:import url="../headerM.jsp"/>
-	<div  class="container">
+	<div  class="box">
 		<div class="container">
 			<h3>公告管理</h3>
 			<table>
@@ -231,10 +352,10 @@
 						<div class="dropdown show">
 			  				<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="classChooseLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">公告分類</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="#" onclick="showBulletin(1);initNowPage()">所有公告</a>
-							    <a class="dropdown-item" href="#" onclick="showBulletinByClass(1,1);initNowPage()">一般公告</a>
-							    <a class="dropdown-item" href="#" onclick="showBulletinByClass(3,1);initNowPage()">緊急公告</a>
-							    <a class="dropdown-item" href="#" onclick="showBulletinByClass(2,1);initNowPage()">課程異動</a>
+								<a class="dropdown-item" href="#" onclick="showBulletin(1);generatePage(1,0)">所有公告</a>
+							    <a class="dropdown-item" href="#" onclick="showBulletinByClass(1,1);generatePage(1,1)">一般公告</a>
+							    <a class="dropdown-item" href="#" onclick="showBulletinByClass(3,1);generatePage(1,3)">緊急公告</a>
+							    <a class="dropdown-item" href="#" onclick="showBulletinByClass(2,1);generatePage(1,2)">課程異動</a>
 						 	</div>
 						</div>				
 					</td>
