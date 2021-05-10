@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix='form' uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix='form' uri="http://www.springframework.org/tags/form"%>
 
 <html>
 <head>
@@ -14,20 +14,20 @@
 
 </head>
 <style type="text/css">
+img[src=""], img:not([src]) {
+	opacity: 0;
+}
 
-	img[src=""],img:not([src]){
-            opacity:0;
-        }
-
-   span.error {
+span.error {
 	color: red;
 	display: inline-block;
 	font-size: 5pt;
 }
-	textarea{
-		width:300px;
-		height:250px;
-	}
+
+textarea {
+	width: 300px;
+	height: 250px;
+}
 </style>
 <script>
 	function checkForm(){
@@ -36,10 +36,13 @@
 		let title = frm.title.value;
 		let contents = frm.contents.value;
 		let className = document.getElementById("className").value;
+		let subtitle = frm.subtitle.value;
 		if(title == ""){
 			alert("請輸入公告標題");
 		}else if(contents == ""){
 			alert("請輸入公告內容");
+		}else if(subtitle == ""){
+			alert("請輸入副標題");
 		}else if(className == "-1"){
 			alert("請選擇公告分類");
 		}else{
@@ -48,7 +51,9 @@
 		
 		if(flag1 == true){
 			contents = contents.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
+			subtitle = subtitle.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
 			document.forms['updateForm'].contents.value = contents;
+			document.forms['updateForm'].subtitle.value = subtitle;
 			frm.submit();
 		}
 	}
@@ -90,60 +95,77 @@
 
 
 <body>
-<c:import url="../header.jsp"/>
-<fieldset>
-	<legend >更新公告</legend>
-	<form:form name="updateForm"  method="POST" modelAttribute="bulletin" enctype='multipart/form-data'>
-	<Table style="align-self: center;"  >
-	   <tr>
-	      <td>公告標題<br>&nbsp;</td>
-		  <td  width='360'><form:input name="title" path='title' /><br>&nbsp;	
-		      <form:errors path='title' cssClass="error"/>
-		  </td>
-		  <td>公告內容：<br>&nbsp;</td>
-	      <td  width='360'>
-	      	<form:textarea name="contents" path="contents"/><br>&nbsp;	
-		      <form:errors path='contents' cssClass="error"/>
-		  </td>
-	   </tr>
-	   <tr>
-	      <td>公告分類：<br>&nbsp;</td>
-	   	  <td>
-			<form:select id="className" path="class_id.id" >
-				<form:option value="-1" label="請挑選" />
-				<form:options  items="${classList}"
-	   	  	       itemLabel='name' itemValue='id'/>
-	   	  	</form:select><br>&nbsp;
-	   	  <form:errors path="class"  cssClass="error"/>
-	   	  </td>
-	   	  
-	   	  <tr>
-			<td>
-				<form:input id='imgInput' path="productImage" type='file' /><br>
-				<form:errors path="productImage" cssClass="error" />
-				<c:choose>
+	<c:import url="../header.jsp" />
+	<div class="container">
+		<fieldset>
+			<legend>更新公告</legend>
+			<form:form name="updateForm" method="POST" modelAttribute="bulletin"
+				enctype='multipart/form-data'>
+				<div class="form-group">
+					<label for="BulletinTitle">公告標題：</label>
+					<form:input id="BulletinTitle" name="title" path='title'
+						class="form-control" aria-describedby="titleHelp"
+						placeholder="請輸入標題" />
+					<form:errors path='title' cssClass="error" />
+					<!-- 					<small id="titleHelp" class="form-text text-muted"></small> -->
+				</div>
+				<div class="form-group">
+					<label for="BulletinSubTitle">副標題：</label>
+					<form:textarea id="BulletinSubtitle" name="subtitle"
+						path='subtitle' class="form-control"
+						aria-describedby="subtitleHelp" placeholder="請輸入副標題" rows="2"></form:textarea>
+					<form:errors path='subtitle' cssClass="error" />
+					<!-- 					<small id="titleHelp" class="form-text text-muted"></small> -->
+				</div>
+				<div class="form-group">
+					<label for="BulletinContent">公告內容：</label>
+					<form:textarea id="BulletinContent" name="contents" path="contents"
+						class="form-control" aria-describedby="subtitleHelp"
+						placeholder="請輸入公告內容" rows="3"></form:textarea>
+					<form:errors path='contents' cssClass="error" />
+				</div>
+				<div class="form-group">
+					<label for="className">公告分類:</label>
+					<form:select id="className" path="class_id.id" class="form-control"
+						aria-describedby="classNameHelp">
+						<form:option label="請挑選公告分類" value="-1" />
+						<form:options items="${classList}" itemLabel='name' itemValue='id' />
+					</form:select>
+					<form:errors path="class" cssClass="error" />
+				</div>
+
+				<div class="form-group">
+					<label for="imgInput">上傳公告圖片</label>
+					<form:input id="imgInput" class="form-control-file"
+						path="productImage" type='file' value="新增圖片" />
+					<form:errors path="productImage" cssClass="error" />
+					
+					<c:choose>
 					<c:when test='${bulletin.image != null}'>
-						<p id='updatePreview'>更新公告圖片為</p>
-						<img id='previewImg' width='120' height='144' src='<c:url value="/Bulletin/picture/${bulletin.id }"/>'/>
+						<img id='previewImg' width='180' height='216'
+							src='<c:url value="/Bulletin/picture/${bulletin.id }"/>' />
 					</c:when>
 					<c:otherwise>
-						<img width='120'height='144' id="previewImg" />
+						<img width='180' height='216' id="previewImg"/>
 					</c:otherwise>
 				</c:choose>
-				<input type='button' onclick="resetImg(${bulletin.id});" value='清空圖片' />
-			</td>
-			<td colspan='4' align='center'><br>&nbsp; 
+				</div>
+				
+				<input type='button' onclick="resetImg(${bulletin.id});"
+					value='清空圖片' />
+
+
 				<input type='button' value="更新公告" onclick='checkForm();' />
-			</td>
-		</tr>
-		<h1>${bulletin.date }</h1>
-	</Table>
-	</form:form>
-</fieldset>
-<br>
-<div align="center">
-<a href="<c:url value='/Bulletin/showBulletinContent/${bulletin.id}'/> " >回前頁</a>
-</div>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+
+			</form:form>
+		</fieldset>
+	</div>
+	<br>
+	<div align="center">
+		<a
+			href="<c:url value='/Bulletin/showBulletinContent/${bulletin.id}'/> ">回前頁</a>
+	</div>
+	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 </body>
 </html>
