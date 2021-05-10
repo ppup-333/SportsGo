@@ -48,12 +48,12 @@
  	.f1{ 
  	font-size:15px; 
  	width:520px; 
- 	margin-left:720px; 
+ 	margin-left:780px; 
  	margin-top:50px;
  	} 
 
  	.d1{ 
- 	margin:20px 720px; 
+ 	margin:20px 780px; 
  	} 
 	
 </style>
@@ -61,14 +61,14 @@
 
 </head>
 <body>
-<%-- <c:import url="../header.jsp"/> --%>
+<c:import url="../header.jsp"/>
 	<fieldset class='f1'>
 		<form:form method="POST" modelAttribute="users" enctype='multipart/form-data' id="form1">
 			<div>
 				<table>
 					<tr>
 	      				<td>帳號：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='account' name='account' id='account'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  				<td width='360'><form:input path='account' name='account' id='inputAct'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		  					<a href='#'><input type="button" value="檢查帳號" id='repeatAccount'></a><br>&nbsp;	
 		     				<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
 		     				<form:errors path='account' cssClass="error"/></td>
@@ -174,7 +174,7 @@ window.onload = function() {
 	var div = document.getElementById('result0c');
 	alink.onclick = function() {
 		
-		var account = document.getElementById("account").value;
+		var account = document.getElementById("inputAct").value;
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "<c:url value='/user/chkAccount' />", true);
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
