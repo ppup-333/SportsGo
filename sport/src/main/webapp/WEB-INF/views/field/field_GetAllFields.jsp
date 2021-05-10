@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<c:import url="../headerM.jsp"/>
 
 <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.js"></script> -->
@@ -21,13 +22,20 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script> -->
 <style>
 th, td {
+	text-align: center;
 	padding: 5px 10px;
 }
+
+#queryByType {
+	width: 1350px;
+	margin: auto;
+}
+
 </style>
 
 </head>
 <body>
-	<c:import url="../headerM.jsp"/>
+	
 	<h2>場地管理</h2>
 	<!-- startCode -->
 	<input style="display:none" id="startCode" value="${startCode}">
@@ -196,9 +204,9 @@ function displayFields(responseText){
 
 	var content;
 	if(fieldList.length > 0){			
-		content = "<table border='1'><tr>"
-				+ "<th>編號<th>名稱<th>類型<th>位置	<th>租金(會員)	<th>租金(活動)"
-				+ "<th>狀況<th>備註<th>創建日期<th>資料建立日期<th>資料修改日期</tr>";
+		content = "<table class='table table-hover'><tr>"
+				+ "<thead><th>編號<th>名稱<th>類型<th>位置	<th>租金(會員)	<th>租金(活動)"
+				+ "<th>狀況<th>備註<th>創建日期<th>資料建立日期<th>資料修改日期<th>編輯</tr></thead>";
 		console.log(fieldList);
 		for(var i=0; i < fieldList.length; i++){
 			var situation;
