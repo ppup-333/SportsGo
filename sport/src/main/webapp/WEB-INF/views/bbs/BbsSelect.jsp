@@ -7,14 +7,7 @@
 <html>
 <head>
 <c:import url="../header.jsp"/>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
@@ -48,7 +41,7 @@
 					onclick="return false" style="width: 90%; margin: 40px auto 10px auto;">
 				<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
 					<div>
-						<p><sup class="badge badge-info">${bbs.bbsType.typeName}</sup> <span style="font-size: 30px; font-weight: bold;">${bbs.bbsTitle}</span></p>
+						<p><sup class="badge badge-info">${bbs.bbsType.typeName}</sup> <span style="font-size: 30px; font-weight: bold;">${bbs.bbsTitleByDetail}</span></p>
 						<div class="row">
 							<p class="col"><i class="fas fa-user-circle"></i> ${bbs.users.account}</p>
 							<p class="col" align="right">
@@ -119,7 +112,7 @@
 								<input type="button" class="replyEdit  btn btn-primary btn-sm" id="replyEdit${reply.replyId}"
 									rel="${reply.replyId}" value="編輯" style="position: relative; left: 75%;" />
 								<button id="modify${reply.replyId}" style="display: none; position: relative; left: 75%;"
-									class="btn btn-primary btn-sm"
+									class="btn btn-success btn-sm"
 									onclick="javascript:document.replyForm.action='bbsReplyUpdate'; document.replyForm.method='post'"
 									name="replyId" value="${reply.replyId}">修改</button>
 							</div>

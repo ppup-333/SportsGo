@@ -63,6 +63,10 @@ public class Bbs implements Comparable<Bbs> {
 	public String getBbsTitle() {
 		return bbsTitle;
 	}
+	
+	public String getBbsTitleByDetail() {
+		return bbsTitle.replaceAll("嗨", "&#128563");
+	}
 
 	public void setBbsTitle(String bbsTitle) {
 		this.bbsTitle = bbsTitle;
