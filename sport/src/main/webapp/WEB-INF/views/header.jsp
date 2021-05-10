@@ -33,16 +33,17 @@
                         <div class="col-3"></div>
                         <div id="optionDiv" class="col-9">
                             <div class="btn-group">
-                            	<span id="aboutUs">
-                                    <a href="/sport/bbs">討論區</a>
-                                </span>
-<!--                                 <span id="aboutUs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-<!--                                     討論區 -->
+<!--                             	<span id="aboutUs"> -->
+<!--                                     <a href="/sport/bbs">討論區</a> -->
 <!--                                 </span> -->
-<!--                                 <div class="dropdown-menu" aria-labelledby="aboutUs"> -->
-<!--                                     <a class="dropdown-item" href="#">123</a> -->
-<!--                                     <a class="dropdown-item" href="#">123</a> -->
-<!--                                 </div> -->
+                                <span id="aboutUs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    討論區
+                                </span>
+                                <div class="dropdown-menu" aria-labelledby="aboutUs">
+                                    <a class="dropdown-item" href="/sport/bbs">發文總覽</a>
+                                    <a class="dropdown-item" href="/sport/bbsdiscussion.c">我要發文</a>
+                                    <a class="dropdown-item" href="/sport/bbsMemberPrivate">我的發文與留言</a>
+                                </div>
                             </div>
                             <div class="btn-group">
                                 <span id="aboutUs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -195,8 +196,6 @@
 			$("#formLogout").submit();
 		}
 	});
-	
-	
 	
 </script>
 	

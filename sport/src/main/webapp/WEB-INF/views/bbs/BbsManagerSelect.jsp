@@ -19,7 +19,7 @@
 	<div class="container-fluid" style="position: relative; top: 50px;">
 		<div class="row">
 			<div class="col-3"></div>
-			<div class="col-6 border">
+			<div class="col-6 border" style="padding-bottom: 30px;">
 				<form id="select" name="select"
 					style="width: 90%; margin: 40px auto 10px auto;">
 				<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
@@ -30,7 +30,7 @@
 						</p>
 					<div class="row">
 						<p class="col">
-							<i class="fas fa-user-circle"></i> ${bbs.users.account}
+							<i class="fas fa-user-circle"></i> ${bbs.users.name}(${bbs.users.account})
 						</p>
 						<p class="col" align="right">
 						<c:if test="${bbs.bbsUpdateTime == null}">
@@ -43,7 +43,7 @@
 						</c:if>
 						</p>
 					</div>
-						<div>${bbs.bbsMessage}</div>
+						<div><p>${bbs.bbsMessage}</p></div>
 					</div>
 					<br>
 					<div>
@@ -57,20 +57,21 @@
 
 				<hr>
 				
-				<c:if test="${reply.replyId == null}"><h5 align="center">暫無留言</h5></c:if>
 
 				<form id="replyForm" name="replyForm" style="width: 90%; margin: 10px auto 0px auto;">
+					<c:if test="${replyList.size() == 0}"><h5 align="center">暫無留言</h5></c:if>
+					<c:if test="${replyList.size() > 0}">
 					<c:forEach var="reply" items="${replyList}">
 					<input type="hidden" id="${reply.replyId}" name="${reply.replyId}"
 						value="${reply.replyId}">
 						<div class="card">
 							<c:if test="${reply.replyDelete == 0}">
 							<p class="card-header">No.${reply.replyRank} <i class="far fa-user-circle"></i>
-								${reply.users.account}
+								${bbs.users.name}(${bbs.users.account})
 							</p>
 							</c:if>
 							<c:if test="${reply.replyDelete == 1}">
-							<p class="card-header">No.${reply.replyRank} <i class="fas fa-running"></i> 已被留言者 ${reply.users.account} 刪除
+							<p class="card-header">No.${reply.replyRank} <i class="fas fa-running"></i> 已被留言者 ${bbs.users.name}(${bbs.users.account}) 刪除
 							</p>
 							</c:if>
 							<c:if test="${reply.replyDelete == 2}">
@@ -103,6 +104,7 @@
 							</div>
 						</div>
 					</c:forEach>
+					</c:if>
 				</form>
 			</div>
 			<div class="col-3"></div>

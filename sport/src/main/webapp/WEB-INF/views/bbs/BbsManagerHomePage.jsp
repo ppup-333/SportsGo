@@ -14,22 +14,40 @@
 <title>Insert title here</title>
 <style>
 
+#selectDropdown {
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+	border-radius: 2px;
+	font-size: 14px;
+	height: 31px;
+}
+
+select {
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+	border-radius: 2px;
+	font-size: 14px;
+	height: 31px;
+}
+
 a {
-text-decoration: none;
-color: black;
+	text-decoration: none;
+	color: black;
 }
 
 a:link {
-text-decoration: none;
-color: black;
+	text-decoration: none;
+	color: black;
 }
 
 a:hover {
-color: black;
+	color: black;
 }
 
-table {
-cursor: pointer;
+tbody {
+	cursor: pointer;
 }
 
 </style>
@@ -43,7 +61,7 @@ cursor: pointer;
 				<div class="row">
 					<div class="dropdown col-3">
 						<button type="button" id="selectDropdown" name="selectDropdown" class="btn btn-primary btn-sm dropdown-toggle"
-							data-toggle="dropdown">選擇狀態</button>
+							data-toggle="dropdown"> -- 選擇狀態 -- </button>
 						<ul class="dropdown-menu">
 							<li class="dropdown-item" onclick="selectDelete(-1)">全部</li> 
 							<li class="dropdown-item" onclick="selectDelete(0)">正常</li>
@@ -79,7 +97,7 @@ cursor: pointer;
 					<div class="col-3" align="right">
 						<input type="search" id="search" name="search" autocomplete="off"
 							placeholder="輸入查詢字串...">
-						<input id="searchImage"	type="image" src="images/magnifier.png" width="20" height="20">
+						<input id="searchImage"	type="image" src="images/magnifier.png" width="25" height="25">
 					</div>
 				</div>
 			</div>
