@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<c:import url="../headerScript.jsp"/>
+
 <style>
 th, td {
 	padding: 5px 10px;
@@ -16,7 +18,7 @@ th, td {
 
 </head>
 <body>
-	<c:import url="../header.jsp"></c:import>
+	<c:import url="../newheader.jsp"></c:import>
 	
 	<h2>訂單取消</h2>
 	<hr>
@@ -178,6 +180,5 @@ th, td {
 	
 
 </script>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 </body>
 </html>

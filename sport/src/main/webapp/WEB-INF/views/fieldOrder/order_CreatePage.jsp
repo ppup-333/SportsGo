@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<c:import url="../headerScript.jsp"/>
+
 <style>
 #div_DateType {
 	text-align: center;
@@ -70,8 +72,8 @@ th, td {
 
 </head>
 <body>
-	<c:import url="../header.jsp"/>
-	<h3>一般會員預約</h3>
+	<c:import url="../newheader.jsp"/>
+	<h2>一般會員預約</h2>
 	<form action="createMemberOrder" method="post">
 		<div class="container">
 			<div class="row">

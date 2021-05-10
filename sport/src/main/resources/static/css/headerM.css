@@ -16,28 +16,28 @@
     border-radius: 20px;
 }
 
-#ul1 {
+#ulHeaderM {
     background-color: rgb(245,245,245);
     box-shadow: 0 1px 2px rgb(180, 179, 179);
 }
 
-#ul1 .nav-item {
+#ulHeaderM .nav-item {
     font-size: 17px;
     text-align: center;
     width: 200px;
 }
 
-#ul1 li .nav-link {
+#ulHeaderM li .nav-link {
     font-weight: 550;
     color: gray;
     cursor: pointer;
 }
 
-#ul1 li .nav-link:hover {
+#ulHeaderM li .nav-link:hover {
     color: #007bff;
 }
 
-.dropdown-menu {
+#ulHeaderM .dropdown-menu {
     min-width: 118px;
     border-radius: 10px;
     box-shadow: 1px 1px 2px rgb(180, 179, 179);
