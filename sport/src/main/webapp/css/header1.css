@@ -95,7 +95,8 @@
 }
 
 .spLogin {
-    margin-left: 80px;
+  	color: darkgrey;
+	font-size: 1px;
 }
 
 .div_HeaderLogin a:hover{

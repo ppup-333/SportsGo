@@ -542,6 +542,9 @@ public class UserController {
 
 		users.setStatusCode(userStatusService.get("02"));
 		users.setVer(Timestamp.valueOf(LocalDateTime.now()));
+		
+		users.setActRegisteredTime(userData.getActRegisteredTime());
+		users.setPwLastUpdateDate(userData.getPwLastUpdateDate());
 
 		if ("".equals(users.getMobile())) {
 			users.setMobile(null);
@@ -617,7 +620,7 @@ public class UserController {
 
 	@GetMapping(value = "/resetVerifyCode")
 	@ResponseBody
-	public void resetVerifyCode(HttpSession session)throws  UnsupportedEncodingException {
+	public void resetVerifyCode(HttpSession session) throws UnsupportedEncodingException {
 		RandomCode random = new RandomCode();
 		String verifyCode = random.verifyCode();
 		String account = session.getAttribute("tempAccount").toString();
@@ -633,12 +636,12 @@ public class UserController {
 
 		userActValidateTempService.updateCode(uavt);
 		// 重製驗證碼後繼寄信
-		
+
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper;
-			helper = new MimeMessageHelper(message,true,"utf-8");
-			helper.setFrom("hla524290337@gmail.com","SportsGo!運動中心");
+			helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom("hla524290337@gmail.com", "SportsGo!運動中心");
 			helper.setTo(user.getEmail());
 			helper.setSubject("運動中心註冊認證");
 			helper.setText(user.getName() + "您好!\n您的4位認證碼為: " + verifyCode + "\n請於15分鐘內輸入認證碼。");
@@ -647,22 +650,20 @@ public class UserController {
 			System.out.println("=======sending email fail!==========");
 			e.printStackTrace();
 		}
-		
-		
 
 	}
 
-	void sendToGmail(Users user) throws  UnsupportedEncodingException {
+	void sendToGmail(Users user) throws UnsupportedEncodingException {
 //		SimpleMailMessage message = new SimpleMailMessage();
-		
+
 		RandomCode random = new RandomCode();
 		String verifyCode = random.verifyCode();
 
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper;
-			helper = new MimeMessageHelper(message,true,"utf-8");
-			helper.setFrom("hla524290337@gmail.com","SportsGo!運動中心");
+			helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom("hla524290337@gmail.com", "SportsGo!運動中心");
 			helper.setTo(user.getEmail());
 			helper.setSubject("運動中心註冊認證");
 			helper.setText(user.getName() + "您好!\n您的4位認證碼為: " + verifyCode + "\n請於15分鐘內輸入認證碼。");
@@ -677,7 +678,7 @@ public class UserController {
 		uavt.setExpired_time(new Timestamp(System.currentTimeMillis()));
 
 		userActValidateTempService.save(uavt);
-		
+
 	}
 
 	boolean chkStatus(String account) {

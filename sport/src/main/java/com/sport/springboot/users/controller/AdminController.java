@@ -182,10 +182,7 @@ public class AdminController {
 			return "redirect:/admin/AdminLogin";
 		}
 		
-		
-		
 		return "users/AdminResultAdmin";
-
 	}
 
 	@PostMapping(value = "/getDistrict")

@@ -141,7 +141,7 @@ public class CATimeService {
 		}
 			
 			 if(newOrderDetailList != null && newOrderDetailList.size() > 0) {
-				   fieldActOrderService.createActOrder(newOrderDetailList);
+				   fieldActOrderService.createActOrder(newOrderDetailList,null,coursebean);
 				   System.out.println("課程場地預約已建立好");
 				  }else {
 					  return false;
@@ -195,7 +195,7 @@ public class CATimeService {
 		}	
 
 			 if(newOrderDetailList != null && newOrderDetailList.size() > 0) {
-				   fieldActOrderService.createActOrder(newOrderDetailList);
+				   fieldActOrderService.createActOrder(newOrderDetailList,activitybean,null);
 				   System.out.println("活動場地預約已建立好");
 				  }else {
 					  return false;

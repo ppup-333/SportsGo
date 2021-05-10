@@ -175,7 +175,13 @@ function sport(s){
 					DateStart=result[i].DateStart;
 					tempDateStart=DateStart;
 					for(let j=0;j<=GetDateDiff1;j+=7){
-						
+						let tempDate=tempDateStart.substring(8);
+							let intdate=parseInt(tempDate, 10);
+							let date=intdate+7;
+							let ym=tempDateStart.substring(0,8);
+							let d=ym+date;
+							completeDate=transformdate(d);
+							tempDateStart=completeDate;
 							
 						if(j==0){
 							if(GetDateDiff1==0){
@@ -190,30 +196,12 @@ function sport(s){
 							context+="\"constraint\":\"businessHours\"},"
 							}
 															
-						}else if(j==GetDateDiff1){
-							
-							
-							let tempDate=tempDateStart.substring(8);
-							let intdate=parseInt(tempDate, 10);
-							let date=intdate+7;
-							let ym=tempDateStart.substring(0,8);
-							let d=ym+date;
-							completeDate=transformdate(d);
-							tempDateStart=completeDate;
-						
+						}else if(j==GetDateDiff1){						
 							context+="{\"id\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 							context+="\"start\":\""+tempDateStart+"\","
 							context+="\"constraint\":\"businessHours\"}"	
 						}else{
-							let tempDate=tempDateStart.substring(8);
-							let intdate=parseInt(tempDate, 10);
-							let date=intdate+7;
-							let ym=tempDateStart.substring(0,8);
-							let d=ym+date;
-							completeDate=transformdate(d);
-							tempDateStart=completeDate;
-
 							context+="{\"id\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 							context+="\"start\":\""+tempDateStart+"\","
@@ -292,16 +280,15 @@ function sport(s){
 		        let dd=choose.lastIndexOf("日");
 		        let ds=today.lastIndexOf("日");
 		        let chooseInt=parseInt(choose.substring(7,dd));
-		        let todayInt=parseInt(today.substring(7,dd));
-		        
-		        
-				console.log(info);
+		        let todayInt=parseInt(today.substring(7,ds));
+
 		        if(monthChooseInt<monthTodayInt){
 		         	$('#modalTitle').html("");
 					$('#modalBody').html("過去不復返，請選擇今天以後的課程");
 					$('#calendarModal').modal();		        	
 		        }else if(monthChooseInt>monthTodayInt){
 
+		        	
 		        	let ymd;
 		        	if(monthChooseInt<10){
 			        	if(chooseInt<10){
@@ -316,6 +303,7 @@ function sport(s){
 			        		ymd=year+"-"+monthChooseInt+"-"+chooseInt;
 			        	}
 			        	
+			        
 			        }
 		        	
 		        	

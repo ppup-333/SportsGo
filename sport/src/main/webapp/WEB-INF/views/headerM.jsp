@@ -29,8 +29,8 @@
                     帳號管理
                 </span>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">會員資料查詢／異動</a>
-                    <a class="dropdown-item" href="#">管理員查詢／異動</a>
+                    <a class="dropdown-item" href="/sport/admin/resultAllUsers">會員資料查詢／異動</a>
+                    <a class="dropdown-item" href="/sport/admin/resultAllAdmins">管理員查詢／異動</a>
                 </div>
             </div>
         </li>
