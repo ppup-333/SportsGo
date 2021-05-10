@@ -48,7 +48,7 @@
  	.f1{ 
  	font-size:15px; 
  	width:520px; 
- 	margin:auto; 
+ 	margin-left:720px; 
  	margin-top:50px;
  	} 
 
