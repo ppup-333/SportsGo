@@ -86,13 +86,12 @@ public class UserController {
 		users.setAccount("test1001");
 		users.setPassword("test1001");
 		users.setDbChkPwd("test1001");
-		users.setName("測試帳號1001");
+		users.setName("測試1001");
 		users.setId("A123456789");
-		users.setBirthday("04/13/2021");
+		users.setBirthday("01/01/1960");
 		users.setEmail("test1001@gmail.com");
 		users.setAddress("信義路二段1號1樓");
-		users.setTel("0223456789");
-
+		users.setTel("0912345678");
 		users.setGender("M");
 
 		model.addAttribute("users", users);

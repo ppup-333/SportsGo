@@ -39,13 +39,13 @@
 	
 	.f1{ 
  	font-size:15px; 
- 	width:300px; 
+ 	width:350px; 
  	margin:auto;
  	margin-top:100px;
  	} 
 
  	.d1{ 
- 	margin:20px 810px; 
+ 	margin:20px 790px; 
  	} 
 	
 </style>
@@ -65,7 +65,7 @@
 		<div>
 			<table>
 				<tr>
-					<td>管理者帳號:<br>&nbsp;</td>
+					<td>管理者帳號：<br>&nbsp;</td>
 					<td><form:input path="account"  /><br>&nbsp;
 <!-- 						<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/> -->
 						<form:errors path='account' cssClass="error"/></td>
@@ -87,7 +87,7 @@
 </fieldset>
 		<div class='d1'>
 			<input type='button' value='登入' onclick='form2.submit()'>
-<%-- 			<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'> --%>
+			<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
 		</div>
 </body>
 </html>
