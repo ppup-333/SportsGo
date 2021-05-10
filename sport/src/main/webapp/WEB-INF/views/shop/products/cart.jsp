@@ -413,7 +413,7 @@ function cartProducts(responseText){
 		content+="<hr><h5 class='prodAll'>購物車內共有 "+productList.length+" 種商品</h5>";
 		contentfoot = "<span id='sumPriceZone'></span>"
 					+"<a href='/sport/shop/storeProductsAll'><input class='continue' type='button' value='繼續購物'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-					+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+					+"<a href='<c:url value='/'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
 					+"<input class='checkBill' type='button' value='結帳'/><br><br>";
 		allProductInCart.innerHTML = content;
 		cartFooter.innerHTML = contentfoot;
@@ -657,6 +657,17 @@ function cartProducts(responseText){
 //     		        	    console.log("response = "+response)
 	    		        	if (response =="success") {
 	    		        		self.location.href='order/orderCheck1';
+	    		        	} else if(response =="login"){
+	    		        		Swal.fire({
+					    		    toast: true,
+					    		    position: 'center',
+					    		    showConfirmButton: false,
+					    		    timer: 2500,
+					    		    icon: 'error',
+					    		    title: '尚未登入',
+					    		    text: "請先登入再進行結帳!",    
+					    		})
+	    		        			
 	    		        	} else {
 	    		        		Swal.fire({
 					    		    toast: true,

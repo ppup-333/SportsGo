@@ -67,6 +67,15 @@ public class ProductOrderController {
 	@RequestMapping(value = "/OrderTemp")
 	@ResponseBody
 	public String OrderTemp(@RequestBody Map<String, String> map, HttpSession httpSession) {
+		
+		String account = (String) httpSession.getAttribute("account");
+		
+		System.out.println("account ======================================================================================"+account);
+		if (account == null) {
+			return "login";
+		}
+		
+		
 		@SuppressWarnings("unchecked")
 		Map<String,Integer> omap = (Map<String, Integer>) httpSession.getAttribute("orderTemp");	          
         omap = new HashMap<>(); 	
