@@ -47,7 +47,7 @@
 	
  	.f1{ 
  	font-size:15px; 
- 	width:520px; 
+ 	width:550px; 
  	margin-left:780px; 
  	margin-top:50px;
  	} 
