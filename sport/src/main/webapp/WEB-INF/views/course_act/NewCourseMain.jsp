@@ -172,11 +172,20 @@ function sport(s){
 							tempDateStart=completeDate;
 							console.log(completeDate);
 						if(j==0){
-							context+="{\"groupId\":\""+result[i].courseId+"\","
-							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
-							context+="\"start\":\""+result[i].DateStart+result[i].courseKind+"\","
-							context+="\"url\":\"/sport/courseApply?id="+result[i].courseId+"&type=first\","
-							context+="\"constraint\":\"businessHours\"},"								
+							if(GetDateDiff1==0){
+								context+="{\"groupId\":\""+result[i].courseId+"\","
+								context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
+								context+="\"start\":\""+result[i].DateStart+result[i].courseKind+"\","
+								context+="\"url\":\"/sport/courseApply?id="+result[i].courseId+"&type=first\","
+								context+="\"constraint\":\"businessHours\"}"
+							}else{
+								context+="{\"groupId\":\""+result[i].courseId+"\","
+								context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
+								context+="\"start\":\""+result[i].DateStart+"\","
+								context+="\"url\":\"/sport/courseApply?id="+result[i].courseId+"&type=first\","
+								context+="\"constraint\":\"businessHours\"},"
+							}
+												
 						}else if(j==GetDateDiff1){							
 							context+="{\"groupId\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","

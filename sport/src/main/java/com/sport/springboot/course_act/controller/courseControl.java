@@ -50,7 +50,8 @@ public class courseControl {
 	@Autowired
 	private CourseOrderService courseorderservice;
 	
-	private final String properties="D:\\_SpringBoot\\SportsGo\\sport\\src\\main\\java\\ecpay\\payment\\integration";
+	//private final String properties="D:\\_SpringBoot\\SportsGo\\sport\\src\\main\\java\\ecpay\\payment\\integration";
+	private final String properties="/src/main/java/ecpay/payment/integration";
 
 	@GetMapping("/courseHome")
 	public String index() {
@@ -151,12 +152,21 @@ public class courseControl {
 		Iterator<CATime> it = c.getTime().iterator();
 		List<String> timeList = new ArrayList<>();
 		List<String> tempList = new ArrayList<>();
+		List<Field> fieldList = fieldService.getAll();
+		Field firstfield = fieldList.get(0);
 		boolean b = true;
 		int count = 0;
 		while (it.hasNext()) {
 			CATime time = it.next();
 			tempList.add(time.getDate());
 			if (b) {
+				for(int i=0;i<fieldList.size();i++) {
+					if(fieldList.get(i).getName().equals(time.getFieldbean().getName())) {
+						Field nowField = fieldList.get(i);
+						fieldList.set(i, firstfield);
+						fieldList.set(0, nowField);
+					}
+				}
 				timeList.add(time.getTimeStart().substring(0, 5));
 				timeList.add(time.getTimeEnd().substring(0, 5));
 				b = false;
@@ -180,7 +190,7 @@ public class courseControl {
 		model.addAttribute("account", account);
 		model.addAttribute("teacher", teacher);
 		model.addAttribute("teacherList", teacherList);
-		
+		model.addAttribute("fieldList",fieldList);
 		return "course_act/manageCourseUpdate";
 	}
 

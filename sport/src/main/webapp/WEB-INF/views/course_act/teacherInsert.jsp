@@ -97,7 +97,7 @@ function checkSalary(){
 <body>
 <c:import url="../headerM.jsp" />
 <div  class="main_body">
-<form id="insert" method="post" action="/springsport/teacherInsertImpl"  enctype="multipart/form-data">
+<form id="insert" method="post" action="/sport/teacherInsertImpl"  enctype="multipart/form-data">
 <table border="1" style="text-align: center;">
 		
 		<tr><td>老師姓名:<td><input type="text" name="teacherName" id="TN" maxlength="10"/><span id="tName"></span>

@@ -94,6 +94,12 @@
         <div class="st1">
             <label for="account" class="t1">修改日期: </label><input type="date" id="from" name="from">
         </div>
+        <div class="st1">
+            <label for="account" class="t1">修改場地: </label>
+            <c:forEach var="item1" items="${fieldList}" varStatus="status">
+						<option value="${item1.id}">${item1.name}</option>
+						</c:forEach>
+        </div>
             <div class="st1">
             <label for="account" class="t1">老師: </label><select name="teacherId" id="to">
 						<option value="${teacher.teacherId}">${teacher.teacherName}</option>

@@ -19,6 +19,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.sport.springboot.field.model.FieldActOrder;
+
 
 
 @Table(name = "course")
@@ -48,6 +50,8 @@ Set<CourseOrderBean> CourseOrder=new HashSet<>();
 @JoinColumn(name="teacherId",insertable = false, updatable = false)
 private teacherBean teacherbean;
 
+@OneToMany(fetch = FetchType.LAZY,mappedBy = "coursebean",cascade = CascadeType.ALL)
+Set<FieldActOrder> fieldActOrder;
 
 
 

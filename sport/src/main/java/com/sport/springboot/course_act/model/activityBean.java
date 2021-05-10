@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.sport.springboot.field.model.FieldActOrder;
+
 @Table(name = "activity")
 @Entity
 @Component
@@ -38,6 +40,8 @@ public class activityBean {
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "activitybean",cascade = CascadeType.ALL)
 	Set<CATime> time=new HashSet<>();
 	 
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "activitybean",cascade = CascadeType.ALL)
+	Set<FieldActOrder> fieldActOrder=new HashSet<>();
 	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "activitybean",cascade = CascadeType.ALL)
 	Set<ActivityOrderBean> activtiyOrder=new HashSet<>();
@@ -107,6 +111,12 @@ public class activityBean {
 	}
 	public void setActivtiyOrder(Set<ActivityOrderBean> activtiyOrder) {
 		this.activtiyOrder = activtiyOrder;
+	}
+	public Set<FieldActOrder> getFieldActOrder() {
+		return fieldActOrder;
+	}
+	public void setFieldActOrder(Set<FieldActOrder> fieldActOrder) {
+		this.fieldActOrder = fieldActOrder;
 	}
 	
 	
