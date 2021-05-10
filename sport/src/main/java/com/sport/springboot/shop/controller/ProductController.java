@@ -36,8 +36,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sport.springboot.shop.model.Product;
 import com.sport.springboot.shop.model.ProductCategory;
-import com.sport.springboot.shop.model.ProductOrderDetail;
-import com.sport.springboot.shop.model.ProductOrderList;
 import com.sport.springboot.shop.service.ProductCategoryService;
 import com.sport.springboot.shop.service.ProductService;
 import com.sport.springboot.shop.validate.ProductValidator;
@@ -627,31 +625,31 @@ public class ProductController {
 		 
 		@SuppressWarnings("unchecked")
 		Map<String,Integer> cmap = (Map<String, Integer>) httpSession.getAttribute("cart");
+		
+		if (addCartNum != null) {
+			if (Integer.parseInt(addCartNum)>pStock) {
+				return "OverStock";
+			}
+		}
 	
-        Integer count = null;  
-        if (cmap == null) {  //判斷購物車是否為空
+        Integer count = null;  //判斷購物車是否為空
+        if (cmap == null) {  //購物車為空
         	cmap = new HashMap<>();  //第一次購物，創建購物車
         	httpSession.setAttribute("cart", cmap); //將購物車放入session中
-        	if(addCartNum != null) { //如果加入複數商品
-        		count = Integer.parseInt(addCartNum);
+        	if(addCartNum != null) { //如果要加入的商品為複數
+        		count = Integer.parseInt(addCartNum);  
         	} else count = 1;  //加入單筆商品
         }else {
             //購物車不為空，判斷購物車是否已經有該商品
-            //獲取商品數量
-            count = cmap.get(addCartName);
+            count = cmap.get(addCartName);  //獲取商品數量
             if(count == null) { //購物車沒有該商品
-            	if(addCartNum != null) {
-            		count = Integer.parseInt(addCartNum);
+            	if(addCartNum != null) {  //要加入的商品為複數
+            		count = Integer.parseInt(addCartNum);  
             	} else  count = 1;
-            }else if(count >= pStock) {
-            	System.out.println("超過庫存了GG");
-            	return "OverStock";
-            }
-            else {
+            }else {
                 //購物車具有該商品
             	if(addCartNum != null) {
-            		if (count+Integer.parseInt(addCartNum) > pStock) {
-                    	System.out.println("超過庫存了GG");
+            		if (count + Integer.parseInt(addCartNum) > pStock) {
                     	return "OverStock";
             		} else count += Integer.parseInt(addCartNum);
 

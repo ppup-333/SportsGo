@@ -210,7 +210,7 @@ function orderLists(responseText){
 				 + "<td class='product'>"+orderList[i].name+" (共 "+orderNumber[i]+" 件商品)</td>"
 				 + "<td class='price'>"+orderList[i].order_price+"</td>"
 				 + "<td class='shipway'>"+orderList[i].shipway+"</td>"
-				 + "<td class='status'>完成</td>"
+				 + "<td class='status'>"+orderList[i].order_status+"</td>"
 				 + "<td class='detail'><a href='orderDetail/"+orderList[i].order_id+"'><input type='button' value='確認'></td></tr>";
 	}
 	content+="</table>";

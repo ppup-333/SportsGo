@@ -31,7 +31,7 @@ public class ProductOrderList {
 	String order_status;
 	String order_create_date;
 	String order_update_date;
-	
+	String MerchantTradeNo;
 	
 
 	@OneToMany(mappedBy = "order_list")
@@ -160,6 +160,19 @@ public class ProductOrderList {
 	public void setShipway(String shipway) {
 		this.shipway = shipway;
 	}
+
+
+	public String getMerchantTradeNo() {
+		return MerchantTradeNo;
+	}
+
+
+	public void setMerchantTradeNo(String merchantTradeNo) {
+		MerchantTradeNo = merchantTradeNo;
+	}
+
+
+
 
 	
 }
