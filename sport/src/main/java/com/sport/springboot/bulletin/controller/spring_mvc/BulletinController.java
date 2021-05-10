@@ -189,9 +189,16 @@ public class BulletinController {
 	public String showDataForm(@PathVariable("id")Integer id, Model model) {
 		Bulletin bulletin = bulletinService.get(id);
 		String contents = bulletin.getContents();
+		//空白與換行處理
 		contents = contents.replaceAll("<br/>", "\n");
 		contents = contents.replaceAll("&nbsp;", " ");
+		String subtitle = bulletin.getSubtitle();
 		bulletin.setContents(contents);
+		//空白與換行處理
+		subtitle = subtitle.replaceAll("<br/>", "\n");
+		subtitle = subtitle.replaceAll("&nbsp;", " ");
+		bulletin.setSubtitle(subtitle);
+		
 		model.addAttribute(bulletin);
 		return "Bulletin/updateBulletin";
 	}
