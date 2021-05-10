@@ -138,11 +138,11 @@ public class UserController {
 	@PostMapping(value = "/chkAccount")
 	public @ResponseBody Map<String, String> getChkAccount(@RequestParam(value = "account") String account) {
 
-		System.out.println("account = " + account.toString());
 		boolean b = usersService.getChkAccount(account);
 		Map<String, String> map = new HashMap<>();
-//		System.out.println(usersService.getChkAccount(account));
-//		System.out.println("b =" + b);
+		System.out.println("account = " + account.toString());
+//		System.out.println(account);
+		System.out.println("b =" + b);
 		if (b) {
 			map.put("result", "true");
 		} else {
@@ -690,4 +690,11 @@ public class UserController {
 		}
 		return false;
 	}
+	
+//	@ModelAttribute
+//	public void headerModel(Model m) {
+//		Users users = new Users();
+//		m.addAttribute("loginPage", users);
+//	}
+	
 }

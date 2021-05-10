@@ -37,6 +37,17 @@
 		font-size: 5pt;
 	}
 	
+	
+	.d1{
+		height:100px;
+	}
+	
+	.d2{
+		position:relative;
+		top:-50px;
+    	left:950px;
+	}
+	
 </style>
 <meta charset="UTF-8">
 <title>會員資料管理</title>
@@ -51,7 +62,7 @@
 <fieldset>
 	<legend>會員資料查詢</legend>
 	<form:form method="POST" modelAttribute="adminResultUsers" enctype='multipart/form-data' >
-		<div >
+		<div class='d1'>
 			<table>
 				<tr>
 					<td>帳號：&nbsp;</td>
@@ -126,12 +137,9 @@
 		</div>
 	
 </fieldset>
-		<div><br></div>
-		<div>
-			<button id='search'>搜尋會員</button>
-			<input type='button' value='回上一頁' onclick='location.href="adminUserHomePage"'>
+		<div class='d2'>
+			<button id='search'>搜尋會員資料</button>
 		</div>
-		<div><br></div>
 		<div id='searchResultDiv' ></div>
 
 <script>
