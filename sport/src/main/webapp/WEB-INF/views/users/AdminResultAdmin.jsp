@@ -37,6 +37,23 @@
 		font-size: 5pt;
 	}
 	
+	.d1{
+		width:250px;
+		height:60px;
+	}
+	
+	.d2{
+		position:relative;
+		top:-55px;
+    	left:270px;
+		width:250px;
+		height:60px;
+	}
+	
+	#f1{
+		width:250px;
+	}
+	
 </style>
 <meta charset="UTF-8">
 <title>管理者資料管理</title>
@@ -49,20 +66,24 @@
 <body>
 <c:import url="../headerM.jsp"/>
 
-<fieldset>
+<fieldset id='f1'>
 	<legend>管理者資料查詢</legend>
 	<form:form method="POST" modelAttribute="userAuth" enctype='multipart/form-data' action="">
-		<div>
+		<div class='d1'>
 			<table>
 				<tr>
 					<td>帳號：&nbsp;</td>
 					<td><form:input path="account" id="account"/>&nbsp;&nbsp;</td>
+					
 				</tr>
 			</table>
 		</div>
 	</form:form>
 </fieldset>
-	
+	<div class="d2">
+	<button onclick="select1()">查詢</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" class="" data-toggle="modal" data-target="#addAdmin">新增管理者</button>
+	</div>	
 	<div class="modal fade" id="daleteAdmin" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   			<div class="modal-dialog">
     			<div class="modal-content">
@@ -122,63 +143,18 @@
   			</div>
 		</div>
 		
-		
-	
-
-		<div><br></div>
-		<div>
-			<button id='search'>查詢</button>&nbsp;&nbsp;
-			<input type='button' value='回上一頁' onclick='location.href="adminUserHomePage"'><br><br>
-			<button type="button" class="" data-toggle="modal" data-target="#addAdmin">新增管理者</button>
-		</div><br>
-		<div>
-			<br>
-		</div>
+<!-- 		<div> -->
+<!-- 			<button id='search'>查詢</button>&nbsp;&nbsp; -->
+<!-- 			<button type="button" class="" data-toggle="modal" data-target="#addAdmin">新增管理者</button> -->
+<!-- 		</div><br> -->
 		<div id='searchResultDiv' ></div>
 
 <script>
 
-// var alink = document.getElementById("repeatAccount");
-// var div = document.getElementById('result0c');
-// temp.onclick = function() {
-	
-// 	var account = document.getElementById("account").value;
-// 	var xhr = new XMLHttpRequest();
-// 	xhr.open("POST", "<c:url value='/admin/chkAct' />", true);
-// 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-// 	xhr.send("account=" + account);
-// 	var message = "";
-// 	xhr.onreadystatechange = function() {
-// 		if (xhr.readyState === 4 && xhr.status === 200) {
-// 			var result = JSON.parse(xhr.responseText);
-// //				console.log(result);
-// 			if (result.result == "false") {
-// 				message = "<font color='darkgreen' size='-2'>" + "帳號可以使用" + "</font>";
-// 				pass = true;
-// 			} 
-// 			else {
-// 				message = "<font color='red' size='-2'>" + "帳號重複，請重新輸入帳號" + "</font>";
-// 				pass = false;
-// 			}
-// 			console.log(pass);
-			
-// 			div.innerHTML =  message ;
-// 		}
-// 	}
-// };
-
-
-
-
-
-
-
-
-
-	var alink = document.getElementById("search");
-	alink.onclick = function() {
-		select1();
-	};
+var alink = document.getElementById("search");
+alink.onclick = function() {
+	select1();
+};
 	
 
 function select1(){

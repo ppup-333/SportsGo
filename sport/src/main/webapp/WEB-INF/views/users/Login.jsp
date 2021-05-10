@@ -56,8 +56,7 @@
 					<td>帳號：<br>&nbsp;</td>
 					<td><form:input path="account"  /><br>&nbsp;
 						<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
-<%-- 						<form:errors path='account' cssClass="error"/> --%>
-						</td>
+					</td>
 				</tr>
 				<tr>
 					<td>密碼：<br>&nbsp;</td>

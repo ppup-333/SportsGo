@@ -9,7 +9,7 @@
 <style>
 
 	td {
-		height: 50px;
+		height: auto;
 		width: auto;
 		
 	}
@@ -34,7 +34,18 @@
 	span.error {
 		color: red;
 		display: inline-block;
-		font-size: 20pt;
+		font-size: 15pt;
+	}
+	
+	.f1{
+		font-size:15px;
+		height:auto;
+		width:350px;
+		margin:auto;
+	}
+
+	.d1{
+		margin:20px 765px;
 	}
 	
 </style>
@@ -48,7 +59,7 @@
 <link rel="stylesheet" href="jqueryui/style.css">
 </head>
 <body>
-<fieldset>
+<fieldset class='f1'>
 	<legend>請輸入帳號密碼</legend>
 	<form:form method="POST" modelAttribute="chkUserUpdatePwd" enctype='multipart/form-data' action="ChkUserUpdatePwd" id="form1">
 		<div>
@@ -68,14 +79,11 @@
 					<td></td>
 					<td><form:errors path='password' cssClass="error" id='loginError'/></td>
 				</tr>
-<!-- 				<tr> -->
-<!-- 					<td><input type="submit" value="login"></td> -->
-<!-- 				</tr> -->
 			</table>
 		</div>
 	</form:form>
 </fieldset>
-		<div>
+		<div class='d1'>
 			<input type='button' value='登入' onclick='form1.submit()'>
 			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'>
 <!-- 			<input type='button' value='註冊' onclick='location.href="RegisterEdit"'> -->

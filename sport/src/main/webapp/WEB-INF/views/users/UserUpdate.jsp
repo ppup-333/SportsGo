@@ -45,11 +45,20 @@
 		font-size: 5pt;
 	}
 	
+	.f1{
+	font-size:15px;
+	width:600px;
+	margin:auto;
+	}
+
+	.d1{
+	margin:20px 630px;
+	}
 </style>
 
 </head>
 <body>
-	<fieldset>
+	<fieldset class='f1'>
 		<legend >修改會員資料</legend>
 		<form:form method="POST" modelAttribute="users" enctype='multipart/form-data' id="form1">
 			<div>
@@ -114,8 +123,10 @@
 			</div>
 		</form:form>
 	</fieldset>
-	<input type='button' value='送出' onclick='dataSubmit()'>
-	<input type='button' value='回上一頁' onclick='location.href="userResult"'>
+	<div class='d1'>
+		<input type='button' value='送出' onclick='dataSubmit()'>
+		<input type='button' value='回上一頁' onclick='location.href="userResult"'>
+	</div>
 	
 	
 <script>

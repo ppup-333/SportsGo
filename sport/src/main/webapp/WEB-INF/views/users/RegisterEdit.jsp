@@ -14,7 +14,7 @@
 <style>
 
 	td {
-		height: 50px;
+		height: auto;
 		width: auto;
 		
 	}
@@ -45,14 +45,24 @@
 		font-size: 5pt;
 	}
 	
-</style>
+ 	.f1{ 
+ 	font-size:15px; 
+ 	width:520px; 
+ 	margin:auto; 
+ 	margin-top:50px;
+ 	} 
 
+ 	.d1{ 
+ 	margin:20px 720px; 
+ 	} 
+	
+</style>
 
 
 </head>
 <body>
-	<fieldset>
-		<legend >新增會員資料</legend>
+<%-- <c:import url="../header.jsp"/> --%>
+	<fieldset class='f1'>
 		<form:form method="POST" modelAttribute="users" enctype='multipart/form-data' id="form1">
 			<div>
 				<table>
@@ -135,8 +145,10 @@
 			</div>
 		</form:form>
 	</fieldset>
-	<input type='button' value='送出' onclick='chkSubmit()'>
-	<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
+	<div class='d1'>
+		<input type='button' value='送出' onclick='chkSubmit()'>
+		<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
+	</div>
 	
 <script>
 $(document).ready(function(){ 

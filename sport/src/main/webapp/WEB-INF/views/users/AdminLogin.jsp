@@ -37,6 +37,17 @@
 		font-size: 13pt;
 	}
 	
+	.f1{ 
+ 	font-size:15px; 
+ 	width:300px; 
+ 	margin:auto;
+ 	margin-top:100px;
+ 	} 
+
+ 	.d1{ 
+ 	margin:20px 810px; 
+ 	} 
+	
 </style>
 <script>
 </script>
@@ -48,11 +59,8 @@
 <link rel="stylesheet" href="jqueryui/style.css">
 </head>
 <body>
-<%-- <form action="user/Login" method="post"> --%>
-<!-- 	<button type="submit">ss</button> -->
-<%-- </form> --%>
-<fieldset>
-	<legend>Admin Login</legend>
+<c:import url="../header.jsp"/>
+<fieldset class='f1'>
 	<form:form method="POST" modelAttribute="adminLogin" enctype='multipart/form-data' id="form2">
 		<div>
 			<table>
@@ -77,11 +85,9 @@
 		
 	</form:form>
 </fieldset>
-		<div>
+		<div class='d1'>
 			<input type='button' value='登入' onclick='form2.submit()'>
-			<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
-<%-- 			<a href="<c:url value='../'/> " >回前頁</a> --%>
-
+<%-- 			<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'> --%>
 		</div>
 </body>
 </html>
