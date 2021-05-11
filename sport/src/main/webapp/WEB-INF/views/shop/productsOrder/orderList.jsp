@@ -249,7 +249,8 @@ function orderLists(responseText){
 	
 	}
 	
-	contentfoot ="<a href='<c:url value='/'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+	contentfoot ="<a href='<c:url value='/'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+				+"<a href='<c:url value='../storeProductsAll'/>'><input class='home' type='button' value='回到商城'/></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 
 	orderlist.innerHTML = content;
 	orderFooter.innerHTML = contentfoot;

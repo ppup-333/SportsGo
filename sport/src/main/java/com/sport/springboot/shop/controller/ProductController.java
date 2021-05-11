@@ -504,10 +504,12 @@ public class ProductController {
 	
 	//商城首頁
 	@GetMapping("/storeProductsAll")
-	public String storeHomePage(Model m, Integer category, String keyword) {
+	public String storeHomePage(Model m, Integer category, String keyword, String page) {
 		//m.addAttribute("productList",productService.getAllProducts());
+
 		m.addAttribute("category",category);
 		m.addAttribute("keyword",keyword);
+		m.addAttribute("page",page);
 		//m.addAttribute("productCategoryList",productCategoryList);	
 		return "shop/products/storeProductsAll";
 	}	
@@ -517,9 +519,11 @@ public class ProductController {
 	@PostMapping(value = "/getProductsJson")
 	public @ResponseBody Map<String, Object> getProductsAll(HttpSession httpSession, 
 			@RequestParam("category") String category,
-			@RequestParam("keyword") String keyword) {
-//		System.out.println("CATEGORY================================================================================================ "+category);
-//		System.out.println("KEYWORD================================================================================================ "+keyword);
+			@RequestParam("keyword") String keyword,
+			String page) {
+		
+		int pageSize = 9;
+
 		Map<String, Object> map = new HashMap<>();
 		List<Product> productList = productService.getAllProducts();  //所有商品
 		
@@ -537,6 +541,35 @@ public class ProductController {
 				productList = productService.getProdByStatusByNameByCategory(keyword, "1", category);
 			}
 		}
+		
+		
+		
+		int pageTimes; // 分頁總頁數
+		if (productList.size() % pageSize == 0)
+			pageTimes = productList.size() / pageSize; // 如果能整除的話 總頁數即為商品數除10
+		else
+			pageTimes = productList.size() / pageSize + 1; // 否則需要+1
+		
+
+		
+		
+		System.out.println("page1111111111111111 ------------================================"+page);
+		if (page=="")
+			page = "1"; //初始的時候page沒有值故設為1
+		System.out.println("page 2222222222222222222------------================================"+page);
+		int startRow = ((Integer.parseInt(page) - 1) * pageSize); //設置每頁是第幾行為初始
+		System.out.println("startRow ===========================------------================================"+startRow);
+		pageSize = (Integer.parseInt(page) * pageSize) - 1; //設置每頁第幾行結束
+		
+		
+		map.put("proNum", productList.size());
+		map.put("pageTimes", pageTimes);
+		map.put("startRow", startRow);
+		map.put("pageSize", pageSize);
+
+		map.put("currentPage", Integer.parseInt(page));
+		
+		
 		@SuppressWarnings("unchecked")
 		Map<String,Integer> cmap = (Map<String, Integer>) httpSession.getAttribute("cart"); //獲取購物車session內容
 		Integer cartNum = 0; //初始化購物車內商品數量

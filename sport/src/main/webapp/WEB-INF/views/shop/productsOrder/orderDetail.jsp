@@ -324,7 +324,7 @@ function orderDetails(responseText){
 	contentmain="";
 	
 	contentfoot ="<a href='../orderList'><input class='continue' type='button' value='回訂單列表'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-				+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;";
+				+"<a href='<c:url value='/'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 				
 	if (orderList.order_status =="未付款"){
 		contentfoot += "<input class='payBill' type='button' value='付款'/><br><br>";
