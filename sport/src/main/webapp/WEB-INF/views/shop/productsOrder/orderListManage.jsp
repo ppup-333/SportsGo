@@ -146,12 +146,12 @@ background-color: #f5f5f5;
 border:1px #13db00 solid;
 background-color: white;
 border-radius:3px;
-color: #13db00;
+color: #05cc24;
 }
 
 .detailBtn:hover{
 border:1px green solid;
-background-color: #13db00  ;
+background-color: #05cc24  ;
 border-radius:3px;
 color:white;
 }
@@ -185,6 +185,11 @@ border-radius:3px;
 color:grey;
 }
 
+
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover{
+background-color: #d7e5f4;
+}
 
 
 </style>
@@ -245,7 +250,7 @@ color:grey;
 <!-- 		<input class="continue" type="button" value="繼續購物"/> -->
 <!-- 		<input class="home" type="button" value="回到首頁"/> -->
 <!--  		<input class="checkBill" type="button" value="結帳去"/>  -->
-	</div><br><br><br>
+	</div><br>
 	
 	</div>
 </div>
@@ -311,7 +316,7 @@ function orderLists(responseText){
 	}
 	
 	else {
-	content = "<table class='order table table-hover '><tr style='color:white; background-color:grey;'>"
+	content = "	<hr><table class='order table table-hover table-striped '><tr  class='bg-info' style='color:white;'>"
 			+ "<th class='oid'>訂單編號</th>"
 			+ "<th class='member'>會員帳號</th>"
 			+ "<th class='time'>訂單時間</th>"
@@ -357,7 +362,7 @@ function orderLists(responseText){
 	contentfoot ="<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;";
 
 	orderlist.innerHTML = content;
-	orderFooter.innerHTML = contentfoot;
+// 	orderFooter.innerHTML = contentfoot;
 	$(".All").show();
 	
 	
