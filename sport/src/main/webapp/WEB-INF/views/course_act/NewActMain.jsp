@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 function activity(a){	
 	var f = document.createElement("form");
-	f.setAttribute('method',"post");
+	f.setAttribute('method',"get");
 	f.setAttribute('action',"/sport/activityApply");
 	f.setAttribute('id',"goapply");
 	var i = document.createElement("input"); //input element, text

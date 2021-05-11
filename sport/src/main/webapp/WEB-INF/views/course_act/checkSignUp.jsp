@@ -95,6 +95,9 @@ height:200px;
             <label for="account" class="t1">每周: </label><span id="times"></span>
             <input name="count" value="${count}" style="display:none;"/>
         </div>
+        <div class="st1">
+            <label for="account" class="t1">場地: </label><span>${fieldName}</span>
+        </div>       
            <div class="st1">
             <label for="account" class="t1">老師: </label><span>${teacherName}</span>
             <input name="teacherName" value="${teacherName}" style="display:none;"/>

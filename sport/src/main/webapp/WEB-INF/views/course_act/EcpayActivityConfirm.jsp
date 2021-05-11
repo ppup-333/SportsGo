@@ -22,14 +22,29 @@
 <input name="TradeDesc" value="${remark}" style="display:none;"/>
 </table>
 </form>
-<button>上一步</button>
+ <button type="button" onclick="window.location.href='/sport/activityApply?actId=${actId}'">上一步</button>
 <button class="confirm">確認付款</button>
 </body>
 <script type="text/javascript">
+
+
 $(".confirm").on("click",function(){
-	if(confirm("確認付款")){
-		$("#ecpay").submit();
-	}
+	Swal.fire({
+		title:'確定付款?',
+		icon:'question',
+      	showCancelButton: true, 
+      	confirmButtonColor: '#3085d6',
+      	cancelButtonColor: '#d33',
+      	confirmButtonText: '確定',
+      	cancelButtonText:'取消',
+	}).then(result => {
+		if(result.value){			
+			$("#ecpay").submit();			
+		}
+	})
+	
+		
+	
 });
 </script>
 </body>
