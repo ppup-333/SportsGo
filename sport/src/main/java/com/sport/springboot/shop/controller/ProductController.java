@@ -178,10 +178,17 @@ public class ProductController {
 		model.addAttribute("status", status);
 		model.addAttribute("category", category);
 		// 下列敘述簡化測試時的資料輸入
-		product.setProduct_name("測試用啞鈴");
-		product.setProduct_price(100);
-		product.setProduct_stock(50);
-		product.setProduct_remark("TEST123");
+//		product.setProduct_name("勝利牌鳳凰級羽毛球- 12入 版本B");
+//		product.setProduct_price(500);
+//		product.setProduct_stock(5);
+//		product.setProduct_remark("商品標準配備 + 贈品\r\n"
+//				+ "羽球 12入/條\r\n"
+//				+ "型號:鳳凰級\r\n"
+//				+ "毛片材料:天然羽毛\r\n"
+//				+ "球頭材料:複合軟木\r\n"
+//				+ "容量:羽球12入\r\n"
+//				+ "產地:中國");
+		
 		product.setProduct_status("0");
 		model.addAttribute("product", product);
 		return "shop/products/productsInsert";

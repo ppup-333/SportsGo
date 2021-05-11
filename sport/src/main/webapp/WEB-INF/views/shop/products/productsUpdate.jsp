@@ -6,41 +6,41 @@
 <html>
 <head>
 <c:import url="../../headerScript.jsp" />
+
 <style type="text/css">
-   span.error {
-	color: red;
-	display: inline-block;
-	font-size: 5pt;
+span.error {
+  color: red;
+  display: inline-block;
+  font-size: 5pt;
 }
+
+.title{
+color: #556372;
+font-weight: bold;
+font-size: 23px;
+margin-left:30px;
+}
+
+.field{
+background-color: #eef4f7;
+border:10px #eef4f7 solid;
+border-radius: 20px;
+
+}
+
+
 </style>
 <meta charset="UTF-8">
 <title>修改商品</title>
-<%-- <link rel='stylesheet' href="<c:url value='/css/style.css' />" type="text/css" /> --%>
 </head>
 <body>
 	<c:import url="../../newheaderM.jsp" />
-<fieldset style="width:550px;margin:auto;margin-top:50px;">
-	<legend >更新商品資料(Product)</legend> 
+<fieldset class="field" style="width:550px;margin:auto;margin-top:50px;">
+	<span class="title">更新商品資料(Product)</span> 
 	<form:form method="POST" modelAttribute="product" enctype='multipart/form-data'>
+	<br>
 	<Table style="align-self: center;">
-<%-- 	<c:if test='${product.product_id == null}'> --%>
-<!-- 		<br> -->
-<!-- 	 	<tr> -->
-<!-- 	      <td>帳號：<br>&nbsp;</td> -->
-<%-- 	   	  <td width='360'><form:input path='account'/><br>&nbsp; --%>
-<%-- 	   	   <form:errors path="account" cssClass="error"/> --%>
-<!-- 	   	  </td> -->
-<!-- 	   </tr> -->
-<%--     </c:if>	    --%>
-<%--     	<c:if test='${product.product_id != null}'> --%>
-<!-- 	 	<tr> -->
-<!-- 	      <td>帳號：<br>&nbsp;</td> -->
-<%-- 	   	  <td><form:hidden path='account'/> --%>
-<%-- 	   	  	${member.account}<br>&nbsp; --%>
-<!-- 	   	  </td> -->
-<!-- 	   </tr> -->
-<%--     </c:if>	 --%>
-    
+
 	   <tr>
 	      <td>商品名稱：<br>&nbsp;</td>
 		  <td  width='200'><form:input path='product_name' style="width:440px;" /><br>&nbsp;	
@@ -48,13 +48,7 @@
 		  </td>
 	   </tr>
 	   <tr>
-	   
-	   
-<!-- 		  <td>分類：<br>&nbsp;</td> -->
-<%-- 	      <td  width='200'><form:input path="product_category"/><br>&nbsp;	 --%>
-<%-- 		      <form:errors path='product_category' cssClass="error"/> --%>
-<!-- 		  </td> -->
-		  
+	   		  
 		  <td>分類：<br>&nbsp;</td>
 		  <td  width='200'>
 	   	  	<form:select path="productCategory.id">
@@ -63,9 +57,7 @@
 	   	  	   			itemLabel='name' itemValue='id'/>
 	   	  	</form:select><br>&nbsp;
 	   	   <form:errors path="productCategory"  cssClass="error" />
-	   	  </td>
-		  
-		  
+	   	  </td>  
 		  
 	   </tr>
 	   <tr>
@@ -94,34 +86,51 @@
 	   <tr>
 	   	  <td>商品圖片：<br>&nbsp;</td>
 	   	  <td>
-	   	  	 <form:input path="productImage" type='file'/><br>&nbsp;
-	   	  	 <form:errors path="productImage"  cssClass="error" /><hr>
+	   	  	 <form:input path="productImage" type='file'/>&nbsp;
+	   	  	 <form:errors path="productImage"  cssClass="error" /><hr><br>
 	   	  </td>
 	   </tr>
 	   
 	   <tr>
-	    <td colspan='4' align='center'><br>&nbsp;
-	      <input type='submit'>
-
-        </td>
-
+	    <td colspan='4' align='center'>
+	      <input type='submit' class="btn btn-success" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	        <button type="button" id="cancel" class="btn btn-secondary" >取消</button>
+	    </td>
 	   </tr>
 	</Table>
 	
 	</form:form>
-
-	<c:choose>
-	<c:when test="${keyword == null}">
-		<br><div align="center" ><a href="<c:url value='/shop/showAllProducts?page=${currentPage}&status=${status}&category=${category}'/> " ><button>取消</button></a></div>
-	</c:when>
-	<c:otherwise>
-	    <br><div align="center" ><a href="<c:url value='/shop/showSearchProducts?keyword=${keyword}&page=${currentPage}&status=${status}&category=${category}'/> " ><button>取消</button></a></div>
-	</c:otherwise>
-	</c:choose>
 	
+	<input type='hidden' id='keyword' value='${keyword}'>
+	<input type='hidden' id='currentPage' value='${currentPage}'>
+	<input type='hidden' id='status' value='${status}'>
+	<input type='hidden' id='category' value='${category}'>
+
 </fieldset>
 <br>
+<script type='text/javascript'>
 
-
+      $('#cancel').click(function() {
+    	  var keyword = document.getElementById("keyword").value;
+    	  var currentPage = document.getElementById("currentPage").value;
+    	  var status = document.getElementById("status").value;
+    	  var category = document.getElementById("category").value;
+    	  
+    	  console.log("keyword ="+keyword);
+    	  console.log("currentPage ="+currentPage);
+    	  console.log("status ="+status);
+    	  console.log("category ="+category);
+    	  
+    	  if (keyword==""){
+    		  window.location.href = "/sport/shop/showAllProducts?page="+currentPage+"&status="+status+"&category="+category;   
+    	  } else{
+    		  window.location.href = "/sport/shop/showSearchProducts?keyword="+keyword+"&page="+currentPage+"&status="+status+"&category="+category;   
+    	  }
+    	    
+    	  
+    	});
+    		
+      
+</script>
 </body>
 </html>

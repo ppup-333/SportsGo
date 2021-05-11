@@ -88,6 +88,10 @@ text-align: center;
 
 
 
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover{
+background-color: #d7e5f4;
+}
+
 </style>
 
 
@@ -121,7 +125,6 @@ text-align: center;
 </c:otherwise>
 </c:choose>
 
-<br>
 
 <%-- <form method="post" id='form4' action="<c:url value='/' />shop/showAllProducts" > --%>
 <!-- <select name="category" onChange="this.form.submit()"> -->
@@ -134,7 +137,7 @@ text-align: center;
 <!-- </form> -->
 
 <%-- productCategoryList: ${productCategoryList[0].id} --%>
-<nav class="navbar navbar-light" style="width:860px;background-color: #e3f2fd;">
+<nav class="navbar navbar-light" style="width:880px;background-color: #e3f2fd;">
 <a class='create' href='pro/${currentPage}?status=${status}&category=${category}'><button class="btn btn-primary">新增商品</button></a>
 <form class="form-inline" method="post" id='form2' action="<c:url value='/' />shop/showSearchProducts" style="width:auto;">
 　<span style="color: #123456; font-weight:bold;" >請輸入商品名稱：</span><input class="form-control mr-sm-2" aria-label="Search" placeholder="Search" type="text" name="keyword" required="required" >
@@ -142,7 +145,7 @@ text-align: center;
 	<input type='hidden' name='status' value='${status}'>
 	<input type='hidden' name='category' value='${category}'>
 </form>
-&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <form method="post" id='form3' action="<c:url value='/' />shop/showAllProducts" >
 
 <%-- 請輸入商品名稱：<input type="text" name="keyword" required="required" value="${keyword}" > --%>
@@ -182,9 +185,9 @@ text-align: center;
 	<c:otherwise>
 <!-- 		<table border='1' cellpadding="3" cellspacing="1" width='1280' > -->
 <div class='productlist'>
-		<table class='table table-hover ' >
-		
-			<tr>
+		<table class='table table-striped table-hover' >
+<!-- 		 table-hover -->
+			<tr class="bg-info" style="color:white;">
 			   <th class='pnum'>編號</th>
 			   <th class='pname'>商品名稱</th>
 			   <th class='pcat'>分類</th>
@@ -199,7 +202,7 @@ text-align: center;
 			</tr>
 			
 			<c:forEach var='product' begin='${startRow}' end='${pageSize}' items='${products}'>
-				<tr>
+				<tr >
 					<td style="text-align:center">${product.product_id}</td>
 					<td style="text-align:left">${product.product_name}</td>
 					<td style="text-align:center">${product.productCategory.name}</td>

@@ -128,6 +128,49 @@ tr:hover {
 background-color: #f5f5f5;
 }
 
+
+.detailBtn{
+border:1px #13db00 solid;
+background-color: white;
+border-radius:3px;
+color: #05cc24;
+}
+
+.detailBtn:hover{
+border:1px green solid;
+background-color: #05cc24  ;
+border-radius:3px;
+color:white;
+}
+
+.cancelBtn{
+border:1px red solid;
+background-color: white;
+border-radius:3px;
+color:red;
+}
+
+.cancelBtn:hover{
+border:1px red solid;
+background-color: red;
+border-radius:3px;
+color:white;
+}
+
+.cancelBtnDis{
+border:1px #D4D4D4 solid;
+background-color: #EDEDED;
+border-radius:3px;
+color:grey;
+}
+
+
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover{
+background-color: #d7e5f4;
+}
+
+
 </style>
 
 <title>訂單一覽</title>
@@ -166,6 +209,8 @@ background-color: #f5f5f5;
 <!-- 		</table> -->
 	</div>
 
+
+	<div id="orderNum"> </div>
 	<div id="allOrder">
 		
 	</div>
@@ -221,7 +266,7 @@ function orderLists(responseText){
 	}
 	
 	else {
-	content = "<table class='order table table-hover'><tr style='color:white; background-color:grey;'>"
+	content = "<table class='order table table-hover table-striped '><tr  class='table-primary' style='color:black;'>"
 			+ "<th class='time'>訂單時間</th>"
 			+ "<th class='product'>訂單內容</th>"
 			+ "<th class='price'>訂單總價</th>"
@@ -234,19 +279,34 @@ function orderLists(responseText){
 		content += "<tr><td class='time'>"+orderList[i].order_create_date+"</td>"
 				 + "<td class='product'>"+orderList[i].name+" (共 "+orderNumber[i]+" 件商品)</td>"
 				 + "<td class='price'>"+orderList[i].order_price+"</td>"
-				 + "<td class='shipway'>"+orderList[i].shipway+"</td>"
-				 + "<td class='status'>"+orderList[i].order_status+"</td>"
-				 + "<td class='detail'><a href='orderDetail/"+orderList[i].order_id+"'><input type='button' value='確認'></td>"
+				 + "<td class='shipway'>"+orderList[i].shipway+"</td>";
+				 
+				 
+// 				 + "<td class='status'>"+orderList[i].order_status+"</td>"
+				 
+				 if (orderList[i].order_status == "未付款"){
+					 content += "<td class='status nopay'><span class='badge badge-warning' >"+orderList[i].order_status+"</span></td>";
+				 }	 
+				 else if (orderList[i].order_status == "已付款"){
+					 content += "<td class='status paid'><span class='badge badge-primary' >"+orderList[i].order_status+"</span></td>";
+				 }
+				 else if (orderList[i].order_status == "已取消"){
+					 content += "<td class='status canceled'><span class='badge badge-danger' >"+orderList[i].order_status+"</span></td>";
+				 }
+				 
+				 
+				 
+				 content += "<td class='detail'><a href='orderDetail/"+orderList[i].order_id+"'><input class='detailBtn' type='button' value='確認'></td>"
 				 
 				 if (orderList[i].order_status == "已取消"){
-					 content += "<td class='cancel'><input class='cancelBtn' cancelId='"+orderList[i].order_id+"' type='button' value='取消' disabled='disabled'></td></tr>"; 
+					 content += "<td class='cancel'><input class='cancelBtnDis' cancelId='"+orderList[i].order_id+"' type='button' value='取消' disabled='disabled'></td></tr>"; 
 				 } else {
 					 content += "<td class='cancel'><input class='cancelBtn' cancelId='"+orderList[i].order_id+"' type='button' value='取消'></td></tr>";
 				 }
 	}
 	content+="</table>";
-
-	content+="<p class='listnum'>共 "+orderList.length+" 筆訂單</p>";
+	
+	orderNum.innerHTML = "<p class='listnum'>共 "+orderList.length+" 筆訂單</p>";
 	
 	title.innerHTML = account+"的訂單列表";
 	
