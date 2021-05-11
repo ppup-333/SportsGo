@@ -72,13 +72,13 @@
 					</tr>
 					<tr>
 	      				<td>新密碼：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='password' type='password' /><br>&nbsp;	
+		  				<td width='360'><form:input path='password' type='password' id='newPwd'/><br>&nbsp;	
 		     				<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/>
 		     				<form:errors path='password' cssClass="error"/></td>
 		     		</tr>
 		     		<tr>
 	      				<td>確認新密碼：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='dbChkPwd' type='password'/><br>&nbsp;	
+		  				<td width='360'><form:input path='dbChkPwd' type='password' id='chkNewPwd'/><br>&nbsp;	
 		     				<span class="sp">必須與密碼相同</span><br/>
 		     				<form:errors path='dbChkPwd' cssClass="error"/></td>
 		     		</tr>
@@ -88,10 +88,18 @@
 	</fieldset>
 	<div class='d1'>
 		<input type='button' value='送出' onclick='dataSubmit()'>&nbsp;&nbsp;
-		<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
+		<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>&nbsp;&nbsp;
+		<input type='button' value='一鍵輸入' id='clickInput'>
 	</div>
 	
 <script>
+
+$("#clickInput").click(function(){
+	$("input[id='newPwd']").val("test1001")
+	$("input[id='chkNewPwd']").val("test1001")
+});
+
+
 
 function dataSubmit(){
 	Swal.fire({

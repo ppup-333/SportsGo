@@ -69,13 +69,13 @@
 			<table>
 				<tr>
 					<td>管理者帳號：<br>&nbsp;</td>
-					<td><form:input path="account"  /><br>&nbsp;
+					<td><form:input path="account" id='adminAct' /><br>&nbsp;
 <!-- 						<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/> -->
 						<form:errors path='account' cssClass="error"/></td>
 				</tr>
 				<tr>
 					<td>管理者密碼：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='password' type='password' /><br>&nbsp;	
+		  				<td width='360'><form:input path='password' type='password' id='adminPwd'/><br>&nbsp;	
 <!-- 		     				<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/></td> -->
 				</tr>
 				<tr>
@@ -90,7 +90,19 @@
 </fieldset>
 		<div class='d1'>
 			<input type='button' value='登入' onclick='form2.submit()'>&nbsp;&nbsp;
-			<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
+			<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>&nbsp;&nbsp;
+			<input type='button' value='一鍵輸入' id='clickInput'>
 		</div>
+		
+		
+<script>
+
+$("#clickInput").click(function(){
+	$("input[id='adminAct']").val("test1001")
+	$("input[id='adminPwd']").val("test1001")
+});
+
+
+</script>
 </body>
 </html>
