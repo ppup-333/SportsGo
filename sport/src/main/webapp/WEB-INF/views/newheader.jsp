@@ -123,13 +123,12 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-				<div>
+				<div id="loginTableDiv">
 					<table>
 						<tr>
-							<td>帳號：<br>&nbsp;</td>
-							<td><form:input path="account"  /><br>&nbsp;
-								<span class="spLogin">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
-		<%-- 						<form:errors path='account' cssClass="error"/> --%>
+							<td class="td1">帳號：<br>&nbsp;</td>
+							<td class="td2"><form:input path="account"/><br>&nbsp;
+								<span class="spLogin">8~16位英文字母和數字的組合(不區分大小寫)</span>
 								</td>
 						</tr>
 						<tr>

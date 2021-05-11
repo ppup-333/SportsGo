@@ -97,3 +97,12 @@ span.error {
   	color: darkgrey;
 	font-size: 1px;
 }
+
+#loginTableDiv {
+	width: 350px;
+	margin: auto;
+}
+
+#loginTableDiv .td1 {
+	width: 100px;
+}
