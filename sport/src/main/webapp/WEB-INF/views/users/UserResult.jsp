@@ -11,13 +11,14 @@
 
  	.f1{ 
  	font-size:15px; 
-/*  	width:550px;  */
- 	margin-left:780px; 
+/*   	width:450px; */
+/*  	margin:auto;  */
+ 	margin-left:620px; 
  	margin-top:50px;
  	} 
 
  	.d1{ 
- 	margin:20px 780px; 
+ 	margin:20px 620px; 
  	} 
 
 </style>
@@ -32,46 +33,57 @@
 			<table>
 				<tr>
 					<td>帳號：&nbsp;<br><br></td>
+					<td>&nbsp;&nbsp;</td>
 					<td>${user.account}<br><br></td>
 				</tr>
 				<tr>
 					<td>姓名：&nbsp;<br><br></td>
+					<td>&nbsp;</td>
 					<td>${user.name}<br><br></td>
 				</tr>
 				<tr>
 					<td>身分證字號：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br></td>
+					<td>&nbsp;</td>
 					<td>${user.id}<br><br></td>
 				</tr>
 				<tr>
 					<td>性別：&nbsp;<br><br></td>
+					<td>&nbsp;</td>
 					<td>${user.gender}<br><br></td>
 				</tr>
 				<tr>
 					<td>生日：&nbsp;<br><br></td>
+					<td>&nbsp;</td>
 					<td>${user.birthday}<br><br></td>
 				</tr>
 				<tr>
 					<td>E-Mail：&nbsp;<br><br></td>
+					<td>&nbsp;</td>
 					<td>${user.email}<br><br></td>
 				</tr>
 				<tr>
 					<td>城市：&nbsp;<br><br></td>
+					<td>&nbsp;</td>
 					<td>${userCity.city}<br><br></td>
 				</tr>
 				<tr>
 					<td>鄉鎮市區：&nbsp;<br><br></td>
+					<td>&nbsp;</td>
 					<td>${userDistrict.district}<br><br></td>
 				</tr>
 				<tr>
 					<td>地址：&nbsp;<br><br></td>
+					<td>&nbsp;</td>
 					<td>${user.address}<br><br></td>
 				</tr>
 				<tr>
 					<td>室內電話：&nbsp;<br><br></td>
+					<td>&nbsp;</td>
 					<td>${user.tel}<br><br></td>
 				</tr>
 				<tr>
 					<td>行動電話：&nbsp;<br><br></td>
+					<td>&nbsp;</td>
 					<td>${user.mobile}<br><br></td>
 				</tr>
 				

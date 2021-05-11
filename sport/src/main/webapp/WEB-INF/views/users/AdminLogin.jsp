@@ -39,13 +39,15 @@
 	
 	.f1{ 
  	font-size:15px; 
- 	width:350px; 
+	width:350px;  
  	margin:auto;
- 	margin-top:100px;
+ 	margin-top:50px;
  	} 
 
  	.d1{ 
- 	margin:20px 790px; 
+ 	width:350px;
+ 	margin:auto;
+ 	margin-top:20px; 
  	} 
 	
 </style>
@@ -61,6 +63,7 @@
 <body>
 <c:import url="../header.jsp"/>
 <fieldset class='f1'>
+<legend>管理者登入</legend>
 	<form:form method="POST" modelAttribute="adminLogin" enctype='multipart/form-data' id="form2">
 		<div>
 			<table>
@@ -86,7 +89,7 @@
 	</form:form>
 </fieldset>
 		<div class='d1'>
-			<input type='button' value='登入' onclick='form2.submit()'>
+			<input type='button' value='登入' onclick='form2.submit()'>&nbsp;&nbsp;
 			<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
 		</div>
 </body>

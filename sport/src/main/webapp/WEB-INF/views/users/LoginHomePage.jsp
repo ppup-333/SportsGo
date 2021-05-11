@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>首頁(登入)</title>
+<c:import url="../headerScript.jsp"/>
 </head>
 <body>
+<c:import url="../newheader.jsp"/>
 	<h2>TEST LOGIN HOME PAGE</h2>
 	<!-- 	<a href="/Spring_Sport">回首頁</a> -->
 

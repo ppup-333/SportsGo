@@ -102,7 +102,7 @@
   				</button>
   				<form action="/sport/user/Logout" method="post" id="formLogout">
 	  				<div class="dropdown-menu dropdown-menu-md-left loginDropdown">
-	    				<a class="dropdown-item" href="#">會員中心</a>
+	    				<a class="dropdown-item" href="/sport/user/loginHomePage">會員中心</a>
 	    				<a class="dropdown-item" id="logoutBtn" href="#">登出</a>
 	  				</div>
   				</form>
@@ -128,13 +128,13 @@
 						<tr>
 							<td class="td1">帳號：<br>&nbsp;</td>
 							<td class="td2"><form:input path="account"/><br>&nbsp;
-								<span class="spLogin">8~16位英文字母和數字的組合(不區分大小寫)</span>
+								<span class="spLogin">8~16位英文字母和數字組合(不區分大小寫)</span>
 								</td>
 						</tr>
 						<tr>
 							<td>密碼：<br>&nbsp;</td>
 				  			<td width='360'><form:input path='password' type='password' /><br>&nbsp;	
-				     						<span class="spLogin">8~16位英文字母和數字的組合(區分大小寫)</span><br/></td>
+				     						<span class="spLogin">8~16位英文字母和數字組合(區分大小寫)</span><br/></td>
 						</tr>
 						<tr>
 							<td></td>

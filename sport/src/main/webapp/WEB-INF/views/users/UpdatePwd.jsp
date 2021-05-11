@@ -38,13 +38,15 @@
  	.f1{ 
  	font-size:15px; 
 /*  	width:550px;  */
- 	margin-left:780px; 
+ 	margin-left:620px; 
  	margin-top:50px;
  	} 
 
  	.d1{ 
- 	margin:20px 780px; 
+ 	margin:20px 620px; 
  	} 
+ 	
+ 	
 </style>
 <meta charset="UTF-8">
 <title>輸入新密碼</title>
@@ -62,7 +64,7 @@
 				<table>
 					<tr>
 						<td colspan="2">
-							<h4>※請輸入新密碼，修改完成後請用新密碼重新登入</h4>
+							<h6 style="color:Tomato;">※請輸入新密碼，修改完成後請用新密碼重新登入</h6>
 						</td>
 					</tr>
 					<tr>
