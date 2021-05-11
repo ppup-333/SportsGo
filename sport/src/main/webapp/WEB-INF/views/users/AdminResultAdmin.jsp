@@ -145,7 +145,18 @@ function select1(){
 	var account = document.getElementById("account");
 	
 	if(account.value == ""){
-		alert("請輸入查詢的帳號");
+		Swal.fire({
+			toast: true,
+    		position: 'top',
+			showConfirmButton: false,
+    		timer: 2000,
+    		icon: 'error',
+    		title: '請輸入查詢的帳號!!',
+    	})		
+		
+		
+		
+// 		alert("請輸入查詢的帳號");
 	} else {
 
 		var account = document.getElementById("account").value;
