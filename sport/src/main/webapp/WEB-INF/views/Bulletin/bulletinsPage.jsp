@@ -5,9 +5,11 @@
 <html lang="zh-Hant-TW">
 <head>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
+<c:import url="../headerScript.jsp"/>
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" /> -->
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script> -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -342,7 +344,7 @@
 
 
 <body>
-<c:import url="../headerM.jsp"/>
+<c:import url="../newheaderM.jsp"/>
 	<div  class="box">
 		<div class="container">
 			<h3>公告管理</h3>
@@ -382,6 +384,6 @@
 			</div>
 		</div>
 	</div>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 </body>
 </html>
