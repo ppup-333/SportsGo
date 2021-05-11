@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../../headerScript.jsp" />
 <meta charset="UTF-8">
 
 <style type="text/css">
@@ -212,7 +213,7 @@ cursor:pointer;
 
 <body>
 
-<c:import url="../../headerM.jsp" />
+<c:import url="../../newheaderM.jsp" />
 
 <input type='hidden' id='order_Id' value='${order_Id}'>
 
@@ -230,7 +231,7 @@ cursor:pointer;
 		<div class="buyerData">
 		<p class="buyer">購買人資料</p>
 		
-				<table class="buyertable">
+				<table class="buyertable ">
 					
 				    <tr><td><div id="Box1"><p style="display: inline-block; height:18px; ">姓名 :&nbsp;</p><span id="bName"></span></div></td></tr>
 
@@ -300,7 +301,7 @@ function orderDetails(responseText){
 
 	
 	
-	content = "<table class='order'><tr>"
+	content = "<table class='order '><tr>"
 			+ "<th class='pname'>商品名稱</th>"
 			+ "<th class='pprice'>商品售價</th>"
 			+ "<th class='pnumber'>數量</th>"
@@ -351,7 +352,7 @@ function orderDetails(responseText){
 
 }
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 
 
 </body>

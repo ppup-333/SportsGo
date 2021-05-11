@@ -5,6 +5,7 @@
 
 <html>
 <head>
+<c:import url="../../headerScript.jsp" />
 <meta charset="UTF-8">
 
 <style>
@@ -38,8 +39,8 @@ form{margin:0px; display:inline}
   
 </head>
 <body>
-
-<c:import url="../../headerM.jsp" />
+	<c:import url="../../newheaderM.jsp" />
+<%-- <c:import url="../../headerM.jsp" /> --%>
 
 <div align='center'>
 <h3>商品資料後台管理</h3>
@@ -334,6 +335,6 @@ form{margin:0px; display:inline}
 </script>
 
  
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!--     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 </body>
 </html>

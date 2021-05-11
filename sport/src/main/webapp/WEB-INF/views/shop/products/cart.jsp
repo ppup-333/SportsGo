@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../../headerScript.jsp" />
 <meta charset="UTF-8">
 
 <style>
@@ -311,11 +312,11 @@ cursor:pointer;
 
 </head>
 <body>
-
+	<c:import url="../../newheader.jsp" />
 
 <div class="All2" >
 
-<c:import url="../../header.jsp" />
+<%-- <c:import url="../../header.jsp" /> --%>
 
 
 <div class="All">
@@ -851,7 +852,7 @@ function cartProducts(responseText){
 		
 </script>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 
 </body>
 </html>

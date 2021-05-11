@@ -5,6 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 <head>
+<c:import url="../../headerScript.jsp" />
 <style type="text/css">
    span.error {
 	color: red;
@@ -17,6 +18,7 @@
 <%-- <link rel='stylesheet' href="<c:url value='/css/style.css' />" type="text/css" /> --%>
 </head>
 <body>
+	<c:import url="../../newheaderM.jsp" />
 <fieldset style="width:550px;margin:auto;margin-top:50px;">
 	<legend >新增商品資料(Product)</legend> 
 	<form:form method="POST" modelAttribute="product" enctype='multipart/form-data'>

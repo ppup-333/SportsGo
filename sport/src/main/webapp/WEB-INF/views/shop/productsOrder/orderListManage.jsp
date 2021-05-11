@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../../headerScript.jsp" />
 <meta charset="UTF-8">
 
 <style>
@@ -30,9 +31,11 @@ min-height:800px;
 
 
 table,th,td{
-border: 1px black solid;
+/* border: 1px black solid; */
 font-size:16px;
 }
+
+
 
 .oid{
 text-align:center;
@@ -82,11 +85,11 @@ width: 90px;
    width: 1280px;
 /*    border: 1px black solid; */
    margin-top:30px;  
-   margin-left:100px;
+/*    margin-left:100px; */
    padding:10px 0px;
 }
 .order{
-  width: 1080px; 
+  width: 1280px; 
   text-align:center;
   margin-left:0px;
 }
@@ -104,6 +107,7 @@ font-size:24px;
 font-weight:bold;
 
 text-align:center;
+
 }
 
 #orderFooter{
@@ -138,18 +142,63 @@ tr:hover {
 background-color: #f5f5f5;
 }
 
+.detailBtn{
+border:1px #13db00 solid;
+background-color: white;
+border-radius:3px;
+color: #13db00;
+}
+
+.detailBtn:hover{
+border:1px green solid;
+background-color: #13db00  ;
+border-radius:3px;
+color:white;
+}
+
+
+.searchBar{
+position: relative;
+top:30px;
+ width:650px;
+ margin-left:400px;
+}
+
+.cancelBtn{
+border:1px red solid;
+background-color: white;
+border-radius:3px;
+color:red;
+}
+
+.cancelBtn:hover{
+border:1px red solid;
+background-color: red;
+border-radius:3px;
+color:white;
+}
+
+.cancelBtnDis{
+border:1px #D4D4D4 solid;
+background-color: #EDEDED;
+border-radius:3px;
+color:grey;
+}
+
+
+
 </style>
 
 <title>訂單一覽</title>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" /> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script> -->
 
 </head>
 <body>
 
-<c:import url="../../headerM.jsp" />
+<c:import url="../../newheaderM.jsp" />
 
 <div class="All2">
 <div class="All">
@@ -158,6 +207,12 @@ background-color: #f5f5f5;
 
     <p class="title">訂單列表後台管理</p>
 	
+	
+	<div class="search">
+			<p class="searchBar">請輸入搜尋帳號：<input id="keywordI" type="text" name="keyword" class="key" required="required" value="${keyword}">
+			<button id="search" > 搜尋</button> <c:if test="${!empty keyword}" ><button id="unSearch" > 清除搜尋結果</button> </c:if>
+			<input id="keyword2" type="hidden" value="${keyword}">
+	</div>
 	<div id="orderlist">
 	
 <!-- 		<table class="order"> -->
@@ -196,12 +251,42 @@ background-color: #f5f5f5;
 </div>
 <script type='text/javascript'>
 
+var keywordI = document.getElementById("keywordI");
+var keyword="";
+var keyword2 = document.getElementById("keyword2");
+
 $(document).ready(xhrFunction);
 
+$("#search").click(function() {
+	keyword = keywordI.value;
+	if (keyword ==""){
+		Swal.fire({
+		    toast: true,
+		    position: 'top',
+		    showConfirmButton: false,
+		    timer: 2000,
+		    icon: 'error',
+		    title: '請輸入關鍵字!',
+		})
+	} else {
+		self.location.href='orderListManage?keyword='+keyword;
+	}
+});
+
+$("#unSearch").click(function() {
+	keyword = '';
+	self.location.href='orderListManage?keyword='+keyword;
+});
+
+
 function xhrFunction(){
+	keyword = keyword2.value;
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET","<c:url value='getOrderListManageJson'/>",true);
-	xhr.send();
+// 	xhr.open("GET","<c:url value='getOrderListManageJson'/>",true);
+	xhr.open("POST","<c:url value='getOrderListManageJson'/>",true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+// 	xhr.send();
+	xhr.send("keyword="+keyword);
 	if(xhr!=null){
 		xhr.onreadystatechange=function(){
 			if(xhr.readyState==4&&xhr.status==200){
@@ -221,12 +306,12 @@ function orderLists(responseText){
 	
 	if (orderList.length==0){
 		
-		content= "<p class='listnone'>目前沒有訂單紀錄</p>";
+		orderNum.innerHTML= "<p class='listnone'>目前沒有訂單紀錄</p>";
 		
 	}
 	
 	else {
-	content = "<table class='order'><tr>"
+	content = "<table class='order table table-hover '><tr style='color:white; background-color:grey;'>"
 			+ "<th class='oid'>訂單編號</th>"
 			+ "<th class='member'>會員帳號</th>"
 			+ "<th class='time'>訂單時間</th>"
@@ -243,12 +328,22 @@ function orderLists(responseText){
 				 + "<td class='time'>"+orderList[i].order_create_date+"</td>"
 				 + "<td class='product'>"+orderList[i].name+" (共 "+orderNumber[i]+" 件商品)</td>"
 				 + "<td class='price'>"+orderList[i].order_price+"</td>"
-				 + "<td class='shipway'>"+orderList[i].shipway+"</td>"
-				 + "<td class='status'>"+orderList[i].order_status+"</td>"
-				 + "<td class='detail'><a href='orderDetailManage/"+orderList[i].order_id+"'><input class='detailBtn' type='button' value='確認'></td>";
+				 + "<td class='shipway'>"+orderList[i].shipway+"</td>";
+				 
+				 if (orderList[i].order_status == "未付款"){
+					 content += "<td class='status nopay'><span class='badge badge-warning' >"+orderList[i].order_status+"</span></td>";
+				 }	 
+				 else if (orderList[i].order_status == "已付款"){
+					 content += "<td class='status paid'><span class='badge badge-primary' >"+orderList[i].order_status+"</span></td>";
+				 }
+				 else if (orderList[i].order_status == "已取消"){
+					 content += "<td class='status canceled'><span class='badge badge-danger' >"+orderList[i].order_status+"</span></td>";
+				 }
+
+				 content += "<td class='detail'><a href='orderDetailManage/"+orderList[i].order_id+"'><input class='detailBtn' type='button' value='確認'></td>";
 				 
 				 if (orderList[i].order_status == "已取消"){
-					 content += "<td class='cancel'><input class='cancelBtn' cancelId='"+orderList[i].order_id+"' type='button' value='取消' disabled='disabled'></td></tr>"; 
+					 content += "<td class='cancel'><input class='cancelBtnDis' cancelId='"+orderList[i].order_id+"' type='button' value='取消' disabled='disabled'></td></tr>"; 
 				 } else {
 					 content += "<td class='cancel'><input class='cancelBtn' cancelId='"+orderList[i].order_id+"' type='button' value='取消'></td></tr>";
 				 }
@@ -335,6 +430,6 @@ function orderLists(responseText){
 
 }
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 </body>
 </html>

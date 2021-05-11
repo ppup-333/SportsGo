@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../../headerScript.jsp" />
 <meta charset="UTF-8">
 
 <style>
@@ -76,7 +77,7 @@ margin:5px;
  -webkit-border-radius: 4px;
  -moz-border-radius: 4px;
  border-radius: 20px;
- background-color: red;
+ background-color: #ff5142;
 
  color: #fff;
 /*  display: block; */
@@ -278,6 +279,8 @@ top:30px;
 
 #searchResult{
  text-align: center;
+ font-size: 22px;
+ font-weight: bold;
 }
 .category{
 
@@ -343,7 +346,7 @@ margin-left:55px;
 <body>
 
     
-	<c:import url="../../header.jsp" />
+	<c:import url="../../newheader.jsp" />
 <div class="All2">
 	
 	<div class="All">
@@ -455,8 +458,7 @@ margin-left:55px;
 				</div>	
 			</c:if>
 		</c:if>
-<!-- 		<span id = "result" style="display:none"></span> -->
-<!-- 		<span id = "result" style="display:none"></span> -->
+
 		<div id="allProduct"></div>
 		
 		
@@ -470,12 +472,10 @@ margin-left:55px;
 	var keywordI = document.getElementById("keywordI");
 	var keyword="";
 	var keyword2 = document.getElementById("keyword2");
-	//var page ="";
 	var page = document.getElementById("pageI").value;
 	
 		$(document).ready(xhrFunction);
-		
-		//$("#search").click(xhrFunction);
+	
 		$("#search").click(function() {
 			keyword = keywordI.value;
 			if (keyword ==""){
@@ -493,17 +493,15 @@ margin-left:55px;
 			}
 		});
 		
-		
 		$("#unSearch").click(function() {
 			keyword = '';
 			self.location.href='storeProductsAll?category='+category+'&keyword='+keyword;
 		});
 		
 
-
 		function xhrFunction(){
 			keyword = keyword2.value;
-			//page = pageI.value;
+			page = document.getElementById("pageI").value;
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST","<c:url value='getProductsJson'/>",true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -520,13 +518,11 @@ margin-left:55px;
 			if(xhr!=null){
 				xhr.onreadystatechange=function(){
 					if(xhr.readyState==4&&xhr.status==200){
-						testProducts(xhr.responseText);
-						//displayProducts(xhr.responseText);					
+						testProducts(xhr.responseText);				
 					}					
 				}
 			}
 		}
-		
 
 function testProducts(responseText){
 	var mapData = JSON.parse(responseText);		
@@ -543,28 +539,22 @@ function testProducts(responseText){
 	var contentPage = "";
 
 	if(productList.length > 0){			
-// 		for(var i=0; i < productList.length; i++){
 		if(currentPage == pageTimes){
 			pageSize = productList.length-1;
 		}
-		
 		for(var i=startRow; i <= pageSize; i++){
 			if (productList[i].product_stock >0) {
 				content += ""
-// 						+= "<form id='add' action='addCart' method='post'>"
 						+"<div class='product'><a href='storeProduct/"+productList[i].product_id+"'>"
 						+"<img width='250' height='250' src='picture/"+productList[i].product_id+"'/></a>"
 						+"<p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='storeProduct/"+productList[i].product_id+"'>"+productList[i].product_name+"</a></p>"
-						+"<p class='price'>NT$ <span class='pprice'>"+productList[i].product_price+"</span>"
-// 						+"<input type='button' class='addCart' value='加入購物車' addCartId='"+productList[i].product_id
-// 						+"' addCartName='"+productList[i].product_name+"' ></input>"  //<i class='fas fa-cart-plus'></i>
-						
+						+"<p class='price'>NT$ <span class='pprice'>"+productList[i].product_price+"</span>"		
 						+"<button class='addCart' addCartId='"+productList[i].product_id
 						+"' addCartName='"+productList[i].product_name+"' ><i class='fas fa-cart-plus'> 加入購物車</i></button>"  //
 						
 						+"<br><span class='stock'>庫存數量 : "+productList[i].product_stock+"</span></p>" 
 						+"</div>";	
-// 						+"</div></form>";	
+
 			}
 			else {
 				content += "<div class='product'><a href='storeProduct/"+productList[i].product_id+"'>"
@@ -580,16 +570,13 @@ function testProducts(responseText){
 		content = "<br><br><h3>沒有商品資料</h3>"; 
 	}
 	
-// 	if (keyword ="")
-// 	console.log( "keyword = "+keyword);
-	
-	
+
 	contentPage = "<br><br><div class='pagging'>";
 	if(currentPage == 1) {
-		contentPage += "<span class='disabled' ><< 前一頁</span>";
+		contentPage += "<span class='disabled' ><i class='fas fa-arrow-circle-left'></i></span>&nbsp;";
 	}
 	if(currentPage != 1) {
-		contentPage += "<a href='storeProductsAll?category="+category+"&keyword="+keyword+"&page="+(currentPage-1)+"'><< 前一頁</a>";
+		contentPage += "<a href='storeProductsAll?category="+category+"&keyword="+keyword+"&page="+(currentPage-1)+"'><i class='fas fa-arrow-circle-left'></i></a>&nbsp;";
 	}
 	if(currentPage == 1) {
 		contentPage += "<span class='current' id='pageNC'>1</span>";
@@ -610,14 +597,13 @@ function testProducts(responseText){
 	}
 	
 	if(currentPage == pageTimes) {
-		contentPage += "<span class='disabled'>後一頁 >></span>";
+		contentPage += "&nbsp;<span class='disabled'><i class='fas fa-arrow-circle-right'></i></span>";
 	}
 	if(currentPage != pageTimes) {
-		contentPage += "<a href='storeProductsAll?category="+category+"&keyword="+keyword+"&page="+(currentPage+1)+"'>後一頁 >></a>";
+		contentPage += "&nbsp;<a href='storeProductsAll?category="+category+"&keyword="+keyword+"&page="+(currentPage+1)+"'><i class='fas fa-arrow-circle-right'></i></a>";
 	}
 	contentPage +="</div><br><br>";
 
-	
 	
 	allProduct.innerHTML = content;
 	pages.innerHTML = contentPage;
@@ -626,14 +612,12 @@ function testProducts(responseText){
 		cartcontent +="<p class='cartNum'>"+cartNum+"</p>" //""+cartNum+"";
 		cartnn.innerHTML = cartcontent;
 	}
-
 	
 	$("#bn"+category).css('background-color', '#fe802f');
 	$("#bn"+category).css('box-shadow', '1px 1px 2px grey '); //box-shadow:1px 1px 2px grey  ;
 	result.innerHTML = productList.length;
 	$(".All").show();
 	$(".All2").show();
-
 
 	
 	$('.addCart').click(function() {
@@ -684,24 +668,20 @@ function testProducts(responseText){
 		});
 	
 	
-	
 
 
 }
 		
 	
-
 		
 	</script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 
 <!-- <script src="http://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
 
 <!--  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>  -->
-
-
 
 
 </body>

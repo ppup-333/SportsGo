@@ -4,6 +4,7 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+<c:import url="../../headerScript.jsp" />
 <meta charset="UTF-8">
 
 <style>
@@ -30,12 +31,15 @@ form{
     <!--引用css-->
     <link rel="stylesheet" href="    https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
     <!--引用jQuery-->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!--     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
     <!--引用SweetAlert2.js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
     
 </head>
 <body>
+
+	<c:import url="../../newheaderM.jsp" />
+
 <div align='center'>
 <h3>商品資料後台管理</h3>
 <a class='create' href='pro/${currentPage}?keyword=${keyword}&status=${status}&category=${category}'><button>新增商品</button></a> &nbsp;&nbsp;&nbsp;
