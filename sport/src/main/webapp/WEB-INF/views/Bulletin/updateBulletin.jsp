@@ -35,7 +35,13 @@ span.error {
 #className{
 	width:180px;
 }
-
+.title-style{
+	background-color:#17A2B8;
+	color:white;
+}
+.uploadBtn{
+	margin-top:10px;
+}
 </style>
 <script>
 	function checkForm(){
@@ -105,6 +111,8 @@ span.error {
 		    var reader = new FileReader();
 		    reader.onload = function (e) {
 		       $("#previewImg").attr('src', e.target.result);
+		       $("#previewImg").toggle(500);
+// 		       $("#previewImg").slideDown(3000,function(){});
 		    }
 		    reader.readAsDataURL(input.files[0]);
 		  }
@@ -115,6 +123,8 @@ span.error {
 		$('#updatePreview').remove();
 		$('#imgInput').val('');
 		$('#previewImg').attr('src','');
+		$("#previewImg").toggle(500);
+		
 		$.ajax({
 			url: "/sport/Bulletin/resetPicture/" + id,
 			type:'POST',
@@ -122,6 +132,7 @@ span.error {
 			success:function(result){
 				console.log("success delete");
 			}
+		 
 		});
 	}
 	
@@ -160,11 +171,12 @@ span.error {
 <body>
 	<c:import url="../newheaderM.jsp" />
 	<div class="box">
-		<h2>編輯公告</h2>
-		
+		<div class="container title-style">
+		<h2 style="font-weight:bold;">編輯公告</h2>
+		</div>
 		<div class="container">
 			<div class="form-container">
-			<hr>
+<!-- 			<hr> -->
 			<fieldset>
 			
 				<form:form name="updateForm" method="POST" modelAttribute="bulletin"
@@ -185,13 +197,6 @@ span.error {
 						<form:errors path='subtitle' cssClass="error" />
 						<!-- 					<small id="titleHelp" class="form-text text-muted"></small> -->
 					</div>
-					<div class="form-group">
-						<label for="BulletinContent">公告內容：</label>
-						<form:textarea id="BulletinContent" name="contents" path="contents"
-							class="form-control" aria-describedby="subtitleHelp"
-							placeholder="請輸入公告內容" rows="6"></form:textarea>
-						<form:errors path='contents' cssClass="error" />
-					</div>
 					<div class="form-group" style="position:relative">
 						<label for="className">公告分類:</label>
 						<form:select id="className" path="class_id.id" class="form-control"
@@ -201,9 +206,30 @@ span.error {
 						</form:select>
 						<form:errors path="class" cssClass="error" />
 					</div>
+					<div class="form-group">
+						<label for="BulletinContent">公告內容：</label>
+						<form:textarea id="BulletinContent" name="contents" path="contents"
+							class="form-control" aria-describedby="subtitleHelp"
+							placeholder="請輸入公告內容" rows="12"></form:textarea>
+						<form:errors path='contents' cssClass="error" />
+					</div>
+					
 	
 					<div class="form-group">
-						<div class="btn-group-vertical">
+					
+						<c:choose>
+							<c:when test='${bulletin.image != null}'>
+								<img id='previewImg' width='214' height='250'
+									src='<c:url value="/Bulletin/picture/${bulletin.id }"/>' />
+							</c:when>
+							<c:otherwise>
+								<img width='180' height='216' id="previewImg" style="display:none"/>
+							</c:otherwise>
+						</c:choose>		
+					
+						<br>
+					
+						<div class="btn-group uploadBtn" role="group">
 						<label class="btn btn-info">
 							<form:input id="imgInput" class="form-control-file"  path="productImage" type='file' value="" style="display:none;"/>
 							<i class="fas fa-image"></i> 上傳圖片
@@ -215,15 +241,8 @@ span.error {
 							<i class="fas fa-times-circle"></i>清空圖片
 						</label>
 						</div>
-						<c:choose>
-							<c:when test='${bulletin.image != null}'>
-								<img id='previewImg' width='180' height='216'
-									src='<c:url value="/Bulletin/picture/${bulletin.id }"/>' />
-							</c:when>
-							<c:otherwise>
-								<img width='180' height='216' id="previewImg"/>
-							</c:otherwise>
-						</c:choose>		
+						
+						
 					</div>
 					
 	
@@ -231,8 +250,10 @@ span.error {
 			</fieldset>
 			</div>
 			<hr>
+			<div style="float:right;">
 			<a class="btn btn-secondary" onclick='checkForm();' >更新公告</a>
 			<a class="btn btn-secondary" onclick="checkEdit();"  >返回</a>
+			</div>
 		</div>
 		
 	</div>

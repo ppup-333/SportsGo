@@ -42,6 +42,14 @@
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover{
 	background-color: #d7e5f4;
 }
+a{
+	color:#2474A3;
+	
+}
+a:hover{
+	color:#2474A3;
+	text-decoration:none;
+}
 
 
 </style>
@@ -352,11 +360,12 @@
 <c:import url="../newheaderM.jsp"/>
 	<div  class="box">
 		<div class="container">
-			<h2>公告管理</h2>
+			<h2 style="font-weight:bold;">公告管理</h2>
+			<hr>
 			<table>
 				<tr>
 					<td>
-						<div class="dropdown show">
+						<div class="dropdown show" style="float:left;">
 			  				<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="classChooseLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">公告分類</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<a class="dropdown-item" href="#" onclick="showBulletin(1);generatePage(1,0)">所有公告</a>
@@ -366,14 +375,19 @@
 						 	</div>
 						</div>				
 					</td>
-					<td><a class="btn btn-secondary" href='add'>新增公告</a></td>
+					
+					<td style="text-align:right;"></td>
+					
 <%-- 					<td><a class="btn btn-secondary" href="<c:url value='/'/> ">回前頁</a></td> --%>
 				</tr>
+				<div style="float:right;">
+				 	<a class="btn btn-outline-info addBtn" href='add'>新增公告</a>
+				 </div>
 			</table>
 			
 			
 			
-			<hr>
+			
 		</div>
 		<div id="allBulletins" class="container"></div>
 		<div class="container">
