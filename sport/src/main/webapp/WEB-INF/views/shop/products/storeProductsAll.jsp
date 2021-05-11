@@ -8,12 +8,85 @@
 
 <style>
 
+
+
+
+.All2 {
+ 	display:none; 
+ 	
+}
+
+.All {
+	width: 1280px;
+	margin: 0 auto;
+ 	display:none; 
+}
+
+
+
 #allProduct{ 
-
-min-height:300px;
+	margin: 0 auto;
+	margin-left:20px;
+/*  min-height:900px;  */
 /* text-align: center; */
-
  } 
+
+#pages{
+	margin: 0 auto;
+/* margin-left:300px; */
+height: 50px;
+width: 600px;
+/* border: 2px blue solid; */
+margin-top:500px;
+font-size: 24px;
+/* letter-spacing:10px; */
+}
+
+.pagging{
+text-align: center;
+
+}
+
+
+#pageN{
+
+position: relative;
+margin:5px;
+
+ -webkit-border-radius: 4px;
+ -moz-border-radius: 4px;
+ border-radius: 20px;
+ background-color: #8da7fc;
+
+ color: #fff;
+/*  display: block; */
+/*  float: left; */
+ height: 25px;
+ width:25px;
+ padding: 3px 13px 3px 13px;
+ text-align: center;
+ vertical-align: top;
+}
+
+#pageNC{
+
+position: relative;
+margin:5px;
+
+ -webkit-border-radius: 4px;
+ -moz-border-radius: 4px;
+ border-radius: 20px;
+ background-color: red;
+
+ color: #fff;
+/*  display: block; */
+/*  float: left; */
+ height: 25px;
+ width:25px;
+ padding: 3px 13px 3px 13px;
+ text-align: center;
+ vertical-align: top;
+}
 
 
 .title{
@@ -34,8 +107,8 @@ text-align: center;
 	padding:10px;
 	float: left;
     border: 2px #f0f0ef solid;
-     margin-top:0px; 
-     overflow:hidden;
+    margin-top:0px; 
+    overflow:hidden; 
     
 }
 
@@ -51,20 +124,8 @@ text-align: center;
 transform:scale(1,1);transition: all 0.3s ease-out;
 }
 
-
 .product img:hover{
 transform:scale(1.1,1.1);
-}
-
-
-.All2 {
-		display:none;
-}
-
-.All {
-	width: 1280px;
-	margin: 0 auto;
-	display:none;
 }
 
 .pname{
@@ -153,7 +214,6 @@ height:120px;
 }
 
 
-
 .cart{
 border: none;
 text-decoration: none;
@@ -201,9 +261,9 @@ top:-10px;
 /* margin-left:-25px; */
 /* position: relative; */
 /* top:-20px; */
+
 .home{
 }
-
 
 .searchBar{
 position: relative;
@@ -222,7 +282,6 @@ top:30px;
 .category{
 
 }
-
 
 .categoryButton{
 background-color: #8da7fc   ;
@@ -268,6 +327,7 @@ margin-left:55px;
 
 
 
+
 </style>
 
 <title>運動中心商城</title>
@@ -282,9 +342,9 @@ margin-left:55px;
 </head>
 <body>
 
-    <div class="All2">
+    
 	<c:import url="../../header.jsp" />
-
+<div class="All2">
 	
 	<div class="All">
 
@@ -365,6 +425,7 @@ margin-left:55px;
 
         <input id="categoryI" type="hidden" value="${category}">
         <input id="keyword2" type="hidden" value="${keyword}">
+        <input id='pageI' type='hidden' value='${page}'>
 
         </div>
 
@@ -398,6 +459,9 @@ margin-left:55px;
 <!-- 		<span id = "result" style="display:none"></span> -->
 		<div id="allProduct"></div>
 		
+		
+		<div id="pages"></div>
+		
 	</div>
 	</div>
 
@@ -406,6 +470,8 @@ margin-left:55px;
 	var keywordI = document.getElementById("keywordI");
 	var keyword="";
 	var keyword2 = document.getElementById("keyword2");
+	//var page ="";
+	var page = document.getElementById("pageI").value;
 	
 		$(document).ready(xhrFunction);
 		
@@ -433,24 +499,22 @@ margin-left:55px;
 			self.location.href='storeProductsAll?category='+category+'&keyword='+keyword;
 		});
 		
-		
-		
-		
-		
+
 
 		function xhrFunction(){
-			//var keyword = keywordI.value;
 			keyword = keyword2.value;
+			//page = pageI.value;
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST","<c:url value='getProductsJson'/>",true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			console.log("keyword = "+keyword);
 			console.log("category = "+category);
+			console.log("page = "+page);
 			if (category >= 1){
-					xhr.send("category="+category+"&keyword="+keyword); //+"&keyword="+keyword
+					xhr.send("category="+category+"&keyword="+keyword+"&page="+page); //+"&keyword="+keyword
 			}
 			else {
-					xhr.send("category=0&keyword="+keyword);
+					xhr.send("category=0&keyword="+keyword+"&page="+page);
 			}
 			
 			if(xhr!=null){
@@ -470,9 +534,21 @@ function testProducts(responseText){
 	var content = "<br>";
 	var cartNum = mapData.cartNum;
 	var cartcontent = "";
+	
+	var proNum = mapData.proNum;
+	var pageTimes = mapData.pageTimes;
+	var startRow = mapData.startRow;
+	var pageSize = mapData.pageSize;
+	var currentPage = mapData.currentPage;
+	var contentPage = "";
 
 	if(productList.length > 0){			
-		for(var i=0; i < productList.length; i++){
+// 		for(var i=0; i < productList.length; i++){
+		if(currentPage == pageTimes){
+			pageSize = productList.length-1;
+		}
+		
+		for(var i=startRow; i <= pageSize; i++){
 			if (productList[i].product_stock >0) {
 				content += ""
 // 						+= "<form id='add' action='addCart' method='post'>"
@@ -508,13 +584,48 @@ function testProducts(responseText){
 // 	console.log( "keyword = "+keyword);
 	
 	
+	contentPage = "<br><br><div class='pagging'>";
+	if(currentPage == 1) {
+		contentPage += "<span class='disabled' ><< 前一頁</span>";
+	}
+	if(currentPage != 1) {
+		contentPage += "<a href='storeProductsAll?category="+category+"&keyword="+keyword+"&page="+(currentPage-1)+"'><< 前一頁</a>";
+	}
+	if(currentPage == 1) {
+		contentPage += "<span class='current' id='pageNC'>1</span>";
+	}
+	if(currentPage != 1) {
+		contentPage += "<a href='storeProductsAll?category="+category+"&keyword="+keyword+"&page=1'><span id='pageN'>1<span></a>";
+	}
+	
+	for (var i=1; i<pageTimes; i++) {
+		page = i+1;
+		
+		if(currentPage == page) {
+			contentPage += "<span class='current' id='pageNC'>"+page+"</span>";
+		}
+		if(currentPage != page) {
+			contentPage += "<a href='storeProductsAll?category="+category+"&keyword="+keyword+"&page="+page+"'><span id='pageN'>"+page+"</span></a>";
+		}
+	}
+	
+	if(currentPage == pageTimes) {
+		contentPage += "<span class='disabled'>後一頁 >></span>";
+	}
+	if(currentPage != pageTimes) {
+		contentPage += "<a href='storeProductsAll?category="+category+"&keyword="+keyword+"&page="+(currentPage+1)+"'>後一頁 >></a>";
+	}
+	contentPage +="</div><br><br>";
+
+	
+	
 	allProduct.innerHTML = content;
-// 	cart.innerHTML = cartcontent;
+	pages.innerHTML = contentPage;
+
 	if (cartNum != 0){
 		cartcontent +="<p class='cartNum'>"+cartNum+"</p>" //""+cartNum+"";
 		cartnn.innerHTML = cartcontent;
 	}
-
 
 	
 	$("#bn"+category).css('background-color', '#fe802f');
@@ -522,7 +633,8 @@ function testProducts(responseText){
 	result.innerHTML = productList.length;
 	$(".All").show();
 	$(".All2").show();
-	
+
+
 	
 	$('.addCart').click(function() {
 		var id = $(this).attr('addCartId');
@@ -573,16 +685,12 @@ function testProducts(responseText){
 	
 	
 	
-	
-	
+
 
 }
 		
 	
-		
 
-		
-		
 		
 	</script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
