@@ -234,7 +234,7 @@ tbody {
 
 		$("#createBbs").on("click", function(){
 			if(${sessionScope.account == null}) {
-				$("#exampleModal").modal("show");
+				$("#loginModal").modal("show");
 				return false;
 			}else {
 				window.location.href="bbsdiscussion.c";
