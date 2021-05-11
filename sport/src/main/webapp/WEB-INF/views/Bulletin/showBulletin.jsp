@@ -38,17 +38,17 @@
 		float:left;
 	}
 	
-	.title-container > h2{
+	.title-container {
 /* 		text-align:left; */
-		
+		padding-left:60px;
 	}
 	.image-contents{
 		margin-top:30px;
 	}
 	.image-container{
- 		
+ 		padding-right:70px;
  		width:50%; 
-		float:left;
+		float:right;
 	}
 	.image{
 	
@@ -60,8 +60,9 @@
 	}
 	
 	.contents-container{
- 		width:50%; 
-		float:right;
+		padding-left:70px;
+ 		width:50%;
+		float:left;
 		diplay:inline-block;
 	}
 	.contents-container > p{
@@ -80,6 +81,7 @@
 	    background: #333;
 	    background-image: linear-gradient(to right, #ccc, #333, #ccc);
 	}
+
 </style>
 <script type='text/javascript'>
 window.onload = function(){
@@ -156,9 +158,9 @@ $(document).ready(function() {
 		<div class="container">
 			<div class="head">
 				<span class="head-icon">
-				<img src="/sport/images/bulletin/running.png" width="80" height="80"></img>
+				<img src="/sport/images/bulletin/running1.png" width="80" height="80"></img>
 				</span>
-				<h2 class="headTitle">公告內容</h2>
+				<h2 style="font-weight:bold;" class="headTitle">公告內容</h2>
 			</div>
 			<div class="clear"></div>
 			<hr class="style-one" />
