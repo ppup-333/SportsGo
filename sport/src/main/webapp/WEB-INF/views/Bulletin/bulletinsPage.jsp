@@ -347,7 +347,7 @@
 <c:import url="../newheaderM.jsp"/>
 	<div  class="box">
 		<div class="container">
-			<h3>公告管理</h3>
+			<h2>公告管理</h2>
 			<table>
 				<tr>
 					<td>

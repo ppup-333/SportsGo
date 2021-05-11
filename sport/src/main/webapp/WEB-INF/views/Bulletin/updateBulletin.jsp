@@ -160,9 +160,12 @@ textarea {
 <body>
 	<c:import url="../newheaderM.jsp" />
 	<div class="box">
+		<h2>編輯公告</h2>
+		
 		<div class="container">
+			<hr>
 			<fieldset>
-				<legend align="center">更新公告</legend>
+			
 				<form:form name="updateForm" method="POST" modelAttribute="bulletin"
 					enctype='multipart/form-data'>
 					<div class="form-group">
@@ -199,26 +202,27 @@ textarea {
 					</div>
 	
 					<div class="form-group">
-						<label for="imgInput">上傳公告圖片</label>
-						<form:input id="imgInput" class="form-control-file"
-							path="productImage" type='file' value="新增圖片" />
+						<label class="btn btn-info">
+							<form:input id="imgInput" class="form-control-file"  path="productImage" type='file' value="" style="display:none;"/>
+							<i class="fas fa-image"></i> 上傳圖片
+						</label>
 						<form:errors path="productImage" cssClass="error" />
-						
+						<label class="btn btn-info">
+							<input type='button' onclick="resetImg(${bulletin.id});" style="display:none;float:left" />
+							<i class="fas fa-times-circle"></i>清空圖片
+						</label>
 						<c:choose>
-						<c:when test='${bulletin.image != null}'>
-							<img id='previewImg' width='180' height='216'
-								src='<c:url value="/Bulletin/picture/${bulletin.id }"/>' />
-						</c:when>
-						<c:otherwise>
-							<img width='180' height='216' id="previewImg"/>
-						</c:otherwise>
-					</c:choose>
-					</div>
+							<c:when test='${bulletin.image != null}'>
+								<img id='previewImg' width='180' height='216'
+									src='<c:url value="/Bulletin/picture/${bulletin.id }"/>' />
+							</c:when>
+							<c:otherwise>
+								<img width='180' height='216' id="previewImg"/>
+							</c:otherwise>
+						</c:choose>
 					
-					<input type='button' onclick="resetImg(${bulletin.id});"
-						value='清空圖片' />
-	
-	
+						
+					</div>
 					<input type='button' value="更新公告" onclick='checkForm();' />
 	
 	
