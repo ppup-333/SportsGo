@@ -74,7 +74,7 @@
 <body>
 	<c:import url="../newheader.jsp"/>
 	<h2>一般會員預約</h2>
-	<form action="createMemberOrder" method="post">
+	<form id="createOrderForm" action="createMemberOrder" method="post">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
@@ -126,7 +126,7 @@
 								</p>
 								<hr>
 								<p>
-									<button class="btn btn-primary" type="submit">送出</button>
+									<button id="createSubmit" class="btn btn-primary" type="button">送出</button>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<button class="btn btn-secondary" type="reset">清除</button>
 								</p>
@@ -144,6 +144,20 @@
 // 	var div_DateType = document.getElementById("div_DateType");
 // 	div_DateType.innerHTML = "<h4>您的預約已達上限</h4>";
 // </c:if>
+$("#createSubmit").click(function(){
+	Swal.fire({
+		icon: "question",
+		showCancelButton: true,
+		confirmButtonText: "確定",
+		cancelButtonText: "取消",
+		title: "確定要預約？"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$("#createOrderForm").submit();			
+		}
+	});
+});
+
 
 <c:if test="${attendanceStatus == false}">
 	var div_DateType = document.getElementById("div_DateType");

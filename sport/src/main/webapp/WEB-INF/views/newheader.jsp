@@ -86,7 +86,7 @@
   				<button id="memberListBtn" type="button" class="btn btn-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     				登入
   				</button>
-  				<div class="dropdown-menu dropdown-menu-md-left loginDropdown">
+  				<div class="dropdown-menu dropdown-menu-md-left">
 <!--     				<a class="dropdown-item" href="/sport/user/Login">登入</a> -->
 					<a class="dropdown-item" href="/sport/user/Login">登入</a>
 					<a class="dropdown-item" href="" id="loginBtn" data-toggle="modal" data-target="#loginModal">
@@ -102,7 +102,7 @@
     				<i class="fas fa-user"></i>&nbsp;${sessionScope.username}
   				</button>
   				<form action="/sport/user/Logout" method="post" id="formLogout">
-	  				<div class="dropdown-menu dropdown-menu-md-left loginDropdown">
+	  				<div class="dropdown-menu dropdown-menu-md-left">
 	    				<a class="dropdown-item" href="/sport/user/loginHomePage">會員中心</a>
 	    				<a class="dropdown-item" id="logoutBtn" href="#">登出</a>
 	  				</div>
@@ -182,10 +182,21 @@
 	});
 	
 	$("#fieldOrder").children("a").click(function(){
-		alert(${sessionScope.account == null})
 		if(${sessionScope.account == null}){
-			alert("請先登入");
-			$("#loginModal").modal("show");
+			
+			Swal.fire({
+				icon: "question",
+				showCancelButton: true,
+				confirmButtonText: "登入",
+				cancelButtonText: "取消",
+				title: "請先登入？"
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$("#loginModal").modal("show");		
+				}
+			});
+			
+// 			$("#loginModal").modal("show");
 // 			$("#loginBtn").click();
 			return false;
 		}

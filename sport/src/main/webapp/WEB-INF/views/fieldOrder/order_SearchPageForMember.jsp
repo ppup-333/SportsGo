@@ -9,11 +9,18 @@
 
 <c:import url="../headerScript.jsp"/>
 
-<link rel="stylesheet" href="/sport/css/field/order_SearchPageForMember.css">
 
 <style>
 th, td {
 	padding: 5px 10px;
+}
+
+#memberOrderDiv p {
+	text-align: center;
+}
+
+#memberOrderTable {
+	text-align: center;
 }
 </style>
 
@@ -34,13 +41,17 @@ th, td {
 	
 	<div class="container">
 		<div class="row">
-			<div class="col-12">
-				<div id="mainDiv">
-					<button id="search">目前訂單</button>
-					<button id="searchPast">歷史訂單</button>
+			<div class="col-2"></div>
+			<div class="col-8">
+				<div id="memberOrderDiv">
+					<p>
+						<button id="search">目前訂單</button>
+						<button id="searchPast">歷史訂單</button>
+					</p>
 					<div id="queryDiv"></div>
 				</div>				
 			</div>
+			<div class="col-2"></div>
 		</div>
 	</div>
 
@@ -78,6 +89,16 @@ th, td {
 	</div>
 
 <script>
+<c:if test="${sessionScope.createMemberOrderCode == 'success'}">
+	Swal.fire({
+		icon: "success",
+		title: "預約成功！",
+		text: "請確認訂單"
+	});
+	${sessionScope.remove('createMemberOrderCode')}
+</c:if>
+
+
 	var queryDiv = document.getElementById("queryDiv");
 	var mapData;
 	
@@ -117,8 +138,8 @@ th, td {
 		
 		if(fieldMemberOrderList.length != 0){
 			var content = "";
-			content += "<table border='1'>"
-					 + "<tr><th>訂單編號<th>帳號<th>建立時間<th>預約明細<th>出席狀態<th>訂單狀態";
+			content += "<table id='memberOrderTable' class='table table-hover table-striped'>"
+					 + "<tr class='bg-warning'><th>訂單編號<th>帳號<th>預約場地<th>建立時間<th>預約明細<th>出席狀態<th>訂單狀態";
 	
 			for (var i = 0; i < fieldMemberOrderList.length; i++) {
 				var createTime = fieldMemberOrderList[i].createTime.substr(0,19);
@@ -133,6 +154,7 @@ th, td {
 					content += "<tr>"
 							+ "<td>" + fieldMemberOrderList[i].id
 							+ "<td>" + fieldMemberOrderList[i].users.account
+							+ "<td>" + fieldMemberOrderList[i].orderDetails[0].field.name
 							+ "<td>" + createTime
 							+ '<td><input type="button" displayId="'+fieldMemberOrderList[i].id+'" class="displayDetail" data-toggle="modal" data-target="#myModal" value="瀏覽"/>'
 							+ "<td>" + attendance

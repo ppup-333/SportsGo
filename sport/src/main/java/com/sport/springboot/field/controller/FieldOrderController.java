@@ -184,7 +184,7 @@ public class FieldOrderController {
 	public String fieldOrderDetailCreate(@RequestParam("periodId")Integer periodId,
 			@RequestParam("date")String date, @RequestParam("hours")Integer hours,
 			@RequestParam("fieldId")String fieldId,
-			@RequestParam("mOrder")FieldMemberOrder mOrder) {
+			@RequestParam("mOrder")FieldMemberOrder mOrder, HttpSession session) {
 		
 		//List<FieldOrderDetail> fieldOrderDetails = new ArrayList<>();
 		for(int i = periodId; i < periodId + hours; i++) {
@@ -196,8 +196,8 @@ public class FieldOrderController {
 			
 			fieldOrderDetailService.save(fieldOrderDetail);
 		}
-		
-		return "fieldOrder/order_Create";
+		session.setAttribute("createMemberOrderCode", "success");
+		return "fieldOrder/order_SearchPageForMember";
 		
 	}	
 	

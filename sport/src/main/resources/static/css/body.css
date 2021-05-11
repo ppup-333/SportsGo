@@ -1,0 +1,8 @@
+body h2 {
+	font-size: 45px;
+	font-weight: 530;
+	color: rgb(50, 50, 50);
+	letter-spacing: 5px;
+	
+	margin: 30px auto 20px auto;
+}
