@@ -9,17 +9,7 @@
 <title>Insert title here</title>
 
 <c:import url="../headerScript.jsp"/>
-<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
-<!-- <script src="http://code.jquery.com/jquery-1.12.4.js"></script> -->
-<!-- <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> -->
 
-<!-- bootstrap -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<!-- <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
-<!-- <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css"> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script> -->
 <style>
 #typeP, #createP {
 	text-align: center;
@@ -50,14 +40,19 @@
 	color: white;
 }
 
-.ySpan {
+.ySpan, .nSpan {
+	font-size: 14px;
 	padding: 2px 7px;
 	border-radius: 30px;
 }
 
-.nSpan {
+/* .nSpan { */
+/* 	padding: 2px 7px; */
+/* 	border-radius: 30px; */
+/* } */
+
+.updateBtn {
 	padding: 2px 7px;
-	border-radius: 30px;
 }
 
 </style>
@@ -81,10 +76,10 @@
 		<!-- 回傳查詢的資料放入 -->
 	</div>
 	<p id="createP">
-		<input type="button" id="createFieldBtn" data-toggle="modal" data-target="#myModal" value="新增場地"/>
+		<input class="btn btn-secondary" type="button" id="createFieldBtn" data-toggle="modal" data-target="#myModal" value="新增場地"/>
 	</p>
 	<!-- The Modal -->
-	<form:form modelAttribute="field" action="updateField" method="post">
+	<form:form modelAttribute="field" action="updateField" method="post" id="createFieldForm">
 		<div class="modal fade" id="myModal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -102,10 +97,10 @@
 								<table>
 									<tr><td><form:label path="id">編號</form:label></td>
 										<td><form:input path="id" id="createFieldId"/></td>
-										<td id="createIdError" class="errorTd"><form:errors path="id"/></td><td class="errorTd"></td>
+										<td id="createIdError" class="errorTd"><form:errors path="id"/></td>
 									<tr><td><form:label path="name">名稱</form:label>
 										<td><form:input path="name" id="createFieldName"/>
-										<td class="errorTd"><form:errors path="name"/></td><td id="createNameError" class="errorTd"></td>
+										<td id="createNameError" class="errorTd"><form:errors path="name"/></td>
 									<tr><td><form:label path="fieldType">類型</form:label>
 										<td><form:select path="fieldType">
 												<option value="0">- 請選擇 -</option>
@@ -147,7 +142,7 @@
 						
 					<!-- Modal footer -->
 					<div class="modal-footer">
-					<form:button type="submit" class="btn btn-primary" id="createButton">送出</form:button>
+					<form:button type="button" class="btn btn-primary" id="createButton">送出</form:button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
 	
@@ -166,7 +161,7 @@ checkStartCode();
 function checkStartCode(){
 	var createFieldBtn = document.getElementById("createFieldBtn");
 	var startCode = document.getElementById("startCode").value;
-	alert("startCode=" + startCode);
+	//alert("startCode=" + startCode);
 	if(startCode == "createError"){
 		alert("新增失敗！");
 		createFieldBtn.click();
@@ -179,16 +174,34 @@ function checkStartCode(){
 		alert("修改成功！");
 	}else if(startCode == "deleteSuccess"){
 		alert("刪除成功！");
+	}else if(startCode == "deleteError"){
+		alert("刪除失敗！");
 	}
 }
 
 $("#ts").ready(xhrFunction);
 $("#ts").change(typeIdFunction);
 $("#ts").change(xhrFunction);
+// $("#createButton").click(function(){
+// 	if(!confirm("確定要新增？")){
+// 		return false;
+// 	}
+// });
+
 $("#createButton").click(function(){
-	if(!confirm("確定要新增？")){
-		return false;
-	}
+	Swal.fire({
+		icon: "question",
+		position: "top-end",
+		showCancelButton: true,
+		confirmButtonText: "確定",
+		cancelButtonText: "取消",
+		title: "確定新增？",
+		text: "請確認資料是否正確"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$("#createFieldForm").submit();			
+		}
+	});
 });
 
 function typeIdFunction(){
@@ -256,9 +269,9 @@ function displayFields(responseText){
 					 + "<td>"+updateDateStr
 					 + "<td><form class='formUpdate' action='updateFieldPage' method='post'>"
 					 + "<input name='typeId' style='display: none' value='"+typeId+"'/>"
-					 + "<button type='submit' name='updateId' value='"+fieldList[i].id+"'>修改</button></form>"
+					 + "<button type='submit' class='updateBtn btn btn-outline-warning' name='updateId' value='"+fieldList[i].id+"'>修改</button></form>&nbsp;&nbsp;"
 					 + "<form class='formDelete' action='deleteField' method='post'>"
-					 + "<button type='submit' name='deleteId' class='deleteButton' value='"+fieldList[i].id+"'>刪除</button>"
+					 + "<button type='submit' class='updateBtn btn btn-outline-danger' name='deleteId' class='deleteButton' value='"+fieldList[i].id+"'>刪除</button>"
 					 + "</form>";					
 		}
 		content += "</table><hr>"
