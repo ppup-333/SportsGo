@@ -180,7 +180,7 @@ function sport(s){
 							if(GetDateDiff1==0){
 								context+="{\"groupId\":\""+result[i].courseId+"\","
 								context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
-								context+="\"start\":\""+result[i].DateStart+result[i].courseKind+"\","
+								context+="\"start\":\""+result[i].DateStart+"\","
 								context+="\"url\":\"/sport/courseApply?id="+result[i].courseId+"&type=first\","
 								context+="\"constraint\":\"businessHours\"}"
 							}else{

@@ -326,9 +326,15 @@ public class FieldOrderController {
 						temp.add(fieldOrderDetailList.get(j));
 					}						
 				}else {
-					if(fieldOrderDetailList.get(j).getFieldMemberOrder().getOrderStatus() == 1) {
+					
+					
+					if(fieldOrderDetailList.get(j).getFieldMemberOrder()!=null) {
+						
+						if(fieldOrderDetailList.get(j).getFieldMemberOrder().getOrderStatus() == 1) {
 						temp.add(fieldOrderDetailList.get(j));
+						}
 					}
+					
 				}
 			}
 			orderDetailList.add(temp);

@@ -131,4 +131,33 @@ public class FieldActOrderServiceImpl implements FieldActOrderService {
 		fieldOrderDetailRepository.saveAll(orderDetailList);
 	}
 
+	@Override
+	public boolean changeOrderStatusByCourseId(int courseId) {
+		
+		try {
+			FieldActOrder fieldActOrder = fieldActOrderRepository.getFieldOrderByCourseId(courseId);
+		fieldActOrder.setOrderStatus(0);
+		fieldActOrderRepository.save(fieldActOrder);
+		return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("更改OrderStatus狀態發生錯誤");
+			return false;
+		}
+	}
+	@Override
+	public boolean changeOrderStatusByActId(int actId) {
+		
+		try {
+			FieldActOrder fieldActOrder = fieldActOrderRepository.getFieldOrderByActId(actId);
+		fieldActOrder.setOrderStatus(0);
+		fieldActOrderRepository.save(fieldActOrder);
+		return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("更改OrderStatus狀態發生錯誤");
+			return false;
+		}
+	}
+
 }

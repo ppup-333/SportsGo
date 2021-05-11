@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:import url="../headerScript.jsp"/>
+<!-- <c:import url="../headerScript.jsp"/>-->
 <meta charset="UTF-8">
 <title>manageActUpdate</title>
 <!--  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->

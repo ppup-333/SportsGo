@@ -51,7 +51,7 @@ public class courseControl {
 	private CourseOrderService courseorderservice;
 	
 	//private final String properties="D:\\_SpringBoot\\SportsGo\\sport\\src\\main\\java\\ecpay\\payment\\integration";
-	private final String properties="/src/main/java/ecpay/payment/integration";
+	private final String properties=(this.getClass().getResource("")+"").substring(6);
 
 	@GetMapping("/courseHome")
 	public String index() {
