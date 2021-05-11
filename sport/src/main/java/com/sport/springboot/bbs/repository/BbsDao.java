@@ -14,8 +14,9 @@ public interface BbsDao extends JpaRepository<Bbs, Integer> {
 	
 	List<Bbs> findByBbsTypeTypeIdOrderByBbsSetupTimeDesc(Integer typeId);
 	
-	@Query("FROM Bbs where bbsTitle like %:search% or bbsMessage like %:search%"
-			+ " order by bbsSetupTime Desc")
+	@Query("FROM Bbs where (bbsTitle like %:search% or bbsMessage like %:search%)"
+			   + " and bbsDelete in(0, 2)"
+			   + " order by bbsSetupTime Desc")
 	public List<Bbs> findBySearch(@Param("search") String search);
 	
 	List<Bbs> findByBbsTypeTypeGroupOrderByBbsSetupTimeDesc(String typeGroup);

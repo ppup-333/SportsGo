@@ -61,6 +61,10 @@ tbody {
 	cursor: pointer;
 }
 
+table.table-hover tbody tr:hover {
+    background-color: #d7e5f4; 
+}
+
 </style>
 </head>
 <body>
