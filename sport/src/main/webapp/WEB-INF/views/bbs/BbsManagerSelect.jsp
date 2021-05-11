@@ -6,16 +6,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:import url="../headerM.jsp"/>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
+<c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-
+	<c:import url="../newheaderM.jsp"/>
 	<div class="container-fluid" style="position: relative; top: 50px;">
 		<div class="row">
 			<div class="col-3"></div>
