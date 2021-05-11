@@ -6,6 +6,8 @@
 <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
 <link rel="stylesheet" href="/sport/css/headerM.css">
+<link rel="stylesheet" href="/sport/css/body.css">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
 <!-- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet"> -->
   
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
