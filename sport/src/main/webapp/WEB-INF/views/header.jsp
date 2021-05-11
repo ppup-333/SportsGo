@@ -144,14 +144,14 @@
 					<table>
 						<tr>
 							<td>帳號：<br>&nbsp;</td>
-							<td><form:input path="account"  /><br>&nbsp;
+							<td><form:input path="account" id="userAct" /><br>&nbsp;
 								<span class="spLogin">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
 		<%-- 						<form:errors path='account' cssClass="error"/> --%>
 								</td>
 						</tr>
 						<tr>
 							<td>密碼：<br>&nbsp;</td>
-				  			<td width='360'><form:input path='password' type='password' /><br>&nbsp;	
+				  			<td width='360'><form:input path='password' type='password' id="userPwd"/><br>&nbsp;	
 				     						<span class="spLogin">8~16位英文字母和數字的組合(區分大小寫)</span><br/></td>
 						</tr>
 						<tr>
@@ -164,6 +164,7 @@
 	      <div class="modal-footer">
 	        <button type="submit" class="btn btn-primary">送出</button>
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="" id="clickInput">一鍵輸入</button>
 	      </div>
 	    </div>
 	  </div>
@@ -196,6 +197,12 @@
 			$("#formLogout").submit();
 		}
 	});
+	
+	$("#clickInput").click(function(){
+		$("input[id='userAct']").val("test1001")
+		$("input[id='userPwd']").val("test1001")
+	});
+	
 	
 </script>
 	

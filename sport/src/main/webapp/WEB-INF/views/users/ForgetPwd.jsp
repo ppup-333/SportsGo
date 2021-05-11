@@ -67,19 +67,19 @@
 					</tr>
 					<tr>
 						<td>帳號：<br>&nbsp;</td>
-						<td><form:input path="account"  /><br>&nbsp;
+						<td><form:input path="account" id='userAct' /><br>&nbsp;
 							<br/>
 						</td>
 					</tr>
 					<tr>
 						<td>身分證字號：<br>&nbsp;</td>
-						<td><form:input path="id"  /><br>&nbsp;
+						<td><form:input path="id" id='userId' /><br>&nbsp;
 							<br/>
 						</td>
 					</tr>
 					<tr>
 						<td>E-Mail：<br>&nbsp;</td>
-						<td><form:input path="email"  /><br>&nbsp;
+						<td><form:input path="email" id='userEmail' /><br>&nbsp;
 							<br/>
 						</td>
 					</tr>
@@ -93,7 +93,18 @@
 	</fieldset>
 	<div class='d1'>
 		<input type='button' value='送出' onclick='form1.submit()'>&nbsp;&nbsp;
-		<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
+		<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>&nbsp;&nbsp;
+		<input type='button' value='一鍵輸入' id='clickInput'>&nbsp;&nbsp;
 	</div>
+	
+<script>
+
+$("#clickInput").click(function(){
+	$("input[id='userAct']").val("test1001")
+	$("input[id='userId']").val("a123456789")
+	$("input[id='userEmail']").val("test1001@gmail.com")
+});
+
+</script>
 </body>
 </html>

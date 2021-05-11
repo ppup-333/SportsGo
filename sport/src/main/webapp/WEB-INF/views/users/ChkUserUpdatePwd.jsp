@@ -68,13 +68,13 @@
 			<table>
 				<tr>
 					<td>帳號：<br>&nbsp;</td>
-					<td><form:input path="account" readonly="true" /><br>&nbsp;
+					<td><form:input path="account" readonly="true" id='userAct'/><br>&nbsp;
 						<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
 					</td>
 				</tr>
 				<tr>
 					<td>密碼：<br>&nbsp;</td>
-		  			<td width='360'><form:input path='password' type='password' /><br>&nbsp;	
+		  			<td width='360'><form:input path='password' type='password' id='userPwd'/><br>&nbsp;	
 		     						<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/></td>
 				</tr>
 				<tr>
@@ -90,12 +90,22 @@
 			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'>&nbsp;&nbsp;
 <!-- 			<input type='button' value='註冊' onclick='location.href="RegisterEdit"'> -->
 <!-- 			<input type='button' value='忘記密碼' onclick='location.href="ForgetPwd"'> -->
-			<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
+			<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'><br><br>
+			<input type='button' value='一鍵輸入' id='clickInput'>
 <!-- 			<a href="RegisterEdit">註冊</a>  -->
 <%-- 			<a href="<c:url value='../'/> " >回前頁</a> --%>
 <!-- 			<a href="user/...">登入</a> -->
 <!-- 			<a href="user/registerEdit">註冊</a> -->
 <!-- 			<a href="user/...">忘記密碼</a> -->
 		</div>
+		
+<script>
+
+$("#clickInput").click(function(){
+	$("input[id='userPwd']").val("test1001")
+});
+
+</script>
+
 </body>
 </html>
