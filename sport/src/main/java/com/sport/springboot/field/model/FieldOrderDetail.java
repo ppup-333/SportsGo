@@ -25,12 +25,12 @@ public class FieldOrderDetail {
 	
 	@ManyToOne
 	@JoinColumn(name = "actOrderId")
-	@JsonIgnoreProperties("orderDetails")
+	@JsonIgnoreProperties({"orderDetails", "activitybean", "coursebean"})
 	private FieldActOrder fieldActOrder;
 	
 	@ManyToOne
 	@JoinColumn(name = "fieldId")
-	@JsonIgnoreProperties("orderDetails")
+	@JsonIgnoreProperties({"orderDetails", "time"})
 	private Field field;
 	
 	private String date;
