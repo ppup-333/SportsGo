@@ -4,7 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<c:import url="headerScript.jsp"/>
+
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <script src="/sport/scripts/bulletin/date.format.js"></script>
 <meta charset="UTF-8">
 <title>home</title>
@@ -43,7 +45,7 @@
 </script>
 
 <body>
-<c:import url="header.jsp"/>
+<c:import url="newheader.jsp"/>
 
 <!-- main img-->
     <div id="mainDiv" class="container-fluid">
