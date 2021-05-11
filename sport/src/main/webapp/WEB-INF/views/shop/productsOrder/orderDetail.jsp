@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../../headerScript.jsp" />
 <meta charset="UTF-8">
 
 <style type="text/css">
@@ -212,7 +213,7 @@ cursor:pointer;
 
 <body>
 
-<c:import url="../../header.jsp" />
+<c:import url="../../newheader.jsp" />
 
 <input type='hidden' id='order_Id' value='${order_Id}'>
 
@@ -384,7 +385,7 @@ function orderDetails(responseText){
 
 }
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 
 
 </body>

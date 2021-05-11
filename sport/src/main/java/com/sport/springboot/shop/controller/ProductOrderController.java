@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -382,14 +382,17 @@ public class ProductOrderController {
 	
 	//後台管理訂單列表
 	@GetMapping("/orderListManage")
-	public String orderListManage() {
+	public String orderListManage(Model m,String keyword, String page) {
 		//m.addAttribute("productList",productService.getAllProducts());
+		m.addAttribute("keyword",keyword);
+		m.addAttribute("page",page);
 		return "shop/productsOrder/orderListManage";
 	}
 		
 	//後台顯示所有訂單列表
-	@GetMapping(value = "/getOrderListManageJson")
-	public @ResponseBody Map<String, Object> getOrderListManage(HttpSession httpSession) {
+	@PostMapping(value = "/getOrderListManageJson")
+	public @ResponseBody Map<String, Object> getOrderListManage(HttpSession httpSession,
+			@RequestParam("keyword") String keyword) {
 		
 //		String account = (String) httpSession.getAttribute("account");
 //		
@@ -400,7 +403,14 @@ public class ProductOrderController {
 		
 		String MerchantTradeNo="";
 		Map<String, Object> map = new HashMap<>();		
-		List<ProductOrderList> orderList = productOrderListService.getAll();
+		List<ProductOrderList> orderList = null;
+		
+		if(keyword=="") {
+			orderList =  productOrderListService.getAll();
+		} else {
+			orderList = productOrderListService.getByAccount(keyword);
+		}
+		
 		List<ProductOrderDetail> orderDetail = new ArrayList<>(); 
 		List<Integer> orderNumber = new ArrayList<>();
 		Integer num = 0;

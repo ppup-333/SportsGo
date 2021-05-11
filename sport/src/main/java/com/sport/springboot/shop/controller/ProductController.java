@@ -686,7 +686,10 @@ public class ProductController {
                     	return "OverStock";
             		} else count += Integer.parseInt(addCartNum);
 
-            	} else count ++;
+            	} else if (count >= pStock) {
+                	return "OverStock";
+        		} else count ++;
+            		
             }
         }
         //將商品放入購物車

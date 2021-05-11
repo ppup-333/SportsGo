@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../../headerScript.jsp" />
 <meta charset="UTF-8">
 
 <style type="text/css">
@@ -206,7 +207,7 @@ top:-10px;
 <body>
 
 <div id="All">
-<c:import url="../../header.jsp" />
+<c:import url="../../newheader.jsp" />
 
 <!-- <div class="cartbox"> test123dfffffffffffff4567</div> -->
 
@@ -387,7 +388,7 @@ $('.minuser').click(function() {  //減少商品
 	
 	
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 
 </body>
 </html>

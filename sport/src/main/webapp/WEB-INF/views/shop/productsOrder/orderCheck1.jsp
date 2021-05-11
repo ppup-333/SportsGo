@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../../headerScript.jsp" />
 <meta charset="UTF-8">
 
 <style>
@@ -337,7 +338,7 @@ font-weight: bolder;
 </head>
 <body>
 
-<c:import url="../../header.jsp" />
+<c:import url="../../newheader.jsp" />
 
 <div class="All">
 	<p class="title">訂單明細</p>
@@ -411,7 +412,7 @@ function orderProducts(responseText){
 		for(var i=0; i < productList.length; i++){		
 				content += "<div class='productInOrder'>"
 						+"<img class='prodPic' width='40' height='40' src='../picture/"+productList[i].product_id+"'/>"
-						+"<div class='pnamebox'><p class='pname'><a class='pnamehref' href='<c:url value='/'/>'>"+productList[i].product_name+"</a></p></div>"
+						+"<div class='pnamebox'><p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='<c:url value='/'/>'>"+productList[i].product_name+"</a></p></div>"
 						+"<div class='price'>&nbsp;NT$&nbsp;"+productList[i].product_price+"</div>&nbsp;"
 						+"<span class='num'> 數量 : "+productNums[i]+"</span>"
 						+"<span class='sumprice'>小計 $ "+ productList[i].product_price * productNums[i] +"</span>"
@@ -618,6 +619,6 @@ function orderProducts(responseText){
 
 }
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 </body>
 </html>

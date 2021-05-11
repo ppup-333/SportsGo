@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../../headerScript.jsp" />
 <meta charset="UTF-8">
 
 <style>
@@ -31,7 +32,7 @@ text-align: center;
 
 
 table,th,td{
-border: 1px black solid;
+/* border: 1px black solid; */
 font-size:16px;
 }
 
@@ -68,10 +69,12 @@ width: 90px;
 
 
 #orderlist{
-   width: 830px;
+/*    width: 830px; */
+      width: 1000px;
 /*    border: 1px black solid; */
    margin-top:30px;  
-   margin-left:220px;
+    margin-left:80px; 
+
    padding:10px 0px;
 }
 .order{
@@ -136,7 +139,7 @@ background-color: #f5f5f5;
 </head>
 <body>
 
-<c:import url="../../header.jsp" />
+<c:import url="../../newheader.jsp" />
 
 <div class="All2">
 <div class="All">
@@ -218,7 +221,7 @@ function orderLists(responseText){
 	}
 	
 	else {
-	content = "<table class='order'><tr>"
+	content = "<table class='order table table-hover'><tr style='color:white; background-color:grey;'>"
 			+ "<th class='time'>訂單時間</th>"
 			+ "<th class='product'>訂單內容</th>"
 			+ "<th class='price'>訂單總價</th>"
@@ -319,6 +322,6 @@ function orderLists(responseText){
 
 }
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 </body>
 </html>
