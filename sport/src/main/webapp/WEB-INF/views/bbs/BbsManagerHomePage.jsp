@@ -5,11 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:import url="../headerM.jsp"/>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script	src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-<link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -21,15 +16,28 @@
 	border-radius: 2px;
 	font-size: 14px;
 	height: 31px;
+	position: relative;
+	top: 20%;	
 }
 
 select {
-	background-color: white;
-	color: black;
 	border: 1px solid black;
 	border-radius: 2px;
-	font-size: 14px;
-	height: 31px;
+	position: relative;
+	top: 20%;
+}
+
+#search {
+	border-radius: 3px;
+	border: 1px solid black;
+	height: 28px
+}
+
+#searchImage {
+	position: relative;
+	top: 20%;
+	width: 28px;
+	height: 28px;
 }
 
 a {
@@ -53,21 +61,30 @@ tbody {
 </style>
 </head>
 <body>
-	
+	<c:import url="../newheaderM.jsp"/>
 	<div class="container-fluid pt-3">
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
 				<div class="row">
-					<div class="dropdown col-3">
-						<button type="button" id="selectDropdown" name="selectDropdown" class="btn btn-primary btn-sm dropdown-toggle"
-							data-toggle="dropdown"> -- 選擇狀態 -- </button>
-						<ul class="dropdown-menu">
-							<li class="dropdown-item" onclick="selectDelete(-1)">全部</li> 
-							<li class="dropdown-item" onclick="selectDelete(0)">正常</li>
-							<li class="dropdown-item" onclick="selectDelete(1)">用戶刪除</li>
-							<li class="dropdown-item" onclick="selectDelete(2)">管理員刪除</li>
-						</ul>
+<!-- 					<div class="dropdown col-3"> -->
+<!-- 						<button type="button" id="selectDropdown" name="selectDropdown" class="btn btn-primary btn-sm dropdown-toggle" -->
+<!-- 							data-toggle="dropdown"> -- 選擇狀態 -- </button> -->
+<!-- 						<ul class="dropdown-menu"> -->
+<!-- 							<li class="dropdown-item" onclick="selectDelete(-1)">全部</li>  -->
+<!-- 							<li class="dropdown-item" onclick="selectDelete(0)">正常</li> -->
+<!-- 							<li class="dropdown-item" onclick="selectDelete(1)">用戶刪除</li> -->
+<!-- 							<li class="dropdown-item" onclick="selectDelete(2)">管理員刪除</li> -->
+<!-- 						</ul> -->
+<!-- 					</div> -->
+					<div class="col-3">
+						<select id="selectDropdown" class="custom-select-sm">
+							<option value="">-- 選擇狀態 --</option>
+							<option value="-1">全部</option>
+							<option value="0">正常</option>
+							<option value="1">用戶刪除</option>
+							<option value="2">管理員刪除</option>
+						</select>
 					</div>
 					<div class="col-6">
 						<select id="game" name="game" class="custom-select-sm">
@@ -131,16 +148,27 @@ tbody {
 	
 	<script>
 		//dropdown
-		function selectDelete(deleteType){
+// 		function selectDelete(deleteType){
+// 			var $table = $('#table');
+// 			$.get("bbsM.selectSearchByBbsDelete?bbsDelete=" + deleteType,
+// 			function(data) {
+// 				$table.bootstrapTable({
+// 					data : data
+// 				});
+// 				$table.bootstrapTable('load', data);
+// 			});
+// 		}
+		
+		$("#selectDropdown").change(function() {
 			var $table = $('#table');
-			$.get("bbsM.selectSearchByBbsDelete?bbsDelete=" + deleteType,
+			$.get("bbsM.selectSearchByBbsDelete?bbsDelete=" + $("#selectDropdown").val(),
 			function(data) {
 				$table.bootstrapTable({
 					data : data
 				});
 				$table.bootstrapTable('load', data);
 			});
-		}
+		});
 				
 		$("#game").change(function() {
 			var $table = $('#table');

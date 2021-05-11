@@ -10,6 +10,43 @@
 <title>Insert title here</title>
 <style>
 
+#createBbs {
+	 position: relative;
+	 left: 10%;
+	 top: 20%;
+}
+
+#po {
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+	border-radius: 2px;
+	font-size: 14px;
+	height: 31px;
+	position: relative;
+	top: 19%;
+}
+
+select {
+	border: 1px solid black;
+	border-radius: 2px;
+	position: relative;
+	top: 20%;
+}
+
+#search {
+	border-radius: 3px;
+	border: 1px solid black;
+	height: 28px
+}
+
+#searchImage {
+	position: relative;
+	top: 20%;
+	width: 28px;
+	height: 28px;
+}
+
 a {
 	text-decoration: none;
 	color: black;
@@ -28,16 +65,6 @@ tbody {
 	cursor: pointer;
 }
 
-#po {
-	background-color: white;
-	color: black;
-	border: 1px solid black;
-	border-radius: 2px;
-	font-size: 14px;
-	height: 31px;
-
-}
-
 </style>
 </head>
 <body>
@@ -49,10 +76,10 @@ tbody {
 			<div class="col-8">
 				<div class="row">
 					<div class="col-3">
-						<button type="button" id="createBbs" class="btn btn-primary btn-sm" style="position: relative; left: 10%;">發文</button>
+						<button type="button" id="createBbs" class="btn btn-primary btn-sm">發文</button>
 					</div>
 					<div class="col-6">
-						<a href="bbs"><button type="button" id="po"> -- 全部 -- </button></a> 
+						<a href="bbs"><button type="button" id="po"> -- 全部 -- <i class="fas fa-angle-down"></i></button></a> 
 						<select id="game" name="game" class="custom-select-sm">
 							<option value="-1">-- 賽事討論 --</option>
 							<c:forEach var="game" items="${gameList}">
@@ -80,8 +107,7 @@ tbody {
 					<div class="col-3" align="right">
 						<input type="search" id="search" name="search" autocomplete="off"
 							placeholder="輸入查詢字串...">
-						<input id="searchImage"
-							type="image" src="images/magnifier.png" width="25" height="25">
+						<input id="searchImage" type="image" src="images/magnifier.png">
 					</div>
 				</div>
 			<div class="col-2"></div>

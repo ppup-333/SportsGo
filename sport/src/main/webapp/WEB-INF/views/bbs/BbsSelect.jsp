@@ -42,12 +42,12 @@
 							<p class="col"><i class="fas fa-user-circle"></i> ${bbs.users.name}(${bbs.users.account})</p>
 							<p class="col" align="right">
 							<c:if test="${bbs.bbsUpdateTime == null}">
-								建立時間：<fmt:formatDate value="${bbs.bbsSetupTime}"
+								<fmt:formatDate value="${bbs.bbsSetupTime}"
 									pattern="YYYY-MM-dd HH:mm" />
 							</c:if>
 							<c:if test="${bbs.bbsUpdateTime != null}">
-								最後編輯：<fmt:formatDate value="${bbs.bbsUpdateTime}"
-									pattern="YYYY-MM-dd HH:mm" />
+								<fmt:formatDate value="${bbs.bbsUpdateTime}"
+									pattern="YYYY-MM-dd HH:mm" /> 編輯
 							</c:if>
 							</p>
 						</div>
@@ -83,12 +83,12 @@
 							<p class="col" style="margin: 0px;">No.${reply.replyRank}  <i class="far fa-user-circle"></i> ${bbs.users.name}(${bbs.users.account})</p>
 								<P class="col" align="right" style="margin: 0px;">
 								<c:if test="${reply.replyUpdateTime == null}">
-									建立時間：<fmt:formatDate value="${reply.replySetupTime}"
+									<fmt:formatDate value="${reply.replySetupTime}"
 										pattern="YYYY-MM-dd HH:mm" />
 								</c:if>
 								<c:if test="${reply.replyUpdateTime != null}">
-									最後編輯：<fmt:formatDate value="${reply.replyUpdateTime}"
-										pattern="YYYY-MM-dd HH:mm" />
+									<fmt:formatDate value="${reply.replyUpdateTime}"
+										pattern="YYYY-MM-dd HH:mm" /> 編輯
 								</c:if>
 								</P>
 							</div>
