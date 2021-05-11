@@ -145,7 +145,8 @@
       			</form>
       				<div class="modal-footer">
         				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        				<button type="button" class="btn btn-primary" onclick="submitStatus()">確認送出</button>
+<!--         				<button type="button" class="btn btn-primary" onclick="submitStatus()">確認送出</button> -->
+        				<button type="button" class="btn btn-primary" id="submitStatus">確認送出</button>
       				</div>
     			</div>
   			</div>
@@ -282,19 +283,53 @@ function select1(){
 }
 
 
-function submitStatus() {
+// function submitStatus() {
 	
+// 	var selectValue = document.getElementById("selectStatus").value;
+	
+// 	if (selectValue == 00){
+// 		window.alert("請選擇帳號修改的狀態")
+// 	} else {
+// 		if(confirm("確定要修改？")){
+// 		 	window.alert("修改成功")
+// 		 	form1.submit();
+// 		}
+// 	}
+// }
+
+
+$("#submitStatus").click(function(){
 	var selectValue = document.getElementById("selectStatus").value;
-	
 	if (selectValue == 00){
-		window.alert("請選擇帳號修改的狀態")
+		Swal.fire({
+			toast: true,
+    		position: 'top',
+			showConfirmButton: false,
+    		timer: 2000,
+    		icon: 'error',
+    		title: '請選擇帳號修改的狀態!!',
+    	})
 	} else {
-		if(confirm("確定要修改？")){
-		 	window.alert("修改成功")
-		 	form1.submit();
-		}
+			Swal.fire({
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonText: "確定",
+			cancelButtonText: "取消",
+			title: "確認修改?"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					icon: "success",
+					title: "修改成功！",
+				}).then((result) => {
+					$("#form1").submit();
+				});
+			}
+		});
 	}
-}
+});
+
+
 
 
 

@@ -180,9 +180,17 @@ window.onload = function() {
 }
 
 function dataSubmit(){
-	if(confirm("確定修改資料？")){
-		$('#form1').submit();
-	}
+	Swal.fire({
+		icon: "question",
+		showCancelButton: true,
+		confirmButtonText: "確定",
+		cancelButtonText: "取消",
+		title: "確定修改帳號資料?"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$("#form1").submit();
+		}
+	});
 }
 
 

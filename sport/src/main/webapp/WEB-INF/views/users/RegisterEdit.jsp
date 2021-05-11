@@ -221,17 +221,44 @@ window.onload = function() {
 
 }
 
-function chkSubmit(){
+// function chkSubmit(){
 	
+// 	if(pass == false){
+// 		alert("請先檢查帳號是否可以使用")
+// 	} else {
+// 		if(confirm("確定註冊資料？")){
+// 			$('#form1').submit();
+// 		}
+// 	}
+// }
+
+
+function chkSubmit(){
 	if(pass == false){
-		alert("請先檢查帳號是否可以使用")
+		Swal.fire({
+			toast: true,
+    		position: 'top',
+			showConfirmButton: false,
+    		timer: 2000,
+    		icon: 'error',
+    		title: '請檢查帳號是否可以使用!!',
+    	})
 	} else {
-		if(confirm("確定註冊資料？")){
-// 		 	window.alert("註冊成功，請至信箱收取驗證碼機活此帳號")
-			$('#form1').submit();
-		}
+		Swal.fire({
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonText: "確定",
+			cancelButtonText: "取消",
+			title: "確定註冊帳號?"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$("#form1").submit();
+			}
+		});
 	}
 }
+
+
 	
 	
 </script>
