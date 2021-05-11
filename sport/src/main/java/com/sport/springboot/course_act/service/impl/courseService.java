@@ -124,7 +124,8 @@ public class courseService  {
 								String courseIntroduce,
 								int freq,
 								String from,
-								int teacherId
+								int teacherId,
+								String place
 									) {
 		courseBean course=coursedao.getOne(courseId);
 		course.setCourseCost(courseCost);
@@ -137,7 +138,6 @@ public class courseService  {
 		String courseTimeEnd = (courseKind.split(" ")[1]).split("~")[1];
 		
 		//假裝場地
-		String place="";
 		boolean b=catimeservice.deleteTimeByCourse(course);
 		if(b) {
 			boolean result=catimeservice.checkTimeCanRentOrNot(from, courseTimeStart, courseTimeEnd, freq, place, type, course, null);

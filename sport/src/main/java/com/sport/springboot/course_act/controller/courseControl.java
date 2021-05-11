@@ -122,6 +122,7 @@ public class courseControl {
 			@RequestParam String from,
 			@RequestParam String freq,
 			@RequestParam String teacherId,
+			@RequestParam String coursePlace,
 			@RequestParam String studentMaxNum,
 			@RequestParam String courseIntroduce,
 			Model model
@@ -134,7 +135,7 @@ public class courseControl {
 		int studentmaxnum= Integer.parseInt(studentMaxNum);
 		int fre=Integer.parseInt(freq);
 		int tId=Integer.parseInt(teacherId);
-		boolean b=courseservice.updateCourse(id, cost, courseKind,studentmaxnum, courseIntroduce, fre, from, tId);
+		boolean b=courseservice.updateCourse(id, cost, courseKind,studentmaxnum, courseIntroduce, fre, from, tId,coursePlace);
 		if (b) {
 			model.addAttribute("result", "更新成功");
 			System.out.println("update ok");

@@ -68,12 +68,10 @@
 						<option value="F 14:00~15:00">F 14:00~15:00</option>
 						<option value="G 15:00~16:00">F 15:00~16:00</option>
 						<option value="H 16:00~17:00">F 16:00~17:00</option>
+						
 				</select>
         </div>
-        <div class="st1">
-            <label for="account" class="t1">課程費用: </label><input id="cost" name="courseCost" value="${course.courseCost}"/>
-            <span id="spcost" style="display:none;">輸入資料有誤</span>
-        </div>
+        
         
         <div class="st1">
             <label for="account" class="t1">上課次數: </label><select name="freq" id="to">
@@ -89,6 +87,10 @@
 				</select>
         </div>
         <div class="st1">
+            <label for="account" class="t1">課程費用: </label><input id="cost" name="courseCost" style="color:gray" value="${course.courseCost}" readOnly/>
+            <span id="spcost" style="display:none;">輸入資料有誤</span>
+        </div>
+        <div class="st1">
             <label for="account" class="t1">開課日期: </label><span id="courseDate">${timeList[2]}</span>
         </div>
         <div class="st1">
@@ -96,9 +98,11 @@
         </div>
         <div class="st1">
             <label for="account" class="t1">修改場地: </label>
-            <c:forEach var="item1" items="${fieldList}" varStatus="status">
-						<option value="${item1.id}">${item1.name}</option>
-						</c:forEach>
+           <select name="coursePlace" id="CP">
+            	<c:forEach var="item1" items="${fieldList}" varStatus="status">
+					<option value="${item1.id}">${item1.name}</option>
+				</c:forEach>
+			</select>
         </div>
             <div class="st1">
             <label for="account" class="t1">老師: </label><select name="teacherId" id="to">
@@ -134,6 +138,12 @@
 	    }
 	  });
 });*/
+
+$("#to").change(function() {
+	let toval=$("#to").val();
+	let total=toval*300;
+	$("#cost").attr("value",total);
+});
 
 $("#updateValue").on("click",function(){
 	let isNull=true;

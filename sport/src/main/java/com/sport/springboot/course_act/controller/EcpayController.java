@@ -66,6 +66,8 @@ public class EcpayController {
 			for(int i=0;i<courseOrderList.size();i++) {
 				Set<EcpayOrderBean> ecpayOrderSet = courseOrderList.get(i).getECpay();
 				Iterator<EcpayOrderBean> ecpayOrderIt = ecpayOrderSet.iterator();
+			
+				 
 				while(ecpayOrderIt.hasNext()) {
 					
 					
@@ -92,6 +94,7 @@ public class EcpayController {
 				}
 			}
 			for(int i=0;i<updatecourseOrderList.size();i++) {
+				updatecourseOrderList.get(i).setMerchantTradeNo(MerchantTradeNo);
 				courseorderservice.updateCourseOrder(updatecourseOrderList.get(i));
 			}
 			

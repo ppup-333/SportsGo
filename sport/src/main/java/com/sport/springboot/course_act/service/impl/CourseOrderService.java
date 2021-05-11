@@ -31,6 +31,11 @@ public class CourseOrderService {
 		return courseOrder;
 	}
 	
+	public List<CourseOrderBean> selectByPaystament(int payState){
+		List<CourseOrderBean> courseOrder=CourseOrderDao.wherePayState(payState);
+		return courseOrder;
+	}
+	
 	public List<CourseOrderBean> selectByAccountAndPaystament(String account,int payState){
 		List<CourseOrderBean> courseOrder=CourseOrderDao.whereAccount(account,payState);
 		return courseOrder;
@@ -39,6 +44,15 @@ public class CourseOrderService {
 	public void updateCourseOrder(CourseOrderBean courseOrder) {
 		CourseOrderDao.save(courseOrder);
 	}
+	
+	public List<CourseOrderBean> selectAll(){
+		return CourseOrderDao.findAll();
+	}
+	
+	public CourseOrderBean getOne(Integer id) {
+		return CourseOrderDao.getOne(id);
+	}
+	
 	
 	public CourseOrderBean insertOrder(int courseId, String account,int cost, String remark) {
 			

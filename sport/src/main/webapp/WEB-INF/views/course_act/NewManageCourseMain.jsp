@@ -175,13 +175,7 @@ function sport(s){
 					DateStart=result[i].DateStart;
 					tempDateStart=DateStart;
 					for(let j=0;j<=GetDateDiff1;j+=7){
-						let tempDate=tempDateStart.substring(8);
-							let intdate=parseInt(tempDate, 10);
-							let date=intdate+7;
-							let ym=tempDateStart.substring(0,8);
-							let d=ym+date;
-							completeDate=transformdate(d);
-							tempDateStart=completeDate;
+						
 							
 						if(j==0){
 							if(GetDateDiff1==0){
@@ -196,12 +190,26 @@ function sport(s){
 							context+="\"constraint\":\"businessHours\"},"
 							}
 															
-						}else if(j==GetDateDiff1){						
+						}else if(j==GetDateDiff1){		
+							let tempDate=tempDateStart.substring(8);
+							let intdate=parseInt(tempDate, 10);
+							let date=intdate+7;
+							let ym=tempDateStart.substring(0,8);
+							let d=ym+date;
+							completeDate=transformdate(d);
+							tempDateStart=completeDate;
 							context+="{\"id\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 							context+="\"start\":\""+tempDateStart+"\","
 							context+="\"constraint\":\"businessHours\"}"	
 						}else{
+							let tempDate=tempDateStart.substring(8);
+							let intdate=parseInt(tempDate, 10);
+							let date=intdate+7;
+							let ym=tempDateStart.substring(0,8);
+							let d=ym+date;
+							completeDate=transformdate(d);
+							tempDateStart=completeDate;
 							context+="{\"id\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 							context+="\"start\":\""+tempDateStart+"\","
@@ -214,7 +222,7 @@ function sport(s){
 		      }
 			context+="]";
 			console.log(context);
-			
+			let calendertoday=new Date();
 			let eventCal=JSON.parse(context);
 			context="";
 			$("#animation").removeClass("loader");
@@ -227,7 +235,7 @@ function sport(s){
 		        right: 'dayGridMonth'
 		    //    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
 		      },
-		      initialDate: result[0].DateStart,
+		      initialDate: calendertoday,
 		      navLinks: true, // can click day/week names to navigate views
 		      businessHours: true, // display business hours
 		      editable: true,
