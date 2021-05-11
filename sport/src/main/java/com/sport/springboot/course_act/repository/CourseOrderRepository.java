@@ -19,6 +19,9 @@ public interface CourseOrderRepository extends JpaRepository<CourseOrderBean,Int
 	
 	@Query("select c from CourseOrderBean c where courseId=:courseId")
 	public List<CourseOrderBean> whereCourseId(@Param("courseId")int courseId);
+
+	@Query("select c from CourseOrderBean c where payState=:payState")
+	public List<CourseOrderBean> wherePayState(@Param("payState")int payState);
 	
 
 }

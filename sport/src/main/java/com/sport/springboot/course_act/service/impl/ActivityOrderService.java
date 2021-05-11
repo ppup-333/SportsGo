@@ -36,9 +36,17 @@ public class ActivityOrderService {
 		List<ActivityOrderBean> activityOrder=ActivityOrderDao.whereAccount(account,payState);
 		return activityOrder;
 	}
-	 
-	public void updateCourseOrder(ActivityOrderBean activityOrder) {
+	public List<ActivityOrderBean> selectByPaystament(int payState){
+		List<ActivityOrderBean> activityOrder=ActivityOrderDao.wherePayState(payState);
+		return activityOrder;
+	} 
+	
+	public void updateActivityOrder(ActivityOrderBean activityOrder) {
 		ActivityOrderDao.save(activityOrder);
+	}
+	
+	public List<ActivityOrderBean> selectAll(){
+		return ActivityOrderDao.findAll();
 	}
 	
 	public ActivityOrderBean insertOrder(int actId, String account,int cost, String remark) {

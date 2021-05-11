@@ -32,6 +32,7 @@ public class CourseOrderBean {
 	private String account;
 	private int payState;
 	private String remark;
+	private String MerchantTradeNo;
 	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "courseOrderBean",cascade = CascadeType.ALL)
 	Set<EcpayOrderBean> ECpay=new HashSet<>();
@@ -42,10 +43,17 @@ public class CourseOrderBean {
 	private courseBean coursebean;
 	
 	
-
-
 	
 	
+	
+	public String getMerchantTradeNo() {
+		return MerchantTradeNo;
+	}
+
+	public void setMerchantTradeNo(String merchantTradeNo) {
+		MerchantTradeNo = merchantTradeNo;
+	}
+
 	public int getCost() {
 		return cost;
 	}

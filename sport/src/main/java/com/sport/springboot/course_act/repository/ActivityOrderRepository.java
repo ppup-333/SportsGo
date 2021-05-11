@@ -19,4 +19,7 @@ public interface ActivityOrderRepository extends JpaRepository<ActivityOrderBean
 	
 	@Query("select c from ActivityOrderBean c where actId=:actId")
 	public List<ActivityOrderBean> whereCourseId(@Param("actId")int actId);
+	
+	@Query("select c from ActivityOrderBean c where payState=:payState")
+	public List<ActivityOrderBean> wherePayState(@Param("payState")int payState);
 }

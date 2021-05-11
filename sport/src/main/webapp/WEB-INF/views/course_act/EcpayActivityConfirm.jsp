@@ -7,7 +7,7 @@
 <title>EcpayOrderConfirm</title>
 </head>
 <body>
-<form  id="ecpay" method="post" action="../springsport/ecpayAct">
+<form  id="ecpay" method="post" action="../sport/ecpayAct">
 <table>
 <tr><td>account<td>${account}
 <tr><td>課程名稱<td>${itemName}

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sport.springboot.course_act.model.ActivityOrderBean;
 import com.sport.springboot.course_act.model.CATime;
+import com.sport.springboot.course_act.model.CourseOrderBean;
 import com.sport.springboot.course_act.model.EcpayOrderActBean;
 import com.sport.springboot.course_act.model.activityBean;
 import com.sport.springboot.course_act.service.impl.ActivityOrderService;
@@ -57,12 +58,13 @@ public class EcpayActController {
 	public String order(Model model) {
 		String account="mary123";
 		String MerchantTradeNo="";
-		List<ActivityOrderBean> courseOrderList=activityorderservice.selectByAccount(account);
+		List<ActivityOrderBean> actOrderList=activityorderservice.selectByAccount(account);
+		List<ActivityOrderBean> updateActOrderList=new ArrayList<>();
 		
 		String result="";
-		if(!courseOrderList.isEmpty()) {
-			for(int i=0;i<courseOrderList.size();i++) {
-				Set<EcpayOrderActBean> ecpayOrderSet = courseOrderList.get(i).getECpayOrder();
+		if(!actOrderList.isEmpty()) {
+			for(int i=0;i<actOrderList.size();i++) {
+				Set<EcpayOrderActBean> ecpayOrderSet = actOrderList.get(i).getECpayOrder();
 				Iterator<EcpayOrderActBean> ecpayOrderIt = ecpayOrderSet.iterator();
 				while(ecpayOrderIt.hasNext()) {
 					EcpayOrderActBean ecpayOrder = ecpayOrderIt.next();
@@ -79,12 +81,18 @@ public class EcpayActController {
 					String TradeStatus=(Status.split("="))[1];
 					System.out.println(TradeStatus);
 						if(Integer.parseInt(TradeStatus)==1) {
-							ActivityOrderBean courseOrder=courseOrderList.get(i);
-							courseOrder.setPayState(1);
-							activityorderservice.updateCourseOrder(courseOrder);
+							ActivityOrderBean actOrder=actOrderList.get(i);
+							actOrder.setPayState(1);
+							updateActOrderList.add(actOrder);
+							
 						}
 					
 				}
+			}
+			
+			for(int i=0;i<updateActOrderList.size();i++) {
+				updateActOrderList.get(i).setMerchantTradeNo(MerchantTradeNo);
+				activityorderservice.updateActivityOrder(updateActOrderList.get(i));
 			}
 			
 			List<List> resultList=new ArrayList<>();

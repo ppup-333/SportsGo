@@ -26,7 +26,7 @@ public class ActivityOrderBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="orderId")
 	private int orderId;
-	private int MerchantTradeNo;
+	private String MerchantTradeNo;
 	private String orderDate;
 	private int actId;
 	private int cost;
@@ -40,6 +40,7 @@ public class ActivityOrderBean {
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name="actId",insertable = false, updatable = false)
 	private activityBean activitybean;
+	
 	
 	public int getOrderId() {
 		return orderId;
@@ -57,11 +58,15 @@ public class ActivityOrderBean {
 		this.orderId = orderId;
 	}
 
-	public int getMerchantTradeNo() {
+	
+
+	
+
+	public String getMerchantTradeNo() {
 		return MerchantTradeNo;
 	}
 
-	public void setMerchantTradeNo(int merchantTradeNo) {
+	public void setMerchantTradeNo(String merchantTradeNo) {
 		MerchantTradeNo = merchantTradeNo;
 	}
 
