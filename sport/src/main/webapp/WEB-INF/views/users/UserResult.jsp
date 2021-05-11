@@ -9,15 +9,16 @@
 <c:import url="../headerScript.jsp"/>
 <style>
 
-.f1{
-	font-size:15px;
-	width:600px;
-	margin:auto;
-}
+ 	.f1{ 
+ 	font-size:15px; 
+/*  	width:550px;  */
+ 	margin-left:780px; 
+ 	margin-top:50px;
+ 	} 
 
-.d1{
-	margin:20px 630px;
-}
+ 	.d1{ 
+ 	margin:20px 780px; 
+ 	} 
 
 </style>
 <meta charset="UTF-8">
@@ -26,7 +27,7 @@
 <body>
 <c:import url="../newheader.jsp"/>
 	<fieldset class='f1'>
-		<legend >會員資料</legend>
+		<legend>會員資料</legend>
 		<div>
 			<table>
 				<tr>
@@ -38,7 +39,7 @@
 					<td>${user.name}<br><br></td>
 				</tr>
 				<tr>
-					<td>身分證字號：&nbsp;<br><br></td>
+					<td>身分證字號：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br></td>
 					<td>${user.id}<br><br></td>
 				</tr>
 				<tr>
@@ -78,8 +79,8 @@
 		</div>
 	</fieldset>
 		<div class='d1'>
-			<input type='button' value='修改資料' onclick='location.href="userUpdate"'>
-			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'>
+			<input type='button' value='修改資料' onclick='location.href="userUpdate"'>&nbsp;&nbsp;
+<!-- 			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'> -->
 			<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
 		</div>
 </body>

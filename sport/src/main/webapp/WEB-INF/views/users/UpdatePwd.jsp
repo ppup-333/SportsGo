@@ -35,15 +35,16 @@
 		font-size: 5pt;
 	}
 	
-	.f1{
-	font-size:15px;
-	width:450px;
-	margin:auto;
-	}
+ 	.f1{ 
+ 	font-size:15px; 
+/*  	width:550px;  */
+ 	margin-left:780px; 
+ 	margin-top:50px;
+ 	} 
 
-	.d1{
-	margin:20px 715px;
-	}
+ 	.d1{ 
+ 	margin:20px 780px; 
+ 	} 
 </style>
 <meta charset="UTF-8">
 <title>輸入新密碼</title>
@@ -84,8 +85,8 @@
 		</form:form>
 	</fieldset>
 	<div class='d1'>
-		<input type='button' value='送出' onclick='dataSubmit()'>
-		<input type='button' value='返回登入頁面' onclick='location.href="Login"'>
+		<input type='button' value='送出' onclick='dataSubmit()'>&nbsp;&nbsp;
+		<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
 	</div>
 	
 <script>

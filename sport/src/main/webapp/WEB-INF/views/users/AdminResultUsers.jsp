@@ -47,6 +47,7 @@
 		position:relative;
 		top:-50px;
     	left:950px;
+    	width:300px;
 	}
 	
 </style>

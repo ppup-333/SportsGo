@@ -38,16 +38,16 @@
 		font-size: 15pt;
 	}
 	
-	.f1{
-		font-size:15px;
-		height:auto;
-		width:350px;
-		margin:auto;
-	}
+ 	.f1{ 
+ 	font-size:15px; 
+/*  	width:550px;  */
+ 	margin-left:780px; 
+ 	margin-top:50px;
+ 	} 
 
-	.d1{
-		margin:20px 765px;
-	}
+ 	.d1{ 
+ 	margin:20px 780px; 
+ 	} 
 	
 </style>
 <script>
@@ -86,8 +86,8 @@
 	</form:form>
 </fieldset>
 		<div class='d1'>
-			<input type='button' value='登入' onclick='form1.submit()'>
-			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'>
+			<input type='button' value='登入' onclick='form1.submit()'>&nbsp;&nbsp;
+			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'>&nbsp;&nbsp;
 <!-- 			<input type='button' value='註冊' onclick='location.href="RegisterEdit"'> -->
 <!-- 			<input type='button' value='忘記密碼' onclick='location.href="ForgetPwd"'> -->
 			<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>

@@ -47,15 +47,16 @@
 		font-size: 5pt;
 	}
 	
-	.f1{
-	font-size:15px;
-	width:600px;
-	margin:auto;
-	}
+ 	.f1{ 
+ 	font-size:15px; 
+/*  	width:550px;  */
+ 	margin-left:780px; 
+ 	margin-top:50px;
+ 	} 
 
-	.d1{
-	margin:20px 630px;
-	}
+ 	.d1{ 
+ 	margin:20px 780px; 
+ 	} 
 </style>
 
 </head>
@@ -79,7 +80,7 @@
 		     				<form:errors path='name' cssClass="error"/></td>
 		     		</tr>
 		     		<tr>
-	      				<td>身分證字號：<br>&nbsp;</td>
+	      				<td>身分證字號：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;</td>
 		  				<td width='360'><form:input path='id' readonly="true"/><br>&nbsp;
 		     		</tr>
 		     		<tr>
@@ -127,7 +128,7 @@
 		</form:form>
 	</fieldset>
 	<div class='d1'>
-		<input type='button' value='送出' onclick='dataSubmit()'>
+		<input type='button' value='送出' onclick='dataSubmit()'>&nbsp;&nbsp;
 		<input type='button' value='回上一頁' onclick='location.href="userResult"'>
 	</div>
 	
