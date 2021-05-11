@@ -15,6 +15,7 @@ public interface FieldActOrderService {
 	//boolean checkOrderTime();
 	//boolean checkOrderTime(String Date, String time, String place);
 	List<FieldOrderDetail> checkOrderTime(String fieldId, String date, String startTime, String endTime);
-	
+	boolean changeOrderStatusByCourseId(int courseId);
+	boolean changeOrderStatusByActId(int actId);
 	
 }

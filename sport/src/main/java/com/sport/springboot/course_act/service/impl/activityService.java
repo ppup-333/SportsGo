@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sport.springboot.course_act.model.activityBean;
 import com.sport.springboot.course_act.repository.activityRepository;
+import com.sport.springboot.field.service.FieldActOrderService;
+import com.sport.springboot.field.service.impl.FieldActOrderServiceImpl;
 
 @Service
 public class activityService {
@@ -19,6 +21,8 @@ public class activityService {
 	@Autowired
 	private CATimeService catimeservice;
 
+	@Autowired
+	FieldActOrderServiceImpl fieldActOrderService;
 	
 	public Optional<activityBean> selectId(int id) {
 		return activityDao.findById(id);
@@ -110,28 +114,33 @@ public class activityService {
 			ds=Date-ds;
 			freq=ds+de;			
 		}
-		
-		boolean b=catimeservice.deleteTimeByAct(act);
-		if(b) {
-			boolean timeCheck=catimeservice.checkTimeCanRentOrNot(dateStart, timeStart, timeEnd, freq, place,type,null,act);
-			try {
-				if(timeCheck) {	
-				activityDao.save(act);
-				System.out.println("活動更新成功");
-				return true;
-				}else {
-					System.out.println("活動更新失敗-時間檢查重複");
+		boolean orderStatus = fieldActOrderService.changeOrderStatusByActId(act.getActId());
+		if(orderStatus) {
+			boolean b=catimeservice.deleteTimeByAct(act);
+			if(b) {
+				boolean timeCheck=catimeservice.checkTimeCanRentOrNot(dateStart, timeStart, timeEnd, freq, place,type,null,act);
+				try {
+					if(timeCheck) {	
+					activityDao.save(act);
+					System.out.println("活動更新成功");
+					return true;
+					}else {
+						System.out.println("活動更新失敗-時間檢查重複");
+						return false;
+					}
+				}catch(Exception e) {
+					e.printStackTrace();
+					System.out.println("活動更新失敗-不可預期錯誤");
 					return false;
 				}
-			}catch(Exception e) {
-				e.printStackTrace();
-				System.out.println("活動更新失敗-不可預期錯誤");
+			}else {
+				System.out.println("活動更新失敗-刪除失敗");
 				return false;
 			}
 		}else {
-			System.out.println("活動更新失敗-刪除失敗");
 			return false;
 		}
+		
 		
 		
 	}

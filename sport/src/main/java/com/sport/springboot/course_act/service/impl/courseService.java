@@ -13,6 +13,7 @@ import com.sport.springboot.course_act.model.CATime;
 import com.sport.springboot.course_act.model.CourseOrderBean;
 import com.sport.springboot.course_act.model.courseBean;
 import com.sport.springboot.course_act.repository.courseRepository;
+import com.sport.springboot.field.service.impl.FieldActOrderServiceImpl;
 
 
 @Service
@@ -26,7 +27,8 @@ public class courseService  {
 	private teacherService teacherservice;
 	@Autowired
 	private CourseOrderService courseorderservice;
-
+	@Autowired
+	FieldActOrderServiceImpl fieldActOrderService;
 	
 	public void updateStudentCurrent(int courseId) {
 		Optional<courseBean> courseBean=coursedao.findById(courseId);
@@ -137,26 +139,34 @@ public class courseService  {
 		String courseTimeStart = (courseKind.split(" ")[1]).split("~")[0];
 		String courseTimeEnd = (courseKind.split(" ")[1]).split("~")[1];
 		
-
-		boolean b=catimeservice.deleteTimeByCourse(course);
 		//場地訂單換狀態
-		
-		if(b) {
-			boolean result=catimeservice.checkTimeCanRentOrNot(from, courseTimeStart, courseTimeEnd, freq, place, type, course, null);
-			try {
-				if(result) {			
-					coursedao.save(course);					
-					return true;
-				}else {
+		boolean orderStatus = fieldActOrderService.changeOrderStatusByCourseId(courseId);
+		if(orderStatus) {
+			//刪除原本CATime 時間
+			boolean b=catimeservice.deleteTimeByCourse(course);			
+			if(b) {
+				//重新新增時間與更改場地狀態
+				boolean result=catimeservice.checkTimeCanRentOrNot(from, courseTimeStart, courseTimeEnd, freq, place, type, course, null);
+				try {
+					if(result) {			
+						coursedao.save(course);					
+						return true;
+					}else {
+						return false;
+					}
+					
+				}catch(Exception e) {
+					e.printStackTrace();
 					return false;
 				}
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-				return false;
+			
 			}
-		
+		}else {
+			return false;
 		}
+	
+		
+		
 		
 		return false;
 	}
