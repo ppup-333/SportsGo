@@ -168,15 +168,22 @@ function generatePage(currentPage){
 					}
 				}else if(pageNum > 3 && total <= (pageNum+2)){
 					for(var i = total - 4; i <=total; i++){
+						if(i==0){
+							i = i + 1
+						}
 						if(i == pageNum){
 							$('.pagination').append('<li class="page-item"><a id="link'+i+'" class="page-link myMOUSE"  onclick="" >'+ i +'</a></li>');
 						}else{
+							
 							var pageNumber = "generatePage("+ i +")"
 							$('.pagination').append('<li class="page-item"><a id="link'+i+'" class="page-link myMOUSE"  onclick="'+ pageNumber + '" >'+ i +'</a></li>');
 						}
 					}
 				}else if(pageNum > 3 && total > (pageNum + 2)){
 					for(var i = pageNum - 2; i <= pageNum + 2; i ++){
+						if(i==0){
+							i = i + 1
+						}
 						if(i == pageNum){
 							$('.pagination').append('<li class="page-item"><a id="link'+i+'" class="page-link myMOUSE"  onclick="" >'+ i +'</a></li>');
 						}else{

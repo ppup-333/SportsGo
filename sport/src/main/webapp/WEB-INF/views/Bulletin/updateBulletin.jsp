@@ -32,10 +32,10 @@ span.error {
 	font-size: 5pt;
 }
 
-textarea {
-	width: 300px;
-	height: 250px;
+#className{
+	width:180px;
 }
+
 </style>
 <script>
 	function checkForm(){
@@ -163,6 +163,7 @@ textarea {
 		<h2>編輯公告</h2>
 		
 		<div class="container">
+			<div class="form-container">
 			<hr>
 			<fieldset>
 			
@@ -191,7 +192,7 @@ textarea {
 							placeholder="請輸入公告內容" rows="6"></form:textarea>
 						<form:errors path='contents' cssClass="error" />
 					</div>
-					<div class="form-group">
+					<div class="form-group" style="position:relative">
 						<label for="className">公告分類:</label>
 						<form:select id="className" path="class_id.id" class="form-control"
 							aria-describedby="classNameHelp">
@@ -202,15 +203,18 @@ textarea {
 					</div>
 	
 					<div class="form-group">
+						<div class="btn-group-vertical">
 						<label class="btn btn-info">
 							<form:input id="imgInput" class="form-control-file"  path="productImage" type='file' value="" style="display:none;"/>
 							<i class="fas fa-image"></i> 上傳圖片
 						</label>
 						<form:errors path="productImage" cssClass="error" />
+					
 						<label class="btn btn-info">
 							<input type='button' onclick="resetImg(${bulletin.id});" style="display:none;float:left" />
 							<i class="fas fa-times-circle"></i>清空圖片
 						</label>
+						</div>
 						<c:choose>
 							<c:when test='${bulletin.image != null}'>
 								<img id='previewImg' width='180' height='216'
@@ -219,22 +223,21 @@ textarea {
 							<c:otherwise>
 								<img width='180' height='216' id="previewImg"/>
 							</c:otherwise>
-						</c:choose>
-					
-						
+						</c:choose>		
 					</div>
-					<input type='button' value="更新公告" onclick='checkForm();' />
-	
+					
 	
 				</form:form>
 			</fieldset>
+			</div>
+			<hr>
+			<a class="btn btn-secondary" onclick='checkForm();' >更新公告</a>
+			<a class="btn btn-secondary" onclick="checkEdit();"  >返回</a>
 		</div>
+		
 	</div>
 	<br>
-	<div align="center">
-		<input type="button" onclick="checkEdit()" value="返回" />
-<%-- 		<a href="<c:url value='/Bulletin/showAllBulletin'/> ">回前頁</a> --%>
-	</div>
+	
 <!-- 	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 </body>
 </html>

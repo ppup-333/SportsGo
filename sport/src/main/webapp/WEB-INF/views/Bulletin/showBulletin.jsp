@@ -14,13 +14,30 @@
 
 </head>
 <style>
-	.box{
-		margin-top:100px;
+
 	
+	.box{
+		margin-top:20px;
+		margin-bottom:100px;
 	}
 	.box-center{
 		border:1px solid black;
 	}
+	.head{
+		margin: 0 auto;
+		position:relative;
+		margin-bottom:50px;
+	}
+	.head-icon{
+		position:absolute;
+	}
+	.headTitle{
+		padding-left:80px;
+		margin-top:35px;
+		
+		float:left;
+	}
+	
 	.title-container > h2{
 /* 		text-align:left; */
 		
@@ -56,6 +73,12 @@
 	.clear{
 		margin-top:20px;
 		clear:both;
+	}
+	hr.style-one {
+	    border: 0;
+	    height: 1px;
+	    background: #333;
+	    background-image: linear-gradient(to right, #ccc, #333, #ccc);
 	}
 </style>
 <script type='text/javascript'>
@@ -128,9 +151,17 @@ $(document).ready(function() {
 <body>
 <c:import url="../newheader.jsp"/>
 <input id='bulletinId' style='display:none' value='${bulletin.id }'>
+		
 	<div class="box">
 		<div class="container">
-				
+			<div class="head">
+				<span class="head-icon">
+				<img src="/sport/images/bulletin/running.png" width="80" height="80"></img>
+				</span>
+				<h2 class="headTitle">公告內容</h2>
+			</div>
+			<div class="clear"></div>
+			<hr class="style-one" />
 			<div id="title" class="title-container">
 				
 			</div>
@@ -146,8 +177,13 @@ $(document).ready(function() {
 				</div>
 				<div id="contents" class="contents-container">	
 				</div>
-			
 			<div class="clear"></div>
+			<br>
+			<hr class="style-one" />
+			<div class="back-btn" style="text-align:center">
+				<button  type="button" class="btn btn-outline-dark" onclick="location.href='/sport/Bulletin/viewBulletin'">返回列表</button>
+			</div>
+<%-- 		<a href="<c:url value='/Bulletin/viewBulletin'/> " >回前頁</a> --%>
 		</div>
 	</div>
 
@@ -159,8 +195,8 @@ $(document).ready(function() {
 <!-- 			<button type="submit" id='deletelink'>刪除公告</button> -->
 <!-- 		</form> -->
 	
-		<a href="<c:url value='/Bulletin/viewBulletin'/> " >回前頁</a>
- 	</div> 
+		
+ 
 
 
 

@@ -39,6 +39,11 @@
 .myMOUSE{ 
 	cursor: pointer; 
 }
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover{
+	background-color: #d7e5f4;
+}
+
+
 </style>
 
 <script>
@@ -223,9 +228,9 @@
 				var data = JSON.parse(this.responseText);
 				console.log(data);
 				$("#allBulletins").empty();
-				var $table = $('<table class="table table-striped">').appendTo(
+				var $table = $('<table class="table table-striped table-hover">').appendTo(
 						$('#allBulletins')).append(
-						"<tr><th>公告類型</th><th>公告標題</th><th>公告更新時間</th><th>編輯公告</th><th>刪除公告</th></tr>");
+						"<tr class='bg-info' style='color:white'><th>公告類型</th><th>公告標題</th><th>公告更新時間</th><th>編輯公告</th><th>刪除公告</th></tr>");
 				$('#allBulletins').append($table);
 				$.each(data, function(index, bulletin) {
 					var tmp = "<c:url value='/' />Bulletin/showBulletinContent/" + bulletin.id;
@@ -268,9 +273,9 @@
 				var data = JSON.parse(this.responseText);
 				console.log(data);
 				$("#allBulletins").empty();
-				var $table = $('<table class="table table-striped">').appendTo(
+				var $table = $('<table class="table table-striped table-hover">').appendTo(
 						$('#allBulletins')).append(
-						"<tr><th>公告類型</th><th>公告標題</th><th>公告更新時間</th><th>編輯公告</th><th>刪除公告</th></tr>");
+						"<tr class='bg-info' style='color:white'><th>公告類型</th><th>公告標題</th><th>公告更新時間</th><th>編輯公告</th><th>刪除公告</th></tr>");
 				$('#allBulletins').append($table);
 				$.each(data, function(index, bulletin) {
 					var tmp = "<c:url value='/' />Bulletin/showBulletinContent/" + bulletin.id;
@@ -372,6 +377,7 @@
 		</div>
 		<div id="allBulletins" class="container"></div>
 		<div class="container">
+			<hr>
 			<ul class="pagination">
 				<li class="page-item"><a class="page-link" id="prevPage"
 					href="#">Previous</a></li>

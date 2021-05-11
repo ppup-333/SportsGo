@@ -31,6 +31,9 @@ span.error {
 .container{
 	
 }
+#className{
+	width:180px;
+}
 </style>
 <script>
 	function checkForm(){
@@ -150,8 +153,9 @@ span.error {
 	<div class="box">
 		<h2>新增公告</h2>
 		<div class="container">
-		<hr>
-		<fieldset>
+			<div = class="formcontainer">
+			<hr>
+			<fieldset>
 			
 			<form:form id="insertForm" name="insertForm" method="POST" modelAttribute="bulletin" enctype='multipart/form-data'>
 					<div class="form-group">
@@ -179,30 +183,39 @@ span.error {
 						</form:select> <form:errors path="class" cssClass="error" />
 					</div>
 					<div class="form-group">
+						<div class="btn-group-vertical">
 						<label class="btn btn-info">
 							<form:input id="imgInput" class="form-control-file"  path="productImage" type='file' value="" style="display:none;"/>
 							<i class="fas fa-image"></i> 上傳圖片
 						</label>
-							<form:errors path="productImage" cssClass="error" />
-						
-							<img width='180'height='216' id="previewImg" />
-							
-					</div>	
-					<input type='button' onclick="resetImg();" value='清空圖片' />
-					<input type='button' value="發布公告" onclick='checkForm();' />
-			</form:form>	
-		</fieldset>
-<!-- 		<label class="btn btn-info"> -->
-<!-- 		<input id="upload_img" style="display:none;" type="file"> -->
-<!-- 		<i class="fas fa-image"></i> 上傳圖片 -->
-<!-- 		</label> -->
+						<form:errors path="productImage" cssClass="error" />
+					
+						<label class="btn btn-info">
+							<input type='button' onclick="resetImg(${bulletin.id});" style="display:none;float:left" />
+							<i class="fas fa-times-circle"></i>清空圖片
+						</label>
+						</div>
+						<c:choose>
+							<c:when test='${bulletin.image != null}'>
+								<img id='previewImg' width='180' height='216'
+									src='<c:url value="/Bulletin/picture/${bulletin.id }"/>' />
+							</c:when>
+							<c:otherwise>
+								<img width='180' height='216' id="previewImg"/>
+							</c:otherwise>
+						</c:choose>		
+					</div>
+					
+	
+				</form:form>
+			</fieldset>
+			</div>
+			<hr>
+			<a class="btn btn-secondary" onclick='checkForm();' >上傳公告</a>
+			<a class="btn btn-secondary" onclick="checkEdit();"  >返回</a>
 		</div>
 	</div>
 	<br>
-	<div align="center">
-		<input type="button" onclick="checkEdit()" value="返回" />
-<%-- 		<a href="<c:url value='/Bulletin/showAllBulletin'/> ">回前頁</a> --%>
-	</div>
 	
 	
 	
