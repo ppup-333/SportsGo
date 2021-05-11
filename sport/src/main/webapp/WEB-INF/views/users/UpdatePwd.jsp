@@ -94,9 +94,17 @@
 <script>
 
 function dataSubmit(){
-	if(confirm("確定要修改密碼？")){
-		$('#form1').submit();
-	}
+	Swal.fire({
+		icon: "question",
+		showCancelButton: true,
+		confirmButtonText: "確定",
+		cancelButtonText: "取消",
+		title: "確定修改新密碼?"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$("#form1").submit();
+		}
+	});
 }
 
 </script>

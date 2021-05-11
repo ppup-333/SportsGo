@@ -114,17 +114,13 @@
 								<td>請輸入要新增的帳號：&nbsp;</td>
 								<td><input type='text' id='inputAct' name='inputAct'/>&nbsp;&nbsp;</td>
 							</tr>
-<!-- 							<tr> -->
-<!-- 								<td> -->
-<!-- 		     						<div id='result0c'></div><br> -->
-<!-- 		     					</td> -->
-<!-- 							</tr> -->
 						</table>
       				</div>
       			</form>
       				<div class="modal-footer">
         				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         				<button type="button" class="btn btn-primary" onclick="addAdmin()">確認送出</button>
+<!--         				<button type="button" class="btn btn-primary" id="add1">確認送出</button> -->
       				</div>
     			</div>
   			</div>
@@ -211,28 +207,91 @@ function select1(){
 	}
 }
 
-function addAdmin(){
-	var inputAct = selectAct = document.getElementById("inputAct").value;
+// function addAdmin(){
+// 	var inputAct = selectAct = document.getElementById("inputAct").value;
 	
-	if(inputAct == ""){
-		window.alert("請輸入要新增的帳號")
-	} else if (inputAct.indexOf(" ") != -1){
-		window.alert("不可輸入空白字元")
-	} else {
-		if(confirm("確定新增此帳號為管理員？")){
-		 	window.alert("新增成功")
-		 	form2.submit();
+// 	if(inputAct == ""){
+// 		window.alert("請輸入要新增的帳號")
+// 	} else if (inputAct.indexOf(" ") != -1){
+// 		window.alert("不可輸入空白字元")
+// 	} else {
+// 		if(confirm("確定新增此帳號為管理員？")){
+// 		 	window.alert("新增成功")
+// 		 	form2.submit();
+// 		}
+// 	}
+// }
+
+// function deleteAdmin() {
+	
+// 	if(confirm("確定刪除此帳號的管理員權限？")){
+// 	 	window.alert("刪除成功")
+// 	 	form1.submit();
+// 	}
+// }
+
+function deleteAdmin(){
+	Swal.fire({
+		icon: "question",
+		showCancelButton: true,
+		confirmButtonText: "確定",
+		cancelButtonText: "取消",
+		title: "確定刪除此帳號管理者權限?"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			Swal.fire({
+				icon: "success",
+				title: "刪除成功！",
+			}).then((result) => {
+				$("#form1").submit();
+			});
 		}
-	}
+	});
+	
+	
 }
 
-function deleteAdmin() {
-	
-	if(confirm("確定刪除此帳號的管理員權限？")){
-	 	window.alert("刪除成功")
-	 	form1.submit();
+function addAdmin(){
+	var inputAct = document.getElementById("inputAct").value;
+	if(inputAct == ""){
+		Swal.fire({
+			toast: true,
+    		position: 'top',
+			showConfirmButton: false,
+    		timer: 2000,
+    		icon: 'error',
+    		title: '請輸入要新增的帳號!!',
+    	})
+	} else if (inputAct.indexOf(" ") != -1){
+		Swal.fire({
+			toast: true,
+    		position: 'top',
+			showConfirmButton: false,
+    		timer: 2000,
+    		icon: 'error',
+    		title: '不可輸入空白字元!!',
+    	})
+	} else {
+		Swal.fire({
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonText: "確定",
+			cancelButtonText: "取消",
+			title: "確定新增此帳號管理者權限?"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					icon: "success",
+					title: "新增成功！",
+				}).then((result) => {
+					$("#form2").submit();
+				});
+			}
+		});
 	}
-}
+};		
+
+
 
 </script>
 <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->

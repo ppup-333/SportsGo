@@ -25,7 +25,7 @@ public class UserForgetPwdValidate implements Validator {
 		Users users = (Users) target;
 		String chkAccount = "(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{8,16}";
 		String chkId = "[A-Z]{1}[1-2]{1}[0-9]{8}";
-		String isId = users.getId();
+		String isId = users.getId().toUpperCase();
 		String chkEmail = "^.+@.+\\..{2,3}$";
 
 		boolean pass = false;
@@ -50,7 +50,7 @@ public class UserForgetPwdValidate implements Validator {
 			}
 		}
 
-		if (users.getAccount().matches(chkAccount) == false || users.getId().matches(chkId) == false || pass == false
+		if (users.getAccount().matches(chkAccount) == false || isId.matches(chkId) == false || pass == false
 				|| users.getEmail().matches(chkEmail) == false) {
 			errors.rejectValue("account", "", "查無資料或資料有誤");
 		}
