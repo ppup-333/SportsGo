@@ -56,7 +56,7 @@ function drawVisualization() {
 	      ['籃球',     basketballCountInt],	 
 	  ]);
 	  var options = {
-			    title: '運動種類占比'
+			    title: '運動種類業績占比'
 			  };
 	  chart.draw(data, options);
 

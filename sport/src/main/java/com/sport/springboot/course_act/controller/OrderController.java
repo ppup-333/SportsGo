@@ -60,7 +60,7 @@ public class OrderController {
 		List<ActivityOrderBean> activityOrderList=activityorderservice.selectAll();
 		Integer total=getOrder(courseOrderList,activityOrderList);
 		System.out.println("total==============="+total);
-	
+		
 		List<courseBean> courseList = courseservice.selectAllCourse();
 		Map<Integer,List<Integer>> totalMap=new HashMap<>();
 		Map<String,List<Integer>> sportMap=new HashMap<>();
