@@ -108,6 +108,7 @@
 					<a class="dropdown-item" href="" id="loginBtn" data-toggle="modal" data-target="#exampleModal">
 					  測試登入
 					</a>
+					<a class="dropdown-item" href="/sport/user/ForgetPwd">忘記密碼</a>
     				<a class="dropdown-item" href="/sport/user/RegisterEdit">註冊</a>
     				<a class="dropdown-item" href="/sport/admin/AdminLogin">管理員登入</a>
   				</div>  				

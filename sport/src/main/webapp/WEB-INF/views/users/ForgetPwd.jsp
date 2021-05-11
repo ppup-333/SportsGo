@@ -34,6 +34,17 @@
 		display: inline-block;
 		font-size: 13pt;
 	}
+	
+	.f1{ 
+ 	font-size:15px; 
+/*  	width:550px;  */
+ 	margin-left:620px; 
+ 	margin-top:50px;
+ 	} 
+
+ 	.d1{ 
+ 	margin:20px 620px; 
+ 	} 
 </style>
 <meta charset="UTF-8">
 <title>忘記密碼</title>
@@ -44,14 +55,14 @@
 </head>
 <body>
 <c:import url="../newheader.jsp"/>
-	<fieldset>
+	<fieldset class='f1'>
 		<legend>忘記密碼</legend>
 		<form:form method="POST" modelAttribute="forgetPwd" enctype='multipart/form-data' id="form1">
 			<div>
 				<table>
 					<tr>
 						<td colspan="2">
-							<h4>※請輸入註冊的帳號與相關資料</h4>
+							<h6 style="color:Tomato;">※請輸入註冊的帳號與相關資料</h6>
 						</td>
 					</tr>
 					<tr>
@@ -80,9 +91,9 @@
 			</div>
 		</form:form>
 	</fieldset>
-	<div>
-		<input type='button' value='送出' onclick='form1.submit()'>
-		<input type='button' value='回上一頁' onclick='location.href="Login"'>
+	<div class='d1'>
+		<input type='button' value='送出' onclick='form1.submit()'>&nbsp;&nbsp;
+		<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
 	</div>
 </body>
 </html>
