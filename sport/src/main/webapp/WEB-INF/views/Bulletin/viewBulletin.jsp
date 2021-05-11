@@ -234,7 +234,9 @@ function showBulletin(nowPage) {
 
 <body>
 <c:import url="../newheader.jsp"/>
+	
 	<div class="box">
+	<h2>最新消息</h2>
 		<div class="container">
 			<div class="bulletinAdv">
 			</div>
