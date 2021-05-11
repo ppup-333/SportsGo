@@ -478,6 +478,7 @@ public class courseControl {
 		timeList.add(DateEnd);
 		// 取得帳號資訊
 		String account = "mary123";
+		courseorderservice.selectByAccountAndPaystament(account, 1);
 		Optional<teacherBean> t=teacherservice.selectTeacher(c.getTeacherId());
 		teacherBean teacher=t.get();
 		String teacherName=teacher.getTeacherName();

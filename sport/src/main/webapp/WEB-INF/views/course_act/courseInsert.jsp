@@ -13,8 +13,8 @@
 	$(document).ready(function() {
 		
 		
-		let ckoption=["A 08:00~09:00","B 09:00~10:00","C 10:00~11:00","D 11:00~12:00",
-			"E 13:00~14:00","F 14:00~15:00","G 15:00~16:00","H 16:00~17:00"];
+		let ckoption=["B 09:00~10:00","C 10:00~11:00","D 11:00~12:00",
+			"E 13:00~14:00","F 14:00~15:00","G 15:00~16:00","H 16:00~17:00","I 17:00~18:00"];
 		const ckresult=[];
 		
 		if($("#CK option").length!=0){
@@ -34,8 +34,7 @@
 		}else{
 			console.log(ckoption.length);
 			for(let i=0;i<ckoption.length;i++){
-				 ckresult.push(ckoption[i]);
-				
+				 ckresult.push(ckoption[i]);				
 			}
 		}
 		

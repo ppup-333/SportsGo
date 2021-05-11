@@ -46,87 +46,7 @@
         float: left ;
     }
     </style>
-    
-</head>
-<body>
-
-<form  id="update" method="post" action="../sport/courseUpdateImpl">
-<fieldset>
-            <legend>修改課程資料</legend>
-         <input name="courseId" value="${course.courseId}" style="display:none"/>
-        <div class="st1">
-            <label for="account" class="t1">課程種類: </label><span id="CN">${course.courseName}</span>
-        </div>
-         <div class="st1">
-            <label for="account" class="t1">上課時段: </label><select name="courseKind" id="CK">
-            			<option value="${course.courseKind} ${timeList[0]}~${timeList[1]}">${course.courseKind} ${timeList[0]}~${timeList[1]}</option>
-						<option value="A 08:00~09:00">A 08:00~09:00</option>
-						<option value="B 09:00~10:00">B 09:00~10:00</option>
-						<option value="C 10:00~11:00">C 10:00~11:00</option>
-						<option value="D 11:00~12:00">D 11:00~12:00</option>
-						<option value="E 13:00~14:00">E 13:00~14:00</option>
-						<option value="F 14:00~15:00">F 14:00~15:00</option>
-						<option value="G 15:00~16:00">F 15:00~16:00</option>
-						<option value="H 16:00~17:00">F 16:00~17:00</option>
-						
-				</select>
-        </div>
-        
-        
-        <div class="st1">
-            <label for="account" class="t1">上課次數: </label><select name="freq" id="to">
-						<option value="${count}">${count}</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-				</select>
-        </div>
-        <div class="st1">
-            <label for="account" class="t1">課程費用: </label><input id="cost" name="courseCost" style="color:gray" value="${course.courseCost}" readOnly/>
-            <span id="spcost" style="display:none;">輸入資料有誤</span>
-        </div>
-        <div class="st1">
-            <label for="account" class="t1">開課日期: </label><span id="courseDate">${timeList[2]}</span>
-        </div>
-        <div class="st1">
-            <label for="account" class="t1">修改日期: </label><input type="date" id="from" name="from">
-        </div>
-        <div class="st1">
-            <label for="account" class="t1">修改場地: </label>
-           <select name="coursePlace" id="CP">
-            	<c:forEach var="item1" items="${fieldList}" varStatus="status">
-					<option value="${item1.id}">${item1.name}</option>
-				</c:forEach>
-			</select>
-        </div>
-            <div class="st1">
-            <label for="account" class="t1">老師: </label><select name="teacherId" id="to">
-						<option value="${teacher.teacherId}">${teacher.teacherName}</option>
-						<c:forEach var="item1" items="${teacherList}" varStatus="status">
-						<option value="${item1.teacherId}">${item1.teacherName}</option>
-						</c:forEach>
-				</select>
-        </div>
-        
-          <div class="st1">
-            <label for="account" class="t1">最大學生數量: </label><input type="text" id="SMN" name="studentMaxNum" value="${course.studentMaxNum}">
-             <span id="spSMN" style="display:none;">輸入資料有誤</span>
-        </div>
-         <div class="st1">
-           <label for="account" class="t1">課程介紹: </label>
-            <textarea rows="10" cols="30" name="courseIntroduce">${course.courseIntroduce}</textarea>
-        </div>
-    </fieldset> 
-    
-</form>
-   <!--   <button type="button" class="back" id="${course.courseName}">上一步</button>-->
-    <button id="updateValue">修改</button>
-<script type="text/javascript">
+    <script type="text/javascript">
 /*$(".back").on("click",function(){
 	let id=this.id;
 	 $.ajax({
@@ -138,6 +58,38 @@
 	    }
 	  });
 });*/
+$(document).ready(function() {
+	let ckoption=["B 09:00~10:00","C 10:00~11:00","D 11:00~12:00",
+		"E 13:00~14:00","F 14:00~15:00","G 15:00~16:00","H 16:00~17:00","I 17:00~18:00"];
+	const ckresult=[];
+
+	if($("#CK option").length!=0){
+		for(let i=0;i<ckoption.length;i++){
+		$("#CK option").each(function(){
+			
+		
+		   if( ckoption[i]==($(this).val())){				   
+			   
+		   }else{
+			   console.log(ckoption[i]);
+			   ckresult.push(ckoption[i]);
+		   }
+		   
+		});
+	 }
+	}else{
+		console.log(ckoption.length);
+		for(let i=0;i<ckoption.length;i++){
+			 ckresult.push(ckoption[i]);				
+		}
+	}
+
+	$("#CK").empty();
+	for(let i=0;i<ckresult.length;i++){
+		$("#CK").append("<option value='"+ckresult[i]+"'>"+ckresult[i]+"</option>");
+	}
+});
+
 
 $("#to").change(function() {
 	let toval=$("#to").val();
@@ -248,5 +200,84 @@ $("#updateValue").on("click",function(){
     });*/
     
     </script>
+</head>
+<body>
+
+<form  id="update" method="post" action="../sport/courseUpdateImpl">
+<fieldset>
+            <legend>修改課程資料</legend>
+         <input name="courseId" value="${course.courseId}" style="display:none"/>
+        <div class="st1">
+            <label for="account" class="t1">課程種類: </label><span id="CN">${course.courseName}</span>
+        </div>
+         <div class="st1">
+            <label for="account" class="t1">上課時段: </label><select name="courseKind" id="CK">
+            			<option value="${course.courseKind} ${timeList[0]}~${timeList[1]}">${course.courseKind} ${timeList[0]}~${timeList[1]}</option>
+						<!--  <option value="A 08:00~09:00">A 08:00~09:00</option>
+						<option value="B 09:00~10:00">B 09:00~10:00</option>
+						<option value="C 10:00~11:00">C 10:00~11:00</option>
+						<option value="D 11:00~12:00">D 11:00~12:00</option>
+						<option value="E 13:00~14:00">E 13:00~14:00</option>
+						<option value="F 14:00~15:00">F 14:00~15:00</option>
+						<option value="G 15:00~16:00">F 15:00~16:00</option>
+						<option value="H 16:00~17:00">F 16:00~17:00</option>-->						
+				</select>
+        </div>
+        
+        
+        <div class="st1">
+            <label for="account" class="t1">上課次數: </label><select name="freq" id="to">
+						<option value="${count}">${count}</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+				</select>
+        </div>
+        <div class="st1">
+            <label for="account" class="t1">課程費用: </label><input id="cost" name="courseCost" style="color:gray" value="${course.courseCost}" readOnly/>
+            <span id="spcost" style="display:none;">輸入資料有誤</span>
+        </div>
+        <div class="st1">
+            <label for="account" class="t1">開課日期: </label><span id="courseDate">${timeList[2]}</span>
+        </div>
+        <div class="st1">
+            <label for="account" class="t1">修改日期: </label><input type="date" id="from" name="from">
+        </div>
+        <div class="st1">
+            <label for="account" class="t1">修改場地: </label>
+           <select name="coursePlace" id="CP">
+            	<c:forEach var="item1" items="${fieldList}" varStatus="status">
+					<option value="${item1.id}">${item1.name}</option>
+				</c:forEach>
+			</select>
+        </div>
+            <div class="st1">
+            <label for="account" class="t1">老師: </label><select name="teacherId" id="to">
+						<option value="${teacher.teacherId}">${teacher.teacherName}</option>
+						<c:forEach var="item1" items="${teacherList}" varStatus="status">
+						<option value="${item1.teacherId}">${item1.teacherName}</option>
+						</c:forEach>
+				</select>
+        </div>
+        
+          <div class="st1">
+            <label for="account" class="t1">最大學生數量: </label><input type="text" id="SMN" name="studentMaxNum" value="${course.studentMaxNum}">
+             <span id="spSMN" style="display:none;">輸入資料有誤</span>
+        </div>
+         <div class="st1">
+           <label for="account" class="t1">課程介紹: </label>
+            <textarea rows="10" cols="30" name="courseIntroduce">${course.courseIntroduce}</textarea>
+        </div>
+    </fieldset> 
+    
+</form>
+   <!--   <button type="button" class="back" id="${course.courseName}">上一步</button>-->
+    <button id="updateValue">修改</button>
+
 </body>
 </html>
