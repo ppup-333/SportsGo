@@ -4,11 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:import url="../header.jsp"/>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script	src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-<link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -27,13 +23,14 @@ a:hover {
 	color: black;
 }
 
-table {
+tbody {
 	cursor: pointer;
 }
 
 </style>
 </head>
 <body>
+<c:import url="../newheader.jsp"/>
 
 	<div class="container-fluid pt-3">
 		<div class="row">
@@ -74,9 +71,9 @@ table {
 	
 		function TitleFormatter(value, row, index) {
 			if (row.bbsDelete == 2) {
-				return "<p class='text-muted font-weight-light'><b style='font-size: 20px'>" + row.bbsTitle + "</b><br><span style='font-size: 12px' class='badge badge-secondary'>發文不存在</span></p>";
+				return "<p class='text-muted font-weight-light'><b style='font-size: 20px'>" + row.bbsTitleByDetail + "</b><br><span style='font-size: 12px' class='badge badge-secondary'>發文不存在</span></p>";
 			} else {
-				return "<a href='bbsSelect?bbsId=" + row.bbsId + "'><b style='font-size: 20px'>" + row.bbsTitle + "</b><br>" + row.bbsMessage + "</a>";
+				return "<a href='bbsSelect?bbsId=" + row.bbsId + "'><b style='font-size: 20px'>" + row.bbsTitleByDetail + "</b><br>" + row.bbsMessage + "</a>";
 			}
 		}
 
