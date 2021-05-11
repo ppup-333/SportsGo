@@ -91,7 +91,7 @@ public class UserController {
 		users.setBirthday("01/01/1960");
 		users.setEmail("test1001@gmail.com");
 		users.setAddress("信義路二段1號1樓");
-		users.setTel("0912345678");
+		users.setTel("0223456789");
 		users.setGender("M");
 
 		model.addAttribute("users", users);
@@ -609,7 +609,7 @@ public class UserController {
 			System.out.println("=========verify Success!!!=========");
 			session.removeAttribute("tempAccount");
 			session.setAttribute("account", user.getAccount());
-			return "users/LoginHomePage";
+			return "index";
 		} else {
 			System.out.println("=========verify Fail!!!============\n");
 		}

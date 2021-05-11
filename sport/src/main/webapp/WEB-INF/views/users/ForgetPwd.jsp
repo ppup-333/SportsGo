@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../headerScript.jsp"/>
 <style>
 	td {
 		height: auto;
@@ -36,12 +37,13 @@
 </style>
 <meta charset="UTF-8">
 <title>忘記密碼</title>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<!-- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet"> -->
+<!--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+<!--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script> -->
 <link rel="stylesheet" href="jqueryui/style.css">
 </head>
 <body>
+<c:import url="../newheader.jsp"/>
 	<fieldset>
 		<legend>忘記密碼</legend>
 		<form:form method="POST" modelAttribute="forgetPwd" enctype='multipart/form-data' id="form1">

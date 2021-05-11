@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<c:import url="../headerScript.jsp"/>
 <style>
 
 .f1{
@@ -22,6 +24,7 @@
 <title>會員資料</title>
 </head>
 <body>
+<c:import url="../newheader.jsp"/>
 	<fieldset class='f1'>
 		<legend >會員資料</legend>
 		<div>

@@ -4,8 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
+
 <html>
 <head>
+
+<c:import url="../headerScript.jsp"/>
+
 <style>
 	#error,#resetBtnMessage{
 		color:red;
@@ -55,13 +59,13 @@
 </script>
 <meta charset="UTF-8">
 <title>email確認</title>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<!-- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet"> -->
+<!--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+<!--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script> -->
 <link rel="stylesheet" href="jqueryui/style.css">
 </head>
 <body>
-<c:import url="../header.jsp"/>
+<c:import url="../newheader.jsp"/>
 
 		<div class='d1'>
 			<form action='verifyEmail' method="post" id='verifyForm'>
@@ -89,19 +93,9 @@
 					</td>
 				</tr>
 			</table>
-<%-- 				<input style="display:none" type="text" name="checkAccount" value="${checkAccount}"/> --%>
-<!-- 				輸入四位認證碼: <input type="text" name="verifyCode"/> -->
-<!-- 				<input id="submitBtn" type='submit' value='確定'/> -->
-<%-- 				<input type="text" style="display:none" name="error" value="error"/><span id="error">${error }</span><br> --%>
-<!-- 				<span class="sp">驗證碼需區分大小寫</span> -->
-<%-- 			</form> --%>
-<!-- 			<input id="resetCodeBtn" type="button" value="重設驗證碼" onclick="resetVerifyCode();" /> -->
-			
-<!-- 			<span id="resetBtnMessage"></span> -->
-			
-<%-- 			<form action="Logout" method="post" id="form1"> --%>
-<!-- 				<input type="button" value="登出" onclick="form1.submit()"> -->
-<%-- 			</form> --%>
+
+			</form>
+
 		</div>
 
 </body>
