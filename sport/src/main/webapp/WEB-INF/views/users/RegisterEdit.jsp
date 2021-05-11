@@ -38,7 +38,7 @@
 	
  	.f1{ 
  	font-size:15px; 
- 	width:550px; 
+/*  	width:550px;  */
  	margin-left:780px; 
  	margin-top:50px;
  	} 
@@ -54,6 +54,7 @@
 <body>
 <c:import url="../newheader.jsp"/>
 	<fieldset class='f1'>
+	<legend>註冊會員帳號</legend>
 		<form:form method="POST" modelAttribute="users" enctype='multipart/form-data' id="form1">
 			<div>
 				<table>
@@ -66,12 +67,14 @@
 		     			<td>
 		     				<div id='result0c'></div><br>
 		     			</td>
+		     			
 		     		</tr>
 		     		<tr>
 	      				<td>密碼：<br>&nbsp;</td>
 		  				<td width='360'><form:input path='password' type='password' /><br>&nbsp;	
 		     				<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/>
-		     				<form:errors path='password' cssClass="error"/></td>
+		     				<form:errors path='password' cssClass="error"/>
+		     			</td>
 		     		</tr>
 		     		<tr>
 	      				<td>確認密碼：<br>&nbsp;</td>
@@ -85,7 +88,7 @@
 		     				<form:errors path='name' cssClass="error"/></td>
 		     		</tr>
 		     		<tr>
-	      				<td>身分證字號：<br>&nbsp;</td>
+	      				<td>身分證字號：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;</td>
 		  				<td width='360'><form:input path='id' /><br>&nbsp;
 		  					<span class="sp">第一個英文字母大寫</span><br/>	
 		     				<form:errors path='id' cssClass="error"/></td>
@@ -138,7 +141,7 @@
 	</fieldset>
 	<div class='d1'>
 		<input type='button' value='送出' onclick='chkSubmit()'>
-		<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>
+		<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
 	</div>
 	
 <script>
