@@ -64,8 +64,8 @@
                                     最新消息
                                 </span>
                                 <div class="dropdown-menu dropdown-menu-md-left" aria-labelledby="news">
-                                    <a class="dropdown-item" href="#">系統公告</a>
-                                    <a class="dropdown-item" href="#">課程異動</a>
+                                    <a class="dropdown-item" href="/sport/Bulletin/viewBulletin">系統公告</a>
+                                    <a class="dropdown-item" href="/sport/Bulletin/viewBulletinCourse">課程異動</a>
                                 </div>
                             </div>
                             <div class="btn-group">
