@@ -191,7 +191,7 @@ public class activityControl {
 //		return re;
 //	}
 
-	@PostMapping("/activityApply")
+	@GetMapping("/activityApply")
 	public String activityApply(@RequestParam String actId, Model model) {
 		int id = Integer.parseInt(actId);
 		Optional<activityBean> activity = activityservice.selectOneActivity(id);

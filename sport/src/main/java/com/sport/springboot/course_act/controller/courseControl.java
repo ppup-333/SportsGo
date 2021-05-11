@@ -449,22 +449,39 @@ public class courseControl {
 		return resultList;
 	}
 
+	@GetMapping("/courseSessionCheck")
+	@ResponseBody
+	public String checkSession(HttpSession session) {
+		String account = (String) session.getAttribute("account");
+		if(account==null) {
+			return "login";
+		}else {
+			return "success";
+		}
+	}
+	
 	// 我要報名
 	@GetMapping("/courseApply")
-	public String courseApply(@RequestParam(value = "id") String id,@RequestParam(value = "type") String type, Model model) {
+	public String courseApply(@RequestParam(value = "id") String id,@RequestParam(value = "type") String type, Model model,HttpSession session) {
+		
+		String account = (String)session.getAttribute("account");
+		
 		int courseId = Integer.parseInt(id);
-	
 		Optional<courseBean> course = courseservice.selectId(courseId);
 		courseBean c = course.get();
+		
+		
 		Iterator<CATime> it = c.getTime().iterator();
 		List<String> timeList = new ArrayList<>();
 		List<String> tempList = new ArrayList<>();
+		String fieldName="";
 		boolean b = true;
 		int count=0;
 		while (it.hasNext()) {
 			CATime time = it.next();
 			tempList.add(time.getDate());
 			if (b) {
+				 fieldName = time.getFieldbean().getName();
 				timeList.add(time.getTimeStart().substring(0, 5));
 				timeList.add(time.getTimeEnd().substring(0, 5));
 				b = false;
@@ -477,7 +494,7 @@ public class courseControl {
 		timeList.add(DateStart);
 		timeList.add(DateEnd);
 		// 取得帳號資訊
-		String account = "mary123";
+		
 		courseorderservice.selectByAccountAndPaystament(account, 1);
 		Optional<teacherBean> t=teacherservice.selectTeacher(c.getTeacherId());
 		teacherBean teacher=t.get();
@@ -491,13 +508,15 @@ public class courseControl {
 		model.addAttribute("account", account);
 		model.addAttribute("timeList", timeList);
 		model.addAttribute("count", count);
+		model.addAttribute("fieldName", fieldName);
 		
 		if("first".equals(type)) {
 			return "course_act/courseDetail";
 		}else {
 			return "course_act/checkSignUp";
 		}
-	
+		
+		
 	}
 
 	public String confirmCourseApply() {

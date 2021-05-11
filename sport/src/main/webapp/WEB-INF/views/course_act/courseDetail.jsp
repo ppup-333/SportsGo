@@ -46,6 +46,33 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 	
+	$("#checkLogin").on("click",function(){
+		let xhr=new XMLHttpRequest();
+		xhr.open("GET","/sport/courseSessionCheck",true);
+		 xhr.send();
+		 xhr.onreadystatechange=function(){
+			if(xhr.readyState==4&&xhr.status==200){
+				var result = xhr.responseText;
+				if(result=='success'){
+					let courseId=$("#courseId").text();
+					self.location.href='/sport/courseApply?id='+courseId+'&type=second';
+				}else if(result=='login'){
+					Swal.fire({
+		    		    toast: true,
+		    		    position: 'center',
+		    		    showConfirmButton: false,
+		    		    timer: 2500,
+		    		    icon: 'error',
+		    		    title: '尚未登入',
+		    		    text: "請先登入再報名!",    
+		    		})
+				}
+				
+			}
+		 }
+		
+	});
+	
 })
 </script>
 </head>
@@ -53,16 +80,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <c:import url="../newheader.jsp"/>
 <div class="main_body">
 <div class="course">${course.courseName}${course.courseKind}<hr></div>
-  <button type="button" class="apply"  onclick="window.location.href='/sport/courseApply?id=${course.courseId}&type=second'">立刻報名</button>
-
+  <!--  <button type="button" class="apply"  onclick="window.location.href='/sport/courseApply?id=${course.courseId}&type=second'">立刻報名</button>-->
+<button type="button" class="apply" id='checkLogin'>立刻報名</button>
 <table>
 	<tr><th>課程代號<th>上課時間<th>每週<th>開課日期<th>結束日期<th>上課地點<th>班級最大人數<th>目前人數
-	<tr><td>${course.courseId}
+	<tr><td id='courseId'>${course.courseId}
 		<td>${timeList[0]}~${timeList[1]}
 		<td id="times">
 		<td id="date">${timeList[2]}
 		<td>${timeList[3]}
-		<td>
+		<td>${fieldName}
 		<td>${course.studentMaxNum}
 		<td>${course.studentCurrentNum}
 </table>
