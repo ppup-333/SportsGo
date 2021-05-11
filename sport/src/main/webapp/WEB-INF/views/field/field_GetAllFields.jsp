@@ -163,20 +163,39 @@ function checkStartCode(){
 	var startCode = document.getElementById("startCode").value;
 	//alert("startCode=" + startCode);
 	if(startCode == "createError"){
-		alert("新增失敗！");
+		//alert("新增失敗！");
+		Swal.fire({
+			  icon: 'error',
+			  title: '新增失敗！',
+			  text: '輸入資料有誤'
+		});
 		createFieldBtn.click();
 	}else if(startCode == "createSuccess"){
-		alert("新增成功！")
+		//alert("新增成功！");
+		Swal.fire({
+			  icon: 'success',
+			  title: '新增成功！'
+		});
 	}else if(startCode == "updateError"){
 		alert("修改失敗！");
 		//updateFieldBtn.click();
 	}else if(startCode == "updateSuccess"){
 		alert("修改成功！");
 	}else if(startCode == "deleteSuccess"){
-		alert("刪除成功！");
+		//alert("刪除成功！");
+		Swal.fire({
+			  icon: 'success',
+			  title: '刪除成功！'
+		});
 	}else if(startCode == "deleteError"){
-		alert("刪除失敗！");
+		//alert("刪除失敗！");
+		Swal.fire({
+			  icon: 'error',
+			  title: '刪除失敗！',
+			  text: '此場地目前還有預約存在'
+		});
 	}
+	document.getElementById("startCode").value = "";
 }
 
 $("#ts").ready(xhrFunction);

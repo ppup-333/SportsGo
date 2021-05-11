@@ -79,6 +79,7 @@ public class FieldController {
 			this.startCode = "createError";
 			m.addAttribute("typeId", typeId);
 			m.addAttribute("startCode", this.startCode);
+			this.startCode = "";
 			return "field/field_GetAllFields";
 		}
 		
