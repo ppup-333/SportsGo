@@ -9,8 +9,18 @@
 <meta charset="UTF-8">
 
 <style>
+
+.title{
+text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
+margin-top:20px;
+font-size : 34px;
+font-weight:bolder;
+text-align: center;
+}
+
+
 #remark{
-        width:300px;
+        width:180px;
         height:auto;
 
         display: -webkit-box;
@@ -20,32 +30,80 @@
         white-space:pre-wrap;
         text-overflow:ellipsis;
 }
-form{margin:0px; display:inline}
+form{
+margin:0px; display:inline
+}
+
+.productlist{
+width:1280px;
+}
+
+.pnum{
+width:60px;
+text-align: center;
+}
+
+.pname{
+width:250px;
+text-align: center;
+}
+
+.pcat{
+width:60px;
+text-align: center;
+}
+.pprice{
+width:60px;
+text-align: center;
+}
+.pstock{
+width:60px;
+text-align: center;
+}
+.premark{
+width:180px;
+text-align: center;
+}
+.pstatus{
+width:80px;
+text-align: center;
+}
+.pcreatetime{
+width:110px;
+text-align: center;
+}
+.pupdatetime{
+width:110px;
+text-align: center;
+}
+.pimg{
+width:90px;
+text-align: center;
+}
+.pcrud{
+width:150px;
+text-align: center;
+
+}
+
 
 
 </style>
-<script type='text/javascript' src="<c:url value='/' />/scripts/jquery-1.9.1.min.js"></script>
+
 
 <title>商品一覽</title>
 
-        <!--引用css-->
-    <link rel="stylesheet" href="    https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
-        <!--引用jQuery-->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <!--引用SweetAlert2.js-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
     
 
   
 </head>
 <body>
 	<c:import url="../../newheaderM.jsp" />
-<%-- <c:import url="../../headerM.jsp" /> --%>
 
 <div align='center'>
-<h3>商品資料後台管理</h3>
-<a class='create' href='pro/${currentPage}?status=${status}&category=${category}'><button>新增商品</button></a> &nbsp;&nbsp;&nbsp;
-<a href="<c:url value='/shopHome'/> " ><button>回到管理首頁</button></a><br>
+ <p class="title">商品資料後台管理</p>
+<%-- <a class='create' href='pro/${currentPage}?status=${status}&category=${category}'><button>新增商品</button></a> --%>
+<%-- <a href="<c:url value='/shopHome'/> " ><button>回到管理首頁</button></a><br> --%>
 
 
 	<c:if test="${category!=null&&category>0}" ><p>【${productCategoryList[category-1].name}】的分類中</p></c:if>
@@ -76,26 +134,27 @@ form{margin:0px; display:inline}
 <!-- </form> -->
 
 <%-- productCategoryList: ${productCategoryList[0].id} --%>
-
-<form method="post" id='form2' action="<c:url value='/' />shop/showSearchProducts" >
-　請輸入商品名稱：<input type="text" name="keyword" required="required" >
-　<input type="submit" value="搜尋">
+<nav class="navbar navbar-light" style="width:860px;background-color: #e3f2fd;">
+<a class='create' href='pro/${currentPage}?status=${status}&category=${category}'><button class="btn btn-primary">新增商品</button></a>
+<form class="form-inline" method="post" id='form2' action="<c:url value='/' />shop/showSearchProducts" style="width:auto;">
+　<span style="color: #123456; font-weight:bold;" >請輸入商品名稱：</span><input class="form-control mr-sm-2" aria-label="Search" placeholder="Search" type="text" name="keyword" required="required" >
+　<input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="搜尋">
 	<input type='hidden' name='status' value='${status}'>
 	<input type='hidden' name='category' value='${category}'>
-</form>&nbsp;&nbsp;&nbsp;
-
+</form>
+&nbsp;&nbsp;
 <form method="post" id='form3' action="<c:url value='/' />shop/showAllProducts" >
 
 <%-- 請輸入商品名稱：<input type="text" name="keyword" required="required" value="${keyword}" > --%>
 <!-- 　<input type="button" value="搜尋" onClick="this.form.submit()"> -->
 
-<select name="status" onChange="this.form.submit()">
+<select class="custom-select" style="width:auto;"  name="status" onChange="this.form.submit()" >
 <option value="">全部商品</option>
 <option value="1" <c:if test="${status=='1'}"> selected </c:if>>上架中商品</option>
 <option value="0" <c:if test="${status=='0'}"> selected </c:if>  >下架中商品</option>
 </select>
-&nbsp;&nbsp;&nbsp;
-<select name="category" onChange="this.form.submit()">
+&nbsp;&nbsp;
+<select name="category" onChange="this.form.submit()" class="custom-select" style="width:auto;">
 	<option value="">所有分類</option>
 	<c:forEach var='categoryItem' items='${productCategoryList}'>
 	<option value="${categoryItem.id}"  <c:if test="${categoryItem.id==category}"> selected </c:if> >${categoryItem.name}</option>
@@ -104,6 +163,9 @@ form{margin:0px; display:inline}
 </select>
 </form>
 
+
+
+</nav>
 <hr>
 
 <form method='POST' id='form1'>
@@ -118,21 +180,24 @@ form{margin:0px; display:inline}
 	    沒有任何商品資料<br> 
 	</c:when>
 	<c:otherwise>
-		<table border='1' cellpadding="3" cellspacing="1" width='1280' >
+<!-- 		<table border='1' cellpadding="3" cellspacing="1" width='1280' > -->
+<div class='productlist'>
+		<table class='table table-hover ' >
+		
 			<tr>
-			   <th width='40'>編號</th>
-			   <th width='200'>商品名稱</th>
-			   <th width='90'>分類</th>
-			   <th width='50'>價錢</th>
-			   <th width='50'>庫存</th>
-			   <th width='300'>商品描述</th>
-			   <th width='50'>狀態</th>
-			   <th width='100'>新增時間</th>
-			   <th width='100'>修改時間</th>
-			   <th width='100'>商品圖片</th>
-			   <th colspan='2' width='70'>資料維護</th>
+			   <th class='pnum'>編號</th>
+			   <th class='pname'>商品名稱</th>
+			   <th class='pcat'>分類</th>
+			   <th class='pprice'>價錢</th>
+			   <th class='pstock'>庫存</th>
+			   <th class='premark'>商品描述</th>
+			   <th class='pstatus'>狀態</th>
+			   <th class='pcreatetime'>新增時間</th>
+			   <th class='pupdatetime'>修改時間</th>
+			   <th class='pimg'>商品圖片</th>
+			   <th class='pcrud' colspan='2'  >資料維護</th> 
 			</tr>
-
+			
 			<c:forEach var='product' begin='${startRow}' end='${pageSize}' items='${products}'>
 				<tr>
 					<td style="text-align:center">${product.product_id}</td>
@@ -142,33 +207,29 @@ form{margin:0px; display:inline}
 					<td style="text-align:center">${product.product_stock}</td>
 					<td id='${product.product_id}' ><div id="remark">${product.product_remark}</div>
 
-					<div><input class="button" type="button" value="商品描述詳細" myvalue="${product.product_remark}" style="float:left;"/></div>
-
+					<div><input class="button btn btn-info btn-sm" type="button" value="商品描述詳細" myvalue="${product.product_remark}" style="float:left;"/></div>
 		
 					</td>
 					<td style="text-align:center">
 					<c:choose>
-					<c:when test="${product.product_status == 1}">上架中</c:when>
-					<c:otherwise>下架中</c:otherwise>
+					<c:when test="${product.product_status == 1}"><span class="badge badge-primary">上架中</span></c:when>
+					<c:otherwise><span class="badge badge-secondary">下架中</span></c:otherwise>
 					</c:choose>
 
 					</td>
 					<td style="text-align:center">${product.product_create_date}</td>
 					<td style="text-align:center">${product.product_update_date}</td>
 					<td style="text-align:center" ><img width='100' height='100' src='picture/${product.product_id}' /></td>
-					<td style="text-align:center" ><a href="<c:url value='/' />shop/pro/${currentPage}/${product.product_id}?status=${status}&category=${category}"><button>修改</button></a><br><br>
-<%-- 					     <a href="<c:url value='/' />shop/prodUp/${currentPage}/${product.product_id}" onclick="if(confirm('是否上架?')==false)return false; else alert('上架成功!'); "  ><button>上架</button></a> --%>
-					     <a class='proUp'  myhref="<c:url value='/' />shop/prodUp/${currentPage}/${product.product_id}" > <button>上架</button></a>
+					<td style="text-align:center" ><a href="<c:url value='/' />shop/pro/${currentPage}/${product.product_id}?status=${status}&category=${category}"><button class="btn btn-outline-info btn-sm">修改</button></a><br><br>
+					     <a class='proUp'  myhref="<c:url value='/' />shop/prodUp/${currentPage}/${product.product_id}" > <button class="btn btn-outline-primary btn-sm">上架</button></a>
 					</td>
-                      <td style="text-align:center" > <a class='deletelink' myhref="<c:url value='/' />shop/prod/${currentPage}/${product.product_id}"><button>刪除</button></a><br><br>
-<%--                          <a href="<c:url value='/' />shop/prodDown/${currentPage}/${product.product_id}" onclick="if(confirm('是否下架?')==false)return false; else alert('下架成功!'); " ><button>下架</button></a> --%>
-                         <a class='proDown'  myhref="<c:url value='/' />shop/prodDown/${currentPage}/${product.product_id}" > <button>下架</button></a>
-<!--                             onclick="if(swal({title: '确定删除吗？',text: '你将无法恢复它！',type: 'warning',showCancelButton: true,confirmButtonText: '确定删除！',})==flase)return false;else alert('下架成功!'); " > -->
-
+                      <td style="text-align:center" > <a class='deletelink' myhref="<c:url value='/' />shop/prod/${currentPage}/${product.product_id}"><button class="btn btn-outline-danger btn-sm">刪除</button></a><br><br>
+                         <a class='proDown'  myhref="<c:url value='/' />shop/prodDown/${currentPage}/${product.product_id}" > <button class="btn btn-outline-secondary btn-sm">下架</button></a>
                     </td>
 				</tr>
 			</c:forEach>
 		</table>
+</div>
 		<p>總共${prodNum}筆商品資料</p>
 		
 		<div class="pagging">

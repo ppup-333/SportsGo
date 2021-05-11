@@ -23,12 +23,25 @@
 	}
 	.title-container > h2{
 /* 		text-align:left; */
+		
+	}
+	.image-contents{
+		margin-top:30px;
 	}
 	.image-container{
- 		width:50%; 
  		
+ 		width:50%; 
 		float:left;
 	}
+	.image{
+	
+		display:block;
+		position:relative;
+		padding:5px;
+		margin-right:30px;
+		border:1px solid #D7D7D7;
+	}
+	
 	.contents-container{
  		width:50%; 
 		float:right;
@@ -41,6 +54,7 @@
 		float:left;
 	}
 	.clear{
+		margin-top:20px;
 		clear:both;
 	}
 </style>
@@ -120,29 +134,30 @@ $(document).ready(function() {
 			<div id="title" class="title-container">
 				
 			</div>
-			<div class="image-container">
-				<div id="picutre">
-					<c:choose>
-						<c:when test='${bulletin.image != null}'>
-							<img width='500' height='700' src='<c:url value="/Bulletin/picture/${bulletin.id }"/>'/>
-						</c:when>
-					</c:choose>	
+			<div class="clear"></div>
+				<div class="image-container">
+					<div id="picutre" class="image">
+						<c:choose>
+							<c:when test='${bulletin.image != null}'>
+								<img width='100%' height='100%' src='<c:url value="/Bulletin/picture/${bulletin.id }"/>'/>
+							</c:when>
+						</c:choose>	
+					</div>
 				</div>
-			</div>
-			<div id="contents" class="contents-container">
-				
-			</div>
+				<div id="contents" class="contents-container">	
+				</div>
+			
 			<div class="clear"></div>
 		</div>
 	</div>
 
 
-	<div class="container">
-		<input type="button" value="更新公告" onclick="location.href='<c:url value='/Bulletin/update/${bulletin.id}'/>'"/>
-		<form action="<c:url value='/'/>Bulletin/delete/${bulletin.id}" method='POST'>
-			<input type='hidden' name='_method' value='delete'>
-			<button type="submit" id='deletelink'>刪除公告</button>
-		</form>
+<!-- 	<div class="container"> -->
+<%-- 		<input type="button" value="更新公告" onclick="location.href='<c:url value='/Bulletin/update/${bulletin.id}'/>'"/> --%>
+<%-- 		<form action="<c:url value='/'/>Bulletin/delete/${bulletin.id}" method='POST'> --%>
+<!-- 			<input type='hidden' name='_method' value='delete'> -->
+<!-- 			<button type="submit" id='deletelink'>刪除公告</button> -->
+<!-- 		</form> -->
 	
 		<a href="<c:url value='/Bulletin/viewBulletin'/> " >回前頁</a>
  	</div> 

@@ -55,8 +55,8 @@
 					</div>
 					<br>
 					<div>
-						<button type="button" id="upDateBbs" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update" style="position: relative; left: 84%;">編輯</button>
-						<button type="submit" id="deteleBbs" class="btn btn-danger btn-sm" style="position: relative; left: 86%;">刪除</button>
+						<button type="button" id="upDateBbs" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#update" style="position: relative; left: 84%;">編輯</button>
+						<button type="submit" id="deteleBbs" class="btn btn-outline-danger btn-sm" style="position: relative; left: 86%;">刪除</button>
 					</div>
 					<br>
 				</form>
@@ -102,13 +102,13 @@
 								<button
 									onclick="javascript:document.replyForm.action='bbsReplyDelete'; document.replyForm.method='post'; return false;"
 									id="replyDelete${reply.replyId}" style="position: relative; left: 93%;"
-									class="replyDelete btn btn-danger btn-sm" rel="${reply.replyId}">刪除</button>
-								<button type="button" class="cancelEdit  btn btn-primary btn-sm" id="cancelEdit${reply.replyId}" 
+									class="replyDelete btn btn-outline-danger btn-sm" rel="${reply.replyId}">刪除</button>
+								<button type="button" class="cancelEdit  btn btn-outline-primary btn-sm" id="cancelEdit${reply.replyId}" 
 								style="display: none; position: relative; left: 93%;">取消</button>
-								<input type="button" class="replyEdit  btn btn-primary btn-sm" id="replyEdit${reply.replyId}"
+								<input type="button" class="replyEdit  btn btn-outline-primary btn-sm" id="replyEdit${reply.replyId}"
 									rel="${reply.replyId}" value="編輯" style="position: relative; left: 75%;" />
 								<button id="modify${reply.replyId}" style="display: none; position: relative; left: 75%;"
-									class="btn btn-success btn-sm"
+									class="btn btn-outline-success btn-sm"
 									onclick="javascript:document.replyForm.action='bbsReplyUpdate'; document.replyForm.method='post'"
 									name="replyId" value="${reply.replyId}">修改</button>
 							</div>
@@ -178,7 +178,7 @@
 					</div>
 				<!-- Modal footer -->
 				<div class="modal-footer">
-					<input type="submit" id="upDateYN" class="btn btn-success"
+					<input type="submit" id="upDateYN" class="btn btn-outline-success"
 						data-dismiss="modal" value="修改">
 				</div>
 				</div>

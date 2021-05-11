@@ -15,6 +15,7 @@
 </head>
 <style>
 	.box{
+		margin-top:50px;
 		margin-left:auto;
 		margin-right:auto;
 	}
@@ -233,6 +234,7 @@ function showBulletin(nowPage) {
 <body>
 <c:import url="../newheader.jsp"/>
 	<div class="box">
+		<h2>課程異動</h2>
 		<div class="container">
 			<div class="bulletinAdv">
 			</div>

@@ -148,9 +148,11 @@ span.error {
 <body>
 <c:import url="../newheaderM.jsp"/>
 	<div class="box">
+		<h2>新增公告</h2>
 		<div class="container">
+		<hr>
 		<fieldset>
-			<legend align="center">新增公告</legend>	
+			
 			<form:form id="insertForm" name="insertForm" method="POST" modelAttribute="bulletin" enctype='multipart/form-data'>
 					<div class="form-group">
 						<label for="BulletinTitle">公告標題：</label>
@@ -177,9 +179,12 @@ span.error {
 						</form:select> <form:errors path="class" cssClass="error" />
 					</div>
 					<div class="form-group">
-						<label for="imgInput">上傳公告圖片</label>
-							<form:input id="imgInput" class="form-control-file"  path="productImage" type='file' value="新增圖片" />
+						<label class="btn btn-info">
+							<form:input id="imgInput" class="form-control-file"  path="productImage" type='file' value="" style="display:none;"/>
+							<i class="fas fa-image"></i> 上傳圖片
+						</label>
 							<form:errors path="productImage" cssClass="error" />
+						
 							<img width='180'height='216' id="previewImg" />
 							
 					</div>	
@@ -187,6 +192,10 @@ span.error {
 					<input type='button' value="發布公告" onclick='checkForm();' />
 			</form:form>	
 		</fieldset>
+<!-- 		<label class="btn btn-info"> -->
+<!-- 		<input id="upload_img" style="display:none;" type="file"> -->
+<!-- 		<i class="fas fa-image"></i> 上傳圖片 -->
+<!-- 		</label> -->
 		</div>
 	</div>
 	<br>
