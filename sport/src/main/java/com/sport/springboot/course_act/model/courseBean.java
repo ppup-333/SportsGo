@@ -55,6 +55,14 @@ Set<FieldActOrder> fieldActOrder;
 
 
 
+public Set<FieldActOrder> getFieldActOrder() {
+	return fieldActOrder;
+}
+
+public void setFieldActOrder(Set<FieldActOrder> fieldActOrder) {
+	this.fieldActOrder = fieldActOrder;
+}
+
 public courseBean() {
 	
 }

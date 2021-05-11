@@ -137,8 +137,10 @@ public class courseService  {
 		String courseTimeStart = (courseKind.split(" ")[1]).split("~")[0];
 		String courseTimeEnd = (courseKind.split(" ")[1]).split("~")[1];
 		
-		//假裝場地
+
 		boolean b=catimeservice.deleteTimeByCourse(course);
+		//場地訂單換狀態
+		
 		if(b) {
 			boolean result=catimeservice.checkTimeCanRentOrNot(from, courseTimeStart, courseTimeEnd, freq, place, type, course, null);
 			try {
