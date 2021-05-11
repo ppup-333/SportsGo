@@ -122,7 +122,13 @@ public class FieldController {
 	@PostMapping("/deleteField")
 	public String deleteField(@RequestParam("deleteId")String id) {
 		
-		fieldService.delete(id);
+		try {
+			fieldService.delete(id);
+		}catch(Exception e) {
+			this.startCode = "deleteError";
+			return "redirect:/field_GetAllFields";
+		}
+		
 		
 		this.startCode = "deleteSuccess";
 		
