@@ -7,9 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>新增會員資料</title>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<c:import url="../headerScript.jsp"/>
+<!-- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet"> -->
+<!--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+<!--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script> -->
   
 <style>
 
@@ -19,16 +20,6 @@
 		
 	}
 
-	.div {
-		width: 100%;
-		height: 800px;
-		max-width: 700px;
-		box-shadow: 0px 0px 3px 1px #00000078;
-		padding: 10px;
-		box-sizing: border-box;
-		margin: 0 auto;
-		border: 1px solid white;
-	}
 
 	.sp {
 		color: darkgrey;
@@ -61,7 +52,7 @@
 
 </head>
 <body>
-<c:import url="../header.jsp"/>
+<c:import url="../newheader.jsp"/>
 	<fieldset class='f1'>
 		<form:form method="POST" modelAttribute="users" enctype='multipart/form-data' id="form1">
 			<div>
