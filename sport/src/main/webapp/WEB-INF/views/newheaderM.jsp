@@ -6,8 +6,9 @@
 <!-- header -->
     <nav id="bar1" class="navbar navbar-light bg-info">
         <a class="navbar-brand" href="/sport/managerHome">Sports Go!</a>
-        <form action="/sport/user/Logout" method="post">
-        	<button id="logoutBtn" type="submit" class="btn btn-light text-info">登出</button>
+        <form action="/sport/user/Logout" method="post" id="logoutForm">
+        	<span class="btn btn-info">管理員：${sessionScope.account}</span>&nbsp;&nbsp;
+        	<button id="logoutBtn" type="button" class="btn btn-light text-info">登出</button>
         </form>
     </nav>
     <ul id="ulHeaderM" class="nav justify-content-center">
@@ -89,9 +90,29 @@
 <!--end of header-->
 
 <script>
+// 	$("#logoutBtn").click(function(){
+// 		if(!confirm("確定登出？")){
+// 			return false;
+// 		}
+// 	});
+	
 	$("#logoutBtn").click(function(){
-		if(!confirm("確定登出？")){
-			return false;
-		}
+		Swal.fire({
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonText: "確定",
+			cancelButtonText: "取消",
+			title: "登出確認"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					icon: "success",
+					title: "成功登出！",
+				}).then((result) => {
+					$("#logoutForm").submit();
+				});
+			}
+		});
 	});
+	
 </script>

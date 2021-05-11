@@ -37,7 +37,7 @@
 	box-shadow: 0px 0px 5px inset gray;
 }
 
-th, td {
+#queryTable th, #queryTable td {
 	width: 80px;
 	height: 10px;
 	text-align: center;
