@@ -58,9 +58,7 @@ public class Field {
 	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "fieldbean",cascade = CascadeType.ALL)
 	@JsonIgnore
-	private List<CATime> time;
-	
-	
+	private List<CATime> time;	
 	
 	public Field() {
 		

@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sport.springboot.course_act.model.activityBean;
 import com.sport.springboot.course_act.model.courseBean;
 
@@ -53,6 +54,7 @@ public class FieldActOrder {
 
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinColumn(name="courseId")
+	@JsonIgnoreProperties("fieldActOrder")
 	private courseBean coursebean;
 	
 	

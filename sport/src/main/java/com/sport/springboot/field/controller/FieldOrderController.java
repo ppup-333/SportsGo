@@ -317,10 +317,26 @@ public class FieldOrderController {
 		List<List<FieldOrderDetail>> orderDetailList = new ArrayList<>();
 		List<Field> fieldList = fieldService.getByTypeId(typeId);
 		for(int i = 0; i < fieldList.size(); i++) {
-			fieldOrderDetailList = fieldOrderDetailService.getByDateAndField(date,fieldList.get(i));
-			orderDetailList.add(i, fieldOrderDetailList);
+			fieldOrderDetailList = fieldOrderDetailService.getByDateAndField(date,fieldList.get(i));			
+			
+			List<FieldOrderDetail> temp = new ArrayList<>();
+			for(int j = 0; j < fieldOrderDetailList.size(); j++) {
+				if(fieldOrderDetailList.get(j).getFieldActOrder()!=null) {
+					if(fieldOrderDetailList.get(j).getFieldActOrder().getOrderStatus() == 1) {
+						temp.add(fieldOrderDetailList.get(j));
+					}						
+				}else {
+					if(fieldOrderDetailList.get(j).getFieldMemberOrder().getOrderStatus() == 1) {
+						temp.add(fieldOrderDetailList.get(j));
+					}
+				}
+			}
+			orderDetailList.add(temp);
+			
 		}
-		
+		System.out.println("====================================================================");
+		System.out.println(orderDetailList.size());
+		System.out.println("====================================================================");
 		map.put("orderDetailList", orderDetailList);
 		map.put("fieldList", fieldList);
 		map.put("fieldPeriodList", fieldPeriodList);
