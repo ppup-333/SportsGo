@@ -92,6 +92,7 @@
 	</fieldset>
 		<div class='d1'>
 			<input type='button' value='修改資料' onclick='location.href="userUpdate"'>&nbsp;&nbsp;
+			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'>&nbsp;&nbsp;
 <!-- 			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'> -->
 			<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
 		</div>
