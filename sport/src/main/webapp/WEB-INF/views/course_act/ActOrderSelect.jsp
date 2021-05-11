@@ -4,17 +4,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-
+<c:import url="../newheader.jsp"/>
 <c:choose>
 <c:when test="${result=='0'}">
 <h1>目前沒有付款完成的課程</h1>
 </c:when>
 <c:otherwise>
 <h1>已付款完成的課程</h1>
+
 
 <table class='courseTable' border='1' style='border-collapse:collapse; border:2px solid #D0D0D0; border-right:1px solid #D0D0D0; margin-left: auto; margin-right:auto;'>
 

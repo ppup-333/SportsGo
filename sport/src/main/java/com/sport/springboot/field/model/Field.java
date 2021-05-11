@@ -57,6 +57,7 @@ public class Field {
 	private List<FieldOrderDetail> orderDetails;
 	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "fieldbean",cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<CATime> time;
 	
 	

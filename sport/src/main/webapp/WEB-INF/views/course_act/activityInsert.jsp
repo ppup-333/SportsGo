@@ -10,7 +10,6 @@
 
 <script type="text/javascript">
 
-
 var spImageIncorrect="<img src='images/incorrect.png'  width='10'/>";
 
 $(document).ready(function(){

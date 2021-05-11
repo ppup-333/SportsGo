@@ -5,10 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<c:import url="../headerScript.jsp"/>
 <title>Insert title here</title>
 </head>
 <body>
-<c:import url="../headerM.jsp" />
+<c:import url="../newheaderM.jsp" />
+
 ${result}
 </body>
 </html>

@@ -5,9 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<c:import url="../headerScript.jsp"/>
 <title>manageCourseSelect</title>
 <style type="text/css">
 table{
+
  border-collapse:collapse;
  border:2px solid #D0D0D0;
  border-right:1px solid #D0D0D0;

@@ -7,8 +7,10 @@
 
 <meta charset="UTF-8">
 <title>teacherMain</title>
+
+<c:import url="../headerScript.jsp"/>
  <link rel="stylesheet" href="css/teacher.css">
-     <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!--      <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
      <link  rel="stylesheet" href="css/course.css">
 <style type="text/css">
 table{
@@ -26,9 +28,9 @@ text-align:center;
 
 <div class="main_body">
 
-<c:import url="../headerM.jsp" />
+<c:import url="../newheaderM.jsp" />
 <div class="course">管理老師<hr></div>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <table>
 
 <tr><th>老師姓名<th>性別<th>電話<th>薪水<th>雇用日期<th><th>

@@ -46,6 +46,7 @@
                     <a class="dropdown-item" href="/sport/NewManageCourseMain">管理課程</a>
                     <a class="dropdown-item" href="/sport/NewManageActivityMain">管理活動</a>
                     <a class="dropdown-item" href="/sport/teacherHome">管理老師</a>
+                    <a class="dropdown-item" href="/sport/DashBoard">DashBoard</a>
                 </div>
             </div>
         </li>

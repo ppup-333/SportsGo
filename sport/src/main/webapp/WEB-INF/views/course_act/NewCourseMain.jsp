@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<c:import url="../headerScript.jsp"/>
+
+<!--   <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 
 <link rel="stylesheet" href="css/course.css">
 <link rel="stylesheet" href="css/loader.css">
@@ -323,7 +325,7 @@ function sport(s){
 
 </head>
 <body>
-	<c:import url="../header.jsp" />
+	<c:import url="../newheader.jsp" />
 	<div id="sport">
 	
 	<div class="course">課程總攬<hr></div>
