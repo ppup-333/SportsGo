@@ -9,6 +9,7 @@
 <title>manageActUpdate</title>
 <!--  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <style>
+
     .st1{
         border-bottom: 3px dashed gray;
         padding-bottom: 10px;

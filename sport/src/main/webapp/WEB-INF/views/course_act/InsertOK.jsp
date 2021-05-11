@@ -8,6 +8,7 @@
 <c:import url="../headerScript.jsp"/>
 <title>Insert title here</title>
 </head>
+
 <body>
 <c:import url="../newheaderM.jsp" />
 <h1>${result}</h1>

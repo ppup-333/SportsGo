@@ -11,6 +11,7 @@
 .main_body {
 	text-align: center;
 }
+
     .st1{
         border-bottom: 1px solid gray;
         margin: 20px;

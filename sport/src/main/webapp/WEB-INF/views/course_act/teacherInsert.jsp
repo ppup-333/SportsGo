@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <c:import url="../headerScript.jsp"/>
 <title>teacherInsert</title>
+
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <style type="text/css">
 table {

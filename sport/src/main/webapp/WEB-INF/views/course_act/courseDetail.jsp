@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="css/course.css">
 <!--  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <style>
+
 table{
 border:1px solid #FFF8D7;
 text-align:center;

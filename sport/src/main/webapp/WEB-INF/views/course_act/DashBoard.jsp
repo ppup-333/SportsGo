@@ -15,6 +15,7 @@
 .main_body{
 text-align:center;
 }
+
 .situation{
 	 background-color:#008CBA;
   border: none;

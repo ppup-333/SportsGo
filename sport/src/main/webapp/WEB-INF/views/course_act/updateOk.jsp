@@ -10,6 +10,7 @@
 </head>
 <body>
 <c:import url="../newheaderM.jsp" />
+
 ${result}
 </body>
 </html>

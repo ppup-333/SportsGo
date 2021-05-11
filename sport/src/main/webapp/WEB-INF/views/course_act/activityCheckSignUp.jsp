@@ -15,8 +15,7 @@ table{
  border-right:1px solid #D0D0D0;
  margin-top:30px;
  margin-left: auto;
- margin-right: auto;
- 
+ margin-right: auto; 
 }
 th{
 	padding:20px;

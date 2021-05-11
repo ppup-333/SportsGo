@@ -15,6 +15,7 @@ table{
  margin-right: auto;
  
 }
+
 th{
 	padding:20px;
 	background-color:#AAAAFF;

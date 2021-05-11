@@ -17,6 +17,7 @@
 <c:otherwise>
 <h1>已付款完成的課程</h1>
 
+
 <table class='courseTable' border='1' style='border-collapse:collapse; border:2px solid #D0D0D0; border-right:1px solid #D0D0D0; margin-left: auto; margin-right:auto;'>
 
 <tr><th width='70'>課程名稱</th><th width='70'>費用</th><th width='70'>上課時間</th><th width='70'>下課時間</th><th width='100'>開始日期</th><th width='100'>結束日期</th></tr>

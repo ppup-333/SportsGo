@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>teacherUpdate</title>
 <style>
+
     .st1{
         border-bottom: 3px dashed gray;
         margin: 20px;

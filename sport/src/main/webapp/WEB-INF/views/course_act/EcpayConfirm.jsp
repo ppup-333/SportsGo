@@ -9,6 +9,7 @@
 <title>EcpayConfirm</title>
 <!--  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
  <style type="text/css">
+ 
  table {
 text-align:center;
 	border-collapse: collapse;

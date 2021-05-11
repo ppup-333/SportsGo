@@ -15,6 +15,7 @@ margin-top:20px;
 margin-left: auto;
 margin-right: auto;
 }
+
 th{
 padding:10px;
 background-color:#FFD500;

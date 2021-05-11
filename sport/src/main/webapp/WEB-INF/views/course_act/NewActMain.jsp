@@ -7,6 +7,7 @@
 <c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>home</title>
+
 <link rel="stylesheet" href="css/course.css">
 <!--  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <script type="text/javascript">

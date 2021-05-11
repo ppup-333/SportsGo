@@ -7,6 +7,7 @@
 
 <meta charset="UTF-8">
 <title>teacherMain</title>
+
 <c:import url="../headerScript.jsp"/>
  <link rel="stylesheet" href="css/teacher.css">
 <!--      <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
