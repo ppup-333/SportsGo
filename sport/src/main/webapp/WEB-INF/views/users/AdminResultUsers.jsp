@@ -214,7 +214,17 @@ function select1(){
 	if(account.value == "" && name.value == "" && id.value == "" && cityValue.value == 00 
 			&& districtValue.value == 1000 && address.value == "" && statusValue.value == 00){
 		
-		alert("請至少輸入一項搜尋條件");
+		Swal.fire({
+			toast: true,
+    		position: 'top',
+			showConfirmButton: false,
+    		timer: 2000,
+    		icon: 'error',
+    		title: '請至少輸入一項搜尋條件!!',
+    	})
+		
+		
+// 		alert("請至少輸入一項搜尋條件");
 	} else {
 
 		var account = document.getElementById("account").value;
