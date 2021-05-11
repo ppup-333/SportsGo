@@ -421,7 +421,7 @@ public class UserController {
 //		System.out.println("取得的帳號 = " + userAct);
 //		System.out.println("取得的 = " + userData.getName());
 
-		return "redirect:/user/Login";
+		return "index";
 
 	}
 
