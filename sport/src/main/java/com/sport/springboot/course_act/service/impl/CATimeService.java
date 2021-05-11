@@ -15,6 +15,7 @@ import com.sport.springboot.course_act.model.activityBean;
 import com.sport.springboot.course_act.model.courseBean;
 import com.sport.springboot.course_act.repository.CATimeRepository;
 import com.sport.springboot.field.model.Field;
+import com.sport.springboot.field.model.FieldActOrder;
 import com.sport.springboot.field.model.FieldOrderDetail;
 import com.sport.springboot.field.repository.FieldRepository;
 import com.sport.springboot.field.service.impl.FieldActOrderServiceImpl;
@@ -117,6 +118,7 @@ public class CATimeService {
 				}else {
 					System.out.println(orderDetailList.size());
 					for(int j = 0; j < orderDetailList.size(); j++) {
+			
 					   newOrderDetailList.add(orderDetailList.get(j));
 					  }
 				}
@@ -181,6 +183,7 @@ public class CATimeService {
 				}else {
 					System.out.println(orderDetailList.size());
 					for(int j = 0; j < orderDetailList.size(); j++) {
+						
 					   newOrderDetailList.add(orderDetailList.get(j));
 					  }
 				}

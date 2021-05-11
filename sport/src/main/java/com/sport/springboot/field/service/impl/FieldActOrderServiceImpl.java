@@ -108,12 +108,14 @@ public class FieldActOrderServiceImpl implements FieldActOrderService {
 		
 		if(activity!=null) {
 			fieldActOrder.setActivitybean(activity);
+			
 		}
 		if(course!=null) {
 			fieldActOrder.setCoursebean(course);
 		}				
 		
-		fieldActOrder.setCreateTime(dateStr);		
+		fieldActOrder.setCreateTime(dateStr);
+		fieldActOrder.setOrderStatus(1);
 		//fieldActOrder.setOrderDetails(orderDetailList); //失望
 		fieldActOrderRepository.save(fieldActOrder);
 		
@@ -121,6 +123,7 @@ public class FieldActOrderServiceImpl implements FieldActOrderService {
 		
 		//如果上面那行fieldOrderDetailRepository.saveAll(orderDetailList);失敗的話就試下面的
 		for(int i = 0; i < orderDetailList.size(); i++) {
+			orderDetailList.get(i).setFieldActOrder(fieldActOrder);
 			System.out.println(orderDetailList.get(i).getFieldPeriod().getId());
 			
 		}
