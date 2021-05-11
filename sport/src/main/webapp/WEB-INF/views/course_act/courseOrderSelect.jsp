@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>courseOrderSelect</title>
 <style type="text/css">
@@ -51,7 +52,7 @@ font-size:50px;
 </style>
 </head>
 <body>
-
+<c:import url="../newheader.jsp"/>
 <div class="main_body">
 
 <c:choose>

@@ -4,11 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-
+<c:import url="../newheader.jsp"/>
 <c:choose>
 <c:when test="${result=='0'}">
 <h1>目前沒有付款完成的課程</h1>

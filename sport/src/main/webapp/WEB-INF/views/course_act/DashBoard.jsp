@@ -4,12 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>DashBoard</title>
 <link rel="stylesheet" href="css/course.css">
 <link rel="stylesheet" href="css/loader.css">
- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!--  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+<!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
 <style type="text/css">
 .main_body{
 text-align:center;
@@ -137,7 +138,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<c:import url="../headerM.jsp" />
+<c:import url="../newheaderM.jsp" />
 
 <div class="course">DashBoard<hr></div>
 <div class="main_body">

@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>home</title>
 <link rel="stylesheet" href="css/course.css">
- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!--  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -73,7 +74,7 @@ text-align:center;
 </style>
 </head>
 <body>
-<c:import url="../header.jsp"/>
+<c:import url="../newheader.jsp"/>
 <div class="main_body">
 <div class="course">活動總攬<hr></div>
 <div id="act"></div>

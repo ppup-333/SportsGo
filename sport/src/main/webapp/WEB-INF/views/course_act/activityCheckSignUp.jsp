@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>activityCheckSignUp</title>
 
@@ -34,8 +35,8 @@ text-align:center;
 
 </head>
 <body>
-<c:import url="../header.jsp"/>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<c:import url="../newheader.jsp"/>
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <div class="main_body">
 <h1>${activity.actName}</h1>
 <table class="activitytable">

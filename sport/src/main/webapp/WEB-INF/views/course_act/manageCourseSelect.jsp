@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<c:import url="../headerScript.jsp"/>
 <title>manageCourseSelect</title>
 <style type="text/css">
 table{

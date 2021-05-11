@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<c:import url="../headerScript.jsp"/>
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <meta charset="UTF-8">
 <title>teacherUpdate</title>
 <style>
@@ -60,8 +61,8 @@ text-align:center;
     </style>
 </head>
 <body>
-<c:import url="../headerM.jsp" />
-    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<c:import url="../newheaderM.jsp" />
+<!--     <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <div class="main_body">
 
 

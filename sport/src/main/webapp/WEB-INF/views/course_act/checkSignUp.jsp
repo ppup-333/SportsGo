@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>報名訂單</title>
 <style>
@@ -57,8 +58,8 @@ height:200px;
     </script>
 </head>
 <body>
-<c:import url="../header.jsp" />
- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<c:import url="../newheader.jsp" />
+<!--  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
  <div class="main_body">
  
  

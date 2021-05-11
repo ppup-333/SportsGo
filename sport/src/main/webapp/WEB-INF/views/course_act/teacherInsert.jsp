@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<c:import url="../headerScript.jsp"/>
 <title>teacherInsert</title>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <style type="text/css">
 table {
 	border-collapse: collapse;
@@ -95,7 +96,7 @@ function checkSalary(){
 </script>
 </head>
 <body>
-<c:import url="../headerM.jsp" />
+<c:import url="../newheaderM.jsp" />
 <div  class="main_body">
 <form id="insert" method="post" action="/sport/teacherInsertImpl"  enctype="multipart/form-data">
 <table border="1" style="text-align: center;">

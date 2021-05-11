@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>courseDetail</title>
 <link rel="stylesheet" href="css/course.css">
- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!--  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <style>
 table{
 border:1px solid #FFF8D7;
@@ -48,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </head>
 <body>
-<c:import url="../header.jsp"/>
+<c:import url="../newheader.jsp"/>
 <div class="main_body">
 <div class="course">${course.courseName}${course.courseKind}<hr></div>
   <button type="button" class="apply"  onclick="window.location.href='/sport/courseApply?id=${course.courseId}&type=second'">立刻報名</button>
