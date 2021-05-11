@@ -39,12 +39,12 @@
  	.f1{ 
  	font-size:15px; 
 /*  	width:550px;  */
- 	margin-left:780px; 
+ 	margin-left:600px; 
  	margin-top:50px;
  	} 
 
  	.d1{ 
- 	margin:20px 780px; 
+ 	margin:20px 600px; 
  	} 
 	
 </style>
@@ -140,7 +140,7 @@
 		</form:form>
 	</fieldset>
 	<div class='d1'>
-		<input type='button' value='送出' onclick='chkSubmit()'>
+		<input type='button' value='送出' onclick='chkSubmit()'>&nbsp;&nbsp;
 		<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
 	</div>
 	

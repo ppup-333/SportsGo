@@ -10,8 +10,8 @@
 <style>
 
 	td {
-		height: 40px;
-		width: auto;
+		height:40px;
+		width:auto;
 		
 	}
 
@@ -39,14 +39,14 @@
 	}
 	
 	.d1{
-		width:250px;
+		width:300px;
 		height:60px;
 	}
 	
 	.d2{
 		position:relative;
 		top:-55px;
-    	left:270px;
+    	left:300px;
 		width:250px;
 		height:60px;
 	}
@@ -73,16 +73,15 @@
 		<div class='d1'>
 			<table>
 				<tr>
-					<td>帳號：&nbsp;</td>
+					<td width='360px'>請輸入帳號：&nbsp;</td>
 					<td><form:input path="account" id="account"/>&nbsp;&nbsp;</td>
-					
 				</tr>
 			</table>
 		</div>
 	</form:form>
 </fieldset>
 	<div class="d2">
-	<button onclick="select1()">查詢</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	<button onclick="select1()">查詢</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<button type="button" class="" data-toggle="modal" data-target="#addAdmin">新增管理者</button>
 	</div>	
 	<div class="modal fade" id="daleteAdmin" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -128,11 +127,11 @@
 								<td>請輸入要新增的帳號：&nbsp;</td>
 								<td><input type='text' id='inputAct' name='inputAct'/>&nbsp;&nbsp;</td>
 							</tr>
-							<tr>
-								<td>
-		     						<div id='result0c'></div><br>
-		     					</td>
-							</tr>
+<!-- 							<tr> -->
+<!-- 								<td> -->
+<!-- 		     						<div id='result0c'></div><br> -->
+<!-- 		     					</td> -->
+<!-- 							</tr> -->
 						</table>
       				</div>
       			</form>

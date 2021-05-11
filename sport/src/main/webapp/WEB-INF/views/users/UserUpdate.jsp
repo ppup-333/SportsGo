@@ -50,12 +50,12 @@
  	.f1{ 
  	font-size:15px; 
 /*  	width:550px;  */
- 	margin-left:780px; 
+ 	margin-left:620px; 
  	margin-top:50px;
  	} 
 
  	.d1{ 
- 	margin:20px 780px; 
+ 	margin:20px 620px; 
  	} 
 </style>
 
