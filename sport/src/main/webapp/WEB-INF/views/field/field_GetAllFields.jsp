@@ -238,7 +238,7 @@ function displayFields(responseText){
 	if(fieldList.length > 0){			
 		content = "<table class='table table-hover'><tr class='bg-info'>"
 				+ "<th>編號<th>名稱<th>類型<th>位置<th>租金(會員)<th>租金(活動)"
-				+ "<th>狀況<th>創建日期<th>資料建立日期<th>最近修改時間<th>編輯<th></tr>";
+				+ "<th>狀況<th>創建日期<th>資料建立日期<th>最近修改時間<th>編輯</tr>";
 		console.log(fieldList);
 		for(var i=0; i < fieldList.length; i++){
 			var situation;

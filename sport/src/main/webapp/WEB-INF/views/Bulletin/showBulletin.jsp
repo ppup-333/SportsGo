@@ -5,7 +5,10 @@
 <html lang="zh-Hant-TW">
 <head>
 <title></title>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<c:import url="../headerScript.jsp"/>
+
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <script src="/sport/scripts/bulletin/date.format.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -109,7 +112,7 @@ $(document).ready(function() {
 
 </script>
 <body>
-<c:import url="../header.jsp"/>
+<c:import url="../newheader.jsp"/>
 <input id='bulletinId' style='display:none' value='${bulletin.id }'>
 	<div class="box">
 		<div class="container">

@@ -4,7 +4,10 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="zh-Hant-TW">
 <head>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+
+<c:import url="../headerScript.jsp"/>
+
 <script src="/sport/scripts/bulletin/date.format.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -230,7 +233,7 @@ function showBulletin(nowPage) {
 
 
 <body>
-<c:import url="../header.jsp"/>
+<c:import url="../newheader.jsp"/>
 	<div class="box">
 		<div class="container">
 			<div class="bulletinAdv">
@@ -328,6 +331,6 @@ function showBulletin(nowPage) {
 			</ul>
 		</div>
 	</div>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 </body>
 </html>
