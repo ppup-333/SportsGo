@@ -14,6 +14,7 @@
 	 position: relative;
 	 left: 10%;
 	 top: 20%;
+	 width: 50%;
 }
 
 #po {
@@ -28,10 +29,12 @@
 }
 
 select {
-	border: 1px solid black;
-	border-radius: 2px;
-	position: relative;
-	top: 20%;
+ 	border: 1px solid black;
+ 	border-radius: 2px;
+ 	position: relative;
+ 	top: 20%;
+ 	width: 21%;
+ 	margin-left: 3%;
 }
 
 #search {
@@ -69,17 +72,17 @@ tbody {
 </head>
 <body>
 <c:import url="../newheader.jsp"/>
-	
+<h2>討論區</h2>
 	<div class="container-fluid pt-3">
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
 				<div class="row">
-					<div class="col-3">
-						<button type="button" id="createBbs" class="btn btn-primary btn-sm">發文</button>
+					<div class="col-2">
+						<button type="button" id="createBbs" class="btn btn-info btn-sm"><b>發 文</b></button>
 					</div>
-					<div class="col-6">
-						<a href="bbs"><button type="button" id="po"> -- 全部 -- <i class="fas fa-angle-down"></i></button></a> 
+					<div class="col-7">
+						<a href="bbs"><button type="button" id="po"> -- 全部發文 -- <i class="fas fa-angle-down"></i></button></a> 
 						<select id="game" name="game" class="custom-select-sm">
 							<option value="-1">-- 賽事討論 --</option>
 							<c:forEach var="game" items="${gameList}">
@@ -106,7 +109,7 @@ tbody {
 					</div>
 					<div class="col-3" align="right">
 						<input type="search" id="search" name="search" autocomplete="off"
-							placeholder="輸入查詢字串...">
+							placeholder=" 輸入查詢字串...">
 						<input id="searchImage" type="image" src="images/magnifier.png">
 					</div>
 				</div>
@@ -121,14 +124,14 @@ tbody {
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<table class="table table-striped" id="table" data-pagination="true" data-page-size="5"
+				<table class="table table-striped table-borderless" id="table" data-pagination="true" data-page-size="5"
 					data-pagination-parts="['pageList']">
 					<thead>
-						<tr >
-							<th data-field="typeName" data-halign="center" data-align="center" data-width="100">類型</th>
+						<tr>
+							<th data-field="typeName" data-halign="center" data-align="center" data-width="140">類型</th>
 							<th data-field="bbsTitle"  data-formatter="TitleFormatter" data-halign="center" data-align="left"></th>
-							<th data-field="bbsBuilder" data-formatter="BuilderFormatter" data-halign="center" data-align="center" data-width="180">建立者</th>
-							<th data-field="replySetupTime" data-formatter="ReplyFormatter" data-halign="center" data-align="center" data-width="180">最新回覆</th>
+							<th data-field="bbsBuilder" data-formatter="BuilderFormatter" data-halign="center" data-align="center" data-width="200">建立者</th>
+							<th data-field="replySetupTime" data-formatter="ReplyFormatter" data-halign="center" data-align="center" data-width="200">最新回覆</th>
 						</tr>
 					</thead>
 				</table>
@@ -191,7 +194,7 @@ tbody {
 			if (row.bbsDelete == 2) {
 				return "<p class='text-muted font-weight-light'><b style='font-size: 20px'>" + row.bbsTitleByDetail + "</b><br><span style='font-size: 12px' class='badge badge-secondary'>發文不存在</span></p>";
 			} else {
-				return "<a href='bbsSelect?bbsId=" + row.bbsId + "'><b style='font-size: 20px'>" + row.bbsTitleByDetail + "</b><br>" + row.bbsMessage + "</a>";
+				return "<a href='bbsSelect?bbsId=" + row.bbsId + "'><b style='font-size: 20px;'>" + row.bbsTitleByDetail + "</b><br><small style='font-size: 15px;'>" + row.bbsMessage + "</small></a>";
 			}
 		}
 

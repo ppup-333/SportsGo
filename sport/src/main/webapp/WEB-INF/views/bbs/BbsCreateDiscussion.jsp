@@ -48,14 +48,14 @@
 					</form:select>
 					<form:input type="text" path="bbsTitle" id="bbsTitle" name="bbsTitle"
 						autocomplete="off" size="50" placeholder="輸入標題"></form:input>
-					<input type="button" style="position: relative; top: -3px;" onclick="formReset()" class="btn btn-warning btn-sm" value="清除" />
+					<input type="button" style="position: relative; top: -3px;" onclick="formReset()" class="btn btn-outline-warning btn-sm" value="清除" />
 					<br>
 					<form:textarea path="bbsMessage" id="bbsMessage" name="bbsMessage"
 						placeholder="輸入內文" value="<c:out value='${bbs.bbsMessage}' />"></form:textarea>
 					
 					<br>
-					<button type="button" id="cancelYN"class="btn btn-danger btn-sm" style="position: relative; left: 220px;">放棄發文</button>
-					<button type="submit" id="postYN"class="btn btn-success btn-sm" style="position: relative; left: 240px;">送出發文</button>
+					<button type="button" id="cancelYN"class="btn btn-outline-danger btn-sm" style="position: relative; left: 220px;">放棄發文</button>
+					<button type="submit" id="postYN"class="btn btn-outline-success btn-sm" style="position: relative; left: 240px;">送出發文</button>
 				</form:form>
 			</div>
 			<div class="col"></div>

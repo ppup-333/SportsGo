@@ -44,9 +44,9 @@
 					<br>
 					<div>
 						<button type="button" id="deteleBbs" style="display: none; position:relative; left: 90%;"
-							class="btn btn-danger btn-sm">刪除</button>
+							class="btn btn-outline-danger btn-sm">刪除</button>
 						<button type="button" id="recoveryBbs" style="display: none; position:relative; left: 87%;"
-							class="btn btn-warning btn-sm">刪除還原</button>
+							class="btn btn-outline-warning btn-sm">刪除還原</button>
 					</div>
 					<br>
 				</form>

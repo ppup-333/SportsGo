@@ -11,28 +11,30 @@
 <style>
 
 #selectDropdown {
-	background-color: white;
-	color: black;
-	border: 1px solid black;
-	border-radius: 2px;
-	font-size: 14px;
-	height: 31px;
-	position: relative;
-	top: 20%;	
+ 	background-color: white;
+ 	color: black;
+ 	border: 1px solid black;
+ 	border-radius: 2px;
+ 	font-size: 14px;
+ 	height: 31px;
+ 	position: relative;
+ 	top: 20%;
 }
 
 select {
-	border: 1px solid black;
-	border-radius: 2px;
-	position: relative;
-	top: 20%;
+ 	border: 1px solid black;
+ 	border-radius: 2px;
+ 	position: relative;
+ 	top: 20%;
+ 	width: 17%;
+ 	margin-left: 3%;
 }
 
 #search {
 	border-radius: 3px;
-	border: 1px solid black;
-	height: 28px
-}
+ 	border: 1px solid black;
+ 	height: 28px;
+} 
 
 #searchImage {
 	position: relative;
@@ -62,7 +64,8 @@ tbody {
 </style>
 </head>
 <body>
-	<c:import url="../newheaderM.jsp"/>
+<c:import url="../newheaderM.jsp"/>
+<h2>討論區</h2>	
 	<div class="container-fluid pt-3">
 		<div class="row">
 			<div class="col-2"></div>
@@ -72,13 +75,13 @@ tbody {
 <!-- 						<button type="button" id="selectDropdown" name="selectDropdown" class="btn btn-primary btn-sm dropdown-toggle" -->
 <!-- 							data-toggle="dropdown"> -- 選擇狀態 -- </button> -->
 <!-- 						<ul class="dropdown-menu"> -->
-<!-- 							<li class="dropdown-item" onclick="selectDelete(-1)">全部</li>  -->
-<!-- 							<li class="dropdown-item" onclick="selectDelete(0)">正常</li> -->
-<!-- 							<li class="dropdown-item" onclick="selectDelete(1)">用戶刪除</li> -->
-<!-- 							<li class="dropdown-item" onclick="selectDelete(2)">管理員刪除</li> -->
+<!-- 							<li class="dropdown-item" onclick="selectDelete(-1)"> 全部 </li>  -->
+<!-- 							<li class="dropdown-item" onclick="selectDelete(0)"> 正常 </li> -->
+<!-- 							<li class="dropdown-item" onclick="selectDelete(1)"> 用戶刪除 </li> -->
+<!-- 							<li class="dropdown-item" onclick="selectDelete(2)"> 管理員刪除 </li> -->
 <!-- 						</ul> -->
 <!-- 					</div> -->
-					<div class="col-3">
+					<div class="col-9">
 						<select id="selectDropdown" class="custom-select-sm">
 							<option value="">-- 選擇狀態 --</option>
 							<option value="-1">全部</option>
@@ -86,8 +89,7 @@ tbody {
 							<option value="1">用戶刪除</option>
 							<option value="2">管理員刪除</option>
 						</select>
-					</div>
-					<div class="col-6">
+<!-- 					<div class="col-6"> -->
 						<select id="game" name="game" class="custom-select-sm">
 							<option value="-1">-- 賽事討論 --</option>
 							<c:forEach var="game" items="${gameList}">
@@ -114,7 +116,7 @@ tbody {
 					</div>	
 					<div class="col-3" align="right">
 						<input type="search" id="search" name="search" autocomplete="off"
-							placeholder="輸入查詢字串...">
+							placeholder=" 輸入查詢字串...">
 						<input id="searchImage"	type="image" src="images/magnifier.png" width="25" height="25">
 					</div>
 				</div>
@@ -129,13 +131,13 @@ tbody {
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
-				<table class="table table-striped" id="table" data-pagination="true" data-page-size="5"
+				<table class="table table-striped table-borderless" id="table" data-pagination="true" data-page-size="5"
 					data-pagination-parts="['pageList']">
 					<thead>
 						<tr>
 							<th data-field="bbsDelete" data-formatter="DeleteFormatter" data-halign="center" data-align="center" data-width="80">狀態</th>
 							<th data-field="bbsId" data-halign="center" data-align="center" data-width="80">序號</th>
-							<th data-field="typeName" data-halign="center" data-align="center" data-width="80">類型</th>
+							<th data-field="typeName" data-halign="center" data-align="center" data-width="100">類型</th>
 							<th data-field="bbsTitle"  data-formatter="TitleFormatter" data-halign="center" data-align="left">發文</th>
 							<th data-field="bbsBuilder" data-formatter="BuilderFormatter" data-halign="center" data-align="center" data-width="180">建立者</th>
 							<th data-field="replySetupTime" data-formatter="ReplyFormatter" data-halign="center" data-align="center" data-width="180">最新回覆</th>
@@ -150,13 +152,22 @@ tbody {
 	<script>
 		//dropdown
 // 		function selectDelete(deleteType){
-// 			var $table = $('#table');
+// 			var $table = $("#table");
+// 			if(deleteType == -1) {
+// 				$("#selectDropdown").text(" 全部 ");
+// 			} else if(deleteType == 0) {
+// 				$("#selectDropdown").text(" 正常 ");
+// 			} else if(deleteType == 1) {
+// 				$("#selectDropdown").text(" 用戶刪除 ");
+// 			} else {
+// 				$("#selectDropdown").text(" 管理員刪除 ");
+// 			}
 // 			$.get("bbsM.selectSearchByBbsDelete?bbsDelete=" + deleteType,
 // 			function(data) {
 // 				$table.bootstrapTable({
 // 					data : data
 // 				});
-// 				$table.bootstrapTable('load', data);
+// 				$table.bootstrapTable("load", data);
 // 			});
 // 		}
 		
@@ -219,14 +230,14 @@ tbody {
 			});
 			$table.bootstrapTable('load', data);
 		});
-			
+		
 		function DeleteFormatter(value, row, index) {
 			if(row.bbsDelete == 0){
-				return "<span class='badge badge-success'>正常</span>";
+				return "<h5><span class='badge badge-success'>正常</span></h5>";
 			} else if(row.bbsDelete == 1){
-				return "<span class='badge badge-secondary'>用戶刪除</span>";
+				return "<h5><span class='badge badge-secondary'>用戶刪除</span></h5>";
 			} else {
-				return "<span class='badge badge-warning'>管理員刪除</span>";
+				return "<h5><span class='badge badge-warning'>管理員刪除</span></h5>";
 			}
 		}
 			
