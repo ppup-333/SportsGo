@@ -4,7 +4,7 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="zh-Hant-TW">
 <head>
-<title></title>
+<title>公告內容</title>
 
 <c:import url="../headerScript.jsp"/>
 

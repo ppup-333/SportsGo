@@ -11,7 +11,7 @@
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" /> -->
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script> -->
-
+<title>編輯公告</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -201,7 +201,7 @@ span.error {
 						<label for="BulletinTitle">公告標題：</label>
 						<form:input id="BulletinTitle" name="title" path='title'
 							class="form-control" aria-describedby="titleHelp"
-							placeholder="請輸入標題" />
+							placeholder="請輸入標題" maxlength="11"/>
 						<form:errors path='title' cssClass="error" />
 						<!-- 					<small id="titleHelp" class="form-text text-muted"></small> -->
 					</div>
@@ -209,7 +209,7 @@ span.error {
 						<label for="BulletinSubTitle">副標題：</label>
 						<form:textarea id="BulletinSubtitle" name="subtitle"
 							path='subtitle' class="form-control"
-							aria-describedby="subtitleHelp" placeholder="請輸入副標題" rows="2"></form:textarea>
+							aria-describedby="subtitleHelp" placeholder="請輸入副標題" rows="2" maxlength="160"></form:textarea>
 						<form:errors path='subtitle' cssClass="error" />
 						<!-- 					<small id="titleHelp" class="form-text text-muted"></small> -->
 					</div>
@@ -226,7 +226,7 @@ span.error {
 						<label for="BulletinContent">公告內容：</label>
 						<form:textarea id="BulletinContent" name="contents" path="contents"
 							class="form-control" aria-describedby="subtitleHelp"
-							placeholder="請輸入公告內容" rows="12"></form:textarea>
+							placeholder="請輸入公告內容" rows="12" maxlength="400"></form:textarea>
 						<form:errors path='contents' cssClass="error" />
 					</div>
 					

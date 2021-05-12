@@ -5,7 +5,7 @@
 <html lang="zh-Hant-TW">
 <head>
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
-
+<title>最新消息</title>
 <c:import url="../headerScript.jsp"/>
 
 <script src="/sport/scripts/bulletin/date.format.js"></script>
@@ -134,6 +134,7 @@ function generatePage(currentPage){
 					$('.news-time' + i).empty();
 					$('.subtitle-container' + i).empty();
 					$('#showContentLink' + i).empty();
+					$('#showContentLink' + i).hide();
 				}
 				showBulletin(currentPage);
 				
@@ -239,7 +240,8 @@ function showBulletin(nowPage) {
 				$('.news-col' + index).html('<h5 class="title'+index+'"><i id="titleIcon'+index+'" class=""></i>'+ '【' + bulletin.class_id.name + '】' + bulletin.title + '</h5>');
 				$('.news-time' + index).html('<p><i class="far fa-clock"></i>' + updateTime + '</p>');
 				$('.subtitle-container' + index).html('<p>' + bulletin.subtitle + '</p>');
-				$('#showContentLink' + index).attr("href","/sport/Bulletin/showBulletinContent/" + bulletin.id).addClass('btn btn-outline-info addBtn').text('MORE');
+				$('#showContentLink' + index).attr("href","/sport/Bulletin/showBulletinContent/" + bulletin.id).addClass('btn btn-outline-info').text('MORE');
+				$('#showContentLink' + index).show();
 				if(bulletin.class_id.id == 1){
 					$('#titleIcon' + index).addClass("far fa-newspaper");
 				}
