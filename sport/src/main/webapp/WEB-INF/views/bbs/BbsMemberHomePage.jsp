@@ -68,6 +68,10 @@ tbody {
 	cursor: pointer;
 }
 
+table.table-hover tbody tr:hover {
+    background-color: #d7e5f4; 
+}
+
 </style>
 </head>
 <body>
@@ -129,7 +133,7 @@ tbody {
 					<thead>
 						<tr>
 							<th data-field="typeName" data-halign="center" data-align="center" data-width="140">類型</th>
-							<th data-field="bbsTitle"  data-formatter="TitleFormatter" data-halign="center" data-align="left"></th>
+							<th data-field="bbsTitle"  data-formatter="TitleFormatter" data-halign="center" data-align="left" data-width="400"></th>
 							<th data-field="bbsBuilder" data-formatter="BuilderFormatter" data-halign="center" data-align="center" data-width="200">建立者</th>
 							<th data-field="replySetupTime" data-formatter="ReplyFormatter" data-halign="center" data-align="center" data-width="200">最新回覆</th>
 						</tr>
