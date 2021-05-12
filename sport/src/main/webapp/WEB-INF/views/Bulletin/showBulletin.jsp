@@ -24,28 +24,35 @@
 		border:1px solid black;
 	}
 	.head{
-		margin: 0 auto;
 		position:relative;
-		margin-bottom:20px;
 	}
 	.head-icon{
-		position:absolute;
+		
+		padding-top:10px;
+		float:left;
+		
 	}
 	.headTitle{
-		padding-left:80px;
-		margin-top:35px;
-		
+		padding-left:0px;
+		padding-top:40px;
+		margin:auto;
 		float:left;
 	}
 	.update-time{
-		padding-top:0;
-		margin-top:0;
+		margin-top:70px;
 		float:right;
 		color:gray;
 	}
 	.title-container {
+		
+		padding-top:5px;
 /* 		text-align:left; */
-		padding-left:60px;
+		overflow:auto;
+		color:white;
+		background-color:#17A2B8;
+		width:90%;
+		margin-left:60px;
+		border-radius:10px;
 	}
 	.image-contents{
 		margin-top:30px;
@@ -165,16 +172,21 @@ $(document).ready(function() {
 		
 	<div class="box">
 		<div class="container">
+			
 			<div class="head">
-				<span class="head-icon">
+
+				<div class="head-icon">
 				<img src="/sport/images/bulletin/running1.png" width="80" height="80"></img>
-				</span>
+				</div>
+
 				<h2 style="font-weight:bold;" class="headTitle">公告內容</h2>
+				<div id="update-time"  class="update-time">
+				</div>
 			</div>
 			
+			
+			
 			<div class="clear"></div>
-			<div id="update-time"  class="update-time">
-			</div>
 			<hr class="style-one" />
 			<div id="title" class="title-container">
 				
