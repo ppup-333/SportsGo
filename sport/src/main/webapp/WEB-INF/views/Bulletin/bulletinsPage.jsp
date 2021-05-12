@@ -16,9 +16,10 @@
 <title>公告管理</title>
 </head>
 <style>
+
 .box{
 		margin-top:50px;
-	
+		font-family: 'Noto Sans TC';
 	}
 .container {
 	align: center;
@@ -51,7 +52,9 @@ a:hover{
 	text-decoration:none;
 }
 
-
+.page-item > a{
+	color:#17A2B8;
+}
 </style>
 
 <script>
@@ -360,7 +363,7 @@ a:hover{
 <c:import url="../newheaderM.jsp"/>
 	<div  class="box">
 		<div class="container">
-			<h2 style="font-weight:bold;">公告管理</h2>
+			<h2 style="font-family: 'Noto Sans TC', sans-serif">公告管理</h2>
 			<hr>
 			<table>
 				<tr>
@@ -393,10 +396,7 @@ a:hover{
 		<div class="container">
 			<hr>
 			<ul class="pagination">
-				<li class="page-item"><a class="page-link" id="prevPage"
-					href="#">Previous</a></li>
-				<li class="page-item"><a class="page-link" id="nextPage"
-					href="#">Next</a></li>
+				
 			</ul>
 			<div id="nowPage">
 			</div>

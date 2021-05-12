@@ -37,6 +37,7 @@
 		padding-top:40px;
 		margin:auto;
 		float:left;
+		font-family: 'Noto Sans TC', sans-serif
 	}
 	.update-time{
 		margin-top:70px;
@@ -53,6 +54,7 @@
 		width:90%;
 		margin-left:60px;
 		border-radius:10px;
+		font-family: 'Noto Sans TC', sans-serif
 	}
 	.image-contents{
 		margin-top:30px;
@@ -72,10 +74,12 @@
 	}
 	
 	.contents-container{
+		
 		padding-left:70px;
  		width:50%;
 		float:left;
 		diplay:inline-block;
+		font-family:'Noto Sans TC';
 	}
 	.contents-container > p{
  	

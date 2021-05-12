@@ -34,6 +34,8 @@
  		height:45px; 
 /* 		width:800px; */
 /* 		border:1px solid orange; */
+		color:#FF8E15;
+		font-family: 'Noto Sans TC', sans-serif;
 	}
 	
 	.news-col0, .news-col1, .news-col2, .news-col3{
@@ -59,6 +61,8 @@
 /* 		border:1px solid black; */
 		margin-left:70px;
 		float:left;
+		color:	#5B5B5B;
+		font-family: 'Noto Sans TC';
 	}
 	.showContentBtn0, .showContentBtn1, .showContentBtn2, .showContentBtn3{
 		margin:auto;
@@ -67,6 +71,9 @@
 /* 		border:1px solid red; */
 		text-align:right;
 		float:right;
+	}
+	.showContentLink{
+		width:87px;!important
 	}
 	.title{
 /* 		border:2px solid yellow; */
@@ -96,6 +103,10 @@
 		background:	#E0E0E0;
 	}
 	.myMOUSE{ cursor: pointer; }
+	
+	.page-item > a{
+		color:#17A2B8;
+	}
 </style>
 
 <script>
@@ -221,10 +232,15 @@ function showBulletin(nowPage) {
 			
 			$.each(data, function(index, bulletin){				
 				var updateTime = new Date(bulletin.update_time).format("Y-m-d");
-				$('.news-col' + index).html('<h5 class="title">'+ '【' + bulletin.class_id.name + '】' + bulletin.title + '</h5>');
+				$('.news-col' + index).html('<h5 class="title'+index+'"><i id="titleIcon'+index+'" class=""></i>'+ '【' + bulletin.class_id.name + '】' + bulletin.title + '</h5>');
 				$('.news-time' + index).html('<p><i class="far fa-clock"></i>' + updateTime + '</p>');
 				$('.subtitle-container' + index).html('<p>' + bulletin.subtitle + '</p>');
-				$('#showContentLink' + index).attr("href","/sport/Bulletin/showBulletinContent/" + bulletin.id).html('<img src="/sport/images/bulletin/button_readmore.png" width="90px" height="30px">');
+				$('#showContentLink' + index).attr("href","/sport/Bulletin/showBulletinContent/" + bulletin.id).addClass('btn btn-outline-info addBtn').text('MORE');
+			
+				if(bulletin.class_id.id == 2){
+					$('#titleIcon' + index).addClass("fas fa-chalkboard-teacher");
+				}
+			
 			});
 			
 // 			$.getJSON("getPageInfo?classId=" + globalClassId, function(data){
@@ -241,7 +257,7 @@ function showBulletin(nowPage) {
 <body>
 <c:import url="../newheader.jsp"/>
 	<div class="box">
-		<h2>課程異動</h2>
+		<h2 style="font-family: 'Noto Sans TC', sans-serif;">課程異動</h2>
 		<div class="container">
 			<div class="bulletinAdv">
 			</div>
@@ -261,7 +277,7 @@ function showBulletin(nowPage) {
 					</div>
 					<div class="showContentBtn0">
 						<a href="#" id="showContentLink0" class="showContentLink" style="text-decoration:none;">
-							<img src="/sport/images/bulletin/button_readmore.png" width="90px" height="30px">
+							
 						</a>
 					</div>
 				</div>
@@ -280,7 +296,7 @@ function showBulletin(nowPage) {
 					</div>
 					<div class="showContentBtn1">
 						<a href="#" id="showContentLink1" class="showContentLink" style="text-decoration:none;">
-							<img src="/sport/images/bulletin/button_readmore.png" width="90px" height="30px">
+							
 						</a>
 					</div>
 				</div>
@@ -300,7 +316,7 @@ function showBulletin(nowPage) {
 					</div>
 					<div class="showContentBtn2">
 						<a href="#" id="showContentLink2" class="showContentLink" style="text-decoration:none;">
-							<img src="/sport/images/bulletin/button_readmore.png" width="90px" height="30px">
+							
 						</a>
 					</div>
 				</div>
@@ -321,7 +337,7 @@ function showBulletin(nowPage) {
 					</div>
 					<div class="showContentBtn3">
 						<a href="#" id="showContentLink3" class="showContentLink" style="text-decoration:none;">
-							<img src="/sport/images/bulletin/button_readmore.png" width="90px" height="30px">
+							
 						</a>
 					</div>
 				</div>

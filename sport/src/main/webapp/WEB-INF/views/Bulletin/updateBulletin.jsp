@@ -19,7 +19,9 @@
 
 </head>
 <style type="text/css">
+
 .box{
+	font-family: 'Noto Sans TC';
 	margin-top:50px;
 	margin-bottom:100px;	
 }
@@ -186,7 +188,7 @@ span.error {
 	<c:import url="../newheaderM.jsp" />
 	<div class="box">
 		<div class="container title-style">
-		<h2 style="font-weight:bold;color:white">編輯公告</h2>
+		<h2 style="font-family: 'Noto Sans TC', sans-serif;color:white">編輯公告</h2>
 		</div>
 		<div class="container">
 			<div class="form-container">
