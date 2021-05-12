@@ -55,14 +55,14 @@
 	
 	#teble1 td{
 		padding:5px;
-		font-size:13px;
+		font-size:12px;
 		text-align:center;
 	}
 	
 	#teble1 th{
 		background-color: #17a2b8;
 		color: #FFFFFF;
-		font-size:14px;
+		font-size:13px;
 	}
 	
 	
