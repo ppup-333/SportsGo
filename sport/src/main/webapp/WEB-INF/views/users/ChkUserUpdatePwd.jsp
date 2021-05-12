@@ -114,7 +114,7 @@
 <script>
 
 $("#clickInput").click(function(){
-	$("input[id='userPwd']").val("test1001")
+	$("input[id='userPwd']").val("beyond1000")
 });
 
 </script>

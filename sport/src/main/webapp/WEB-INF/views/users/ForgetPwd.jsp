@@ -95,9 +95,9 @@
 <script>
 
 $("#clickInput").click(function(){
-	$("input[id='userAct']").val("test1001")
-	$("input[id='userId']").val("a123456789")
-	$("input[id='userEmail']").val("test1001@gmail.com")
+	$("input[id='userAct']").val("beyond1000")
+	$("input[id='userId']").val("A161627871")
+	$("input[id='userEmail']").val("beyond780412@gmail.com")
 });
 
 </script>
