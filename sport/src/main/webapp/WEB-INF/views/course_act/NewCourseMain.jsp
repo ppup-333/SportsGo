@@ -227,7 +227,7 @@ function sport(s){
 		      }
 			context+="]";
 			console.log(context);
-			
+			let calendertoday=new Date();
 			let eventCal=JSON.parse(context);
 			$("#animation").removeClass("loader");
 			var calendarEl = document.getElementById('calendar');
@@ -239,7 +239,7 @@ function sport(s){
 		        right: 'dayGridMonth'
 		    //    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
 		      },
-		      initialDate: result[0].DateStart,
+		      initialDate: calendertoday,
 		      navLinks: true, // can click day/week names to navigate views
 		      businessHours: true, // display business hours
 		      editable: true,

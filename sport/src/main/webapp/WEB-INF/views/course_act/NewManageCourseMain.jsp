@@ -151,6 +151,7 @@ function sport(s){
 							context+="{\"id\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 							context+="\"start\":\""+result[i].DateStart+"\","
+							context+="\"coursePayState\":\""+result[i].coursePayState+"\","
 							context+="\"constraint\":\"businessHours\"},"	
 							
 						}else{
@@ -166,6 +167,7 @@ function sport(s){
 							context+="{\"id\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 							context+="\"start\":\""+tempDateStart+"\","
+							context+="\"coursePayState\":\""+result[i].coursePayState+"\","
 							context+="\"constraint\":\"businessHours\"},"	
 						}
 										
@@ -184,11 +186,13 @@ function sport(s){
 								context+="{\"id\":\""+result[i].courseId+"\","
 								context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 								context+="\"start\":\""+result[i].DateStart+"\","
+								context+="\"coursePayState\":\""+result[i].coursePayState+"\","
 								context+="\"constraint\":\"businessHours\"}"
 							}else{
 								context+="{\"id\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 							context+="\"start\":\""+result[i].DateStart+"\","
+							context+="\"coursePayState\":\""+result[i].coursePayState+"\","
 							context+="\"constraint\":\"businessHours\"},"
 							}
 															
@@ -203,6 +207,7 @@ function sport(s){
 							context+="{\"id\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 							context+="\"start\":\""+tempDateStart+"\","
+							context+="\"coursePayState\":\""+result[i].coursePayState+"\","
 							context+="\"constraint\":\"businessHours\"}"	
 						}else{
 							let tempDate=tempDateStart.substring(8);
@@ -215,6 +220,7 @@ function sport(s){
 							context+="{\"id\":\""+result[i].courseId+"\","
 							context+="\"title\":\""+result[i].courseName+result[i].courseKind+"\","
 							context+="\"start\":\""+tempDateStart+"\","
+							context+="\"coursePayState\":\""+result[i].coursePayState+"\","
 							context+="\"constraint\":\"businessHours\"},"	
 						}
 										
@@ -247,8 +253,9 @@ function sport(s){
 		      eventClick:  function(info) {
 		    	  //	var id=event.extendedProps.myid;
 		    	  	
+		    	  	let coursePayState=info.event._def.extendedProps.coursePayState;
 		    	  	console.log(info.event.id);
-		    	  	 xhr.open("GET","/sport/courseUpdate?id="+info.event.id,true);
+		    	  	 xhr.open("GET","/sport/courseUpdate?id="+info.event.id+"&coursePayState="+coursePayState,true);
 						xhr.send();
 						xhr.onreadystatechange=function(){
 							if(xhr.readyState==4&&xhr.status==200){

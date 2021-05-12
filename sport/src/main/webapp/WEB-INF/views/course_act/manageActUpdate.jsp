@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <c:import url="../headerScript.jsp"/>-->
+
 <meta charset="UTF-8">
 <title>manageActUpdate</title>
-<!--  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+
 <style>
 
     .st1{
@@ -36,7 +36,7 @@
     }
     fieldset{
         width: 600px;
-        border: 1px dashed green;
+     
     }
     legend{
         color: blue;
@@ -49,6 +49,7 @@
         float: left ;
     }
     </style>
+    
 <script type="text/javascript">
 
 var spImageIncorrect="<img src='images/incorrect.png'  width='10'/>";
