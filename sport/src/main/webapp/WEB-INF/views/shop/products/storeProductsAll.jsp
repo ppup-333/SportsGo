@@ -10,11 +10,13 @@
 <style>
 
 
-
+a {
+    text-decoration:none;
+}
 
 .All2 {
- 	display:none; 
- 	
+  position: relative;
+  display:none; 
 }
 
 .All {
@@ -30,26 +32,33 @@
 	margin-left:20px;
 /*  min-height:900px;  */
 /* text-align: center; */
+ 	min-height: 300px;
  } 
 
 #pages{
-	margin: 0 auto;
+/* 	margin: 0 auto; */
 /* margin-left:300px; */
+/* position:absolute; */
+/* margin-bottom:0px; */
 height: 50px;
-width: 600px;
+width: 850px;
 /* border: 2px blue solid; */
-margin-top:500px;
+/* margin-top:500px; */
 font-size: 24px;
+text-align: center;
 /* letter-spacing:10px; */
 }
 
 .pagging{
+/* position:absolute; */
+/*  width:1280px;  */
+margin-left:433px;
 text-align: center;
-
 }
 
 
 #pageN{
+
 
 position: relative;
 margin:5px;
@@ -69,6 +78,15 @@ margin:5px;
  vertical-align: top;
 }
 
+#pageN:hover{
+
+
+ background-color: #6671e5   ;
+   box-shadow:1px 1px 2px grey  ;
+ color: #fff;
+
+}
+
 #pageNC{
 
 position: relative;
@@ -77,7 +95,8 @@ margin:5px;
  -webkit-border-radius: 4px;
  -moz-border-radius: 4px;
  border-radius: 20px;
- background-color: #ff5142;
+ background-color: #4218aa   ;
+ box-shadow:1px 1px 1px grey  ;
 
  color: #fff;
 /*  display: block; */
@@ -92,7 +111,7 @@ margin:5px;
 
 .title{
 /* color:#2482e0; */
-text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
+/* text-shadow: 2px 4px 3px rgba(0,0,0,0.2); */
 margin-top:20px;
 font-size : 34px;
 font-weight:bolder;
@@ -118,6 +137,19 @@ text-align: center;
 /*   background-color:#fff; */
   background-color: #f0feff;
   border: 2px navy solid;
+}
+
+.productNone {
+	height: 424px;
+	width: 274px;
+	background-color: white; 
+	margin: 70px;
+	padding:10px;
+	float: left;
+
+    margin-top:0px; 
+    overflow:hidden; 
+    
 }
 
 
@@ -148,7 +180,7 @@ transform:scale(1.1,1.1);
 }
 
 .pnamehref:hover{
-  color:#5a636c;
+  color:#828c97;
   text-decoration:none;
 }
 
@@ -181,9 +213,9 @@ margin-right:0px;
 
 .addCart:hover{
 /*   color:#003C9D; */
-  background-color:#3072d9;
+  background-color:#5793ef;
   border:3px #003C9D solid;
-   box-shadow:1px 1px 2px grey  ;
+  box-shadow:1px 1px 2px grey  ;
 }
 
 .stock{
@@ -191,21 +223,21 @@ margin-right:0px;
   color:grey;
   position: relative;
   top: 9px; 
-
 }
 
 
 .noStock{
 font-size:16px;
+font-weight:bold;
 float: right;
-width:100px;
+width:130px;
 height:40px;
-border:4px #de2621 solid;
+border:2px #de2621 solid;
 background-color:red;
 color:#fff;
 border-radius:10px;
-margin-top:5px;
-margin-right:5px;
+margin-top:20px;
+margin-right:0px;
 
 }
 
@@ -311,7 +343,7 @@ color:white;
 
 
 .allButton{
-background-color: #4f674c  ;
+background-color: #72ec69   ;
 margin:7px;
 width:180px;
 height:50px;
@@ -324,10 +356,28 @@ margin-left:55px;
 /*  border:2px #211c4f solid; */
  box-shadow:1px 1px 2px grey  ;
   border:2px white solid; 
+}
+
+.allButton:hover{
+background-color: #23b418  ;
+ color:white;
+ border-radius: 25px; 
+ box-shadow:1px 1px 2px grey  ;
+ border:2px white solid; 
  
 }
 
 
+
+.noProduct{
+
+
+text-align: center;
+font-size: 28px;
+font-weight: bold;
+
+
+}
 
 
 
@@ -340,16 +390,14 @@ margin-left:55px;
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
 
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
-
 </head>
 <body>
-
-    
-	<c:import url="../../newheader.jsp" />
 <div class="All2">
+<c:import url="../../newheader.jsp" />
+
+
 	
-	<div class="All">
+<div class="All">
 
 <p class="title">運動中心商城</p>
 
@@ -388,24 +436,29 @@ margin-left:55px;
     </div> <!--end of main-->
 
 
-        
-        
-
-		<div id= "cart">
+	<div id= "cart">
 		 <a href="<c:url value='storeProductsAll?keyword=${keyword}'/> " ><button class="allButton"><i class="fas fa-tags"> &nbsp; 所有商品</i></button ></a>
 		
-		<p class="searchBar">請輸入商品名稱：<input id="keywordI" type="text" name="keyword" class="key" required="required" value="${keyword}">
-	<button id="search" > 搜尋</button> <c:if test="${!empty keyword}" ><button id="unSearch" > 清除搜尋結果</button> </c:if>
-	<input type='hidden' name='status' value='${status}'>
-	<input type='hidden' name='category' value='${category}'></p>
-
-				<div class="cart"><a href="<c:url value='myShoppingCart' />" ><img class="cartpic" src='../images/carticon.jpg' width='60' height='40'  /><span id="cartnn" style="display: inline-block; "><p class='cartNum' style="opacity:0.0;"></p></span></a></div>
-
-<%-- 			<a href="<c:url value='myShoppingCart' />" ><button class='cart'><img class="cartpic" src='../images/carticon.jpg' width='60' height='40'  /><div id="cartnn" style="display: inline-block; "><p class='cartNum' style="opacity:0.0;"></p></div></button></a> --%>
-			
-				<br>
+		<nav class="navbar navbar-light" style="width:600px;background-color: #e3f2fd; margin-left:340px; margin-top:12px;   border-radius: 25px;  ">
 		
-		</div>
+		　<span style="color: #123456; font-weight:bold; margin-left:0px;" >請輸入商品名稱：</span><input id="keywordI" class="key form-control mr-sm-2" aria-label="Search" placeholder="Search" type="text" name="keyword" required="required" value="${keyword}" >
+
+		  <button id="search" class="btn btn-outline-success my-2 my-sm-0" <c:if test="${empty keyword}"> style=" margin-right:82px;" </c:if> > 搜尋</button> <c:if test="${!empty keyword}" ><button id="unSearch" class="btn btn-outline-secondary" style=" margin-right:15px;" > 清除</button> </c:if>
+		
+		
+		
+<%-- 		<p class="searchBar">請輸入商品名稱：<input id="keywordI" type="text" name="keyword" class="key" required="required" value="${keyword}"> --%>
+		
+<%-- 			<button id="search" > 搜尋</button> <c:if test="${!empty keyword}" ><button id="unSearch" > 清除搜尋結果</button> </c:if> --%>
+			<input type='hidden' name='status' value='${status}'>
+			<input type='hidden' name='category' value='${category}'>
+<!-- 			</p> -->
+			
+		</nav>
+		
+		<div class="cart"><a href="<c:url value='myShoppingCart' />" ><img class="cartpic" src='../images/carticon.jpg' width='60' height='40'  /><span id="cartnn" style="display: inline-block; "><p class='cartNum' style="opacity:0.0;"></p></span></a></div>
+		<br>	
+	</div>
 		
 		<hr>
         <div id="category">
@@ -420,19 +473,15 @@ margin-left:55px;
         <a href="<c:url value='storeProductsAll?category=8&keyword=${keyword}'/> " ><button id="bn8" class="categoryButton"><i class="fas fa-circle"> &nbsp; 壁球</i></button></a>
         <a href="<c:url value='storeProductsAll?category=9&keyword=${keyword}'/> " ><button id="bn9" class="categoryButton"><i class="fas fa-table-tennis"> &nbsp; 桌球</i></button></a>
         <a href="<c:url value='storeProductsAll?category=10&keyword=${keyword}'/> " ><button id="bn10" class="categoryButton"><i class="fas fa-volleyball-ball"> &nbsp; 排球</i></button></a>
-       <br>
+        <br>
         
-<%--         category = ${category} --%>
-<%--         keyword = ${keyword} --%>
-<%--         category_list = ${productCategoryList[category].name} --%>
-
         <input id="categoryI" type="hidden" value="${category}">
         <input id="keyword2" type="hidden" value="${keyword}">
         <input id='pageI' type='hidden' value='${page}'>
 
         </div>
-
-<hr>
+		<hr>
+		
 		<c:if test="${!empty keyword}" >
 			<c:if test="${!empty category}" >
 				<div id="searchResult" class="searchResult">
@@ -460,7 +509,6 @@ margin-left:55px;
 		</c:if>
 
 		<div id="allProduct"></div>
-		
 		
 		<div id="pages"></div>
 		
@@ -537,37 +585,39 @@ function testProducts(responseText){
 	var pageSize = mapData.pageSize;
 	var currentPage = mapData.currentPage;
 	var contentPage = "";
+	var flag = 0;
 
 	if(productList.length > 0){			
 		if(currentPage == pageTimes){
 			pageSize = productList.length-1;
+			flag = 1;
 		}
 		for(var i=startRow; i <= pageSize; i++){
-			if (productList[i].product_stock >0) {
-				content += ""
-						+"<div class='product'><a href='storeProduct/"+productList[i].product_id+"'>"
-						+"<img width='250' height='250' src='picture/"+productList[i].product_id+"'/></a>"
-						+"<p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='storeProduct/"+productList[i].product_id+"'>"+productList[i].product_name+"</a></p>"
-						+"<p class='price'>NT$ <span class='pprice'>"+productList[i].product_price+"</span>"		
-						+"<button class='addCart' addCartId='"+productList[i].product_id
-						+"' addCartName='"+productList[i].product_name+"' ><i class='fas fa-cart-plus'> 加入購物車</i></button>"  //
-						
-						+"<br><span class='stock'>庫存數量 : "+productList[i].product_stock+"</span></p>" 
-						+"</div>";	
-
-			}
-			else {
+			
 				content += "<div class='product'><a href='storeProduct/"+productList[i].product_id+"'>"
-						+"<img width='250' height='250' src='picture/"+productList[i].product_id+"'/></a>"
-						+"<p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='storeProduct/"+productList[i].product_id+"'>"+productList[i].product_name+"</a></p>"
-						+"<p class='price'>NT$ <span class='pprice'>"+productList[i].product_price+"</span>"
-						+"<button class='noStock' disabled='disabled'>售完缺貨</button>"
-						+"<br><span class='stock'>庫存數量 : "+productList[i].product_stock+"</span></p>" 
-						+"</div>";	
-			}	
+						 + "<img width='250' height='250' src='picture/"+productList[i].product_id+"'/></a>"
+						 + "<p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='storeProduct/"+productList[i].product_id+"'>"+productList[i].product_name+"</a></p>"
+						 + "<p class='price'>NT$ <span class='pprice'>"+productList[i].product_price+"</span>";
+						
+						if (productList[i].product_stock >0) {
+							content += "<button class='addCart' addCartId='"+productList[i].product_id
+									 + "' addCartName='"+productList[i].product_name+"' ><i class='fas fa-cart-plus'> 加入購物車</i></button>";
+						} else {
+							content += "<button class='noStock' disabled='disabled' style='cursor:not-allowed;'>售完缺貨</button>";
+						}
+						
+						 content += "<br><span class='stock'>庫存數量 : "+productList[i].product_stock+"</span></p>"
+						 		   + "</div>";	
+			}
+		if(flag ==1 && productList.length %3 == 1) {
+			content += "<div class='productNone'></div>";
+			
 		}
-	}else if(productList.length == 0){
-		content = "<br><br><h3>沒有商品資料</h3>"; 
+		
+
+
+	} else if(productList.length == 0){
+		content = "<p class='noProduct'><br><br>沒有任何商品資料</p>"; 
 	}
 	
 
@@ -582,7 +632,7 @@ function testProducts(responseText){
 		contentPage += "<span class='current' id='pageNC'>1</span>";
 	}
 	if(currentPage != 1) {
-		contentPage += "<a href='storeProductsAll?category="+category+"&keyword="+keyword+"&page=1'><span id='pageN'>1<span></a>";
+		contentPage += "<a style='text-decoration:none;' href='storeProductsAll?category="+category+"&keyword="+keyword+"&page=1'><span id='pageN'>1<span></a>";
 	}
 	
 	for (var i=1; i<pageTimes; i++) {
@@ -592,7 +642,7 @@ function testProducts(responseText){
 			contentPage += "<span class='current' id='pageNC'>"+page+"</span>";
 		}
 		if(currentPage != page) {
-			contentPage += "<a href='storeProductsAll?category="+category+"&keyword="+keyword+"&page="+page+"'><span id='pageN'>"+page+"</span></a>";
+			contentPage += "<a style='text-decoration:none;' href='storeProductsAll?category="+category+"&keyword="+keyword+"&page="+page+"'><span id='pageN'>"+page+"</span></a>";
 		}
 	}
 	
@@ -672,7 +722,6 @@ function testProducts(responseText){
 
 }
 		
-	
 		
 	</script>
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->

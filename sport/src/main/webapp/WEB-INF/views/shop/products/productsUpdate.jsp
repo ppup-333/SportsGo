@@ -36,7 +36,7 @@ border-radius: 20px;
 <body>
 	<c:import url="../../newheaderM.jsp" />
 <fieldset class="field" style="width:550px;margin:auto;margin-top:50px;">
-	<span class="title">更新商品資料(Product)</span> 
+	<span class="title">更新商品資料 (Product)</span> 
 	<form:form method="POST" modelAttribute="product" enctype='multipart/form-data'>
 	<br>
 	<Table style="align-self: center;">

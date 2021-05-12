@@ -255,13 +255,15 @@ function orderLists(responseText){
 	
 	if (account == "") {
 		
-		content= "<p class='listnone'>請先登入以查看訂單紀錄。</p>";
+// 		content= "<p class='listnone'>請先登入以查看訂單紀錄。</p>";
+		orderNum.innerHTML = "<p class='listnone'>請先登入以查看訂單紀錄。</p>";
 		
 	}
 	
 	else if (orderList.length==0){
 		
-		content= "<p class='listnone'>目前沒有訂單紀錄，請去消費再來^.<</p>";
+// 		content= "<p class='listnone'>您目前沒有任何訂單紀錄。</p>";
+		orderNum.innerHTML = "<p class='listnone'>您目前沒有任何訂單紀錄。</p>";
 		
 	}
 	
