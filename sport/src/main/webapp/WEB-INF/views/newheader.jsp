@@ -147,7 +147,8 @@
 	      <div class="modal-footer">
 	        <button type="submit" class="btn btn-primary">送出</button>
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
-	        <button type="button" class="btn btn-secondary" data-dismiss="" id="clickInputHeader">一鍵輸入</button>
+	        <button type="button" class="btn btn-danger" data-dismiss="" id="clickInputHeader1">一鍵輸入</button>
+	        <button type="button" class="btn btn-danger" data-dismiss="" id="clickInputHeader">註冊完一鍵輸入</button>
 	      </div>
 	    </div>
 	  </div>
@@ -211,6 +212,11 @@
 	$("#clickInputHeader").click(function(){
 		$("input[id='userAct']").val("beyond1000")
 		$("input[id='userPwd']").val("beyond1000")
+	});
+	
+	$("#clickInputHeader1").click(function(){
+		$("input[id='userAct']").val("chen1002")
+		$("input[id='userPwd']").val("chen1002")
 	});
 	
 </script>
