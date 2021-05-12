@@ -34,7 +34,7 @@
     }
     fieldset{
         width: 600px;
-        border: 1px dashed green;
+        
     }
     legend{
         color: blue;
@@ -97,6 +97,73 @@ $("#to").change(function() {
 	let total=toval*300;
 	$("#cost").attr("value",total);
 });
+
+
+$("#deleteValue").on("click",function(){
+	
+	let PayState=$("#PayState").val();
+	
+	if(PayState=="1"){
+		Swal.fire({
+		    toast: true,
+		    position: 'center',
+		    showConfirmButton: false,
+		    timer: 2500,
+		    icon: 'error',
+		    title: '已有人報名此課程',
+		    text: "無法刪除",    
+		})
+	}else{
+		
+		Swal.fire({
+			title:'確定刪除嗎?',
+			icon:'question',
+	      	showCancelButton: true, 
+	      	confirmButtonColor: '#3085d6',
+	      	cancelButtonColor: '#d33',
+	      	confirmButtonText: '確定',
+	      	cancelButtonText:'取消',
+		}).then(result => {
+			if(result.value){
+				let courseId=$("#cId").val();
+				let xhr2=new XMLHttpRequest();
+				xhr2.open("GET","/sport/deleteCourseImpl?courseId="+courseId,true);
+				xhr2.send();
+				xhr2.onreadystatechange=function(){
+					if(xhr2.readyState==4&&xhr2.status==200){
+						var response2=xhr2.responseText
+						if(response2=='deleteOk'){
+							Swal.fire({
+				    		    toast: true,
+				    		    position: 'center',
+				    		    showConfirmButton: false,
+				    		    timer: 2500,
+				    		    icon: 'success',
+				    		    title: '刪除成功',  
+				    		})
+				    		window.location.reload();
+							
+						}else if(response2=='deleteFail'){
+							Swal.fire({
+				    		    toast: true,
+				    		    position: 'center',
+				    		    showConfirmButton: false,
+				    		    timer: 2500,
+				    		    icon: 'error',
+				    		    title: '刪除失敗',
+				    		    text: "請洽後台人員",    
+				    		})
+						}
+					}
+				}				
+						
+			}
+		})
+	
+	
+	}
+	
+	});
 
 $("#updateValue").on("click",function(){
 	let isNull=true;
@@ -207,7 +274,7 @@ $("#updateValue").on("click",function(){
 <form  id="update" method="post" action="../sport/courseUpdateImpl">
 <fieldset>
             <legend>修改課程資料</legend>
-         <input name="courseId" value="${course.courseId}" style="display:none"/>
+         <input name="courseId"  id="cId" value="${course.courseId}" style="display:none"/>
         <div class="st1">
             <label for="account" class="t1">課程種類: </label><span id="CN">${course.courseName}</span>
         </div>
@@ -279,6 +346,9 @@ $("#updateValue").on("click",function(){
 </form>
    <!--   <button type="button" class="back" id="${course.courseName}">上一步</button>-->
     <button id="updateValue">修改</button>
-
+    <form action="../sport/deleteCourse">
+    </form>
+   <!--   <input   id="PayState"  value="${coursePayState}" /> -->
+	<!--<button id="deleteValue">刪除</button>  -->
 </body>
 </html>

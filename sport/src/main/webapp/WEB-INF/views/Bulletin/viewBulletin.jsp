@@ -56,7 +56,7 @@
 	}
 	.subtitle-container0, .subtitle-container1, .subtitle-container2, .subtitle-container3{
 		margin:auto;
-		
+		width:65%;
 /* 		border:1px solid black; */
 		margin-left:70px;
 		float:left;

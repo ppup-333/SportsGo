@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>courseInsert</title>
+<title>activityInsert</title>
 
 
 <script type="text/javascript">

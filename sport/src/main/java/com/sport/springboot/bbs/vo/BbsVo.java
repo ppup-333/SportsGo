@@ -14,18 +14,21 @@ public class BbsVo {
 
 	private String bbsMessage;
 
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm" , timezone = "GMT+8")
 	private Timestamp bbsSetupTime;
 
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm" , timezone = "GMT+8")
 	private Timestamp bbsUpdateTime;
 	
 	private String typeName;
 	
 	private Integer bbsDelete;
 	
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm" , timezone = "GMT+8")
 	private Timestamp replySetupTime;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm" , timezone = "GMT+8")
+	private Timestamp replyUpdateTime;
 	
 	private String replyAccount;
 	
@@ -108,6 +111,14 @@ public class BbsVo {
 
 	public void setReplySetupTime(Timestamp replySetupTime) {
 		this.replySetupTime = replySetupTime;
+	}
+
+	public Timestamp getReplyUpdateTime() {
+		return replyUpdateTime;
+	}
+
+	public void setReplyUpdateTime(Timestamp replyUpdateTime) {
+		this.replyUpdateTime = replyUpdateTime;
 	}
 
 	public String getReplyAccount() {

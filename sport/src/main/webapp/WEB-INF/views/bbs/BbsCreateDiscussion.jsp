@@ -114,20 +114,29 @@
 			$("#bbsMessage").val(data);
 			if($("#typeId").val() == ""){
 				Swal.fire({
+					toast: true,
 					icon: "warning",
-					confirmButtonText: "知道了",
+					position: "center",
+					showConfirmButton: false,
+					timer: 2000,
 					title: "請選擇發文類型！",
 				});
 			} else if($("#bbsTitle").val() == "") {
 				Swal.fire({
+					toast: true,
 					icon: "warning",
-					confirmButtonText: "知道了",
+					position: "center",
+					showConfirmButton: false,
+					timer: 2000,
 					title: "請輸入標題！",
 				});
 			} else if($("#bbsMessage").val() == "") {
 				Swal.fire({
+					toast: true,
 					icon: "warning",
-					confirmButtonText: "知道了",
+					position: "center",
+					showConfirmButton: false,
+					timer: 2000,
 					title: "請輸入內文！",
 				});
 			} else {

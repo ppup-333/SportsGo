@@ -59,16 +59,19 @@ text-align:center;
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <div class="main_body">
 <div class="course">${activity.actName}</div>
+<button class="apply" id="${activity.actId}">報名</button>
 <table class="activitytable">
 <tr><tr><th>活動時間<th>活動開始日期<th>活動結束日期<th>活動地點<th>活動費用
 	<tr><td>${timeList[0]}~${timeList[1]}<td>${timeList[2]}<td>${timeList[3]}<td>${fieldName}<td>${activity.actCost}
 </table>
 
-<h2>活動介紹</h2>
-${activity.actIntroduce}
 <br>
-<button id="back" onclick="window.location.href='/sport/activityMain'" style="margin:20px">返回</button>
-<button class="apply" id="${activity.actId}">報名</button>
+<div class="border_course">
+<div class="small_course">活動介紹</div>
+<div>${activity.actIntroduce}</div>
+</div>
+<button id="back" onclick="window.location.href='/sport/activityMain'" >返回</button>
+
 
 </div>
 

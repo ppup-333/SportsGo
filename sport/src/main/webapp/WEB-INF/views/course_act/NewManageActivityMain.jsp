@@ -14,9 +14,39 @@
  <link href='lib/main.css' rel='stylesheet' />
 <script src='lib/main.js'></script>
 <script type="text/javascript">
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+function firstActivity(){
+	let tday=new Date();
+	let ymd=formatDate(tday);
+	console.log();
+	let xhr=new XMLHttpRequest();
+	xhr.open("GET","/sport/activityInsert?ymd="+ymd,true);
+	 xhr.send();
+	 xhr.onreadystatechange=function(){
+		if(xhr.readyState==4&&xhr.status==200){
+			let response=xhr.responseText;
+		$('#modalTitle').html("新增課程");
+		$('#modalBody').html(response);
+		$('#calendarModal').modal();
+		}
+	 }	
+}
+
 
 document.addEventListener('DOMContentLoaded', function() {
-	$("#animation").addClass("loader");	
+	
 	let xhr=new XMLHttpRequest();
 	xhr.open("GET","/sport/activity",true);
 	xhr.send();
@@ -39,7 +69,14 @@ document.addEventListener('DOMContentLoaded', function() {
 			$("#actList").append(context);*/
 			
 			var result = JSON.parse(xhr.responseText);
-			console.log(result);			
+			console.log(result);
+			if(result.length==0){
+				console.log("哈囉");
+				$("#calendar").append("目前沒有活動<br>");
+				$("#calendar").append("<button onclick='firstActivity()'>新增第一筆活動</button>");
+			}else{
+				
+				$("#animation").addClass("loader");	
 			let context="[";
 
 					for(let i=0;i<result.length;i++){												
@@ -224,6 +261,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		    calendar.render();
 	
+		}
+			
 		}
 	}
 		

@@ -1,6 +1,8 @@
 package com.sport.springboot.course_act.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -232,6 +234,25 @@ public class CATimeService {
 	
 	public boolean deleteTimeByCourse(courseBean course){
 		try {
+			/*System.out.println("deleteTimeByCourse========");
+			Set<CATime> t = course.getTime();
+			Iterator<CATime> tIt = t.iterator();
+			List<Integer> timeList=new ArrayList<>();
+			
+			while(tIt.hasNext()) {
+				CATime time = tIt.next();
+				CATime catime = CATimeDao.getOne(time.getTimeId());
+				catime.setTimeStart(null);
+				catime.setTimeEnd(null);
+				catime.setDate(null);
+				CATimeDao.save(catime);				
+				timeList.add(time.getTimeId());				
+			}
+			Collections.sort(timeList);			
+			for(int i=0;i<timeList.size();i++) {
+				CATimeDao.deleteById(timeList.get(i));
+			}		*/		
+			System.out.println("deleteTimeByCourse========");
 			 CATimeDao.deleteTimeByCourseId(course.getCourseId());
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -248,4 +269,5 @@ public class CATimeService {
 		}
 		return true;
 	}
+
 }

@@ -41,6 +41,7 @@ function activity(a){
 	f.setAttribute('action',"/sport/activityApply");
 	f.setAttribute('id',"goapply");
 	var i = document.createElement("input"); //input element, text
+	i.style.display = 'none';
 	i.setAttribute('type',"text");
 	i.setAttribute('name',"actId");
 	i.setAttribute('value',a);
