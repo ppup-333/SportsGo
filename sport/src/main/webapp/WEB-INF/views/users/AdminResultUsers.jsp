@@ -55,7 +55,15 @@
 	
 	#teble1 td{
 		padding:5px;
+		font-size:13px;
 	}
+	
+	#teble1 th{
+		background-color: #17a2b8;
+		color: #FFFFFF;
+		font-size:14px;
+	}
+	
 	
 	.selectDiv{ 
  		width:1400px; 
@@ -155,7 +163,7 @@
 </fieldset>
 <!-- </div> -->
 		<div class='d2'>
-			<button id='search'>搜尋會員資料</button>
+			<button id='search' class='btn btn-secondary'>搜尋會員資料</button>
 		</div>
 		<div id='searchResultDiv' class='selectDiv'></div>
 
@@ -243,25 +251,25 @@ function select1(){
 				 "userDistrictCode=" + userDistrictCode + "&" + "address=" + address + "&" + "statusCode=" + statusCode);
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 && xhr.status == 200) {
-				var content = "<table border='1' id='teble1'>";
+				var content = "<table class='table table-striped table-hover' id='teble1'>";
 					content += "<tr align='center'>"
 							 + "<th style='width:80px'>帳號</th>"
-							 + "<th style='width:100px'>姓名</th>"
+							 + "<th style='width:90px'>姓名</th>"
 							 + "<th style='width:100px'>身分證字號</th>"
-							 + "<th style='width:50px'>性別</th>"
-							 + "<th style='width:100px'>生日</th>"
-							 + "<th style='width:100px'>email</th>"
-							 + "<th style='width:80px'>城市</th>"
-							 + "<th style='width:110px'>鄉鎮市區</th>"
+							 + "<th style='width:60px'>性別</th>"
+							 + "<th style='width:90px'>生日</th>"
+							 + "<th style='width:80px'>email</th>"
+							 + "<th style='width:70px'>城市</th>"
+							 + "<th style='width:105px'>鄉鎮市區</th>"
 							 + "<th style='width:180px'>地址</th>"
 							 + "<th style='width:90px'>市內電話</th>"
 							 + "<th style='width:90px'>行動電話</th>"
 							 + "<th style='width:100px'>帳號狀態</th>"
-							 + "<th style='width:130px'>最後更新時間</th>"
-							 + "<th style='width:120px'>異動</th></tr>";
+							 + "<th style='width:105px'>最後更新時間</th>"
+							 + "<th style='width:85px'>異動</th></tr>";
 				var adminRs = JSON.parse(xhr.responseText);
 				for (var i = 0; i < adminRs.length; i++) {
-					var dateTime = new Date(adminRs[i].ver).toLocaleString("zh-TW"); 
+					var dateTime = new Date(adminRs[i].ver).toLocaleString("zh-TW",{hour12:false}); 
 					content += "<tr align='center'><td>" + adminRs[i].account + "</td>"
 							+ "<td>" + adminRs[i].name + "</td>"
 							+ "<td>" + adminRs[i].id + "</td>"
@@ -275,7 +283,7 @@ function select1(){
 							+ "<td>" + adminRs[i].mobile + "</td>"
 							+ "<td>" + adminRs[i].status +"</td>"
 							+ "<td>" + dateTime + "</td>"
-							+ "<td>" + '<button type="button" class="btn btn-primary test" data-toggle="modal" data-target="#staticBackdrop" id="'+ adminRs[i].account +'"> 修改狀態 </button>' + "</td>"
+							+ "<td>" + '<button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#staticBackdrop" id="'+ adminRs[i].account +'"> 修改狀態 </button>' + "</td>"
 				}
 				content += "</table>";
 				var divs = document.getElementById("searchResultDiv");
