@@ -22,10 +22,15 @@
 	
 	.f1{ 
  	font-size:14px; 
-   	width:500px; 
-/*    	margin:auto; */
-  	margin-left:550px;
- 	margin-top:50px;
+   	width:380px; 
+	margin:auto;
+/*   	margin-left:550px; */
+ 	margin-bottom:15px;
+ 	
+ 	border: 1px solid gray;
+ 	border-radius: 15px;
+ 	background-color: rgb(245,245,245);
+ 	box-shadow: 0 0 3px gray;
  	} 
 
  	.d1{ 
@@ -50,39 +55,41 @@
 </head>
 <body>
 <c:import url="../newheader.jsp"/>
+<h2>忘記密碼</h2>
 	<fieldset class='f1'>
-		<legend>忘記密碼</legend>
+<!-- 		<legend>忘記密碼</legend> -->
 		<form:form method="POST" modelAttribute="forgetPwd" enctype='multipart/form-data' id="form1">
 			<div>
 				<table class='table' id='table1'>
 					<tr>
-						<td colspan="2">
+						<td class="border-top-0" style="padding-left:30px" colspan="2">
 							<h6 style="color:Tomato;">※請輸入註冊的帳號與相關資料</h6>
 						</td>
 					</tr>
 					<tr>
-						<td>帳號：</td>
+						<td style="padding-left:30px">帳號：</td>
 						<td>
 							<form:input path="account" id='userAct' />
 						</td>
 					</tr>
 					<tr>
-						<td>身分證字號：</td>
+						<td style="padding-left:30px">身分證字號：</td>
 						<td>
 							<form:input path="id" id='userId' />
 						</td>
 					</tr>
 					<tr>
-						<td>E-Mail：</td>
+						<td style="padding-left:30px">E-Mail：</td>
 						<td>
 							<form:input path="email" id='userEmail' />
 						</td>
 					</tr>
-					<tr>
-					<td>&nbsp;</td>
-					<td><form:errors path='account' cssClass="error" /></td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 					<td>&nbsp;</td> -->
+<%-- 					<td><form:errors path='account' cssClass="error" /></td> --%>
+<!-- 					</tr> -->
 				</table>
+				<p style="text-align: center;"><form:errors path='account' cssClass="error" /></p>
 			</div>
 		</form:form>
 	</fieldset>
