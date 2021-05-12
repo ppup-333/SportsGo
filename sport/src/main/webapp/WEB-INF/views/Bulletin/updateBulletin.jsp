@@ -20,7 +20,8 @@
 </head>
 <style type="text/css">
 .box{
-	margin-top:50px;	
+	margin-top:50px;
+	margin-bottom:100px;	
 }
 img[src=""], img:not([src]) {
 	opacity: 0;
@@ -91,6 +92,7 @@ span.error {
 		      	cancelButtonText:'取消',
 			}).then(result => {
 				if(result.value){
+					
 					frm.submit();
 				}
 			})
@@ -103,6 +105,11 @@ span.error {
 			console.log("input change");
 			readURL(this);
 		});
+		console.log($('#previewImg').attr('src'));
+		console.log($('#previewImg').prop('src'));
+		if($('#previewImg').attr('src') == undefined){
+			console.log('dsa123');
+		}
 	});
 	
 	
@@ -112,6 +119,9 @@ span.error {
 		    reader.onload = function (e) {
 		       $("#previewImg").attr('src', e.target.result);
 		       $("#previewImg").toggle(500);
+		       
+				
+				
 // 		       $("#previewImg").slideDown(3000,function(){});
 		    }
 		    reader.readAsDataURL(input.files[0]);
@@ -131,9 +141,11 @@ span.error {
 			dataType:'html',
 			success:function(result){
 				console.log("success delete");
+				
 			}
 		 
 		});
+		
 	}
 	
 	
@@ -223,7 +235,7 @@ span.error {
 									src='<c:url value="/Bulletin/picture/${bulletin.id }"/>' />
 							</c:when>
 							<c:otherwise>
-								<img width='180' height='216' id="previewImg" style="display:none"/>
+								<img width='214' height='250' id="previewImg" style="display:none"/>
 							</c:otherwise>
 						</c:choose>		
 					
@@ -255,9 +267,8 @@ span.error {
 			<a class="btn btn-secondary" onclick="checkEdit();"  >返回</a>
 			</div>
 		</div>
+		</div>
 		
-	</div>
-	<br>
 	
 <!-- 	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 </body>
