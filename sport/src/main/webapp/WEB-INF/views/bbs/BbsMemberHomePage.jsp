@@ -86,7 +86,7 @@ table.table-hover tbody tr:hover {
 						<button type="button" id="createBbs" class="btn btn-info btn-sm"><b>發 文</b></button>
 					</div>
 					<div class="col-7">
-						<a href="bbs"><button type="button" id="po"> -- 全部發文 -- <i class="far fa-angle-down" aria-hidden="false"></i></button></a> 
+						<a href="bbs"><button type="button" id="po"> -- 全部發文 -- <i class="fa fa-angle-down" aria-hidden="false"></i></button></a> 
 						<select id="game" name="game" class="custom-select-sm">
 							<option value="-1">-- 賽事討論 --</option>
 							<c:forEach var="game" items="${gameList}">
