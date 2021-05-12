@@ -17,6 +17,10 @@
     min-width: 600px;
 }
 
+select {
+	height: 30px;
+}
+
 </style>
 </head>
 <body>

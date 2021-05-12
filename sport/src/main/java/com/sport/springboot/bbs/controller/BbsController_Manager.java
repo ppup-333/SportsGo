@@ -65,7 +65,7 @@ public class BbsController_Manager {
 			bbsVo.setBbsId(bbs.getBbsId());
 			bbsVo.setAccount(bbs.getUsers().getAccount());
 			bbsVo.setBbsTitle(bbs.getBbsTitle());
-			bbsVo.setBbsMessage(bbs.getBbsMessage().length() >= 30 ? bbs.getBbsMessage().substring(0, 30) + "..." : bbs.getBbsMessage());
+			bbsVo.setBbsMessage(bbs.getBbsMessage().length() >= 26 ? bbs.getBbsMessage().substring(0, 26) + "..." : bbs.getBbsMessage());
 			bbsVo.setBbsSetupTime(bbs.getBbsSetupTime());
 			bbsVo.setBbsUpdateTime(bbs.getBbsUpdateTime());
 			bbsVo.setTypeName(bbs.getBbsType().getTypeName());
@@ -88,7 +88,7 @@ public class BbsController_Manager {
 			bbsVo.setBbsId(bbs.getBbsId());
 			bbsVo.setAccount(bbs.getUsers().getAccount());
 			bbsVo.setBbsTitle(bbs.getBbsTitle());
-			bbsVo.setBbsMessage(bbs.getBbsMessage().length() >= 30 ? bbs.getBbsMessage().substring(0, 30) + "..." : bbs.getBbsMessage());
+			bbsVo.setBbsMessage(bbs.getBbsMessage().length() >= 26 ? bbs.getBbsMessage().substring(0, 26) + "..." : bbs.getBbsMessage());
 			bbsVo.setBbsSetupTime(bbs.getBbsSetupTime());
 			bbsVo.setBbsUpdateTime(bbs.getBbsUpdateTime());
 			bbsVo.setTypeName(bbs.getBbsType().getTypeName());
@@ -115,7 +115,7 @@ public class BbsController_Manager {
 			bbsVo.setBbsId(bbs.getBbsId());
 			bbsVo.setAccount(bbs.getUsers().getAccount());
 			bbsVo.setBbsTitle(bbs.getBbsTitle());
-			bbsVo.setBbsMessage(bbs.getBbsMessage());
+			bbsVo.setBbsMessage(bbs.getBbsMessage().length() >= 26 ? bbs.getBbsMessage().substring(0, 26) + "..." : bbs.getBbsMessage());
 			bbsVo.setBbsSetupTime(bbs.getBbsSetupTime());
 			bbsVo.setBbsUpdateTime(bbs.getBbsUpdateTime());
 			bbsVo.setTypeName(bbs.getBbsType().getTypeName());

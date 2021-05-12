@@ -102,7 +102,7 @@
 						<div class="card">
 							<div class="card-header">
 							<div class="row">
-							<p class="col" style="margin: 0px;">No.${reply.replyRank}  <i class="far fa-user-circle"></i> ${bbs.users.name}(${bbs.users.account})</p>
+							<p class="col" style="margin: 0px;">No.${reply.replyRank}  <i class="far fa-user-circle"></i> ${reply.users.name}(${reply.users.account})</p>
 								<P class="col" align="right" style="margin: 0px;">
 								<c:if test="${reply.replyUpdateTime == null}">
 									<fmt:formatDate value="${reply.replySetupTime}"
@@ -155,8 +155,8 @@
 			</div>
 			<div class="col-3">
 				<a href="#headerDiv"><i class="fal fa-arrow-alt-from-bottom fa-3x"></i></a>
-				<button type="button" id="bbsThree" style="position: relative; top: 85%;">一鍵留言1</button>
-				<button type="button" id="bbsFour" style="position: relative; top: 70%; right: 25%;">一鍵留言2</button>
+				<button type="button" id="bbsThree" style="position: relative; top: 60%;">一鍵留言</button>
+<!-- 				<button type="button" id="bbsFour" style="position: relative; top: 70%; right: 25%;">一鍵留言2</button> -->
 			</div>
 		</div>
 	</div>
@@ -228,7 +228,7 @@
 		$("#bbsTwo").on("click", function() {
 			$("#typeId").val(1);
 			$("#bbsTitle").val("湖人勇士附加賽誰輸是不是都沒有遺憾?");
-			editor.data.set("湖人勇士沒意外就要打附加賽"
+			editor.data.set("如題<br>湖人勇士沒意外就要打附加賽"
 					+ "<br>一個去年冠軍 一個剛結束連霸王朝"
 					+ "<br>大家都說這收視率會超越今年冠軍賽"
 					+ "<br>不過這兩個組合不管誰贏誰輸  整季都盡力了"
@@ -245,14 +245,14 @@
 		});
 		//一鍵留言
 		$("#bbsThree").on("click", function() {
-			$("#replyMessage").val("沒差阿，都是進去當肥料");
+			$("#replyMessage").val("多動就瘦得快！");
 		});
-		$("#bbsFour").on("click", function() {
-			$("#replyMessage").val("勇士有kat現在就不用打附加賽了");
-		});
+// 		$("#bbsFour").on("click", function() {
+// 			$("#replyMessage").val("勇士有kat現在就不用打附加賽了");
+// 		});
 		$(".bbsFive").on("click", function() { //修改留言
 			var id = $(this).attr("rel");
-			var text = "播勇湖就單純球迷多阿";
+			var text = "我最討厭運動";
 			$("#div" + id).html("<textarea name='reply' style='resize:none; width: 95%;"
 								+ "position: relative; left: 3%; margin: 10px auto 0px auto;' rows='3'>"
 								+ text + "</textarea>");
