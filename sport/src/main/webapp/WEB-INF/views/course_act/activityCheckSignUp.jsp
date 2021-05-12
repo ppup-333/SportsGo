@@ -59,7 +59,8 @@ text-align:center;
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <div class="main_body">
 <div class="course">${activity.actName}</div>
-<button class="apply" id="${activity.actId}">報名</button>
+<input id="actId" value='${activity.actId}' style="display:none;">
+<button class="apply">報名</button>
 <table class="activitytable">
 <tr><tr><th>活動時間<th>活動開始日期<th>活動結束日期<th>活動地點<th>活動費用
 	<tr><td>${timeList[0]}~${timeList[1]}<td>${timeList[2]}<td>${timeList[3]}<td>${fieldName}<td>${activity.actCost}
@@ -120,42 +121,67 @@ $(document).ready(function(){
 	
 	
 	$(".apply").on("click",function(){
-		
-		Swal.fire({
-			title:'確定報名嗎?',
-			icon:'question',
-	      	showCancelButton: true, 
-	      	confirmButtonColor: '#3085d6',
-	      	cancelButtonColor: '#d33',
-	      	confirmButtonText: '確定',
-	      	cancelButtonText:'取消',
-		}).then(result => {
-			if(result.value){
-				let actName=$("h1").eq(0).text();
-				let actTime=$(".activitytable tr td").eq(0).text();
-				let actDateStart=$(".activitytable tr td").eq(1).text();
-				let actDateEnd=$(".activitytable tr td").eq(2).text();
-				let actPlace=$(".activitytable tr td").eq(3).text();
-				let actCost=$(".activitytable tr td").eq(4).text();
-				console.log(actTime);
-				let id=this.id;
-				
-				if(actCost==0){
-					console.log("hello");
-				}else{
-					$.ajax({
-						url:"/sport/confirmActivityApply?actId="+id+"&actName="+actName+"&actTime="+actTime+"&actDateStart="+actDateStart+"&actDateEnd="+actDateEnd+"&actPlace="+actPlace+"&actCost="+actCost,
-					    context: document.body,
-					    success: function(result){			    	
-					    	console.log(result);
-					    	$(".main_body").empty();
-					    	$(".main_body").html(result);
-					   }
-					});	
+		let xhr=new XMLHttpRequest();
+		xhr.open("GET","/sport/ActSessionCheck",true);
+		 xhr.send();
+		 xhr.onreadystatechange=function(){
+			if(xhr.readyState==4&&xhr.status==200){
+				var result = xhr.responseText;
+				if(result=='success'){
+					Swal.fire({
+						title:'確定報名嗎?',
+						icon:'question',
+				      	showCancelButton: true, 
+				      	confirmButtonColor: '#3085d6',
+				      	cancelButtonColor: '#d33',
+				      	confirmButtonText: '確定',
+				      	cancelButtonText:'取消',
+					}).then(result => {
+						if(result.value){
+							let actName=$(".course").eq(0).text();
+							let actTime=$(".activitytable tr td").eq(0).text();
+							let actDateStart=$(".activitytable tr td").eq(1).text();
+							let actDateEnd=$(".activitytable tr td").eq(2).text();
+							let actPlace=$(".activitytable tr td").eq(3).text();
+							let actCost=$(".activitytable tr td").eq(4).text();
+							let actId=$("#actId").val();
+							console.log(actTime);
+							let id=this.id;
+							
+							if(actCost==0){
+								console.log("hello");
+							}else{
+								$.ajax({
+									url:"/sport/confirmActivityApply?actId="+actId+"&actName="+actName+"&actTime="+actTime+"&actDateStart="+actDateStart+"&actDateEnd="+actDateEnd+"&actPlace="+actPlace+"&actCost="+actCost,
+								    context: document.body,
+								    success: function(result){			    	
+								    	console.log(result);
+								    	$(".main_body").empty();
+								    	$(".main_body").html(result);
+								   }
+								});	
+							}
+							
+						}
+					})
+					
+					
+					
+				}else if(result=='login'){
+					Swal.fire({
+		    		    toast: true,
+		    		    position: 'center',
+		    		    showConfirmButton: false,
+		    		    timer: 2500,
+		    		    icon: 'error',
+		    		    title: '尚未登入',
+		    		    text: "請先登入再報名!",    
+		    		})
 				}
 				
 			}
-		})
+		 }
+		
 		
 	
 		

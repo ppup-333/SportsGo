@@ -1,5 +1,7 @@
 package com.sport.springboot.course_act.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,19 +28,24 @@ public class ActivityOrderController {
 			                       @RequestParam String actDateEnd,
 			                       @RequestParam String actPlace,
 			                       @RequestParam String actCost,
-			                       Model m
+			                       Model m,
+			                       HttpSession session
 										) {
-		int id=Integer.parseInt(actId);
-		int Cost=Integer.parseInt(actCost);
-		String account="mary123";
-		String remark=actTime+actDateStart+actDateEnd+actPlace;
-		ActivityOrderBean activityOrder = activiryorderservice.insertOrder(id, account, Cost, remark);
-		m.addAttribute("actId", actId);
-		m.addAttribute("orderId",activityOrder.getOrderId());
-		m.addAttribute("account",account);
-		m.addAttribute("itemName", actName);
-		m.addAttribute("totalAmount",actCost);
-		m.addAttribute("TradeDesc",remark);
+		String account=(String) session.getAttribute("account");
+		if(account!=null) {
+			int id=Integer.parseInt(actId);
+			int Cost=Integer.parseInt(actCost);
+			String remark=actTime+actDateStart+actDateEnd+actPlace;
+			ActivityOrderBean activityOrder = activiryorderservice.insertOrder(id, account, Cost, remark);
+			m.addAttribute("actId", actId);
+			m.addAttribute("orderId",activityOrder.getOrderId());
+			m.addAttribute("account",account);
+				m.addAttribute("itemName", actName);
+				m.addAttribute("totalAmount",actCost);
+				m.addAttribute("TradeDesc",remark);
+		}
+		
+		
 		return "course_act/EcpayActivityConfirm";
 	}
 	

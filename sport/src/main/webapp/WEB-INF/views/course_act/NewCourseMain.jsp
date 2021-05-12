@@ -92,10 +92,20 @@ function transformdate(d){
 		}	
 	}
 	
-	if(month<10) {
-		convertDate=year+"-0"+month+"-"+d1;
+if(month<10) {
+		
+		if(d1<10){
+			convertDate=year+"-0"+month+"-0"+d1;
+		}else{
+			convertDate=year+"-0"+month+"-"+d1;
+		}
+
 	}else {
-		convertDate=year+"-"+month+"-"+d1;
+		if(d1<10){
+			convertDate=year+"-"+month+"-0"+d1;
+		}else{
+			convertDate=year+"-"+month+"-"+d1;
+		}
 	}
 	return convertDate;
 }

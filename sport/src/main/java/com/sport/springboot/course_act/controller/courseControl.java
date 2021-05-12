@@ -136,17 +136,17 @@ public class courseControl {
 		int fre=Integer.parseInt(freq);
 		int tId=Integer.parseInt(teacherId);
 		
-		Optional<courseBean> c = courseservice.selectId(id);
+		/*Optional<courseBean> c = courseservice.selectId(id);
 		courseBean course = c.get();
-		courseservice.changeCATime(course);
+		courseservice.changeCATime(course);*/
 		boolean b=courseservice.updateCourse(id, cost, courseKind,studentmaxnum, courseIntroduce, fre, from, tId,coursePlace);
-		if (b) {
+		/*if (b) {
 			model.addAttribute("result", "更新成功");
 			System.out.println("update ok");
 		} else {
 			model.addAttribute("result","更新失敗,查詢相關資訊請聯絡後台工程師");
-		}
-		return "course_act/updateOk";
+		}*/
+		return "redirect:NewManageCourseMain";
 	}
 	// 前往 更新jsp
 	@GetMapping("/courseUpdate")
@@ -203,7 +203,6 @@ public class courseControl {
 
 	// 新增課程
 	@GetMapping("/courseInsertImpl")
-	@ResponseBody
 	public String courseInsert2(@RequestParam String courseName, @RequestParam String courseKind,
 			@RequestParam String from, @RequestParam String freq, @RequestParam String courseCost,
 			@RequestParam String coursePlace, @RequestParam String teacherId, @RequestParam String studentMaxNum,
@@ -231,14 +230,14 @@ public class courseControl {
 		String type = "course";
 		boolean b = courseservice.insertCourse(course, from, Integer.parseInt(freq), tId, courseTimeStart,
 				courseTimeEnd, coursePlace, type);
-		String result="";
+		/*String result="";
 		if (b) {
 			result="新增成功";
 			System.out.println("insert ok");
 		} else {
 			result="新增失敗";
 			System.out.println("insert not ok");
-		}
+		}*/
 
 		// System.out.println(result);
 		// courseTime coursetime=new courseTime(courseTimeStart,courseTimeEnd,from);
@@ -249,7 +248,7 @@ public class courseControl {
 //		if(result) {
 //			return "<button>ok</button>";
 //		}
-		return result;
+		return "redirect:NewManageCourseMain";
 
 	}
 

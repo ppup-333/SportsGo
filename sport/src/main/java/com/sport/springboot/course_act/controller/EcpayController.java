@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.BasicConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,9 +57,12 @@ public class EcpayController {
 		return "course_act/ecpay";
 	}
 	
-	@GetMapping("order")
-	public String order(Model model) {
-		String account="mary123";
+	@GetMapping("CourseOrder")
+	public String order(Model model,HttpSession session) {
+		String account = (String) session.getAttribute("account");
+		if(account !=null) {
+			
+		
 		String MerchantTradeNo="";
 		List<CourseOrderBean> courseOrderList=courseorderservice.selectByAccount(account);
 		List<CourseOrderBean> updatecourseOrderList=new ArrayList<>();
@@ -118,6 +123,7 @@ public class EcpayController {
 					CATime time = it.next();
 					tempList.add(time.getDate());
 					if (b) {
+						courseList.add(time.getFieldbean().getName());
 						courseList.add(time.getTimeStart().substring(0, 5));
 						courseList.add(time.getTimeEnd().substring(0, 5));
 						b = false;
@@ -146,6 +152,9 @@ public class EcpayController {
 			
 		}	
 		return "course_act/courseOrderSelect";
+		}else {
+			return "user/Login";
+		}
 	}
 	
 	@PostMapping("ecpayReturn")

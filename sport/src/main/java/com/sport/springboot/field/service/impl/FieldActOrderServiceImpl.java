@@ -137,9 +137,11 @@ public class FieldActOrderServiceImpl implements FieldActOrderService {
 	public boolean changeOrderStatusByCourseId(int courseId) {
 		
 		try {
-			FieldActOrder fieldActOrder = fieldActOrderRepository.getFieldOrderByCourseId(courseId);
-		fieldActOrder.setOrderStatus(0);
-		fieldActOrderRepository.save(fieldActOrder);
+			 List<FieldActOrder> fieldActOrderList = fieldActOrderRepository.getFieldOrderByCourseId(courseId);
+			 for(int i=0;i<fieldActOrderList.size();i++) {
+				 fieldActOrderList.get(i).setOrderStatus(0);
+				 fieldActOrderRepository.save(fieldActOrderList.get(i));
+			 }
 		return true;
 		}catch(Exception e) {
 			e.printStackTrace();
