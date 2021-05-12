@@ -221,8 +221,21 @@ public class BulletinController {
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
 		}
+		//前端接收資料轉換為標籤存入資料庫
+		String contents = bulletin.getContents();
+		if(contents != null) {
+			contents = contents.replaceAll("\n", "<br/>");
+			contents = contents.replaceAll(" ", "&nbsp;");
+			bulletin.setContents(contents);
+		}
 		
-		
+		String subtitle = bulletin.getSubtitle();
+		if(subtitle != null) {
+			subtitle = subtitle.replaceAll("\n", "<br/>");
+			subtitle = subtitle.replaceAll(" ", "&nbsp;");
+			bulletin.setSubtitle(subtitle);
+		}
+		//
 		BulletinClass bulletinClass = bulletinClassService.getBulletinClass(bulletin.getClass_id().getId());
 		bulletin.setClass_id(bulletinClass);
 		
@@ -279,6 +292,25 @@ public class BulletinController {
 		Timestamp adminTime = new Timestamp(System.currentTimeMillis());
 		bulletin.setUpdate_time(adminTime);
 		bulletin.setDate(bulletin1.getDate());
+		
+		//前端接收資料轉換為標籤存入資料庫
+		String contents = bulletin.getContents();
+		if(contents != null) {
+			contents = contents.replaceAll("\n", "<br/>");
+			contents = contents.replaceAll(" ", "&nbsp;");
+			bulletin.setContents(contents);
+		}
+				
+		String subtitle = bulletin.getSubtitle();
+		if(subtitle != null) {
+			subtitle = subtitle.replaceAll("\n", "<br/>");
+			subtitle = subtitle.replaceAll(" ", "&nbsp;");
+			bulletin.setSubtitle(subtitle);
+		}
+				//
+		
+		
+		
 		
 		MultipartFile picture = bulletin.getProductImage();
 		
