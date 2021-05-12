@@ -364,19 +364,20 @@ public class UserController {
 	public String chkForgetPwd(@ModelAttribute("forgetPwd") Users users, BindingResult result, Model model,
 			@RequestParam(value = "account") String account, @RequestParam(value = "id") String id,
 			@RequestParam(value = "email") String email) {
-
+		
 		UserForgetPwdValidate validator = new UserForgetPwdValidate();
 		validator.validate(users, result);
 		if (result.hasErrors()) {
 			return "users/ForgetPwd";
 		}
-
+		
 		String inputAct = users.getAccount();
 		String inputId = users.getId();
 		String inputEmail = users.getEmail();
 
 		Users userAccount = usersService.get(account);
 		String userAct = userAccount.getAccount();
+		//!!!!!!
 		String userId = userAccount.getId();
 		String userEmail = userAccount.getEmail();
 
