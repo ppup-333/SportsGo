@@ -235,6 +235,7 @@ $(document).ready(function() {
 
 <script src="/sport/scripts/bulletin/linkify.min.js"></script>
 <script src="/sport/scripts/bulletin/linkify-jquery.min.js"></script>
+<c:import url="../footer.jsp"/>	
 </body>
 
 </html>

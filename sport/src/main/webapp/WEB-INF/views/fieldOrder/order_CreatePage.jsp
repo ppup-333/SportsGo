@@ -10,6 +10,10 @@
 <c:import url="../headerScript.jsp"/>
 
 <style>
+#fieldOrderMainDiv {
+	min-height: 200px;
+}
+
 #div_DateType {
 	text-align: center;
 }
@@ -73,7 +77,7 @@
 	<c:import url="../newheader.jsp"/>
 	<h2>一般會員預約</h2>
 	<form id="createOrderForm" action="createMemberOrder" method="post">
-		<div class="container">
+		<div id="fieldOrderMainDiv" class="container">
 			<div class="row">
 				<div class="col-12">
 					<div id="div_DateType">
@@ -428,5 +432,6 @@ function hoursSelectReset(){
 
 
 </script>
+<c:import url="../footer.jsp"/>	
 </body>
 </html>

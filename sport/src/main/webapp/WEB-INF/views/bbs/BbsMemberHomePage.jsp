@@ -246,5 +246,6 @@ table.table-hover tbody tr:hover {
 		});
 		
 	</script>
+	<c:import url="../footer.jsp"/>	
 </body>
 </html>

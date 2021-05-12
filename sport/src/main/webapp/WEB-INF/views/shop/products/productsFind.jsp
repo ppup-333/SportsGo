@@ -437,6 +437,6 @@ background-color: #d7e5f4;
     
 
 </script>
-
+<c:import url="../../footer.jsp"/>	
 </body>
 </html>

@@ -65,7 +65,7 @@
 	<input style="display:none" id="startCode" value="${startCode}">
 	<p id="typeP">
 		類型：
-		<select id="ts" name="typeId">
+		<select id="ts" class="custom-select" style="width:80px; height: 30px; padding: 0 5px" name="typeId">
 			<option value="0" <c:if test="${typeId==0}">selected</c:if>>- ALL -</option>
 			<c:forEach var="fieldType" items="${fieldTypeList}">
 				<option value="${fieldType.id}" <c:if test="${typeId==fieldType.id}">selected</c:if>>${fieldType.name}</option>
@@ -131,7 +131,7 @@
 												<option value="1">可使用</option>
 												<option value="0">不可使用</option>
 											</form:select>
-									<tr><td><form:label path="remark">備註</form:label>
+									<tr style="display:none"><td><form:label path="remark">備註</form:label>
 										<td><form:input path="remark"/>
 									<tr><td><form:label path="buildDate">創建日期</form:label>				
 										<td><form:input path="buildDate" type="date"/><br>
@@ -142,6 +142,7 @@
 						
 					<!-- Modal footer -->
 					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" id="inputAllBtn">一鍵輸入</button>
 					<form:button type="button" class="btn btn-primary" id="createButton">送出</form:button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 					</div>
@@ -150,9 +151,20 @@
 			</div>
 		</div>
 	</form:form>
-	
+<c:import url="../footer.jsp"/>	
 	
 <script>
+$("#inputAllBtn").click(function(){
+	$("#createFieldId").val("BA04");
+	$("#createFieldName").val("籃球場04");
+	$("#fieldType").val(2);
+	$("#position").val("2F");
+	$("#rentForMember").val(1000);
+	$("#rentForAct").val(600);
+	$("#situation").val(1);
+	$("#buildDate").val("2021-05-13");
+});
+
 
 var typeSelect = document.getElementById("ts");
 var queryByType = document.getElementById("queryByType");
