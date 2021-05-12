@@ -33,8 +33,6 @@
 .orderedTime {
 	font-weight:550;
 	color: red;
-	background-color: rgb(255, 220, 190);
-	box-shadow: 0px 0px 5px inset gray;
 }
 
 #queryTable th, #queryTable td {
@@ -271,14 +269,14 @@ function displayFields(responseText){
 		
 		var fieldNameListStr = "";
 		for(var i = 0; i < fieldList.length; i++){
-			fieldNameListStr += "<th class='th' style='border-color:gray;'>" + fieldList[i].name + "</th>";
+			fieldNameListStr += "<th class='th'>" + fieldList[i].name + "</th>";
 		}	
 		
 		var periodOrderListStr = "";
 		for(var i = 0; i < fieldPeriodList.length; i++){
-			periodOrderListStr += "<tr><td class='p-2' style='border-color:gray;'>" + fieldPeriodList[i].period + "</td>";
+			periodOrderListStr += "<tr><td class='p-2' style='background-color:	#FFE66F'>" + fieldPeriodList[i].period + "</td>";
 			for(var j = 0; j < fieldList.length; j++){
-				periodOrderListStr += "<td class='p-2' style='border-color:gray;' id='td" + j + (i+9) + "'></td>"; 
+				periodOrderListStr += "<td class='p-2' style='background-color:	#FFF4C1' id='td" + j + (i+9) + "'></td>"; 
 			}		
 		}
 		
@@ -294,7 +292,7 @@ function displayFields(responseText){
 		console.log(orderedList);		
 		
 		content = "<table id='queryTable' class='table table-bordered'>"
-				+		"<thead><tr><th style='border-color:gray;' id='thPeriod' class='th'>時段" + fieldNameListStr + "</thead>" + periodOrderListStr 
+				+		"<thead><tr class='bg-warning'><th id='thPeriod' class='th'>時段" + fieldNameListStr + "</thead>" + periodOrderListStr 
 				+ "</table>"
 		
 		queryByType.innerHTML = content;
