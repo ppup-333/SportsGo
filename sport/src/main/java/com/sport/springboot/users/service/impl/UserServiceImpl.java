@@ -105,8 +105,8 @@ public class UserServiceImpl implements UsersService {
 	public List<Users> adminResult(Users users) {
 
 		String url = "jdbc:sqlserver://localhost:1433;databaseName=Sport_Project";
-		String userName = "otokochang";
-		String password = "zxcv0988";
+		String userName = "sa";
+		String password = "P@ssw0rd";
 
 		String sql = "select * from users where ";
 
