@@ -30,7 +30,7 @@
 	<div class="container">
 		<div class="row">
 			<div id="dataDiv" class="col-4">			
-				<form:form modelAttribute="field" action="updateField" method="post">
+				<form:form id="updateFieldForm" modelAttribute="field" action="updateField" method="post">
 					<input name="typeIdHide" style="display: none" value="${typeId}"/>
 					<table class="table table-bordered">
 						<tr><td><form:label path="id">編號</form:label>
@@ -74,7 +74,7 @@
 							<td><form:input path="buildDate" cssClass="datepicker" value="${field.buildDate}"/>
 					</table>	
 					<p>
-						<button type="submit" id="insertButton" class="btn btn-primary">送出</button>
+						<button type="button" id="insertButton" class="btn btn-primary">送出</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/sport/field_GetAllFields" id="insertButton" class="btn btn-secondary">返回</a>
 					</p>
@@ -85,9 +85,23 @@
 	</div>
 <script>
 $("#insertButton").on("click", function() {
-	if(!confirm("確定要修改？")){
-		return false;
-	}
+	Swal.fire({
+		icon: "question",
+		position: "center-end",
+		showCancelButton: true,
+		confirmButtonText: "確定",
+		cancelButtonText: "取消",
+		title: "確定修改？",
+		text: "請確認資料是否正確"
+	}).then((result) => {
+		if (result.isConfirmed) {
+			$("#updateFieldForm").submit();			
+		}
+	});
+	
+// 	if(!confirm("確定要修改？")){
+// 		return false;
+// 	}
 });
 
 $.datepicker.setDefaults($.datepicker.regional['zh-TW']);

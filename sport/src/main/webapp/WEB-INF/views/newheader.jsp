@@ -157,11 +157,9 @@
 
 <script>
 
-	<c:if test="${sessionScope.loginErrorCode !=null && sessionScope.loginErrorCode == 1}">
-		
+	<c:if test="${sessionScope.loginErrorCode !=null && sessionScope.loginErrorCode == 1}">		
 		alert("帳號或密碼不正確");
-
-		${sessionScope.remove("loginErrorCode")}
+		${sessionScope.remove("loginErrorCode")}		
 	</c:if>
 		
 	// 檢查是否有登入
@@ -172,20 +170,30 @@
 		logoutDiv.style.display='block';
 	</c:if>
 	
-	$("#logoutBtn").click(function() {
-		if(!confirm("確定要登出？")){
-			$("#memberBtn").click();
-			return false;
-		}else{			
-			$("#formLogout").submit();
-		}
+	$("#logoutBtn").click(function(){
+		Swal.fire({
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonText: "確定",
+			cancelButtonText: "取消",
+			title: "登出確認"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					icon: "success",
+					title: "成功登出！",
+				}).then((result) => {
+					$("#formLogout").submit();
+				});
+			}
+		});
 	});
 	
 	$("#fieldOrder").children("a").click(function(){
 		if(${sessionScope.account == null}){
 			
 			Swal.fire({
-				icon: "question",
+				icon: "warning",
 				showCancelButton: true,
 				confirmButtonText: "登入",
 				cancelButtonText: "取消",
@@ -196,8 +204,6 @@
 				}
 			});
 			
-// 			$("#loginModal").modal("show");
-// 			$("#loginBtn").click();
 			return false;
 		}
 	});

@@ -90,13 +90,7 @@
     </ul>
 <!--end of header-->
 
-<script>
-// 	$("#logoutBtn").click(function(){
-// 		if(!confirm("確定登出？")){
-// 			return false;
-// 		}
-// 	});
-	
+<script>	
 	$("#logoutBtn").click(function(){
 		Swal.fire({
 			icon: "question",

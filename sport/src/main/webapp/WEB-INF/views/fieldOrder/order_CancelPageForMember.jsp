@@ -10,9 +10,24 @@
 <c:import url="../headerScript.jsp"/>
 
 <style>
-th, td {
+#detailDiv td{
 	padding: 5px 10px;
 }
+
+#cancelMemberOrderDiv table {
+	text-align: center;
+}
+
+#cancelMemberOrderDiv table .cancelBtn, #cancelMemberOrderDiv table .displayDetail{
+	padding: 2px 7px;
+}
+
+.statusSpan {
+	font-size: 15px;
+	padding: 1px 7px;
+	border-radius: 15px;
+}
+
 </style>
 
 
@@ -21,14 +36,21 @@ th, td {
 	<c:import url="../newheader.jsp"></c:import>
 	
 	<h2>訂單取消</h2>
-	<hr>
 
-	<h4>目前訂單</h4>
-	<div id="queryDiv"></div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-2"></div>
+			<div id="cancelMemberOrderDiv" class="col-8">
+				<h4>目前訂單</h4>
+				<div id="queryDiv"></div>
+			</div>
+		</div>
+	</div>
 
 	<!-- The Modal -->
 	<div class="modal fade" id="myModal">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 
 				<!-- Modal Header -->
@@ -38,7 +60,7 @@ th, td {
 				</div>
 
 				<!-- Modal body -->
-				<div class="modal-body">
+				<div id="detailDiv" class="modal-body">
 					<div style="width:200px; margin:auto">
 						<table>
 							<tr><td>場地:</td><td id="detailField"></td></tr>
@@ -89,60 +111,84 @@ th, td {
 		
 		if(fieldMemberOrderList.length != 0){
 			var content = "";
-			content += "<table border='1'>"
-					 + "<tr><th>訂單編號<th>帳號<th>建立時間<th>預約明細<th>出席狀態<th>訂單狀態";
+			content += "<table class='table table-hover table-striped'>"
+					 + "<tr class='bg-warning'><th>訂單編號<th>帳號<th>預約場地<th>預約明細<th>建立時間<th>訂單狀態<th>";
 	
 			for (var i = 0; i < fieldMemberOrderList.length; i++) {
 				var createTime = fieldMemberOrderList[i].createTime.substr(0,19);
 				var attendance = "";
 				if (fieldMemberOrderList[i].attendance == 1) {
-					attendance = "出席";
+					attendance = "<span class='btn btn-primary statusSpan'>出席</span>";
 				} else if (fieldMemberOrderList[i].attendance == -1) {
-					attendance = "缺席";
+					attendance = "<span class='btn btn-danger statusSpan'>缺席</span>";
 				}
-				var orderStatus = (fieldMemberOrderList[i].orderStatus == 0) ? "已取消" : "成立";
+				var orderStatus = (fieldMemberOrderList[i].orderStatus == 0) ? "<span class='btn btn-danger statusSpan'>已取消</span>" : "<span class='btn btn-primary statusSpan'>成立</span>";
 				var remark = (fieldMemberOrderList[i].remark == null) ? "無" : fieldMemberOrderList[i].remark;
 					content += "<tr>"
 							+ "<td>" + fieldMemberOrderList[i].id
 							+ "<td>" + fieldMemberOrderList[i].users.account
+							+ "<td>" + fieldMemberOrderList[i].orderDetails[0].field.name
+							+ '<td><input type="button" displayId="'+fieldMemberOrderList[i].id+'" class="btn btn-sm btn-outline-secondary displayDetail" data-toggle="modal" data-target="#myModal" value="瀏覽"/>'
 							+ "<td>" + createTime
-							+ '<td><input type="button" displayId="'+fieldMemberOrderList[i].id+'" class="displayDetail" data-toggle="modal" data-target="#myModal" value="瀏覽"/>'
-							+ "<td>" + attendance
 							+ "<td>" + orderStatus
-							+ "<td><input type='button' class='cancelBtn' value='我要取消' uId='"+fieldMemberOrderList[i].id+"'/>";
+							+ "<td><input type='button' class='btn btn-sm btn-outline-danger cancelBtn' value='我要取消' uId='"+fieldMemberOrderList[i].id+"'/>";
 			}
 			content += "</table>";
 	
 			queryDiv.innerHTML = content;
 			
-			$(".displayDetail").click(displayDetail);			
+			$(".displayDetail").click(displayDetail);
+			
 		}else{
 			queryDiv.innerHTML = "<h4>查無相符資料</h4>"
 		}
 		
 		$(".cancelBtn").click(function() {
-			var uId = $(this).attr('uId');
-			console.log(uId);
-			var json = {
-				"updateId" : uId
-			};
-			$.ajax({
-				method : 'POST',
-				contentType : "application/json;charset=UTF-8",
-				url : 'updateCancel',
-				dataType : 'text',
-				data : JSON.stringify(json),
-
-				success : function(response) {
-					if (response == "success") {
-						alert("success");
-						xhrFunction();
-					}
-				},
-				error : function(response) {
-					alert('Failed');
+			Swal.fire({
+				icon: "question",
+				showCancelButton: true,
+				confirmButtonText: "確定",
+				cancelButtonText: "取消",
+				title: "取消確認",
+				text: "取消後無法復原，確定要取消預約？"
+			}).then((result) => {
+				if (result.isConfirmed) {
+					var uId = $(this).attr('uId');
+					var json = {
+						"updateId" : uId
+					};
+					$.ajax({
+						method : 'POST',
+						contentType : "application/json;charset=UTF-8",
+						url : 'updateCancel',
+						dataType : 'text',
+						data : JSON.stringify(json),
+		
+						success : function(response) {
+							if (response == "success") {
+								Swal.fire({
+									  toast: true,
+									  icon: 'success',
+									  position: 'top',
+									  showConfirmButton: false,
+						    		  timer: 2000,
+									  title: '預約已取消！'
+								});
+								xhrFunction();
+							}
+						},
+						error : function(response) {
+							Swal.fire({
+								  icon: 'error',
+								  title: '失敗！'
+							});
+						}
+					});
 				}
 			});
+			
+			
+			
 		});
 
 	}
