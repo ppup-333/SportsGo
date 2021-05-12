@@ -17,7 +17,7 @@
 <style type="text/css">
 .box{
 	margin-top:50px;
-	
+	margin-bottom:100px;
 }
 img[src=""],img:not([src]){
             opacity:0;
@@ -202,7 +202,7 @@ span.error {
 									src='<c:url value="/Bulletin/picture/${bulletin.id }"/>' />
 							</c:when>
 							<c:otherwise>
-								<img width='180' height='216' id="previewImg" style="display:none"/>
+								<img width='214' height='250' id="previewImg" style="display:none"/>
 							</c:otherwise>
 						</c:choose>		
 					
@@ -234,7 +234,7 @@ span.error {
 			</div>
 		</div>
 		</div>
-	<br>
+	
 	
 	
 	
