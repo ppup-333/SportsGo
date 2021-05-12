@@ -209,8 +209,8 @@
 	});
 	
 	$("#clickInputHeader").click(function(){
-		$("input[id='userAct']").val("test1001")
-		$("input[id='userPwd']").val("test1001")
+		$("input[id='userAct']").val("beyond1000")
+		$("input[id='userPwd']").val("beyond1000")
 	});
 	
 </script>

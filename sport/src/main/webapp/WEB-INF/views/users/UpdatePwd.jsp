@@ -90,8 +90,8 @@
 <script>
 
 $("#clickInput").click(function(){
-	$("input[id='newPwd']").val("test1001")
-	$("input[id='chkNewPwd']").val("test1001")
+	$("input[id='newPwd']").val("beyond1000")
+	$("input[id='chkNewPwd']").val("beyond1000")
 });
 
 

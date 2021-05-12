@@ -83,14 +83,14 @@ public class UserController {
 	@GetMapping(value = "/RegisterEdit")
 	public String registerEdit(Model model) {
 		Users users = new Users();
-		users.setAccount("test1001");
-		users.setPassword("test1001");
-		users.setDbChkPwd("test1001");
-		users.setName("測試1001");
-		users.setId("A123456789");
-		users.setBirthday("01/01/1960");
-		users.setEmail("test1001@gmail.com");
-		users.setAddress("信義路二段1號1樓");
+		users.setAccount("beyond1000");
+		users.setPassword("beyond1000");
+		users.setDbChkPwd("beyond1000");
+		users.setName("張小明");
+		users.setId("A161627871");
+		users.setBirthday("12/04/1989");
+		users.setEmail("beyond780412@gmail.com");
+		users.setAddress("信義路二段390號3樓");
 		users.setTel("0223456789");
 		users.setGender("M");
 
