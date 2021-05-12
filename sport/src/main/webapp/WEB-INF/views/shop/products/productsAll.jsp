@@ -11,7 +11,7 @@
 <style>
 
 .title{
-text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
+/* text-shadow: 2px 4px 3px rgba(0,0,0,0.2); */
 margin-top:20px;
 font-size : 34px;
 font-weight:bolder;
@@ -137,7 +137,7 @@ background-color: #d7e5f4;
 <!-- </form> -->
 
 <%-- productCategoryList: ${productCategoryList[0].id} --%>
-<nav class="navbar navbar-light" style="width:880px;background-color: #e3f2fd;">
+<nav class="navbar navbar-light" style="width:880px;background-color: #e3f2fd; border-radius: 25px; ">
 <a class='create' href='pro/${currentPage}?status=${status}&category=${category}'><button class="btn btn-primary">新增商品</button></a>
 <form class="form-inline" method="post" id='form2' action="<c:url value='/' />shop/showSearchProducts" style="width:auto;">
 　<span style="color: #123456; font-weight:bold;" >請輸入商品名稱：</span><input class="form-control mr-sm-2" aria-label="Search" placeholder="Search" type="text" name="keyword" required="required" >
@@ -224,10 +224,12 @@ background-color: #d7e5f4;
 					<td style="text-align:center">${product.product_update_date}</td>
 					<td style="text-align:center" ><img width='100' height='100' src='picture/${product.product_id}' /></td>
 					<td style="text-align:center" ><a href="<c:url value='/' />shop/pro/${currentPage}/${product.product_id}?status=${status}&category=${category}"><button class="btn btn-outline-info btn-sm">修改</button></a><br><br>
-					     <a class='proUp'  myhref="<c:url value='/' />shop/prodUp/${currentPage}/${product.product_id}" > <button class="btn btn-outline-primary btn-sm">上架</button></a>
+					     <a class='proUp'  myhref="<c:url value='/' />shop/prodUp/${currentPage}/${product.product_id}" > <button class="btn btn-outline-primary btn-sm" <c:if test="${product.product_status == 1}"> disabled="disabled" style="cursor:not-allowed;" </c:if>  >上架</button></a>
 					</td>
                       <td style="text-align:center" > <a class='deletelink' myhref="<c:url value='/' />shop/prod/${currentPage}/${product.product_id}"><button class="btn btn-outline-danger btn-sm">刪除</button></a><br><br>
-                         <a class='proDown'  myhref="<c:url value='/' />shop/prodDown/${currentPage}/${product.product_id}" > <button class="btn btn-outline-secondary btn-sm">下架</button></a>
+  
+                         <a class='proDown'  myhref="<c:url value='/' />shop/prodDown/${currentPage}/${product.product_id}" > <button class="btn btn-outline-secondary btn-sm" <c:if test="${product.product_status == 0}"> disabled="disabled" style="cursor:not-allowed;" </c:if> >下架</button></a>
+                    
                     </td>
 				</tr>
 			</c:forEach>
@@ -238,10 +240,10 @@ background-color: #d7e5f4;
 		<div class="pagging">
         <div class="right">
         <c:if test="${currentPage == 1}">
-            <span class="disabled"><< 前一頁</span>        
+            <span class="disabled"><i class='fas fa-arrow-circle-left'></i> 上一頁</span>        
         </c:if>
         <c:if test="${currentPage != 1}">
-            <a href="showAllProducts?page=${currentPage-1}&status=${status}&category=${category}"><< 前一頁</a>
+            <a href="showAllProducts?page=${currentPage-1}&status=${status}&category=${category}"><i class='fas fa-arrow-circle-left'></i> 上一頁</a>
         </c:if>
         <c:if test="${currentPage == 1}">
         <span class="current">1</span>
@@ -267,10 +269,10 @@ background-color: #d7e5f4;
 
             
         <c:if test="${currentPage == pageTimes}">
-            <span class="disabled">後一頁 >></span>        
+            <span class="disabled">下一頁 <i class='fas fa-arrow-circle-right'></i></span>        
         </c:if>
         <c:if test="${currentPage != pageTimes}">
-        <a href="showAllProducts?page=${currentPage+1}&status=${status}&category=${category}">後一頁 >></a>
+        <a href="showAllProducts?page=${currentPage+1}&status=${status}&category=${category}">下一頁 <i class='fas fa-arrow-circle-right'></i></a>
         </c:if>
         </div>
 </div>
@@ -292,7 +294,8 @@ background-color: #d7e5f4;
        	  showCancelButton: true, 
        	  confirmButtonColor: '#3085d6',
        	  cancelButtonColor: '#d33',
-       	  confirmButtonText: '刪了他！',
+       	  confirmButtonText: '刪除',
+       	  cancelButtonText: '取消',
 
        	  }).then(result => {
        		  if (result.value) {
@@ -320,7 +323,8 @@ background-color: #d7e5f4;
         	  showCancelButton: true, 
         	  confirmButtonColor: '#3085d6',
         	  cancelButtonColor: '#d33',
-        	  confirmButtonText: '上架他！',
+        	  confirmButtonText: '上架',
+        	  cancelButtonText: '取消',
         	  backdrop: false,
 
         	  }).then(result => {
@@ -350,7 +354,8 @@ background-color: #d7e5f4;
           	  showCancelButton: true, 
           	  confirmButtonColor: '#3085d6',
           	  cancelButtonColor: '#d33',
-          	  confirmButtonText: '下架他！',
+          	  confirmButtonText: '下架',
+              cancelButtonText: '取消',
           	  backdrop: false,
 
           	  }).then(result => {

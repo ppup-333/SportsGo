@@ -10,7 +10,7 @@
 
 .title{
 /* color:#2482e0; */
-text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
+/* text-shadow: 2px 4px 3px rgba(0,0,0,0.2); */
 margin-top:20px;
 font-size : 34px;
 font-weight:bolder;
