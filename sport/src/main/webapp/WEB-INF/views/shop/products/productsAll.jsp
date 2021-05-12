@@ -279,6 +279,10 @@ background-color: #d7e5f4;
 	</c:otherwise>
 </c:choose>
 <hr>
+<c:if test="${empty products}">
+<div style="min-height:350px;"></div>
+
+</c:if>
 </div>
 <script type='text/javascript'>
 

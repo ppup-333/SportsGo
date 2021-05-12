@@ -84,7 +84,7 @@ width: 90px;
 #orderlist{
    width: 1280px;
 /*    border: 1px black solid; */
-   margin-top:30px;  
+   margin-top:0px;  
 /*    margin-left:100px; */
    padding:10px 0px;
 }
@@ -142,14 +142,14 @@ tr:hover {
 background-color: #f5f5f5;
 }
 
-.detailBtn{
+.detailBtn:hover{
 border:1px #13db00 solid;
 background-color: white;
 border-radius:3px;
 color: #05cc24;
 }
 
-.detailBtn:hover{
+.detailBtn{
 border:1px green solid;
 background-color: #05cc24  ;
 border-radius:3px;
@@ -164,14 +164,14 @@ top:30px;
  margin-left:400px;
 }
 
-.cancelBtn{
+.cancelBtn:hover{
 border:1px red solid;
 background-color: white;
 border-radius:3px;
 color:red;
 }
 
-.cancelBtn:hover{
+.cancelBtn{
 border:1px red solid;
 background-color: red;
 border-radius:3px;
@@ -191,6 +191,10 @@ color:grey;
 background-color: #d7e5f4;
 }
 
+
+.key{
+ width:250px;
+}
 
 </style>
 
@@ -214,9 +218,13 @@ background-color: #d7e5f4;
 	
 	
 	<div class="search">
-			<p class="searchBar">請輸入搜尋帳號：<input id="keywordI" type="text" name="keyword" class="key" required="required" value="${keyword}">
-			<button id="search" > 搜尋</button> <c:if test="${!empty keyword}" ><button id="unSearch" > 清除搜尋結果</button> </c:if>
+	
+	<nav class="navbar navbar-light" style="width:600px;background-color: #e3f2fd; margin-left:340px; margin-top:12px;   border-radius: 25px;  ">
+			<span style="color: #123456; font-weight:bold; margin-left:0px;" >請輸入搜尋帳號：</span><input id="keywordI" type="text" name="keyword" class="key form-control mr-sm-2" aria-label="Search" placeholder="Search" required="required" value="${keyword}">
+			<button id="search" class="btn btn-outline-success my-2 my-sm-0" <c:if test="${empty keyword}"> style=" margin-right:90px;" </c:if> > 搜尋</button> <c:if test="${!empty keyword}" ><button id="unSearch" class="btn btn-outline-secondary" style=" margin-right:15px;"> 清除</button> </c:if>
 			<input id="keyword2" type="hidden" value="${keyword}">
+				</nav>
+			
 	</div>
 	<div id="orderlist">
 	
@@ -374,7 +382,8 @@ function orderLists(responseText){
 	      	  showCancelButton: true, 
 	      	  confirmButtonColor: '#3085d6',
 	      	  cancelButtonColor: '#d33',
-	      	  confirmButtonText: '取消!',
+	      	  confirmButtonText: '確認',
+	          cancelButtonText: 'NO',
 	      	  backdrop: false,
 	      	  }).then(result => {
 	      		  if (result.value) {

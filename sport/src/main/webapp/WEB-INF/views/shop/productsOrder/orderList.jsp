@@ -10,7 +10,7 @@
 
 .title{
 /* color:#2482e0; */
-text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
+/* text-shadow: 2px 4px 3px rgba(0,0,0,0.2); */
 margin-top:20px;
 font-size : 34px;
 font-weight:bolder;
@@ -129,28 +129,28 @@ background-color: #f5f5f5;
 }
 
 
-.detailBtn{
+.detailBtn:hover{
 border:1px #13db00 solid;
 background-color: white;
 border-radius:3px;
 color: #05cc24;
 }
 
-.detailBtn:hover{
+.detailBtn{
 border:1px green solid;
 background-color: #05cc24  ;
 border-radius:3px;
 color:white;
 }
 
-.cancelBtn{
+.cancelBtn:hover{
 border:1px red solid;
 background-color: white;
 border-radius:3px;
 color:red;
 }
 
-.cancelBtn:hover{
+.cancelBtn{
 border:1px red solid;
 background-color: red;
 border-radius:3px;
