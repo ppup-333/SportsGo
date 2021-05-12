@@ -21,16 +21,21 @@
 		font-size: 1px;
 	}
 	
-.d1{
-		font-size:15px;
-		height:auto;
-		width:500px;
-		margin:auto;
-		margin-top:40px;	
-	}
+	.f1{ 
+ 	font-size:14px; 
+   	width:500px; 
+/*    	margin:auto; */
+  	margin-left:550px;
+ 	margin-top:50px;
+ 	} 
 
-
-
+ 	.d1{ 
+ 	
+ 	width:500px;
+ 	margin-left:700px;
+/*  	margin-top:20px; */
+/*  	margin:20px 600px;  */
+ 	} 
 </style>
 <script>
 	var time = 60;
@@ -67,26 +72,21 @@
 <body>
 <c:import url="../newheader.jsp"/>
 
-		<div class='d1'>
+		<div class='f1'>
 			<form action='verifyEmail' method="post" id='verifyForm'>
 			<input style="display:none" type="text" name="checkAccount" value="${checkAccount}"/>
-			<table>
+			<table class='table'>
 				<tr>
 					<td>輸入四位認證碼:&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						<input type="text" name="verifyCode"/>&nbsp;&nbsp;&nbsp;
-					</td>
-					<td>
-						<input id="submitBtn" type='submit' value='送出'/>&nbsp;&nbsp;&nbsp;
+						<input id="submitBtn" class="btn btn-info" type='submit' value='送出'/>&nbsp;&nbsp;&nbsp;<br>
+						<span class="sp">驗證碼需區分大小寫</span>
 					</td>
 				</tr>
 				<tr>
-					<td>&nbsp;</td>
-					<td><span class="sp">驗證碼需區分大小寫</span></td>
-				</tr>
-				<tr>
 					<td>
-						<input id="resetCodeBtn" type="button" value="重設驗證碼" onclick="resetVerifyCode();" />
+						<input id="resetCodeBtn" class="btn btn-danger" type="button" value="重設驗證碼" onclick="resetVerifyCode();" />
 					</td>
 					<td>
 						<span id="resetBtnMessage"></span>

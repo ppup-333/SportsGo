@@ -14,12 +14,6 @@
   
 <style>
 
-	td {
-		height: auto;
-		width: auto;
-		
-	}
-
 
 	.sp {
 		color: darkgrey;
@@ -37,15 +31,29 @@
 	}
 	
  	.f1{ 
- 	font-size:15px; 
-/*  	width:550px;  */
- 	margin-left:600px; 
+ 	font-size:14px; 
+   	width:550px; 
+/*    	margin:auto; */
+  	margin-left:550px;
  	margin-top:50px;
  	} 
 
  	.d1{ 
- 	margin:20px 600px; 
+ 	
+ 	width:500px;
+ 	margin-left:700px;
+ 	margin-top:20px;
+/*  	margin:20px 600px;  */
  	} 
+ 	
+	#table1 td{ 
+		padding:8px; 
+/*  		height: auto; */
+  	} 
+ 	
+/*  	.errorDiv{ */
+/*  		width:150px; */
+/*  	} */
 	
 </style>
 
@@ -57,82 +65,102 @@
 	<legend>註冊會員帳號</legend>
 		<form:form method="POST" modelAttribute="users" enctype='multipart/form-data' id="form1">
 			<div>
-				<table>
+				<table class='table table-hover' id='table1'>
 					<tr>
-	      				<td>帳號：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='account' name='account' id='inputAct'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		  					<a href='#'><input type="button" value="檢查帳號" id='repeatAccount'></a><br>&nbsp;	
+	      				<td>帳號：</td>
+		  				<td><form:input path='account' name='account' id='inputAct'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  					<a href='#'><input type="button" value="檢查帳號" id='repeatAccount' class='btn btn-sm btn-primary'></a><br>	
 		     				<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
-		     				<form:errors path='account' cssClass="error"/></td>
-		     			<td>
-		     				<div id='result0c'></div><br>
+		     				<form:errors path='account' cssClass="error"/>
 		     			</td>
+<!-- 		     			<td> -->
+<!-- 		     				<div id='result0c' class='errorDiv'></div><br> -->
+<!-- 		     			</td> -->
 		     			
 		     		</tr>
 		     		<tr>
-	      				<td>密碼：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='password' type='password' /><br>&nbsp;	
+	      				<td>密碼：</td>
+		  				<td><form:input path='password' type='password' /><br>	
 		     				<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/>
 		     				<form:errors path='password' cssClass="error"/>
 		     			</td>
+<!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>確認密碼：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='dbChkPwd' type='password'/><br>&nbsp;	
+	      				<td>確認密碼：</td>
+		  				<td><form:input path='dbChkPwd' type='password'/><br>
 		     				<span class="sp">必須與密碼相同</span><br/>
-		     				<form:errors path='dbChkPwd' cssClass="error"/></td>
+		     				<form:errors path='dbChkPwd' cssClass="error"/>
+		     			</td>
+<!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
    					<tr>
-	      				<td>姓名：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='name' /><br>&nbsp;	
-		     				<form:errors path='name' cssClass="error"/></td>
+	      				<td>姓名：</td>
+		  				<td><form:input path='name' /><br>	
+		     				<form:errors path='name' cssClass="error"/>
+		     			</td>
+<!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>身分證字號：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;</td>
-		  				<td width='360'><form:input path='id' /><br>&nbsp;
+	      				<td>身分證字號：</td>
+		  				<td><form:input path='id' /><br>
 		  					<span class="sp">第一個英文字母大寫</span><br/>	
-		     				<form:errors path='id' cssClass="error"/></td>
+		     				<form:errors path='id' cssClass="error"/>
+		     			</td>
+<!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>性別：<br>&nbsp;</td>
-	   	  				<td><form:radiobuttons path="gender" items='${genderMap}'/><br>&nbsp;
-	   	  					<form:errors path="gender"  cssClass="error" /></td>
+	      				<td>性別：</td>
+	   	  				<td>
+	   	  					<form:radiobuttons path="gender" items='${genderMap}'/>
+<%-- 	   	  					<form:errors path="gender"  cssClass="error" /> --%>
+	   	  				</td>
+<!-- 	   	  				<td>&nbsp;</td> -->
 	   	  			<tr>
-	      				<td>生日：<br>&nbsp;</td>
-		  				<td><form:input type='text' id='datepicker' path='birthday' /><br>&nbsp;	
-		     				<form:errors path='birthday' cssClass="error"/></td>
+	      				<td>生日：</td>
+		  				<td><form:input type='text' id='datepicker' path='birthday' /><br>	
+		     				<form:errors path='birthday' cssClass="error"/>
+		     			</td>
+<!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>E-Mail：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='email' /><br>&nbsp;	
+	      				<td>E-Mail：</td>
+		  				<td><form:input path='email' /><br>	
 		  					<span class="sp">需收認證信，盡量避免使用免費信箱</span><br/>
-		     				<form:errors path='email' cssClass="error"/></td>
+		     				<form:errors path='email' cssClass="error"/>
+		     			</td>
+<!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>地址：<br>&nbsp;</td>
+	      				<td>地址：</td>
 	   	 				<td><form:select path="cityCode.cityCode" id="aaaa">
 								<form:option label="請選擇縣市" value="00" id='cityValue'/>
 								<form:options  items="${cityList}" itemLabel='city' itemValue='cityCode' />
 	   	  					</form:select>&nbsp;
 	   	  					<form:select path="userDistrictCode.userDistrictCode" id='cityDistrict' >
 								<form:option label="鄉鎮市區" value="1000" />
-	   	  					</form:select><br>&nbsp;
-	   	  					<form:errors path="cityCode"  cssClass="error"/><br>
-	   	  					<form:input path='address' /><br>&nbsp;
+	   	  					</form:select>&nbsp;&nbsp;
+	   	  					<form:input path='address' /><br>
+	   	  					<form:errors path="cityCode"  cssClass="error"/>
 	   	  					<form:errors path="address"  cssClass="error"/>
 	   	  				</td>
+<!-- 	   	  				<td>&nbsp;</td> -->
 					</tr>
 					<tr>
-	      				<td>市內電話：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='tel'  /><br>&nbsp;	
+	      				<td>市內電話：</td>
+		  				<td><form:input path='tel'  /><br>	
 		  					<span class="sp">市內電話與行動電話至少填寫一項</span><br/>
-		     				<form:errors path='tel' cssClass="error"/></td>
+		     				<form:errors path='tel' cssClass="error"/>
+		     			</td>
+<!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>行動電話：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='mobile'  /><br>&nbsp;	
+	      				<td>行動電話：</td>
+		  				<td><form:input path='mobile'  /><br>
 		  					<span class="sp">市內電話與行動電話至少填寫一項</span><br/>
-		     				<form:errors path='mobile' cssClass="error"/></td>
+		     				<form:errors path='mobile' cssClass="error"/>
+		     			</td>
+<!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 					
 				</table>			
@@ -140,8 +168,8 @@
 		</form:form>
 	</fieldset>
 	<div class='d1'>
-		<input type='button' value='送出' onclick='chkSubmit()'>&nbsp;&nbsp;
-		<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
+		<input type='button' class="btn btn-info" value='送出' onclick='chkSubmit()'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type='button' class="btn btn-secondary" value='回首頁' onclick='location.href="<c:url value='../'/> "'>
 	</div>
 	
 <script>
@@ -179,16 +207,33 @@ window.onload = function() {
 				var result = JSON.parse(xhr.responseText);
 // 				console.log(result);
 				if (result.result == "false") {
-					message = "<font color='darkgreen' size='-2'>" + "帳號可以使用" + "</font>";
+// 					message = "<font color='darkgreen' size='-2'>" + "帳號可以使用" + "</font>";
+					Swal.fire({
+						toast: true,
+// 			    		position: 'top',
+						showConfirmButton: false,
+			    		timer: 2000,
+			    		icon: 'success',
+			    		title: '帳號可以使用!!',
+			    	})
+					
 					pass = true;
-				} 
-				else {
-					message = "<font color='red' size='-2'>" + "帳號重複，請重新輸入帳號" + "</font>";
+				} else {
+// 					message = "<font color='red' size='-2'>" + "帳號重複，請重新輸入帳號" + "</font>";
+					Swal.fire({
+						toast: true,
+// 			    		position: 'top',
+						showConfirmButton: false,
+			    		timer: 2000,
+			    		icon: 'error',
+			    		title: '帳號已被使用或格式不正確，請重新輸入帳號!!',
+			    	})
+					
 					pass = false;
 				}
 				console.log(pass);
 				
-				div.innerHTML =  message ;
+// 				div.innerHTML =  message ;
 			}
 		}
 	};

@@ -137,19 +137,27 @@ public class UserController {
 	@PostMapping(value = "/chkAccount")
 	public @ResponseBody Map<String, String> getChkAccount(@RequestParam(value = "account") String account) {
 
-		boolean b = usersService.getChkAccount(account);
+		boolean pass;
+		String chkAct = "(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{8,16}";
 		Map<String, String> map = new HashMap<>();
-		System.out.println("account = " + account.toString());
-//		System.out.println(account);
-		System.out.println("b =" + b);
-		if (b) {
+		if (account.matches(chkAct) == false) {
 			map.put("result", "true");
+			return map;
 		} else {
-			map.put("result", "false");
-		}
+
+			pass = usersService.getChkAccount(account);
+			System.out.println("account = " + account.toString());
+//		System.out.println(account);
+			System.out.println("b =" + pass);
+			if (pass) {
+				map.put("result", "false");
+			} else {
+				map.put("result", "true");
+			}
 
 //		System.out.println("mpa1=" + map);
-		return map;
+			return map;
+		}
 
 	}
 
@@ -541,7 +549,7 @@ public class UserController {
 
 		users.setStatusCode(userStatusService.get("02"));
 		users.setVer(Timestamp.valueOf(LocalDateTime.now()));
-		
+
 		users.setActRegisteredTime(userData.getActRegisteredTime());
 		users.setPwLastUpdateDate(userData.getPwLastUpdateDate());
 
@@ -689,11 +697,11 @@ public class UserController {
 		}
 		return false;
 	}
-	
+
 	@ModelAttribute
 	public void headerModel(Model m) {
 		Users users = new Users();
 		m.addAttribute("loginPage", users);
 	}
-	
+
 }

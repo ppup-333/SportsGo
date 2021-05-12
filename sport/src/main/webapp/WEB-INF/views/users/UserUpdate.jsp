@@ -15,22 +15,7 @@
   
 <style>
 
-	td {
-		height: 50px;
-		width: auto;
-		
-	}
 
-	.div {
-		width: 100%;
-		height: 800px;
-		max-width: 700px;
-		box-shadow: 0px 0px 3px 1px #00000078;
-		padding: 10px;
-		box-sizing: border-box;
-		margin: 0 auto;
-		border: 1px solid white;
-	}
 
 	.sp {
 		color: darkgrey;
@@ -48,15 +33,25 @@
 	}
 	
  	.f1{ 
- 	font-size:15px; 
-/*  	width:550px;  */
- 	margin-left:620px; 
+ 	font-size:14px; 
+   	width:500px; 
+/*    	margin:auto; */
+  	margin-left:550px;
  	margin-top:50px;
  	} 
 
  	.d1{ 
- 	margin:20px 620px; 
- 	} 
+ 	
+ 	width:500px;
+ 	margin-left:680px;
+ 	margin-top:20px;
+/*  	margin:20px 600px;  */
+ 	}
+ 	 
+ 	#table1 td{
+ 	padding:8px;
+/*   	text-align: justify; */
+ 	}  
 </style>
 
 </head>
@@ -66,60 +61,61 @@
 		<legend >修改會員資料</legend>
 		<form:form method="POST" modelAttribute="users" enctype='multipart/form-data' id="form1">
 			<div>
-				<table>
+				<table class='table table-hover' id='table1'>
 					<tr>
-	      				<td>帳號：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='account' name='account' id='account' readonly="true"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		     			<td>
-		     				<div id='result0c'></div><br>
-		     			</td>
+	      				<td>帳號：</td>
+		  				<td><form:input path='account' name='account' id='account' readonly="true"/>
 		     		</tr>
    					<tr>
-	      				<td>姓名：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='name' /><br>&nbsp;	
+	      				<td>姓名：</td>
+		  				<td><form:input path='name' />	
 		     				<form:errors path='name' cssClass="error"/></td>
 		     		</tr>
 		     		<tr>
-	      				<td>身分證字號：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;</td>
-		  				<td width='360'><form:input path='id' readonly="true"/><br>&nbsp;
+	      				<td>身分證字號：</td>
+		  				<td><form:input path='id' readonly="true"/></td>
 		     		</tr>
 		     		<tr>
-	      				<td>性別：<br>&nbsp;</td>
-	   	  				<td><form:radiobuttons path="gender" items='${genderMap}'/><br>&nbsp;
-	   	  					<form:errors path="gender"  cssClass="error" /></td>
+	      				<td>性別：</td>
+	   	  				<td><form:radiobuttons path="gender" items='${genderMap}'/>
+<%-- 	   	  					<form:errors path="gender"  cssClass="error" /> --%>
+	   	  				</td>
 	   	  			<tr>
-	      				<td>生日：<br>&nbsp;</td>
-		  				<td><form:input type='text' id='datepicker' path='birthday' /><br>&nbsp;	
-		     				<form:errors path='birthday' cssClass="error"/></td>
+	      				<td>生日：</td>
+		  				<td><form:input type='text' id='datepicker' path='birthday' /><br>	
+		     				<form:errors path='birthday' cssClass="error"/>
+		     			</td>
 		     		</tr>
 		     		<tr>
-	      				<td>E-Mail：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='email' /><br>&nbsp;	
+	      				<td>E-Mail：</td>
+		  				<td><form:input path='email' /><br>
 		  					<span class="sp">需收認證信，盡量避免使用免費信箱</span><br/>
-		     				<form:errors path='email' cssClass="error"/></td>
+		     				<form:errors path='email' cssClass="error"/>
+		     			</td>
 		     		</tr>
 		     		<tr>
-	      				<td>地址：<br>&nbsp;</td>
+	      				<td>地址：</td>
 	   	 				<td><form:select path="cityCode.cityCode" id="aaaa">
 								<form:option label="請選擇縣市" value="00" id='cityValue'/>
 								<form:options  items="${cityList}" itemLabel='city' itemValue='cityCode' />
 	   	  					</form:select>&nbsp;
 	   	  					<form:select path="userDistrictCode.userDistrictCode" id='cityDistrict' >
 								<form:option label="鄉鎮市區" value="1000" />
-	   	  					</form:select><br>&nbsp;
-	   	  					<form:errors path="cityCode"  cssClass="error"/><br>
-	   	  					<form:input path='address' /><br>&nbsp;
-	   	  					<form:errors path="address"  cssClass="error"/></td>
+	   	  					</form:select>&nbsp;&nbsp;
+	   	  					<form:input path='address' /><br>
+	   	  					<form:errors path="cityCode"  cssClass="error"/>
+	   	  					<form:errors path="address"  cssClass="error"/>
+	   	  				</td>
 					</tr>
 					<tr>
-	      				<td>市內電話：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='tel'  /><br>&nbsp;	
+	      				<td>市內電話：</td>
+		  				<td><form:input path='tel'  /><br>	
 		  					<span class="sp">市內電話與行動電話至少填寫一項</span><br/>
 		     				<form:errors path='tel' cssClass="error"/></td>
 		     		</tr>
 		     		<tr>
-	      				<td>行動電話：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='mobile'  /><br>&nbsp;	
+	      				<td>行動電話：</td>
+		  				<td><form:input path='mobile'  /><br>	
 		  					<span class="sp">市內電話與行動電話至少填寫一項</span><br/>
 		     				<form:errors path='mobile' cssClass="error"/></td>
 		     		</tr>
@@ -128,8 +124,8 @@
 		</form:form>
 	</fieldset>
 	<div class='d1'>
-		<input type='button' value='送出' onclick='dataSubmit()'>&nbsp;&nbsp;
-		<input type='button' value='回上一頁' onclick='location.href="userResult"'>
+		<input type='button' class="btn btn-info" value='送出' onclick='dataSubmit()'>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type='button' class="btn btn-secondary" value='回上一頁' onclick='location.href="userResult"'>
 	</div>
 	
 	

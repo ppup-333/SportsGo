@@ -18,9 +18,9 @@
 		<!-- 		<a href="Logout"><button>登出</button></a> -->
 
 		<form action="Logout" method="post" id="form1">
-			<input type="button" value="管理帳號資料" onclick="location.href='userResult'">
-			<input type="button" value="變更密碼" onclick="location.href='userUpdatePwd'">
-			<input type="button" value="登出" onclick="form1.submit()">
+			<input type="button" class="btn btn-primary" value="管理帳號資料" onclick="location.href='userResult'">
+			<input type="button" class="btn btn-primary" value="變更密碼" onclick="location.href='userUpdatePwd'">
+<!-- 			<input type="button" value="登出" onclick="form1.submit()"> -->
 		</form>
 		<!-- 		<a href="user/Login">登入</a>  -->
 		<!-- 		<a href="user/RegisterEdit">註冊</a>  -->
