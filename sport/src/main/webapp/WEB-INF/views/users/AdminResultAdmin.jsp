@@ -207,7 +207,7 @@ function select1(){
 							+ "<td>" + adminRs[i].mobile + "</td>"
 							+ "<td>" + adminRs[i].auth +"</td>"
 							+ "<td>" + dateTime + "</td>"
-							+ "<td>" + '<button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#daleteAdmin" id="'+ adminRs[i].account +'"> 移除權限 </button>' + "</td>"
+							+ "<td>" + '<button type="button" class="btn btn-sm btn-outline-danger test" data-toggle="modal" data-target="#daleteAdmin" id="'+ adminRs[i].account +'"> 移除權限 </button>' + "</td>"
 				}
 				content += "</table>";
 				var divs = document.getElementById("searchResultDiv");
