@@ -31,7 +31,7 @@
 				var data = JSON.parse(this.responseText);
 				$.each(data, function(index, bulletin) {
 					var updateTime = new Date(bulletin.update_time).format("Y-m-d");
-					$('#newsBot' + index).html('<div>' + updateTime + '</div>' + '<h3 class="newsBotTile" >'+ bulletin.title +'</h3>')
+					$('#newsBot' + index).html('<div class="newsBotTime">' + updateTime + '</div>' + '<h3 class="newsBotTitle" >'+ bulletin.title +'</h3>')
 // 					$('#newsBot' + index).html('<h3 class="newsBotTile" >'+ bulletin.title +'</h3>')
 					$('#newsTop' + index).html('<a id="newsLink'+ index +'" href="#" title="了解更多' +  bulletin.title +'的內容">'
 							+ '<img class="newsPic" src="<c:url value="/Bulletin/picture/'+ bulletin.id + '"/>" width="100%" height="100%"></img>' + '</a>')
