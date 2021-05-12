@@ -346,7 +346,13 @@ top:-10px;
  font-size: 19px;
  font-weight:bold;
  margin:4px;
- margin-left:60px;
+ margin-left:170px;
+}
+
+
+.remarkContent{
+  margin:auto;
+
 }
 
 
@@ -369,14 +375,27 @@ color: #165498;
 
 #productFooter{
 
- width: 1000px;
- height:250px;
- border: 2px black solid;
- margin-top:30px;  
- margin-left:270px;
+ width: 800px;
+ height:300px;
+/*  border: 2px black solid; */
+ margin-top:60px;  
+ margin-left:370px;
  padding:10px 0px;
  border-radius: 8px;
+   background-color: #fff3e5;
+/*    text-align: center; */
 
+}
+
+.footer{
+/*  color:#3d7fc7; */
+width:800px;
+ font-size: 15px;
+ font-weight:bold;
+ margin:4px;
+ margin-left:50px;
+/*   background-color: #f6fef7; */
+/*   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0.3, 0.5, 0.7, 0), rgba(0.25, 0, 0, 0)); */
 }
 
 
@@ -463,6 +482,14 @@ color: #165498;
 
 	<div id="productFooter">
 		<p class='remarkTitle'>售後服務</p><hr class='style-two'>
+			<p class="footer">Sports Go!購物商城的消費者，都可以依照消費者保護法的規定，享有商品貨到次日起七天猶豫期的權益。</p>
+			<p class="footer">但猶豫期並非試用期，請留意，您所退回的商品必須回復原狀（須回復至商品到貨時的原始狀態），</p>
+			<p class="footer">並且保持完整包裝（包括商品本體、配件、贈品、保證書、原廠包裝及所有附隨文件或資料的完整性），</p>
+			<p class="footer">切勿缺漏任何配件或損毀原廠外盒。</p>
+			<p class="footer">若您需辦理退貨，請來電或是E-mail至Sports Go!運動中心並留下個人資訊，我們會有專人來親自為您服務。</p>
+			<p class="footer">收到您所提出的申請後，若經確認無誤，將依消費者保護法之相關規定，返還您已支付之對價（含信用卡交易）</p>
+			<p class="footer">退款日當天會再發送E-mail通知函給您。</p>
+	
 	</div>
 	<br><br>
 </div>
@@ -509,7 +536,7 @@ function productDetails(responseText){
  	}
 
 	contentRemark = product.product_remark;
-	productRemark.innerHTML = "<p class='remarkTitle'>商品描述</p><hr class='style-two'><br><p class='remark'>"+contentRemark+"</p><br>";
+	productRemark.innerHTML = "<div class='remarkContent'><p class='remarkTitle'>商品描述</p><hr class='style-two'><br><p class='remark'>"+contentRemark+"</p></div><br>";
  	
 //  	contentfoot ="<a href='../orderList'><input class='continue' type='button' value='回訂單列表'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
 // 				+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -618,7 +645,7 @@ $('.pic').click(function() {  //減少商品
 		imageUrl: '../picture/'+product_id,
 		heightAuto:false,
 		width:660,
-
+		confirmButtonText: '關閉',
 		showConfirmButton: true, 
 		imageWidth: 660,
 		padding:-40,

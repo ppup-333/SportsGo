@@ -18,16 +18,23 @@ span.error {
 color: #556372;
 font-weight: bold;
 font-size: 23px;
-margin-left:30px;
+text-align: center;
 }
+
 
 .field{
 background-color: #eef4f7;
 border:10px #eef4f7 solid;
 border-radius: 20px;
+box-shadow:0px 0px 5px grey  ;
 
 }
 
+.title2{
+color: #055c2c;
+font-weight: bold;
+font-size: 19px;
+}
 
 </style>
 <meta charset="UTF-8">
@@ -35,22 +42,22 @@ border-radius: 20px;
 </head>
 <body>
 	<c:import url="../../newheaderM.jsp" />
-<fieldset class="field"  style="width:550px;margin:auto;margin-top:50px;">
+<fieldset class="field"  style="width:690px;margin:auto;margin-top:50px;">
 <!-- 	<legend ><span class="title">新增商品資料 (Product)</span></legend>  -->
-	<span class="title">新增商品資料 (Product)</span>
+	<p class="title">新增商品資料 (Product)</p>
 	<form:form method="POST" modelAttribute="product" enctype='multipart/form-data'>
 	<br>
 	<Table style="align-self: center;">
 	
 	   <tr>
-	      <td>商品名稱：<br>&nbsp;</td>
-		  <td  width='200'><form:input id='pname' path='product_name' style="width:440px;" /><br>&nbsp;	
+	      <td class="title2">商品名稱：<br>&nbsp;</td>
+		  <td  width='200'><form:input id='pname' path='product_name' style="width:500px;" /><br>&nbsp;	
 		      <form:errors path='product_name' cssClass="error"/>
 		  </td>
 	   </tr>
 	   <tr>
 
-          <td>分類：<br>&nbsp;</td>
+          <td class="title2">分類：<br>&nbsp;</td>
 		  <td  width='200'>
 	   	  	<form:select path="productCategory.id" id="pcate">
 	   	  		<form:option value="-1" label="請選擇" />
@@ -62,14 +69,14 @@ border-radius: 20px;
 	   	
 	   </tr>
 	   <tr>
-	      <td>價錢：<br>&nbsp;</td>
+	      <td class="title2">價錢：<br>&nbsp;</td>
 	   	  <td>
 	      	<form:input path="product_price" id='pprice'/><br>&nbsp;	
 		      <form:errors path='product_price' cssClass="error"/>
 		  </td>
 	  </tr>
 	  <tr>	  
-		   <td>庫存：<br>&nbsp;</td>
+		   <td class="title2">庫存：<br>&nbsp;</td>
 	   	  <td>
 	      	<form:input path="product_stock" id='pstock'/><br>&nbsp;	
 		      <form:errors path='product_stock' cssClass="error"/>
@@ -77,15 +84,15 @@ border-radius: 20px;
 	   </tr>	   
 	  	   
 	   <tr>
-	      <td>商品描述：<br>&nbsp;</td>
+	      <td class="title2">商品描述：<br>&nbsp;</td>
 	   	  <td>
-			  <form:textarea style="width:440px;height:100px;" path="product_remark" id='premark'/><br>&nbsp;	
+			  <form:textarea style="width:500px;height:350px;" path="product_remark" id='premark'/><br>&nbsp;	
 		      <form:errors path='product_remark' cssClass="error"/>
 	   	  </td>
 	   </tr>
 	   
 	   <tr>
-	   	  <td>商品圖片：<br>&nbsp;</td>
+	   	  <td class="title2">商品圖片：<br>&nbsp;</td>
 	   	  <td>
 	   	  	 <form:input path="productImage" type='file'/>&nbsp;
 	   	  	 <form:errors path="productImage"  cssClass="error" /><hr><br>
@@ -93,7 +100,7 @@ border-radius: 20px;
 	   </tr>
 	   
 	   <tr>
-	    <td colspan='4' align='center'>
+	    <td colspan='4' align='center'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	    	
 	      <input type='submit' class="btn btn-success" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	        <button type="button" id="cancel" class="btn btn-secondary" >取消</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -26,11 +26,12 @@ text-align: center;
 
 #allProductInOrder {
    width: 830px;
-border: 2px black solid;
+border: 1px #727879 solid;
    margin-top:30px;  
    margin-left:220px;
    padding:10px 0px;
    border-radius: 8px;
+   box-shadow:0px 0px 5px grey  ;
 }
 
 

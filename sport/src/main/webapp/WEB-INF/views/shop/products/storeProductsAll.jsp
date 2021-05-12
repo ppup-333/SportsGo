@@ -463,16 +463,16 @@ font-weight: bold;
 		<hr>
         <div id="category">
 
-        <a href="<c:url value='storeProductsAll?category=1&keyword=${keyword}'/> " ><button id="bn1" class="categoryButton"><i class="fas fa-dumbbell"> &nbsp; 健身</i></button></a>
-        <a href="<c:url value='storeProductsAll?category=2&keyword=${keyword}'/> " ><button id="bn2" class="categoryButton"><i class="fas fa-tshirt"> &nbsp; 服裝</i></button></a>
-        <a href="<c:url value='storeProductsAll?category=3&keyword=${keyword}'/> " ><button id="bn3" class="categoryButton"><i class="fas fa-shoe-prints"> &nbsp; 鞋類</i></button></a>
-        <a href="<c:url value='storeProductsAll?category=4&keyword=${keyword}'/> " ><button id="bn4" class="categoryButton"><i class="fas fa-user-shield"> &nbsp; 護具</i></button></a>
-        <a href="<c:url value='storeProductsAll?category=5&keyword=${keyword}'/> " ><button id="bn5" class="categoryButton"><i class="fas fa-toolbox"> &nbsp; 配件</i></button></a><br>
-        <a href="<c:url value='storeProductsAll?category=6&keyword=${keyword}'/> " ><button id="bn6" class="categoryButton"><i class="fas fa-feather"> &nbsp; 羽球</i></button></a>
-        <a href="<c:url value='storeProductsAll?category=7&keyword=${keyword}'/> " ><button id="bn7" class="categoryButton"><i class="fas fa-basketball-ball"> &nbsp; 籃球</i></button></a>
-        <a href="<c:url value='storeProductsAll?category=8&keyword=${keyword}'/> " ><button id="bn8" class="categoryButton"><i class="fas fa-circle"> &nbsp; 壁球</i></button></a>
-        <a href="<c:url value='storeProductsAll?category=9&keyword=${keyword}'/> " ><button id="bn9" class="categoryButton"><i class="fas fa-table-tennis"> &nbsp; 桌球</i></button></a>
-        <a href="<c:url value='storeProductsAll?category=10&keyword=${keyword}'/> " ><button id="bn10" class="categoryButton"><i class="fas fa-volleyball-ball"> &nbsp; 排球</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=1&keyword=${keyword}'/> " ><button id="bn1" class="categoryButton"><i class="fas fa-dumbbell" style="width:95px;">&nbsp;&nbsp;健身</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=2&keyword=${keyword}'/> " ><button id="bn2" class="categoryButton"><i class="fas fa-tshirt" style="width:95px;">&nbsp;&nbsp;服裝</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=3&keyword=${keyword}'/> " ><button id="bn3" class="categoryButton"><i class="fal fa-boot" style="width:95px;font-weight:bold;">&nbsp;&nbsp;&nbsp;鞋類</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=4&keyword=${keyword}'/> " ><button id="bn4" class="categoryButton"><i class="fas fa-user-shield" style="width:95px;">&nbsp;&nbsp;護具</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=5&keyword=${keyword}'/> " ><button id="bn5" class="categoryButton"><i class="fas fa-toolbox" style="width:95px;">&nbsp;&nbsp;配件</i></button></a><br>
+        <a href="<c:url value='storeProductsAll?category=6&keyword=${keyword}'/> " ><button id="bn6" class="categoryButton"><i class="fal fa-shuttlecock" style="font-weight:bold;">&nbsp;&nbsp;&nbsp;羽球</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=7&keyword=${keyword}'/> " ><button id="bn7" class="categoryButton"><i class="fas fa-basketball-ball" style="width:95px;">&nbsp;&nbsp;&nbsp;籃球</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=8&keyword=${keyword}'/> " ><button id="bn8" class="categoryButton"><i class="fas fa-circle" style="width:95px;">&nbsp;&nbsp;&nbsp;壁球</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=9&keyword=${keyword}'/> " ><button id="bn9" class="categoryButton"><i class="fas fa-table-tennis" style="width:95px;">&nbsp;&nbsp;&nbsp;桌球</i></button></a>
+        <a href="<c:url value='storeProductsAll?category=10&keyword=${keyword}'/> " ><button id="bn10" class="categoryButton"><i class="fas fa-volleyball-ball" style="width:95px;">&nbsp;&nbsp;排球</i></button></a>
         <br>
         
         <input id="categoryI" type="hidden" value="${category}">
