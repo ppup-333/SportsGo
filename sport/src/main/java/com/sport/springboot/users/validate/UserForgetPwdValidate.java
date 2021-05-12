@@ -22,12 +22,15 @@ public class UserForgetPwdValidate implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 
+		
+		
 		Users users = (Users) target;
 		String chkAccount = "(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{8,16}";
 		String chkId = "[A-Z]{1}[1-2]{1}[0-9]{8}";
 		String isId = users.getId().toUpperCase();
 		String chkEmail = "^.+@.+\\..{2,3}$";
 
+		
 		boolean pass = false;
 		if (isId.matches(chkId) == true) {
 			List<String> list1 = Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "O", "N",
