@@ -7,21 +7,6 @@
 <head>
 <c:import url="../headerScript.jsp"/>
 <style>
-	td {
-		height: 50px;
-		width: auto;
-		
-	}
-	.div {
-		width: 100%;
-		height: 800px;
-		max-width: 700px;
-		box-shadow: 0px 0px 3px 1px #00000078;
-		padding: 10px;
-		box-sizing: border-box;
-		margin: 0 auto;
-		border: 1px solid white;
-	}
 
 	.sp {
 		color: darkgrey;
@@ -35,18 +20,26 @@
 		font-size: 5pt;
 	}
 	
- 	.f1{ 
- 	font-size:15px; 
-/*  	width:550px;  */
- 	margin-left:620px; 
+	.f1{ 
+ 	font-size:14px; 
+   	width:500px; 
+/*    	margin:auto; */
+  	margin-left:550px;
  	margin-top:50px;
  	} 
 
  	.d1{ 
- 	margin:20px 620px; 
- 	} 
  	
+ 	width:500px;
+ 	margin-left:700px;
+/*  	margin-top:20px; */
+/*  	margin:20px 600px;  */
+ 	}
  	
+ 	#table1 td{
+ 	padding:8px;
+/*   	text-align: justify; */
+ 	} 	
 </style>
 <meta charset="UTF-8">
 <title>輸入新密碼</title>
@@ -61,7 +54,7 @@
 		<legend>輸入新密碼</legend>
 		<form:form method="POST" modelAttribute="updatePwd" enctype='multipart/form-data' action='UpdatePwd' id="form1">
 			<div>
-				<table>
+				<table class='table' id='table1'>
 					<tr>
 						<td colspan="2">
 							<h6 style="color:Tomato;">※請輸入新密碼，修改完成後請用新密碼重新登入</h6>
@@ -71,25 +64,27 @@
 						<form:hidden path="account" />
 					</tr>
 					<tr>
-	      				<td>新密碼：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='password' type='password' id='newPwd'/><br>&nbsp;	
+	      				<td>新密碼：</td>
+		  				<td><form:input path='password' type='password' id='newPwd'/><br>
 		     				<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/>
-		     				<form:errors path='password' cssClass="error"/></td>
+		     				<form:errors path='password' cssClass="error"/>
+		     			</td>
 		     		</tr>
 		     		<tr>
-	      				<td>確認新密碼：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='dbChkPwd' type='password' id='chkNewPwd'/><br>&nbsp;	
+	      				<td>確認新密碼：</td>
+		  				<td><form:input path='dbChkPwd' type='password' id='chkNewPwd'/><br>	
 		     				<span class="sp">必須與密碼相同</span><br/>
-		     				<form:errors path='dbChkPwd' cssClass="error"/></td>
+		     				<form:errors path='dbChkPwd' cssClass="error"/>
+		     			</td>
 		     		</tr>
 				</table>
 			</div>
 		</form:form>
 	</fieldset>
 	<div class='d1'>
-		<input type='button' value='送出' onclick='dataSubmit()'>&nbsp;&nbsp;
-		<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>&nbsp;&nbsp;
-		<input type='button' value='一鍵輸入' id='clickInput'>
+		<input type='button' class="btn btn-info" value='送出' onclick='dataSubmit()'>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type='button' class="btn btn-secondary" value='回首頁' onclick='location.href="<c:url value='../'/> "'><br><br>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type='button' class="btn btn-danger" value='一鍵輸入' id='clickInput'>
 	</div>
 	
 <script>

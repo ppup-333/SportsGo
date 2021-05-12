@@ -10,15 +10,24 @@
 <style>
 
  	.f1{ 
- 	font-size:15px; 
-/*   	width:450px; */
-/*  	margin:auto;  */
- 	margin-left:620px; 
+ 	font-size:14px; 
+   	width:500px; 
+/*    	margin:auto; */
+  	margin-left:550px;
  	margin-top:50px;
  	} 
 
  	.d1{ 
- 	margin:20px 620px; 
+ 	
+ 	width:500px;
+ 	margin-left:650px;
+ 	margin-top:20px;
+/*  	margin:20px 600px;  */
+ 	}
+ 	
+ 	#table1 td{
+ 	padding:8px;
+/*   	text-align: justify; */
  	} 
 
 </style>
@@ -30,71 +39,71 @@
 	<fieldset class='f1'>
 		<legend>會員資料</legend>
 		<div>
-			<table>
+			<table class='table table-striped table-hover' id='table1' >
 				<tr>
-					<td>帳號：&nbsp;<br><br></td>
-					<td>&nbsp;&nbsp;</td>
-					<td>${user.account}<br><br></td>
+					<td>帳號：&nbsp;</td>
+<!-- 					<td>&nbsp;&nbsp;</td> -->
+					<td>${user.account}</td>
 				</tr>
 				<tr>
-					<td>姓名：&nbsp;<br><br></td>
-					<td>&nbsp;</td>
-					<td>${user.name}<br><br></td>
+					<td>姓名：&nbsp;</td>
+<!-- 					<td>&nbsp;</td> -->
+					<td>${user.name}</td>
 				</tr>
 				<tr>
-					<td>身分證字號：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br></td>
-					<td>&nbsp;</td>
-					<td>${user.id}<br><br></td>
+					<td>身分證字號：&nbsp;&nbsp;</td>
+<!-- 					<td>&nbsp;</td> -->
+					<td>${user.id}</td>
 				</tr>
 				<tr>
-					<td>性別：&nbsp;<br><br></td>
-					<td>&nbsp;</td>
-					<td>${user.gender}<br><br></td>
+					<td>性別：&nbsp;</td>
+<!-- 					<td>&nbsp;</td> -->
+					<td>${user.gender}</td>
 				</tr>
 				<tr>
-					<td>生日：&nbsp;<br><br></td>
-					<td>&nbsp;</td>
-					<td>${user.birthday}<br><br></td>
+					<td>生日：&nbsp;</td>
+<!-- 					<td>&nbsp;</td> -->
+					<td>${user.birthday}</td>
 				</tr>
 				<tr>
-					<td>E-Mail：&nbsp;<br><br></td>
-					<td>&nbsp;</td>
-					<td>${user.email}<br><br></td>
+					<td>E-Mail：&nbsp;</td>
+<!-- 					<td>&nbsp;</td> -->
+					<td>${user.email}</td>
 				</tr>
 				<tr>
-					<td>城市：&nbsp;<br><br></td>
-					<td>&nbsp;</td>
-					<td>${userCity.city}<br><br></td>
+					<td>城市：&nbsp;</td>
+<!-- 					<td>&nbsp;</td> -->
+					<td>${userCity.city}</td>
 				</tr>
 				<tr>
-					<td>鄉鎮市區：&nbsp;<br><br></td>
-					<td>&nbsp;</td>
-					<td>${userDistrict.district}<br><br></td>
+					<td>鄉鎮市區：&nbsp;</td>
+<!-- 					<td>&nbsp;</td> -->
+					<td>${userDistrict.district}</td>
 				</tr>
 				<tr>
-					<td>地址：&nbsp;<br><br></td>
-					<td>&nbsp;</td>
-					<td>${user.address}<br><br></td>
+					<td>地址：&nbsp;</td>
+<!-- 					<td>&nbsp;</td> -->
+					<td>${user.address}</td>
 				</tr>
 				<tr>
-					<td>室內電話：&nbsp;<br><br></td>
-					<td>&nbsp;</td>
-					<td>${user.tel}<br><br></td>
+					<td>室內電話：&nbsp;</td>
+<!-- 					<td>&nbsp;</td> -->
+					<td>${user.tel}</td>
 				</tr>
 				<tr>
-					<td>行動電話：&nbsp;<br><br></td>
-					<td>&nbsp;</td>
-					<td>${user.mobile}<br><br></td>
+					<td>行動電話：&nbsp;</td>
+<!-- 					<td>&nbsp;</td> -->
+					<td>${user.mobile}</td>
 				</tr>
 				
 			</table>
 		</div>
 	</fieldset>
 		<div class='d1'>
-			<input type='button' value='修改資料' onclick='location.href="userUpdate"'>&nbsp;&nbsp;
-			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'>&nbsp;&nbsp;
+			<input type='button' class="btn btn-danger" value='修改資料' onclick='location.href="userUpdate"'>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type='button' class="btn btn-secondary" value='回上一頁' onclick='location.href="loginHomePage"'>&nbsp;&nbsp;&nbsp;&nbsp;
 <!-- 			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'> -->
-			<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'>
+			<input type='button' class="btn btn-secondary" value='回首頁' onclick='location.href="<c:url value='../'/> "'>
 		</div>
 </body>
 </html>

@@ -38,16 +38,27 @@
 		font-size: 15pt;
 	}
 	
- 	.f1{ 
- 	font-size:15px; 
-/*  	width:550px;  */
- 	margin-left:620px; 
+	.f1{ 
+ 	font-size:14px; 
+   	width:500px; 
+/*    	margin:auto; */
+  	margin-left:550px;
  	margin-top:50px;
  	} 
 
  	.d1{ 
- 	margin:20px 620px; 
- 	} 
+ 	
+ 	width:500px;
+ 	margin-left:650px;
+/*  	margin-top:20px; */
+/*  	margin:20px 600px;  */
+ 	}
+ 	
+ 	#table1 td{
+ 	padding:8px;
+/*   	text-align: justify; */
+ 	}   
+	
 	
 </style>
 <script>
@@ -65,17 +76,18 @@
 	<legend>請輸入帳號密碼</legend>
 	<form:form method="POST" modelAttribute="chkUserUpdatePwd" enctype='multipart/form-data' action="ChkUserUpdatePwd" id="form1">
 		<div>
-			<table>
+			<table class='table' id='table1'>
 				<tr>
-					<td>帳號：<br>&nbsp;</td>
-					<td><form:input path="account" readonly="true" id='userAct'/><br>&nbsp;
-						<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
+					<td>帳號：</td>
+					<td><form:input path="account" readonly="true" id='userAct'/><br>
+						<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span>
 					</td>
 				</tr>
 				<tr>
-					<td>密碼：<br>&nbsp;</td>
-		  			<td width='360'><form:input path='password' type='password' id='userPwd'/><br>&nbsp;	
-		     						<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/></td>
+					<td>密碼：</td>
+		  			<td><form:input path='password' type='password' id='userPwd'/><br>	
+		     			<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span>
+		     		</td>
 				</tr>
 				<tr>
 					<td></td>
@@ -86,12 +98,12 @@
 	</form:form>
 </fieldset>
 		<div class='d1'>
-			<input type='button' value='登入' onclick='form1.submit()'>&nbsp;&nbsp;
-			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'>&nbsp;&nbsp;
+			<input type='button' class="btn btn-info" value='登入' onclick='form1.submit()'>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type='button' class="btn btn-secondary" value='回上一頁' onclick='location.href="loginHomePage"'>&nbsp;&nbsp;&nbsp;&nbsp;
 <!-- 			<input type='button' value='註冊' onclick='location.href="RegisterEdit"'> -->
 <!-- 			<input type='button' value='忘記密碼' onclick='location.href="ForgetPwd"'> -->
-			<input type='button' value='回首頁' onclick='location.href="<c:url value='../'/> "'><br><br>
-			<input type='button' value='一鍵輸入' id='clickInput'>
+			<input type='button' class="btn btn-secondary" value='回首頁' onclick='location.href="<c:url value='../'/> "'><br><br>
+			<input type='button' class="btn btn-danger" value='一鍵輸入' id='clickInput'>
 <!-- 			<a href="RegisterEdit">註冊</a>  -->
 <%-- 			<a href="<c:url value='../'/> " >回前頁</a> --%>
 <!-- 			<a href="user/...">登入</a> -->

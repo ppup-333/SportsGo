@@ -147,7 +147,7 @@
 	      <div class="modal-footer">
 	        <button type="submit" class="btn btn-primary">送出</button>
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
-	        <button type="button" class="btn btn-secondary" data-dismiss="" id="clickInput">一鍵輸入</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="" id="clickInputHeader">一鍵輸入</button>
 	      </div>
 	    </div>
 	  </div>
@@ -202,7 +202,7 @@
 		}
 	});
 	
-	$("#clickInput").click(function(){
+	$("#clickInputHeader").click(function(){
 		$("input[id='userAct']").val("test1001")
 		$("input[id='userPwd']").val("test1001")
 	});

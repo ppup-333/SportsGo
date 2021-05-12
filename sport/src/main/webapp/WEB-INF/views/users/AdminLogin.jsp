@@ -8,23 +8,6 @@
 <head>
 <style>
 
-	td {
-		height: auto;
-		width: auto;
-		
-	}
-
-	.div {
-		width: 100%;
-		height: 800px;
-		max-width: 700px;
-		box-shadow: 0px 0px 3px 1px #00000078;
-		padding: 10px;
-		box-sizing: border-box;
-		margin: 0 auto;
-		border: 1px solid white;
-	}
-
 	.sp {
 		color: darkgrey;
 		font-size: 1px;
@@ -38,17 +21,25 @@
 	}
 	
 	.f1{ 
- 	font-size:15px; 
-	width:350px;  
- 	margin:auto;
+ 	font-size:14px; 
+   	width:500px; 
+/*    	margin:auto; */
+  	margin-left:550px;
  	margin-top:50px;
  	} 
 
  	.d1{ 
- 	width:350px;
- 	margin:auto;
- 	margin-top:20px; 
- 	} 
+ 	
+ 	width:500px;
+ 	margin-left:700px;
+/*  	margin-top:20px; */
+/*  	margin:20px 600px;  */
+ 	}
+ 	
+ 	#table1 td{
+ 	padding:8px;
+/*   	text-align: justify; */
+ 	}   
 	
 </style>
 <script>
@@ -66,17 +57,19 @@
 <legend>管理者登入</legend>
 	<form:form method="POST" modelAttribute="adminLogin" enctype='multipart/form-data' id="form2">
 		<div>
-			<table>
+			<table class='table' id='table1'>
 				<tr>
-					<td>管理者帳號：<br>&nbsp;</td>
-					<td><form:input path="account" id='adminAct' /><br>&nbsp;
+					<td>管理者帳號：</td>
+					<td><form:input path="account" id='adminAct' />
 <!-- 						<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/> -->
-						<form:errors path='account' cssClass="error"/></td>
+<%-- 						<form:errors path='account' cssClass="error"/> --%>
+					</td>
 				</tr>
 				<tr>
-					<td>管理者密碼：<br>&nbsp;</td>
-		  				<td width='360'><form:input path='password' type='password' id='adminPwd'/><br>&nbsp;	
-<!-- 		     				<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/></td> -->
+					<td>管理者密碼：</td>
+		  				<td width='360'><form:input path='password' type='password' id='adminPwd'/>
+<!-- 		     				<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/> -->
+		     			</td>
 				</tr>
 				<tr>
 					<td></td>
@@ -89,9 +82,9 @@
 	</form:form>
 </fieldset>
 		<div class='d1'>
-			<input type='button' value='登入' onclick='form2.submit()'>&nbsp;&nbsp;
-			<input type='button' value='回上一頁' onclick='location.href="<c:url value='../'/> "'>&nbsp;&nbsp;
-			<input type='button' value='一鍵輸入' id='clickInput'>
+			<input type='button' class="btn btn-info" value='登入' onclick='form2.submit()'>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type='button' class="btn btn-secondary" value='回首頁' onclick='location.href="<c:url value='../'/> "'><br><br>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type='button' class="btn btn-danger" value='一鍵輸入' id='clickInput'>
 		</div>
 		
 		
