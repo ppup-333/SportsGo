@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.BasicConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,8 +57,13 @@ public class EcpayActController {
 		return "course_act/ecpay";
 	}
 	@GetMapping("orderAct")
-	public String order(Model model) {
-		String account="mary123";
+	public String order(Model model,HttpSession session) {
+		
+		String account = (String) session.getAttribute("account");
+		
+		if(account !=null) {
+			
+	
 		String MerchantTradeNo="";
 		List<ActivityOrderBean> actOrderList=activityorderservice.selectByAccount(account);
 		List<ActivityOrderBean> updateActOrderList=new ArrayList<>();
@@ -83,7 +90,7 @@ public class EcpayActController {
 						if(Integer.parseInt(TradeStatus)==1) {
 							ActivityOrderBean actOrder=actOrderList.get(i);
 							actOrder.setPayState(1);
-							updateActOrderList.get(i).setMerchantTradeNo(MerchantTradeNo);
+						
 							updateActOrderList.add(actOrder);
 							
 						}
@@ -92,16 +99,16 @@ public class EcpayActController {
 			}
 			
 			for(int i=0;i<updateActOrderList.size();i++) {
-				
+				updateActOrderList.get(i).setMerchantTradeNo(MerchantTradeNo);
 				activityorderservice.updateActivityOrder(updateActOrderList.get(i));
 			}
 			
 			List<List> resultList=new ArrayList<>();
 			List<ActivityOrderBean> courseOrderList2=activityorderservice.selectByAccountAndPaystament(account, 1);		
-			List courseList = new ArrayList<>();
+			
 			List<String> tempList = new ArrayList<>();
 			for(int i=0;i<courseOrderList2.size();i++) {
-			
+			List courseList = new ArrayList<>();
 				activityBean activity = courseOrderList2.get(i).getActivitybean();
 				courseList.add(activity.getActName());
 				courseList.add(activity.getActCost());
@@ -116,6 +123,9 @@ public class EcpayActController {
 					CATime time = it.next();
 					tempList.add(time.getDate());
 					if (b) {
+						if(time.getFieldbean().getName()!=null) {
+							courseList.add(time.getFieldbean().getName());
+						}						
 						courseList.add(time.getTimeStart().substring(0, 5));
 						courseList.add(time.getTimeEnd().substring(0, 5));
 						b = false;
@@ -144,6 +154,10 @@ public class EcpayActController {
 			
 		}	
 		return "course_act/ActOrderSelect";
+		}else {
+			return "user/Login";
+		}
+		
 	}
 	
 	

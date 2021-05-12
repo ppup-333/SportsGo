@@ -20,6 +20,12 @@ $(document).ready(function(){
 			if(xhr.readyState==4&&xhr.status==200){
 			var result = JSON.parse(xhr.responseText);
 			console.log(result);
+			if(result.length==0){
+				console.log("哈囉");
+				$("#act").append("<h1>目前沒有活動O_Q</h1>");
+			}else{
+				
+			
 			let context="";
 			for(let i=0;i<result.length;i++){
 				context+="<button  id='activityButton'  onclick='activity("+result[i].actId+")' >";	
@@ -30,6 +36,8 @@ $(document).ready(function(){
 			}
 
 				$("#act").append(context);
+			}	
+				
 		}
 	}
 		

@@ -44,7 +44,7 @@ function checkName(){
 	return true;
 }
 function checkCost(){
-	 let re=new RegExp("^(0|[1-9][0-9]*)$");
+	 let re=new RegExp("^([1-9][0-9]*)$");
 	if($("#AC").val()==""){
 		$("#aCost").append(spImageIncorrect);
 		return false;	
@@ -52,7 +52,7 @@ function checkCost(){
 			if(re.test($("#AC").val())){
                 return true;
             }else{
-            	$("#aCost").append(spImageIncorrect);
+            	$("#aCost").append(spImageIncorrect+"費用必須大於0");
         		return false;	
             }
 		}

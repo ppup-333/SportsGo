@@ -125,7 +125,12 @@ public class activityService {
 			ds=Date-ds;
 			freq=ds+de;			
 		}
-				
+		boolean actStatus=catimeservice.deleteTimeByAct(act);
+		if(actStatus) {
+			System.out.println("actStatus成功");
+		}else {
+			System.out.println("actStatus失敗");
+		}
 		
 		boolean orderStatus = fieldActOrderService.changeOrderStatusByActId(act.getActId());
 			if(orderStatus) {

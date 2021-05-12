@@ -27,6 +27,7 @@ import com.sport.springboot.course_act.model.activityBean;
 import com.sport.springboot.course_act.model.courseBean;
 import com.sport.springboot.course_act.service.impl.ActivityOrderService;
 import com.sport.springboot.course_act.service.impl.CourseOrderService;
+import com.sport.springboot.course_act.service.impl.activityService;
 import com.sport.springboot.course_act.service.impl.courseService;
 
 import ecpay.payment.integration.AllInOne;
@@ -42,7 +43,8 @@ public class OrderController {
 	
 	@Autowired
 	private courseService courseservice;
-	
+	@Autowired
+	private activityService activityservice;
 	
 	private final String properties=(this.getClass().getResource("")+"").substring(6);
 	
@@ -64,6 +66,40 @@ public class OrderController {
 		List<courseBean> courseList = courseservice.selectAllCourse();
 		Map<Integer,List<Integer>> totalMap=new HashMap<>();
 		Map<String,List<Integer>> sportMap=new HashMap<>();
+		
+		
+		 List<activityBean> activityList = activityservice.selectAllActivity();
+		Map<Integer,List<Integer>> ActTotalMap=new HashMap<>();
+		Map<String,List<Integer>> ActNameMap=new HashMap<>();
+		
+		//所有活動
+		for(int i=0;i<activityList.size();i++) {
+			Integer listActId = activityList.get(i).getActId();
+			List<Integer> mapActA = mapAct.get(listActId);
+			if(mapActA!=null) {
+				ActTotalMap.put(listActId, mapActA);				
+				}else {				
+					ActTotalMap.put(listActId, null);
+				}			
+			}
+		
+		//按照活動分類		
+		for(Map.Entry<Integer,List<Integer>> key:ActTotalMap.entrySet()) {
+				Integer actId = key.getKey();
+				List<Integer> totalList = ActTotalMap.get(actId);
+				Optional<activityBean> a = activityservice.selectId(actId);
+				activityBean activity = a.get();
+				String actName = activity.getActName();
+				if(ActNameMap.containsKey(actName)) {
+					List<Integer> tempList=ActNameMap.get(actName);
+					tempList.add(activity.getActCost());
+					ActNameMap.replace(actName, tempList);
+				}else {
+					ActNameMap.put(actName, totalList);
+				}
+			}
+		
+		
 		//所有的course
 		for(int i=0;i<courseList.size();i++) {
 			Integer listCourseId = courseList.get(i).getCourseId();
@@ -78,7 +114,8 @@ public class OrderController {
 		//拿出totalMap中的List 根據運動分類放進 sportMap
 		for(Map.Entry<Integer,List<Integer>> key:totalMap.entrySet()) {
 			Integer courseId = key.getKey();
-			List<Integer> totalList = totalMap.get(courseId);					
+			List<Integer> totalList = totalMap.get(courseId);
+									
 			Optional<courseBean> c = courseservice.selectId(courseId);
 			courseBean course = c.get();
 			String courseName = course.getCourseName();
@@ -91,7 +128,36 @@ public class OrderController {
 			}
 			
 		}
-		
+		List<List> TwoActList = convertMap(ActTotalMap);
+		List<String> actNameList=new ArrayList<>();
+		List<Integer> actCostTotal=new ArrayList<>();
+		List<Integer> actCount=new ArrayList<>();
+		for(int i=0;i<TwoActList.size();i++) {
+			for(int j=0;j<TwoActList.get(i).size();j++) {
+				if(i==0) {
+					Integer actId = (Integer) TwoActList.get(i).get(j);
+					Optional<activityBean> a = activityservice.selectId(actId);
+					activityBean activity = a.get();
+					String actName = activity.getActName();
+					System.out.println("活動名稱:"+actName);
+					actNameList.add(actName);
+				}else if(i==1){
+					List<Integer> insideList = (List<Integer>) TwoActList.get(i).get(j);
+					int totalCost=0;
+					int count=insideList.size();
+					for(int k=0;k<insideList.size();k++) {
+						totalCost+=insideList.get(k);
+					}					
+					System.out.println("活動次數:"+count);
+					System.out.println("活動總價:"+totalCost);
+					actCostTotal.add(totalCost);
+					actCount.add(count);
+				}
+			}
+		}
+		model.addAttribute("actCount", actCount);
+		model.addAttribute("actNameList", actNameList);
+		model.addAttribute("actCostTotal", actCostTotal);
 		model.addAttribute("total", total);
 		model.addAttribute("sportMap", sportMap);
 		model.addAttribute("totalMap", totalMap);
@@ -277,6 +343,22 @@ public class OrderController {
 	}
 
 
-	
+	public List<List> convertMap(Map<Integer, List<Integer>> x) {
+		List<List> l1 = new ArrayList<>();
+		List<Integer> l2 = new ArrayList<>();
+		List<List> l3 = new ArrayList<>();
+		Set<Integer> keyset = x.keySet();
+		Iterator it = keyset.iterator();
+		while (it.hasNext()) {
+			List<Integer> l4 = new ArrayList<>();
+			int key = (int) it.next();
+			l2.add(key);
+			l4 = x.get(key);
+			l3.add(l4);
+		}
+		l1.add(l2);
+		l1.add(l3);
+		return l1;
+	}
 	
 }

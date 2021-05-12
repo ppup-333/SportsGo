@@ -146,7 +146,7 @@ public class courseService  {
 		String courseTimeStart = (courseKind.split(" ")[1]).split("~")[0];
 		String courseTimeEnd = (courseKind.split(" ")[1]).split("~")[1];
 		//刪除原本CATime 時間		
-		//boolean b=catimeservice.deleteTimeByCourse(course);			
+		boolean b=catimeservice.deleteTimeByCourse(course);			
 	
 			//場地訂單換狀態
 			boolean orderStatus = fieldActOrderService.changeOrderStatusByCourseId(courseId);

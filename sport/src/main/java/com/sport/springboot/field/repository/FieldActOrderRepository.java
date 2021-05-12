@@ -12,7 +12,7 @@ import com.sport.springboot.field.model.FieldActOrder;
 public interface FieldActOrderRepository extends JpaRepository<FieldActOrder, Integer> {
 
 	@Query("from FieldActOrder where courseId=:courseId")
-	public FieldActOrder getFieldOrderByCourseId(@Param("courseId")int courseId);
+	public List<FieldActOrder> getFieldOrderByCourseId(@Param("courseId")int courseId);
 	
 	@Query("from FieldActOrder where actId=:actId")
 	public List<FieldActOrder> getFieldOrderByActId(@Param("actId")int actId);

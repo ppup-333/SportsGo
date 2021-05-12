@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,13 +46,16 @@ public class activityControl {
 	FieldService fieldService;	
 	
 	@GetMapping("/activityInsert")
-	public String activityInsert(@RequestParam String ymd,Model model) {
-		String account = "mary123";
+	public String activityInsert(@RequestParam String ymd,Model model,HttpSession session) {
+		String account=(String) session.getAttribute("account");
+		if(account!=null) {
+				List<Field> fieldList = fieldService.getAll();
+				model.addAttribute("account", account);
+				model.addAttribute("ymd", ymd);
+				model.addAttribute("fieldList",fieldList);
+		}
 		
-		List<Field> fieldList = fieldService.getAll();
-		model.addAttribute("account", account);
-		model.addAttribute("ymd", ymd);
-		model.addAttribute("fieldList",fieldList);
+	
 		return "course_act/activityInsert";
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -142,49 +146,14 @@ public class activityControl {
 			@RequestParam("actMaxNum") String actMaxNum, @RequestParam("actIntroduce") String actIntroduce,
 			@RequestParam("actPicture") MultipartFile multipartfile, HttpServletRequest request,Model model,RedirectAttributes attr) 
 					throws IllegalStateException, IOException{
-		int id=Integer.parseInt(actId);
-		activityBean act=activityservice.getOne(id);	
-		boolean actStatus=activityservice.changeCATimeByAct(act);
-		if(actStatus) {
-			System.out.println("actStatus成功");
-		}else {
-			System.out.println("actStatus失敗");
-		}
-		attr.addAttribute("actId",actId);
-		attr.addAttribute("account",account);
-		attr.addAttribute("actName",actName);
-		attr.addAttribute("actCost",actCost);
-		attr.addAttribute("DateEnd",DateEnd);
-		attr.addAttribute("DateStart",DateStart);
-		attr.addAttribute("TimeStart",TimeStart);
-		attr.addAttribute("TimeEnd",TimeEnd);
-		attr.addAttribute("actMaxNum",actMaxNum);
-		attr.addAttribute("actIntroduce",actIntroduce);
-		attr.addAttribute("actPicture",multipartfile);
-		
-		return "redirect:actUpdateImpl2";
-	}
 	
-	@GetMapping("actUpdateImpl2")
-	public String actUpdateImpl2(@RequestParam("actId") String actId,
-			@RequestParam("account") String account, @RequestParam("actName") String actName,
-			@RequestParam("actCost") String actCost, @RequestParam("DateStart") String DateStart,
-			@RequestParam("DateEnd") String DateEnd, @RequestParam("TimeStart") String TimeStart,
-			@RequestParam("TimeEnd") String TimeEnd, @RequestParam("place") String place,
-			@RequestParam("actMaxNum") String actMaxNum, @RequestParam("actIntroduce") String actIntroduce,
-			@RequestParam("actPicture") MultipartFile multipartfile, HttpServletRequest request,Model model,RedirectAttributes attr) 
-					throws IllegalStateException, IOException{
-		
-		System.out.println("開始執行actUpdateImpl2");
 		 int id=Integer.parseInt(actId);
-
 		 activityBean act=activityservice.getOne(id);
 		 act.setAccount(account);
 		 act.setActName(actName);
 		 act.setActCost(Integer.parseInt(actCost));
 		 act.setActMaxNum(Integer.parseInt(actMaxNum));
-		 act.setActIntroduce(actIntroduce);
-		 
+		 act.setActIntroduce(actIntroduce);		 
 			if (multipartfile.isEmpty()) {
 				Optional<activityBean> a=activityservice.selectId(id);
 				activityBean activity=a.get();
@@ -217,8 +186,23 @@ public class activityControl {
 			System.out.println(false);
 		}
 		model.addAttribute("result", result);
-		return "course_act/updateOk";
+		return "redirect:NewManageActivityMain";
+		
+
 	}
+	
+	/*@GetMapping("actUpdateImpl2")
+	public String actUpdateImpl2(@RequestParam("actId") String actId,
+			@RequestParam("account") String account, @RequestParam("actName") String actName,
+			@RequestParam("actCost") String actCost, @RequestParam("DateStart") String DateStart,
+			@RequestParam("DateEnd") String DateEnd, @RequestParam("TimeStart") String TimeStart,
+			@RequestParam("TimeEnd") String TimeEnd, @RequestParam("place") String place,
+			@RequestParam("actMaxNum") String actMaxNum, @RequestParam("actIntroduce") String actIntroduce,
+			@RequestParam("actPicture") MultipartFile multipartfile, HttpServletRequest request,Model model,RedirectAttributes attr) 
+					throws IllegalStateException, IOException{
+		
+		
+	}*/
 
 //	@GetMapping("/activityMain")
 //	public ResponseEntity<Map<String,String>> activityMain(){
@@ -267,6 +251,17 @@ public class activityControl {
 		model.addAttribute("timeList", timeList);
 		model.addAttribute("fieldName", fieldName);
 		return "course_act/activityCheckSignUp";
+	}
+	
+	@GetMapping("/ActSessionCheck")
+	@ResponseBody
+	public String checkSession(HttpSession session) {
+		String account = (String) session.getAttribute("account");
+		if(account==null) {
+			return "login";
+		}else {
+			return "success";
+		}
 	}
 
 	@GetMapping("/activityMain")
@@ -396,7 +391,7 @@ public class activityControl {
 			System.out.println(false);
 		}
 		model.addAttribute("result", result);
-		return "course_act/InsertOK";
+		return "redirect:NewManageActivityMain";
 	}
 	
 	
