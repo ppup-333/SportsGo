@@ -75,8 +75,10 @@ span.error {
 		}
 		
 		if(flag1 == true){
-			contents = contents.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
-			subtitle = subtitle.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
+// 			contents = contents.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
+			contents = contents
+// 			subtitle = subtitle.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
+			subtitle = subtitle
 			document.forms['insertForm'].contents.value = contents;
 			document.forms['insertForm'].subtitle.value = subtitle;
 			
