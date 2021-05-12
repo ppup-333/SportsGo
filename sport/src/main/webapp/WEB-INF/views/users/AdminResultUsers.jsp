@@ -56,6 +56,7 @@
 	#teble1 td{
 		padding:5px;
 		font-size:13px;
+		text-align:center;
 	}
 	
 	#teble1 th{
