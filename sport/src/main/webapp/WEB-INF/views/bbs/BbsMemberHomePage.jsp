@@ -86,7 +86,7 @@ table.table-hover tbody tr:hover {
 						<button type="button" id="createBbs" class="btn btn-info btn-sm"><b>發 文</b></button>
 					</div>
 					<div class="col-7">
-						<a href="bbs"><button type="button" id="po"> -- 全部發文 -- <i class="fas fa-angle-down"></i></button></a> 
+						<a href="bbs"><button type="button" id="po"> -- 全部發文 -- <i class="far fa-angle-down" aria-hidden="false"></i></button></a> 
 						<select id="game" name="game" class="custom-select-sm">
 							<option value="-1">-- 賽事討論 --</option>
 							<c:forEach var="game" items="${gameList}">
@@ -134,7 +134,7 @@ table.table-hover tbody tr:hover {
 						<tr>
 							<th data-field="typeName" data-halign="center" data-align="center" data-width="140">類型</th>
 							<th data-field="bbsTitle"  data-formatter="TitleFormatter" data-halign="center" data-align="left" data-width="400"></th>
-							<th data-field="bbsBuilder" data-formatter="BuilderFormatter" data-halign="center" data-align="center" data-width="200">建立者</th>
+							<th data-field="bbsSetupTime" data-formatter="BuilderFormatter" data-halign="center" data-align="center" data-width="200">建立者</th>
 							<th data-field="replySetupTime" data-formatter="ReplyFormatter" data-halign="center" data-align="center" data-width="200">最新回覆</th>
 						</tr>
 					</thead>
@@ -243,8 +243,8 @@ table.table-hover tbody tr:hover {
 			}else {
 				window.location.href="bbsdiscussion.c";
 			}
-		})
-
+		});
+		
 	</script>
 </body>
 </html>

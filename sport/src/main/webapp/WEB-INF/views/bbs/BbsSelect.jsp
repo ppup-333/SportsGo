@@ -133,6 +133,7 @@
 									class="btn btn-outline-success btn-sm"
 									onclick="javascript:document.replyForm.action='bbsReplyUpdate'; document.replyForm.method='post'"
 									name="replyId" value="${reply.replyId}">修改</button>
+								<button type="button" class="bbsFive" rel="${reply.replyId}" id="bbsFive${reply.replyId}" style="display: none; position: relative; top: 70%; left: 45%;">一鍵修改留言</button>
 							</div>
 							</div>
 						</div>
@@ -156,7 +157,6 @@
 				<a href="#headerDiv"><i class="fal fa-arrow-alt-from-bottom fa-3x"></i></a>
 				<button type="button" id="bbsThree" style="position: relative; top: 85%;">一鍵留言1</button>
 				<button type="button" id="bbsFour" style="position: relative; top: 70%; right: 25%;">一鍵留言2</button>
-				<button type="button" rel="${reply.replyId}" id="bbsFive" style="position: relative; top: 70%; right: 20%;">一鍵修改留言</button>
 			</div>
 		</div>
 	</div>
@@ -218,6 +218,12 @@
 
 	<script>
 	
+		//隱藏一鍵留言按鈕
+		if(${sessionScope.account == null}) {
+			$("#bbsThree").hide();
+			$("#bbsFour").hide();
+		}
+	
 		//一鍵修改
 		$("#bbsTwo").on("click", function() {
 			$("#typeId").val(1);
@@ -244,12 +250,12 @@
 		$("#bbsFour").on("click", function() {
 			$("#replyMessage").val("勇士有kat現在就不用打附加賽了");
 		});
-		$("#bbsFive").on("click", function() {
+		$(".bbsFive").on("click", function() { //修改留言
 			var id = $(this).attr("rel");
-			var text = $("#div" + id).html();
+			var text = "播勇湖就單純球迷多阿";
 			$("#div" + id).html("<textarea name='reply' style='resize:none; width: 95%;"
 								+ "position: relative; left: 3%; margin: 10px auto 0px auto;' rows='3'>"
-								+ text.val("播勇湖就單純球迷多阿") + "</textarea>");
+								+ text + "</textarea>");
 		});
 		
 		//發文的編輯、刪除鈕
@@ -343,6 +349,14 @@
 			}
 		});
 		document.getElementById("replyMessage").value = "";
+		
+		//留言登入
+		$("#replyMessage").on("click", function(){
+			if(${sessionScope.account == null}) {
+				$("#loginModal").modal("show");
+				return false;
+			}
+		});
 
 		//留言刪除鈕
 		$(".replyDelete").on("click", function() {
@@ -383,12 +397,13 @@
 			$("#modify" + id).show();
 			$("#replyDelete" + id).hide();
 			$("#cancelEdit" + id).show();
+			$("#bbsFive" + id).show(); //一鍵修改留言鈕
 		});
 		
 		//留言編輯取消鈕
 		$(".cancelEdit").on("click", function() {
 			window.location.reload();
-		})
+		});
 		
 	</script>
 
