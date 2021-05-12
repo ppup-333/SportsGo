@@ -14,21 +14,34 @@ h2 {
 }
 
 .newsDiv2 {
-    height: 400px;
+    height: 450px;
+
 }
 
 .newsDiv3{
     box-shadow: 0 0 5px gray;
+    border-radius: 5px 5px 5px 5px;
 }
 
 .newsTop{
-    height: 320px;
+    height: 380px;
     background-color: rgb(222, 223, 223);
 }
 
 .newsBot {
     height: 80px;
-    background-color: rgb(130, 184, 209);
+    background-color:#17A2B8;
+    border-radius: 0 0 5px 5px;
+    
+}
+.newsBotTime{
+	color:rgb(236, 236, 236);
+	padding-left:10px;
+}
+.newsBotTitle{
+	color:white;
+	font-weight:bold;
+	padding-left:10px;
 }
 
 .fieldDiv {

@@ -26,7 +26,7 @@
 	.head{
 		margin: 0 auto;
 		position:relative;
-		margin-bottom:50px;
+		margin-bottom:20px;
 	}
 	.head-icon{
 		position:absolute;
@@ -37,7 +37,12 @@
 		
 		float:left;
 	}
-	
+	.update-time{
+		padding-top:0;
+		margin-top:0;
+		float:right;
+		color:gray;
+	}
 	.title-container {
 /* 		text-align:left; */
 		padding-left:60px;
@@ -96,12 +101,16 @@ window.onload = function(){
 			var data = JSON.parse(this.responseText);
 			console.log(data);
 			var title = "<h4>【"+data.class_id.name+"】" + data.title + "</h4>"
+			var updatetime = new Date(data.update_time).format("Y-m-d");
+			 	updatetime = "<span><i class='far fa-clock'></i>" + updatetime + "</span>";
 			var tempContents = data.contents.replace(/&nbsp;/g, ' ').replace(/<br\/>/g, '\r\n');
 			content = "<p>" + data.contents + "</p>";
 			var titleDiv = document.getElementById("title");
 			var contentDiv = document.getElementById("contents");
+			var updatetimeDiv = document.getElementById("update-time");
 			titleDiv.innerHTML = title;
 			contentDiv.innerHTML = content;
+			updatetimeDiv.innerHTML = updatetime;
 			$('p').linkify();
 			$('#contents').linkify({
 			    target: "_blank"
@@ -162,11 +171,15 @@ $(document).ready(function() {
 				</span>
 				<h2 style="font-weight:bold;" class="headTitle">公告內容</h2>
 			</div>
+			
 			<div class="clear"></div>
+			<div id="update-time"  class="update-time">
+			</div>
 			<hr class="style-one" />
 			<div id="title" class="title-container">
 				
 			</div>
+			
 			<div class="clear"></div>
 				<div class="image-container">
 					<div id="picutre" class="image">
