@@ -617,7 +617,7 @@ public class UserController {
 			System.out.println("=========verify Success!!!=========");
 			session.removeAttribute("tempAccount");
 			session.setAttribute("account", user.getAccount());
-			return "index";
+			return "redirect:/";
 		} else {
 			System.out.println("=========verify Fail!!!============\n");
 		}

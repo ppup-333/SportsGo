@@ -284,7 +284,7 @@ function select1(){
 							+ "<td>" + adminRs[i].mobile + "</td>"
 							+ "<td>" + adminRs[i].status +"</td>"
 							+ "<td>" + dateTime + "</td>"
-							+ "<td>" + '<button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#staticBackdrop" id="'+ adminRs[i].account +'"> 修改狀態 </button>' + "</td>"
+							+ "<td>" + '<button type="button" class="btn btn-sm btn-outline-danger test" data-toggle="modal" data-target="#staticBackdrop" id="'+ adminRs[i].account +'"> 修改狀態 </button>' + "</td>"
 				}
 				content += "</table>";
 				var divs = document.getElementById("searchResultDiv");
