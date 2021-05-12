@@ -161,7 +161,7 @@ span.error {
 <c:import url="../newheaderM.jsp"/>
 	<div class="box">
 		<div class="container title-style">
-		<h2 style="font-weight:bold;">新增公告</h2>
+		<h2 style="font-weight:bold;color:white">新增公告</h2>
 		</div>
 		<div class="container">
 			<div class="formcontainer">
