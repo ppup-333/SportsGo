@@ -35,6 +35,13 @@
 	
 	#teble1 td{
 		padding:5px;
+		font-size:13px;
+	}
+	
+	#teble1 th{
+		background-color: #17a2b8;
+		color: #FFFFFF;
+		font-size:14px;
 	}
 	
 	.selectDiv{ 
@@ -68,8 +75,8 @@
 	</form:form>
 </fieldset>
 	<div class="d2">
-	<button onclick="select1()">查詢</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<button type="button" class="" data-toggle="modal" data-target="#addAdmin">新增管理者</button>
+	<button class="btn btn-secondary" onclick="select1()">查詢</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#addAdmin">新增管理者</button>
 	</div>	
 	<div class="modal fade" id="daleteAdmin" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   			<div class="modal-dialog">
@@ -168,25 +175,25 @@ function select1(){
 		xhr.send("account=" + account);
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 && xhr.status == 200) {
-				var content = "<table border='1' id='teble1'>";
-				content += "<tr align='center'>"
-					 + "<th style='width:80px'>帳號</th>"
-					 + "<th style='width:100px'>姓名</th>"
-					 + "<th style='width:100px'>身分證字號</th>"
-					 + "<th style='width:50px'>性別</th>"
-					 + "<th style='width:100px'>生日</th>"
-					 + "<th style='width:100px'>email</th>"
-					 + "<th style='width:80px'>城市</th>"
-					 + "<th style='width:110px'>鄉鎮市區</th>"
-					 + "<th style='width:180px'>地址</th>"
-					 + "<th style='width:90px'>市內電話</th>"
-					 + "<th style='width:90px'>行動電話</th>"
-					 + "<th style='width:100px'>帳號權限</th>"
-					 + "<th style='width:130px'>最後更新時間</th>"
-					 + "<th style='width:120px'>異動</th></tr>";
+				var content = "<table class='table table-striped table-hover' id='teble1'>";
+					content += "<tr align='center'>"
+							 + "<th style='width:80px'>帳號</th>"
+							 + "<th style='width:90px'>姓名</th>"
+							 + "<th style='width:100px'>身分證字號</th>"
+							 + "<th style='width:60px'>性別</th>"
+							 + "<th style='width:90px'>生日</th>"
+							 + "<th style='width:80px'>email</th>"
+							 + "<th style='width:70px'>城市</th>"
+							 + "<th style='width:105px'>鄉鎮市區</th>"
+							 + "<th style='width:180px'>地址</th>"
+							 + "<th style='width:90px'>市內電話</th>"
+							 + "<th style='width:90px'>行動電話</th>"
+							 + "<th style='width:100px'>權限</th>"
+							 + "<th style='width:105px'>最後更新時間</th>"
+							 + "<th style='width:85px'>異動</th></tr>";
 				var adminRs = JSON.parse(xhr.responseText);
 				for (var i = 0; i < adminRs.length; i++) {
-					var dateTime = new Date(adminRs[i].ver).toLocaleString("zh-TW"); 
+					var dateTime = new Date(adminRs[i].ver).toLocaleString("zh-TW",{hour12:false}); 
 					content += "<tr align='center'><td>" + adminRs[i].account + "</td>"
 							+ "<td>" + adminRs[i].name + "</td>"
 							+ "<td>" + adminRs[i].id + "</td>"
@@ -200,7 +207,7 @@ function select1(){
 							+ "<td>" + adminRs[i].mobile + "</td>"
 							+ "<td>" + adminRs[i].auth +"</td>"
 							+ "<td>" + dateTime + "</td>"
-							+ "<td>" + '<button type="button" class="btn btn-primary test" data-toggle="modal" data-target="#daleteAdmin" id="'+ adminRs[i].account +'"> 移除權限 </button>' + "</td>"
+							+ "<td>" + '<button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#daleteAdmin" id="'+ adminRs[i].account +'"> 移除權限 </button>' + "</td>"
 				}
 				content += "</table>";
 				var divs = document.getElementById("searchResultDiv");
