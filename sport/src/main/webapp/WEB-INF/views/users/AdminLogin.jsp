@@ -22,16 +22,22 @@
 	
 	.f1{ 
  	font-size:14px; 
-   	width:500px; 
-/*    	margin:auto; */
-  	margin-left:550px;
- 	margin-top:50px;
+   	width:360px; 
+   	margin:auto;
+   	margin-bottom: 15px;
+/*   	margin-left:550px; */
+/*  	margin-top:50px; */
+ 	padding-top: 15px;
+ 	border: 1px solid gray;
+ 	box-shadow: 0 0 3px gray;
+ 	border-radius: 15px;
+ 	background-color: rgb(245,245,245);
  	} 
 
  	.d1{ 
- 	
- 	width:500px;
- 	margin-left:700px;
+ 	text-align: center;
+/*  	width:500px; */
+/*  	margin-left:700px; */
 /*  	margin-top:20px; */
 /*  	margin:20px 600px;  */
  	}
@@ -53,21 +59,22 @@
 </head>
 <body>
 <c:import url="../header.jsp"/>
+<h2>管理者登入</h2>
 <fieldset class='f1'>
-<legend>管理者登入</legend>
+<!-- <legend>管理者登入</legend> -->
 	<form:form method="POST" modelAttribute="adminLogin" enctype='multipart/form-data' id="form2">
 		<div>
 			<table class='table' id='table1'>
 				<tr>
-					<td>管理者帳號：</td>
-					<td><form:input path="account" id='adminAct' />
+					<td class="border-top-0" style="padding-left:25px">管理者帳號：</td>
+					<td class="border-top-0"><form:input path="account" id='adminAct' />
 <!-- 						<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/> -->
 <%-- 						<form:errors path='account' cssClass="error"/> --%>
 					</td>
 				</tr>
 				<tr>
-					<td>管理者密碼：</td>
-		  				<td width='360'><form:input path='password' type='password' id='adminPwd'/>
+					<td style="padding-left:25px">管理者密碼：</td>
+		  				<td><form:input path='password' type='password' id='adminPwd'/>
 <!-- 		     				<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/> -->
 		     			</td>
 				</tr>
