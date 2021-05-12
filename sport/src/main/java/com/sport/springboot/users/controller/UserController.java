@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
@@ -364,41 +365,48 @@ public class UserController {
 	public String chkForgetPwd(@ModelAttribute("forgetPwd") Users users, BindingResult result, Model model,
 			@RequestParam(value = "account") String account, @RequestParam(value = "id") String id,
 			@RequestParam(value = "email") String email) {
-		
+
 		UserForgetPwdValidate validator = new UserForgetPwdValidate();
 		validator.validate(users, result);
 		if (result.hasErrors()) {
 			return "users/ForgetPwd";
 		}
-		
+
 		String inputAct = users.getAccount();
 		String inputId = users.getId();
 		String inputEmail = users.getEmail();
 
-		Users userAccount = usersService.get(account);
-		String userAct = userAccount.getAccount();
-		//!!!!!!
-		String userId = userAccount.getId();
-		String userEmail = userAccount.getEmail();
+		boolean temp1 = usersService.getChkAccount(account);
 
-		System.out.println("輸入的帳號 = " + inputAct);
-		System.out.println("輸入的ID = " + inputId);
-		System.out.println("輸入的信箱 = " + inputEmail);
-		System.out.println("資料庫的帳號 = " + userAct);
-		System.out.println("資料庫的ID = " + userId);
-		System.out.println("資料庫的信箱 = " + userEmail);
+		if (temp1 == false) {
 
-		if (!inputAct.equalsIgnoreCase(userAct) || !inputId.equalsIgnoreCase(userId)
-				|| !inputEmail.equalsIgnoreCase(userEmail)) {
-			result.rejectValue("account", "", "查無資料或資料有誤");
-			return "users/ForgetPwd";
+			Users userAccount = usersService.get(account);
+
+			String userAct = userAccount.getAccount();
+			// !!!!!!
+			String userId = userAccount.getId();
+			String userEmail = userAccount.getEmail();
+
+			System.out.println("輸入的帳號 = " + inputAct);
+			System.out.println("輸入的ID = " + inputId);
+			System.out.println("輸入的信箱 = " + inputEmail);
+			System.out.println("資料庫的帳號 = " + userAct);
+			System.out.println("資料庫的ID = " + userId);
+			System.out.println("資料庫的信箱 = " + userEmail);
+
+			if (!inputAct.equalsIgnoreCase(userAct) || !inputId.equalsIgnoreCase(userId)
+					|| !inputEmail.equalsIgnoreCase(userEmail)) {
+				result.rejectValue("account", "", "查無資料或資料有誤");
+				return "users/ForgetPwd";
+			}
+			Users userUpdatePwd = new Users();
+			userUpdatePwd.setAccount(inputAct);
+			model.addAttribute("updatePwd", userUpdatePwd);
+			return "users/UpdatePwd";
 		}
 
-		Users userUpdatePwd = new Users();
-		userUpdatePwd.setAccount(inputAct);
-		model.addAttribute("updatePwd", userUpdatePwd);
-		return "users/UpdatePwd";
-
+		result.rejectValue("account", "", "查無資料或資料有誤");
+		return "users/ForgetPwd";
 	}
 
 	@PostMapping(value = "/UpdatePwd")
