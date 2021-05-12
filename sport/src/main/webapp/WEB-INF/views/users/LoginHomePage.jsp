@@ -11,7 +11,7 @@
 </head>
 <body>
 <c:import url="../newheader.jsp"/>
-	<h2>TEST LOGIN HOME PAGE</h2>
+	<h2>會員中心</h2>
 	<!-- 	<a href="/Spring_Sport">回首頁</a> -->
 
 	<div>
