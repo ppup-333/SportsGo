@@ -129,6 +129,7 @@ function generatePage(currentPage){
 					$('.news-time' + i).empty();
 					$('.subtitle-container' + i).empty();
 					$('#showContentLink' + i).empty();
+					$('#showContentLink' + i).hide();
 				}
 				showBulletin(currentPage);
 				
@@ -236,7 +237,7 @@ function showBulletin(nowPage) {
 				$('.news-time' + index).html('<p><i class="far fa-clock"></i>' + updateTime + '</p>');
 				$('.subtitle-container' + index).html('<p>' + bulletin.subtitle + '</p>');
 				$('#showContentLink' + index).attr("href","/sport/Bulletin/showBulletinContent/" + bulletin.id).addClass('btn btn-outline-info addBtn').text('MORE');
-			
+				$('#showContentLink' + index).show();
 				if(bulletin.class_id.id == 2){
 					$('#titleIcon' + index).addClass("fas fa-chalkboard-teacher");
 				}
