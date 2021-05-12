@@ -22,6 +22,11 @@
 	margin: auto;
 }
 
+#searchDiv button, #search2 {
+	padding: 2px 7px;
+	margin-bottom: 4px;
+}
+
 #div_DateType {
 	margin-top: 10px;
 }
@@ -33,18 +38,28 @@
 
 #orderTable th, #orderTable td {
 	text-align: center;
-	padding: 5px 10px;
+/* 	padding: 5px 10px; */
 }
 
 .statusSpan {
-	padding: 2px 7px;
-	border-radius: 30px;
+	font-size: 15px;
+	padding: 1px 7px;
+	border-radius: 15px;
 }
+
 
 .bg-info th {
 	color: white;
 	font-size: 17px;
 	font-weight: 550;
+}
+
+#detailDiv td{
+	padding: 5px 10px;
+}
+
+.displayDetail, .updateBtn {
+	padding: 2px 7px;
 }
 
 </style>
@@ -57,10 +72,10 @@
 	<div id="searchDiv">
 		帳號：
 		<input type="text" name="account" id="account" />
-		<button id="search">搜尋目前訂單</button>
-		<button id="searchPast">查詢歷史訂單</button>
-		<button id="searchAll">查詢全部訂單</button>
-		<br>
+		<button id="search" class="btn btn-outline-secondary">搜尋目前訂單</button>
+		<button id="searchPast" class="btn btn-outline-secondary">查詢歷史訂單</button>
+		<button id="searchAll" class="btn btn-outline-secondary">查詢全部訂單</button>
+		<hr>
 		<div id="div_DateType">
 			類型：	
 			<select id="typeSelect" name="typeSelect">
@@ -78,9 +93,9 @@
 					<option value="${periods.id}">${periods.period}</option>
 				</c:forEach>
 			</select>
-			<button id="search2">送出</button>
+			<button id="search2" class="btn btn-outline-secondary">查詢</button>
 			
-			<br>
+			<hr>
 		</div>
 	</div>
 	
@@ -88,7 +103,7 @@
 
 	<!-- The Modal -->
 	<div class="modal fade" id="myModal">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 
 				<!-- Modal Header -->
@@ -98,7 +113,7 @@
 				</div>
 
 				<!-- Modal body -->
-				<div class="modal-body">
+				<div id="detailDiv" class="modal-body">
 					<div style="width:200px; margin:auto">
 						<table>
 							<tr><td>場地:</td><td id="detailField"></td></tr>
@@ -137,19 +152,67 @@
 		if(account != ""){			
 			var xhr = new XMLHttpRequest();
 			if(this.id == "searchAll"){
+				$("#search").removeClass("btn-secondary");
+				$("#search2").removeClass("btn-secondary");
+				$("#searchPast").removeClass("btn-secondary");
+				$("#searchAll").removeClass("btn-outline-secondary");
+				$("#search").addClass("btn-outline-secondary");
+				$("#search2").addClass("btn-outline-secondary");
+				$("#searchPast").addClass("btn-outline-secondary");
+				$("#searchAll").addClass("btn-secondary");
 				xhr.open("GET","<c:url value='getAllMemberOrdersJsonByAccount/"+account+"'/>",true);
 				temp = this.id;
 			}else if(this.id == "search"){
+				$("#search").removeClass("btn-outline-secondary");
+				$("#search2").removeClass("btn-secondary");
+				$("#searchPast").removeClass("btn-secondary");
+				$("#searchAll").removeClass("btn-secondary");
+				$("#search").addClass("btn-secondary");
+				$("#search2").addClass("btn-outline-secondary");
+				$("#searchPast").addClass("btn-outline-secondary");
+				$("#searchAll").addClass("btn-outline-secondary");
 				xhr.open("GET","<c:url value='getMemberOrderJsonByAccount/"+account+"'/>",true);
 				temp = this.id;
 			}else if(this.id == "searchPast"){
+				$("#search").removeClass("btn-secondary");
+				$("#search2").removeClass("btn-secondary");
+				$("#searchPast").removeClass("btn-outline-secondary");
+				$("#searchAll").removeClass("btn-secondary");
+				$("#search").addClass("btn-outline-secondary");
+				$("#search2").addClass("btn-outline-secondary");
+				$("#searchPast").addClass("btn-secondary");
+				$("#searchAll").addClass("btn-outline-secondary");
 				xhr.open("GET","<c:url value='getPastMemberOrderJsonByAccount/"+account+"'/>",true);
 				temp = this.id;
 			}else if(temp == "searchAll"){
+				$("#search").removeClass("btn-secondary");
+				$("#search2").removeClass("btn-secondary");
+				$("#searchPast").removeClass("btn-secondary");
+				$("#searchAll").removeClass("btn-outline-secondary");
+				$("#search").addClass("btn-outline-secondary");
+				$("#search2").addClass("btn-outline-secondary");
+				$("#searchPast").addClass("btn-outline-secondary");
+				$("#searchAll").addClass("btn-secondary");
 				xhr.open("GET","<c:url value='getAllMemberOrdersJsonByAccount/"+account+"'/>",true);
 			}else if(temp == "search"){
+				$("#search").removeClass("btn-outline-secondary");
+				$("#search2").removeClass("btn-secondary");
+				$("#searchPast").removeClass("btn-secondary");
+				$("#searchAll").removeClass("btn-secondary");
+				$("#search").addClass("btn-secondary");
+				$("#search2").addClass("btn-outline-secondary");
+				$("#searchPast").addClass("btn-outline-secondary");
+				$("#searchAll").addClass("btn-outline-secondary");
 				xhr.open("GET","<c:url value='getMemberOrderJsonByAccount/"+account+"'/>",true);
 			}else if(temp == "searchPast"){
+				$("#search").removeClass("btn-secondary");
+				$("#search2").removeClass("btn-secondary");
+				$("#searchPast").removeClass("btn-outline-secondary");
+				$("#searchAll").removeClass("btn-secondary");
+				$("#search").addClass("btn-outline-secondary");
+				$("#search2").addClass("btn-outline-secondary");
+				$("#searchPast").addClass("btn-secondary");
+				$("#searchAll").addClass("btn-outline-secondary");
 				xhr.open("GET","<c:url value='getPastMemberOrderJsonByAccount/"+account+"'/>",true);
 			}
 			
@@ -167,6 +230,15 @@
 	}
 	
 	function xhrFunction2() {
+		$("#search").removeClass("btn-secondary");
+		$("#search2").removeClass("btn-outline-secondary");
+		$("#searchPast").removeClass("btn-secondary");
+		$("#searchAll").removeClass("btn-secondary");
+		$("#search").addClass("btn-outline-secondary");
+		$("#search2").addClass("btn-secondary");
+		$("#searchPast").addClass("btn-outline-secondary");
+		$("#searchAll").addClass("btn-outline-secondary");
+		
 		var typeId = parseInt(document.getElementById("typeSelect").value);
 		var date = document.getElementById("date").value;
 		var periodId = parseInt(document.getElementById("period").value);
@@ -205,152 +277,281 @@
 		
 		if(fieldMemberOrderList.length != 0){
 			var content = "";
-			content += "<table id='orderTable' class='table table-hover'>"
-					 + "<tr class='bg-info'><th>訂單編號<th>帳號<th>預約場地<th>建立時間<th>預約明細<th>出席狀態<th>出席狀態編輯<th>訂單狀態<th>訂單狀態編輯";
+			content += "<table id='orderTable' class='table table-hover table-striped'>"
+					 + "<tr class='bg-info'><th>訂單編號<th>帳號<th>預約場地<th>預約明細<th>建立時間<th>出席狀態<th>出席狀態編輯<th>訂單狀態<th>訂單狀態編輯";
 	
 			for (var i = 0; i < fieldMemberOrderList.length; i++) {
 				var createTime = fieldMemberOrderList[i].createTime.substr(0,19);
 				var attendance = "";
 				if (fieldMemberOrderList[i].attendance == 1) {
-					attendance = "<span class='btn btn-secondary statusSpan'>出席</span>";
+					attendance = "<span class='btn btn-primary statusSpan'>出席</span>";
+				} else if (fieldMemberOrderList[i].attendance == 0) {
+					attendance = "<span class='btn btn-secondary statusSpan'>待處理</span>";
 				} else if (fieldMemberOrderList[i].attendance == -1) {
 					attendance = "<span class='btn btn-danger statusSpan'>缺席</span>";
 				}
-				var orderStatus = (fieldMemberOrderList[i].orderStatus == 0) ? "<span class='btn btn-warning statusSpan'>已取消</span>" : "<span class='btn btn-primary statusSpan'>成立</span>";
+				var orderStatus = (fieldMemberOrderList[i].orderStatus == 0) ? "<span class='btn btn-danger statusSpan'>已取消</span>" : "<span class='btn btn-primary statusSpan'>成立</span>";
 				var remark = (fieldMemberOrderList[i].remark == null) ? "無" : fieldMemberOrderList[i].remark;
 					content += "<tr>"
 							+ "<td>" + fieldMemberOrderList[i].id
 							+ "<td>" + fieldMemberOrderList[i].users.account
 							+ "<td>" + fieldMemberOrderList[i].orderDetails[0].field.name
+							+ '<td><input type="button" displayId="'+fieldMemberOrderList[i].id+'" class="btn btn-sm btn-outline-secondary displayDetail" data-toggle="modal" data-target="#myModal" value="瀏覽"/>'
 							+ "<td>" + createTime
-							+ '<td><input type="button" displayId="'+fieldMemberOrderList[i].id+'" class="displayDetail" data-toggle="modal" data-target="#myModal" value="瀏覽"/>'
 							+ "<td>" + attendance
-							+ "<td><input type='button' class='attendanceBtn' value='出席' uId='"+fieldMemberOrderList[i].id+"'/>"
-							+ "<input type='button' class='absenceBtn' value='缺席' uId='"+fieldMemberOrderList[i].id+"'/>"
-							+ "<input type='button' class='attendanceResetBtn' value='重製' uId='"+fieldMemberOrderList[i].id+"'/>"
+							+ "<td><input type='button' class='btn btn-sm btn-outline-primary updateBtn attendanceBtn' value='出席' uId='"+fieldMemberOrderList[i].id+"'/>&nbsp;"
+							+ "<input type='button' class='btn btn-sm btn-outline-danger updateBtn absenceBtn' value='缺席' uId='"+fieldMemberOrderList[i].id+"'/>&nbsp;"
+							+ "<input type='button' class='btn btn-sm btn-outline-info updateBtn attendanceResetBtn' value='重製' uId='"+fieldMemberOrderList[i].id+"'/>&nbsp;"
 							+ "<td>" + orderStatus
-							+ "<td><input type='button' class='cancelBtn' value='取消預約' uId='"+fieldMemberOrderList[i].id+"'/>"
-							+ "<input type='button' class='resetBtn' value='還原' uId='"+fieldMemberOrderList[i].id+"'/>";
+							+ "<td><input type='button' class='btn btn-sm btn-outline-danger updateBtn cancelBtn' value='取消' uId='"+fieldMemberOrderList[i].id+"'/>&nbsp;"
+							+ "<input type='button' class='btn btn-sm btn-outline-secondary updateBtn resetBtn' value='還原' uId='"+fieldMemberOrderList[i].id+"'/>";
 			}
 			content += "</table>";
 	
 			queryDiv.innerHTML = content;
 	
 			$(".attendanceBtn").click(function() {
-				var uId = $(this).attr('uId');
-				console.log(uId);
-				var json = {"updateId" : uId};
-				$.ajax({
-					method : 'POST',
-					contentType : "application/json;charset=UTF-8",
-					url : 'updateAttendance',
-					dataType : 'text',
-					data : JSON.stringify(json),
-	
-					success : function(response) {
-						if (response == "success") {
-							alert("success");
-							xhrFunction();
-						}
-					},
-					error : function(response) {
-						alert('Failed');
+				Swal.fire({
+					icon: "question",
+					showCancelButton: true,
+					confirmButtonText: "確定",
+					cancelButtonText: "返回",
+					title: "出席確認？"
+				}).then((result) => {
+					if (result.isConfirmed) {
+						var uId = $(this).attr('uId');
+						console.log(uId);
+						var json = {"updateId" : uId};
+						$.ajax({
+							method : 'POST',
+							contentType : "application/json;charset=UTF-8",
+							url : 'updateAttendance',
+							dataType : 'text',
+							data : JSON.stringify(json),
+			
+							success : function(response) {
+								if (response == "success") {
+									Swal.fire({
+										  toast: true,
+										  icon: 'success',
+										  position: 'top',
+										  showConfirmButton: false,
+							  		  	  timer: 2000,
+										  title: '資料修改成功！'
+									});
+									xhrFunction();
+								}
+							},
+							error : function(response) {
+								Swal.fire({
+									  toast: true,
+									  icon: 'error',
+									  position: 'top',
+									  showConfirmButton: false,
+						  		  	  timer: 2000,
+									  title: '資料修改失敗！'
+								});
+							}
+						});		
 					}
 				});
+				
+				
+				
 			});
 	
 			$(".absenceBtn").click(function() {
-				var uId = $(this).attr('uId');
-				console.log(uId);
-				var json = {"updateId" : uId};
-				$.ajax({
-					method : 'POST',
-					contentType : "application/json;charset=UTF-8",
-					url : 'updateAbsence',
-					dataType : 'text',
-					data : JSON.stringify(json),
-	
-					success : function(response) {
-						if (response == "success") {
-							alert("success");
-							xhrFunction();
-						}
-					},
-					error : function(response) {
-						alert('Failed');
+				Swal.fire({
+					icon: "question",
+					showCancelButton: true,
+					confirmButtonText: "確定",
+					cancelButtonText: "返回",
+					title: "缺席確認？"
+				}).then((result) => {
+					if (result.isConfirmed) {
+						var uId = $(this).attr('uId');
+						console.log(uId);
+						var json = {"updateId" : uId};
+						$.ajax({
+							method : 'POST',
+							contentType : "application/json;charset=UTF-8",
+							url : 'updateAbsence',
+							dataType : 'text',
+							data : JSON.stringify(json),
+			
+							success : function(response) {
+								if (response == "success") {
+									Swal.fire({
+										  toast: true,
+										  icon: 'success',
+										  position: 'top',
+										  showConfirmButton: false,
+							  		  	  timer: 2000,
+										  title: '資料修改成功！'
+									});
+									xhrFunction();
+								}
+							},
+							error : function(response) {
+								Swal.fire({
+									  toast: true,
+									  icon: 'error',
+									  position: 'top',
+									  showConfirmButton: false,
+						  		  	  timer: 2000,
+									  title: '資料修改失敗！'
+								});
+							}
+						});
+						
 					}
 				});
+				
+				
 			});
 			
 			$(".attendanceResetBtn").click(function() {
-				var uId = $(this).attr('uId');
-				console.log(uId);
-				var json = {"updateId" : uId};
-				$.ajax({
-					method : 'POST',
-					contentType : "application/json;charset=UTF-8",
-					url : 'resetAttendance',
-					dataType : 'text',
-					data : JSON.stringify(json),
-	
-					success : function(response) {
-						if (response == "success") {
-							alert("success");
-							xhrFunction();
-						}
-					},
-					error : function(response) {
-						alert('Failed');
+				Swal.fire({
+					icon: "question",
+					showCancelButton: true,
+					confirmButtonText: "確定",
+					cancelButtonText: "返回",
+					title: "重製確認？"
+				}).then((result) => {
+					if (result.isConfirmed) {
+						var uId = $(this).attr('uId');
+						console.log(uId);
+						var json = {"updateId" : uId};
+						$.ajax({
+							method : 'POST',
+							contentType : "application/json;charset=UTF-8",
+							url : 'resetAttendance',
+							dataType : 'text',
+							data : JSON.stringify(json),
+			
+							success : function(response) {
+								if (response == "success") {
+									Swal.fire({
+										  toast: true,
+										  icon: 'success',
+										  position: 'top',
+										  showConfirmButton: false,
+							  		  	  timer: 2000,
+										  title: '資料修改成功！'
+									});
+									xhrFunction();
+								}
+							},
+							error : function(response) {
+								Swal.fire({
+									  toast: true,
+									  icon: 'error',
+									  position: 'top',
+									  showConfirmButton: false,
+						  		  	  timer: 2000,
+									  title: '資料修改失敗！'
+								});
+							}
+						});
 					}
 				});
+				
 			});
 	
 			$(".cancelBtn").click(function() {
-				var uId = $(this).attr('uId');
-				console.log(uId);
-				var json = {
-					"updateId" : uId
-				};
-				$.ajax({
-					method : 'POST',
-					contentType : "application/json;charset=UTF-8",
-					url : 'updateCancel',
-					dataType : 'text',
-					data : JSON.stringify(json),
-	
-					success : function(response) {
-						if (response == "success") {
-							alert("success");
-							xhrFunction();
-						}
-					},
-					error : function(response) {
-						alert('Failed');
+				Swal.fire({
+					icon: "question",
+					showCancelButton: true,
+					confirmButtonText: "確定",
+					cancelButtonText: "返回",
+					title: "取消確認？"
+				}).then((result) => {
+					if (result.isConfirmed) {
+						var uId = $(this).attr('uId');
+						console.log(uId);
+						var json = {
+							"updateId" : uId
+						};
+						$.ajax({
+							method : 'POST',
+							contentType : "application/json;charset=UTF-8",
+							url : 'updateCancel',
+							dataType : 'text',
+							data : JSON.stringify(json),
+			
+							success : function(response) {
+								if (response == "success") {
+									Swal.fire({
+										  toast: true,
+										  icon: 'success',
+										  position: 'top',
+										  showConfirmButton: false,
+							  		  	  timer: 2000,
+										  title: '預約已成功取消！'
+									});
+									xhrFunction();
+								}
+							},
+							error : function(response) {
+								Swal.fire({
+									  toast: true,
+									  icon: 'error',
+									  position: 'top',
+									  showConfirmButton: false,
+						  		  	  timer: 2000,
+									  title: '預約取消失敗！'
+								});
+							}
+						});
 					}
 				});
 			});
 			
 			$(".resetBtn").click(function() {
-				var uId = $(this).attr('uId');
-				console.log(uId);
-				var json = {
-					"updateId" : uId
-				};
-				$.ajax({
-					method : 'POST',
-					contentType : "application/json;charset=UTF-8",
-					url : 'resetCancel',
-					dataType : 'text',
-					data : JSON.stringify(json),
-	
-					success : function(response) {
-						if (response == "success") {
-							alert("success");
-							xhrFunction();
-						}
-					},
-					error : function(response) {
-						alert('Failed');
+				Swal.fire({
+					icon: "question",
+					showCancelButton: true,
+					confirmButtonText: "確定",
+					cancelButtonText: "返回",
+					title: "預約還原確認？"
+				}).then((result) => {
+					if (result.isConfirmed) {
+						var uId = $(this).attr('uId');
+						console.log(uId);
+						var json = {
+							"updateId" : uId
+						};
+						$.ajax({
+							method : 'POST',
+							contentType : "application/json;charset=UTF-8",
+							url : 'resetCancel',
+							dataType : 'text',
+							data : JSON.stringify(json),
+			
+							success : function(response) {
+								if (response == "success") {
+									Swal.fire({
+										  toast: true,
+										  icon: 'success',
+										  position: 'top',
+										  showConfirmButton: false,
+							  		  	  timer: 2000,
+										  title: '預約已成功還原！'
+									});
+									xhrFunction();
+								}
+							},
+							error : function(response) {
+								Swal.fire({
+									  toast: true,
+									  icon: 'error',
+									  position: 'top',
+									  showConfirmButton: false,
+						  		  	  timer: 2000,
+									  title: '預約還原失敗！'
+								});
+							}
+						});
 					}
 				});
 			});

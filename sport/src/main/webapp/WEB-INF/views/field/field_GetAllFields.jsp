@@ -81,7 +81,7 @@
 	<!-- The Modal -->
 	<form:form modelAttribute="field" action="updateField" method="post" id="createFieldForm">
 		<div class="modal fade" id="myModal">
-			<div class="modal-dialog">
+			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 	
 					<!-- Modal Header -->
@@ -173,14 +173,26 @@ function checkStartCode(){
 	}else if(startCode == "createSuccess"){
 		//alert("新增成功！");
 		Swal.fire({
+			  toast: true,
 			  icon: 'success',
+			  position: 'top',
+			  showConfirmButton: false,
+		  	  timer: 2000,
 			  title: '新增成功！'
 		});
 	}else if(startCode == "updateError"){
-		alert("修改失敗！");
+		//alert("修改失敗！");
 		//updateFieldBtn.click();
 	}else if(startCode == "updateSuccess"){
-		alert("修改成功！");
+		//alert("修改成功！");
+		Swal.fire({
+			  toast: true,
+			  icon: 'success',
+			  position: 'top',
+			  showConfirmButton: false,
+  		  	  timer: 2000,
+			  title: '修改成功！'
+		});
 	}else if(startCode == "deleteSuccess"){
 		//alert("刪除成功！");
 		Swal.fire({
@@ -210,7 +222,7 @@ $("#ts").change(xhrFunction);
 $("#createButton").click(function(){
 	Swal.fire({
 		icon: "question",
-		position: "top-end",
+		position: "center-end",
 		showCancelButton: true,
 		confirmButtonText: "確定",
 		cancelButtonText: "取消",
@@ -289,8 +301,9 @@ function displayFields(responseText){
 					 + "<td><form class='formUpdate' action='updateFieldPage' method='post'>"
 					 + "<input name='typeId' style='display: none' value='"+typeId+"'/>"
 					 + "<button type='submit' class='updateBtn btn btn-outline-warning' name='updateId' value='"+fieldList[i].id+"'>修改</button></form>&nbsp;&nbsp;"
-					 + "<form class='formDelete' action='deleteField' method='post'>"
-					 + "<button type='submit' class='updateBtn btn btn-outline-danger' name='deleteId' class='deleteButton' value='"+fieldList[i].id+"'>刪除</button>"
+					 + "<form id='deleteFieldForm"+fieldList[i].id+"' class='formDelete' action='deleteField' method='post'>"
+					 + "<input style='display:none' name='deleteId' value='" + fieldList[i].id + "'>"
+					 + "<button type='button' class='updateBtn btn btn-outline-danger deleteButton' value='" + fieldList[i].id + "'>刪除</button>"
 					 + "</form>";					
 		}
 		content += "</table><hr>"
@@ -298,13 +311,8 @@ function displayFields(responseText){
 		content = "<h3>此類型沒有資料</h3>"; 
 	}
 	
-// 	content += "<form action='field_CreatePage' method='get'>"
-// 				+ "<input style='display:none' name='typeId' value='"+typeId+"'>"
-// 				+ "<button type='submit'>新增場地</button>"
-// 				+ '<td><input type="button" id="createFieldBtn" data-toggle="modal" data-target="#myModal" value="測試"/>'
-// 			 + "</form>"
-	
 	queryByType.innerHTML = content;
+	
 		
 	var updateBtnList = document.getElementsByClassName("formUpdate");
 	var deleteBtnList = document.getElementsByClassName("formDelete");
@@ -315,9 +323,23 @@ function displayFields(responseText){
 	document.getElementsByClassName("formDelete")
 			 
 	$(".deleteButton").click(function() {
-		if(!confirm("確定要刪除？")){
-			return false;
-		}
+		var deleteId = $(this).val();
+		var formId = "#deleteFieldForm" + deleteId
+		Swal.fire({
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonText: "確定",
+			cancelButtonText: "取消",
+			title: "刪除確認",
+			text: "刪除後無法復原，確定要刪除場地？"
+		}).then((result) => {			
+			if (result.isConfirmed) {
+				$(formId).submit();
+			}
+		})
+// 		if(!confirm("確定要刪除？")){
+// 			return false;
+// 		}
 	});
 }
 

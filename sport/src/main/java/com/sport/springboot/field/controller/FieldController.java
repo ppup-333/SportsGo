@@ -123,6 +123,14 @@ public class FieldController {
 	@PostMapping("/deleteField")
 	public String deleteField(@RequestParam("deleteId")String id) {
 		
+		System.out.println("=================================");
+
+		System.out.println("=================================");
+		System.out.println(id);
+		System.out.println("=================================");
+
+		System.out.println("=================================");
+		
 		try {
 			fieldService.delete(id);
 		}catch(Exception e) {

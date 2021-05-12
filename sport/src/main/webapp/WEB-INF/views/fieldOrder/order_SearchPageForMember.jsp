@@ -11,17 +11,28 @@
 
 
 <style>
-th, td {
+#detailDiv td{
 	padding: 5px 10px;
 }
 
 #memberOrderDiv p {
-	text-align: center;
+	height: 27px;
 }
 
 #memberOrderTable {
 	text-align: center;
 }
+
+.displayDetail {
+	padding: 2px 7px;
+}
+
+.statusSpan {
+	font-size: 15px;
+	padding: 1px 7px;
+	border-radius: 15px;
+}
+
 </style>
 
 
@@ -45,8 +56,8 @@ th, td {
 			<div class="col-8">
 				<div id="memberOrderDiv">
 					<p>
-						<button id="search">目前訂單</button>
-						<button id="searchPast">歷史訂單</button>
+						<button style="float: left" class="btn btn-secondary" id="search">目前訂單</button>
+						<button style="float: right" class="btn btn-outline-info" id="searchPast">歷史訂單</button>
 					</p>
 					<div id="queryDiv"></div>
 				</div>				
@@ -58,7 +69,7 @@ th, td {
 
 	<!-- The Modal -->
 	<div class="modal fade" id="myModal">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 
 				<!-- Modal Header -->
@@ -68,7 +79,7 @@ th, td {
 				</div>
 
 				<!-- Modal body -->
-				<div class="modal-body">
+				<div id="detailDiv" class="modal-body">
 					<div style="width:200px; margin:auto">
 						<table>
 							<tr><td>場地:</td><td id="detailField"></td></tr>
@@ -111,10 +122,22 @@ th, td {
 		var urlStr = "";
 		var xhr = new XMLHttpRequest();
 		if(this.id == "search"){
+			$("#search").removeClass("btn-outline-secondary");
+			$("#search").addClass("btn-secondary");
+			$("#searchPast").removeClass("btn-info");
+			$("#searchPast").addClass("btn-outline-info");
 			urlStr = "getMemberOrderJson";
 		}else if(this.id == "searchPast"){
+			$("#search").removeClass("btn-secondary");
+			$("#search").addClass("btn-outline-secondary");
+			$("#searchPast").removeClass("btn-outline-info");
+			$("#searchPast").addClass("btn-info");
 			urlStr = "getPastMemberOrderJson";
 		}else{
+			$("#search").removeClass("btn-outline-secondary");
+			$("#search").addClass("btn-secondary");
+			$("#searchPast").removeClass("btn-info");
+			$("#searchPast").addClass("btn-outline-info");
 			urlStr = "getMemberOrderJson";
 		}
 		
@@ -139,24 +162,26 @@ th, td {
 		if(fieldMemberOrderList.length != 0){
 			var content = "";
 			content += "<table id='memberOrderTable' class='table table-hover table-striped'>"
-					 + "<tr class='bg-warning'><th>訂單編號<th>帳號<th>預約場地<th>建立時間<th>預約明細<th>出席狀態<th>訂單狀態";
+					 + "<tr class='bg-warning'><th>訂單編號<th>帳號<th>預約場地<th>預約明細<th>建立時間<th>出席狀態<th>訂單狀態";
 	
 			for (var i = 0; i < fieldMemberOrderList.length; i++) {
 				var createTime = fieldMemberOrderList[i].createTime.substr(0,19);
 				var attendance = "";
 				if (fieldMemberOrderList[i].attendance == 1) {
-					attendance = "出席";
+					attendance = "<span class='btn btn-primary statusSpan'>出席</span>";
+				} else if (fieldMemberOrderList[i].attendance == 0) {
+					attendance = "<span class='btn btn-secondary statusSpan'>待處理</span>";
 				} else if (fieldMemberOrderList[i].attendance == -1) {
-					attendance = "缺席";
+					attendance = "<span class='btn btn-danger statusSpan'>缺席</span>";
 				}
-				var orderStatus = (fieldMemberOrderList[i].orderStatus == 0) ? "已取消" : "成立";
+				var orderStatus = (fieldMemberOrderList[i].orderStatus == 0) ? "<span class='btn btn-danger statusSpan'>已取消</span>" : "<span class='btn btn-primary statusSpan'>成立</span>";
 				var remark = (fieldMemberOrderList[i].remark == null) ? "無" : fieldMemberOrderList[i].remark;
 					content += "<tr>"
 							+ "<td>" + fieldMemberOrderList[i].id
 							+ "<td>" + fieldMemberOrderList[i].users.account
 							+ "<td>" + fieldMemberOrderList[i].orderDetails[0].field.name
+							+ '<td><input type="button" displayId="'+fieldMemberOrderList[i].id+'" class="btn btn-outline-secondary btn-sm displayDetail" data-toggle="modal" data-target="#myModal" value="瀏覽"/>'
 							+ "<td>" + createTime
-							+ '<td><input type="button" displayId="'+fieldMemberOrderList[i].id+'" class="displayDetail" data-toggle="modal" data-target="#myModal" value="瀏覽"/>'
 							+ "<td>" + attendance
 							+ "<td>" + orderStatus;
 			}
