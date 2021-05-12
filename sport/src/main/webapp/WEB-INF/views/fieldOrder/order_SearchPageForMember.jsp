@@ -11,6 +11,10 @@
 
 
 <style>
+#fieldOrderMainDiv {
+	min-height: 200px;
+}
+
 #detailDiv td{
 	padding: 5px 10px;
 }
@@ -40,17 +44,17 @@
 <body>
 <c:import url="../newheader.jsp"/>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<div id="title">
+<!-- 	<div class="container"> -->
+<!-- 		<div class="row"> -->
+<!-- 			<div class="col-12"> -->
+<!-- 				<div id="title"> -->
 					<h2>訂單查詢</h2>
-				</div>				
-			</div>
-		</div>
-	</div>
+<!-- 				</div>				 -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	
-	<div class="container">
+	<div id="fieldOrderMainDiv" class="container">
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
@@ -229,6 +233,6 @@
 	
 
 </script>
-
+<c:import url="../footer.jsp"/>	
 </body>
 </html>

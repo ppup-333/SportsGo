@@ -296,5 +296,6 @@ span.error {
 <%-- 		</form:form> --%>
 		
 <!-- 	</fieldset> -->
+<c:import url="../footer.jsp"/>	
 </body>
 </html>

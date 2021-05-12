@@ -355,6 +355,7 @@ function showBulletin(nowPage) {
 			</ul>
 		</div>
 	</div>
+	<c:import url="../footer.jsp"/>	
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 </body>
 </html>

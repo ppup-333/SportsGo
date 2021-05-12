@@ -853,6 +853,6 @@ function cartProducts(responseText){
 </script>
 
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
-
+<c:import url="../../footer.jsp"/>	
 </body>
 </html>

@@ -225,7 +225,7 @@
 				}
 			}
 		}else{
-			queryDiv.innerHTML = "<h4>請輸入帳號</h4>"
+			queryDiv.innerHTML = "<h4 style='text-align:center;'>請輸入帳號</h4>"
 		}
 	}
 	
@@ -264,7 +264,7 @@
 				content += "時段、"
 			}
 			content = content.substr(0, (content.length-1))
-			queryDiv.innerHTML = "<h4>您尚未選擇" + content + "</h4>"
+			queryDiv.innerHTML = "<h4 style='text-align:center;'>您尚未選擇" + content + "</h4>"
 		}
 	}
 	
@@ -558,7 +558,7 @@
 			
 			$(".displayDetail").click(displayDetail);			
 		}else{
-			queryDiv.innerHTML = "<h4>查無相符資料</h4>"
+			queryDiv.innerHTML = "<h4 style='text-align:center;'>查無相符資料</h4>"
 		}
 
 	}
