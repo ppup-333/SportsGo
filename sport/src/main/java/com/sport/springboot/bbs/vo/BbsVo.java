@@ -71,7 +71,7 @@ public class BbsVo {
 	}
 
 	public String getBbsMessage() {
-		return bbsMessage;
+		return bbsMessage.replaceAll("<br>", "&nbsp");
 	}
 
 	public void setBbsMessage(String bbsMessage) {

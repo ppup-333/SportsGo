@@ -140,11 +140,11 @@ table.table-hover tbody tr:hover {
 					<thead>
 						<tr>
 							<th data-field="bbsDelete" data-formatter="DeleteFormatter" data-halign="center" data-align="center" data-width="80">狀態</th>
-							<th data-field="bbsId" data-halign="center" data-align="center" data-width="80">序號</th>
-							<th data-field="typeName" data-halign="center" data-align="center" data-width="100">類型</th>
-							<th data-field="bbsTitle"  data-formatter="TitleFormatter" data-halign="center" data-align="left">發文</th>
-							<th data-field="bbsBuilder" data-formatter="BuilderFormatter" data-halign="center" data-align="center" data-width="180">建立者</th>
-							<th data-field="replySetupTime" data-formatter="ReplyFormatter" data-halign="center" data-align="center" data-width="180">最新回覆</th>
+							<th data-field="bbsId" data-halign="center" data-align="center" data-width="60">序號</th>
+							<th data-field="typeName" data-halign="center" data-align="center" data-width="90">類型</th>
+							<th data-field="bbsTitle"  data-formatter="TitleFormatter" data-halign="center" data-align="left" data-width="460">發文</th>
+							<th data-field="bbsBuilder" data-formatter="BuilderFormatter" data-halign="center" data-align="center" data-width="185">建立者</th>
+							<th data-field="replySetupTime" data-formatter="ReplyFormatter" data-halign="center" data-align="center" data-width="185">最新回覆</th>
 						</tr>
 					</thead>
 				</table>

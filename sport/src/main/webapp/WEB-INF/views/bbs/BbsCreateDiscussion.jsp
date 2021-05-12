@@ -58,11 +58,34 @@
 					<button type="submit" id="postYN"class="btn btn-outline-success btn-sm" style="position: relative; left: 240px;">送出發文</button>
 				</form:form>
 			</div>
-			<div class="col"></div>
+			<div class="col">
+				<button type="button" id="bbsOne">一鍵輸入</button>
+			</div>
 		</div>
 	</div>
-
+	
 	<script>
+		//一鍵輸入
+		$("#bbsOne").on("click", function() {
+			$("#typeId").val(1);
+			$("#bbsTitle").val("湖人勇士附加賽誰輸是不是都沒有遺憾?");
+			editor.data.set("如題<br><br>湖人勇士沒意外就要打附加賽"
+							+ "<br><br>一個去年冠軍 一個剛結束連霸王朝"
+							+ "<br><br>大家都說這收視率會超越今年冠軍賽"
+							+ "<br><br>不過這兩個組合不管誰贏誰輸  整季都盡力了"
+							+ "<br><br>看看湖人"
+							+ "<br><br>沒有留下DH 補來抓猛結果發現沒想像猛"
+							+ "<br><br>LBJ曇花終於開完了 跟AD傷傷停停"
+							+ "<br><br>復出戰績不理想"
+							+ "<br><br>看隔壁勇士 只有Curry一個撐全場"
+							+ "<br><br>其他隊友都不知道在幹嘛"
+							+ "<br><br>KT還沒好 Green大三單"
+							+ "<br><br>圍巾有一場沒一場 還有傷兵"
+							+ "<br><br>別人的隊友都是NBA隊友"
+							+ "<br><br><br>這樣看下來哪一隊輸是不是都沒有遺憾 雖敗猶榮????");
+		});
+
+		//清除鈕
 		function formReset() {
 			document.getElementById("create").reset();
 			editor.data.set("");

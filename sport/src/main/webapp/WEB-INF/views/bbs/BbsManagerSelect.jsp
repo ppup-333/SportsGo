@@ -9,12 +9,37 @@
 <c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+
+/* icon */
+.fa-arrow-alt-circle-left {
+	color: #3fc1c0;
+	position: relative;
+	left: 70%;
+}
+.fa-arrow-alt-circle-left:hover {
+	color: #17A2B8;
+}
+
+.fa-arrow-alt-from-bottom {
+	color: #ced4da;
+	position: fixed;
+	bottom: 1%;
+	right: 3%;
+}
+.fa-arrow-alt-from-bottom:hover {
+	color: #6c757d;
+}
+
+</style>
 </head>
 <body>
 	<c:import url="../newheaderM.jsp"/>
 	<div class="container-fluid" style="position: relative; top: 50px;">
 		<div class="row">
-			<div class="col-3"></div>
+			<div class="col-3">
+				<a href="bbsM"><i class="fal fa-arrow-alt-circle-left fa-fw fa-3x"></i></a>
+			</div>
 			<div class="col-6 border" style="padding-bottom: 30px;">
 				<form id="select" name="select"
 					style="width: 90%; margin: 40px auto 10px auto;">
@@ -103,7 +128,9 @@
 					</c:if>
 				</form>
 			</div>
-			<div class="col-3"></div>
+			<div class="col-3">
+				<a href="#bar1"><i class="fal fa-arrow-alt-from-bottom fa-3x"></i></a>
+			</div>
 		</div>
 	</div>
 
