@@ -4,7 +4,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -149,9 +151,13 @@ public class FieldActOrderServiceImpl implements FieldActOrderService {
 	public boolean changeOrderStatusByActId(int actId) {
 		
 		try {
-			FieldActOrder fieldActOrder = fieldActOrderRepository.getFieldOrderByActId(actId);
-		fieldActOrder.setOrderStatus(0);
-		fieldActOrderRepository.save(fieldActOrder);
+			
+			 List<FieldActOrder> fieldActOrderList = fieldActOrderRepository.getFieldOrderByActId(actId);
+			 for(int i=0;i<fieldActOrderList.size();i++) {
+				 fieldActOrderList.get(i).setOrderStatus(0);
+				 fieldActOrderRepository.save(fieldActOrderList.get(i));
+			 }
+		
 		return true;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -159,5 +165,72 @@ public class FieldActOrderServiceImpl implements FieldActOrderService {
 			return false;
 		}
 	}
+	
+	//放棄刪除 
+	/*public boolean deleteFieldActOrderByCourse(courseBean course) {
+		
+		try{
+			Set<FieldActOrder> fieldActOrderSet = course.getFieldActOrder();
+			Iterator<FieldActOrder> fIt = fieldActOrderSet.iterator();
+			while(fIt.hasNext()) {
+				FieldActOrder fieldActOrder = fIt.next();
+				
+				Integer fieldOrderId = fieldActOrder.getId();
+				
+				List<FieldOrderDetail> fieldActOrderList = fieldActOrder.getOrderDetails();
+				for(int i=0;i<fieldActOrderList.size();i++) {
+					if(fieldActOrderList.get(i)!=null) {
+						fieldActOrderList.get(i).setDate(null);
+						//fieldActOrderList.get(i).getField().getId();
+						//fieldActOrderList.get(i)
+						fieldActOrderList.get(i).setFieldMemberOrder(null);
+						fieldActOrderList.get(i).setFieldPeriod(null);		
+						
+						if(fieldActOrderList.get(i).getField().getId()!=null) {
+							String fieldId=fieldActOrderList.get(i).getField().getId();
+							fieldOrderDetailRepository.deleteByActFieldId(fieldId);
+						}
+						
+						if(fieldActOrderList.get(i).getFieldActOrder().getId()!=null) {
+							Integer acOrderId=fieldActOrderList.get(i).getFieldActOrder().getId();
+							fieldOrderDetailRepository.deleteByActOrderId(acOrderId);
+						}
+						
+						fieldOrderDetailRepository.delete(fieldActOrderList.get(i));
+						
+						
+					}
+					
+				}
+				if(fieldOrderId!=null) {
+					//System.out.println("fieldOrderId==============="+fieldOrderId);
+					fieldActOrder.setActId(null);
+					fieldActOrder.setActivitybean(null);
+					fieldActOrder.setCoursebean(null);
+					fieldActOrder.setCourseId(null);
+					fieldActOrder.setCreateTime(null);
+					fieldActOrder.setOrderDetails(null);
+					fieldActOrder.setOrderStatus(0);
+					fieldActOrder.setPaymentMethod(null);
+					fieldActOrder.setPaymentStatus(0);
+					fieldActOrder.setPaymentMethod(null);
+					fieldActOrder.setRemark(null);
+					fieldActOrder.setUpdateTime(null);
+					fieldActOrderRepository.delete(fieldActOrder);
+					//fieldActOrderRepository.deleteById(fieldOrderId);
+					//fieldActOrderRepository.deleteByCourseId(course.getCourseId());
+				}
+								
+			}
+
+			
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("deleteFieldActOrderByCourse場地刪除異常");
+			return false;
+		}
+		
+	}*/
 
 }

@@ -33,7 +33,7 @@ text-align:center;
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <table>
 
-<tr><th>老師姓名<th>性別<th>電話<th>薪水<th>雇用日期<th><th>
+<tr><th class='bg-info'>老師姓名<th class='bg-info'>性別<th class='bg-info'>電話<th class='bg-info'>薪水<th class='bg-info'>雇用日期<th class='bg-info'><th class='bg-info'>
 <c:forEach var="teacher" items="${teacherList}" varStatus="status">
 <c:choose>
 <c:when test="${teacher.gender=='1'}">

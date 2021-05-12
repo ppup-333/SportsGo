@@ -83,6 +83,7 @@ public class EcpayActController {
 						if(Integer.parseInt(TradeStatus)==1) {
 							ActivityOrderBean actOrder=actOrderList.get(i);
 							actOrder.setPayState(1);
+							updateActOrderList.get(i).setMerchantTradeNo(MerchantTradeNo);
 							updateActOrderList.add(actOrder);
 							
 						}
@@ -91,7 +92,7 @@ public class EcpayActController {
 			}
 			
 			for(int i=0;i<updateActOrderList.size();i++) {
-				updateActOrderList.get(i).setMerchantTradeNo(MerchantTradeNo);
+				
 				activityorderservice.updateActivityOrder(updateActOrderList.get(i));
 			}
 			

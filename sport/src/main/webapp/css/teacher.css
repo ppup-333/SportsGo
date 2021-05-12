@@ -9,15 +9,17 @@ table{
  margin-right: auto;
  
 }
+
+
 th{
 	padding:20px;
-	background-color:#AAAAFF;
+	color:white;
 	border-right:1px solid #D0D0D0;
 	border-bottom:1px solid  #D0D0D0;
 }
 td{
 	padding:20px;
-	background-color:#66B3FF;
+	background-color:	#FCFCFC;
 	border-right:1px solid #D0D0D0;
 	border-bottom:1px solid  #D0D0D0;
 }

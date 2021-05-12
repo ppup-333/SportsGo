@@ -135,6 +135,10 @@ public class courseControl {
 		int studentmaxnum= Integer.parseInt(studentMaxNum);
 		int fre=Integer.parseInt(freq);
 		int tId=Integer.parseInt(teacherId);
+		
+		Optional<courseBean> c = courseservice.selectId(id);
+		courseBean course = c.get();
+		courseservice.changeCATime(course);
 		boolean b=courseservice.updateCourse(id, cost, courseKind,studentmaxnum, courseIntroduce, fre, from, tId,coursePlace);
 		if (b) {
 			model.addAttribute("result", "更新成功");
@@ -146,7 +150,7 @@ public class courseControl {
 	}
 	// 前往 更新jsp
 	@GetMapping("/courseUpdate")
-	public String courseUpdate(@RequestParam String id, Model model) {
+	public String courseUpdate(@RequestParam String id,@RequestParam String coursePayState, Model model) {
 		int courseId = Integer.parseInt(id);
 		Optional<courseBean> course = courseservice.selectId(courseId);
 		courseBean c = course.get();
@@ -184,7 +188,8 @@ public class courseControl {
 		Optional<teacherBean> t=teacherservice.selectTeacher(c.getTeacherId());
 		List<teacherBean> teacherList=teacherservice.selectAllTeacher();
 		teacherBean teacher=t.get();
-
+		
+		
 		model.addAttribute("timeList",timeList);
 		model.addAttribute("course", c);
 		model.addAttribute("count", count);
@@ -192,6 +197,7 @@ public class courseControl {
 		model.addAttribute("teacher", teacher);
 		model.addAttribute("teacherList", teacherList);
 		model.addAttribute("fieldList",fieldList);
+		model.addAttribute("coursePayState", coursePayState);
 		return "course_act/manageCourseUpdate";
 	}
 
@@ -360,16 +366,16 @@ public class courseControl {
 		}
 		
 		//更新 最新報名人數
-		List<CourseOrderBean> courseOrderList=new ArrayList<>();
-		
+		List<CourseOrderBean> SeccessCourseOrderList=new ArrayList<>();
+		List<CourseOrderBean> allCourseList=new ArrayList<>();
 		
 		for(int i=0;i<cblist.size();i++) {
 			 Set<CourseOrderBean> courseOrderSet = cblist.get(i).getCourseOrder();
 			  Iterator<CourseOrderBean> it = courseOrderSet.iterator();
 			  
-			  
+			  CourseOrderBean courseOrder=null;
 			  while(it.hasNext()) {
-				  CourseOrderBean courseOrder = it.next();
+				   courseOrder = it.next();
 				  
 				  Set<EcpayOrderBean> easyPaySet = courseOrder.getECpay();
 				  Iterator<EcpayOrderBean> easyit = easyPaySet.iterator();
@@ -386,17 +392,31 @@ public class courseControl {
 						String Status=statusSplit[statusSplit.length-2];//交易狀態
 						String TradeStatus=(Status.split("="))[1];
 						System.out.println(TradeStatus);
+						
 						if(Integer.parseInt(TradeStatus)==1) {
 							courseOrder.setPayState(1);
-							courseOrderList.add(courseOrder);
+							SeccessCourseOrderList.add(courseOrder);
 							//courseorderservice.updateCourseOrder(courseOrder);
-						}
+						}						
 				  }
+				
 			  }
+			
+			    allCourseList.add(courseOrder);
+			    
 		}
 		
-		for(int i=0;i<courseOrderList.size();i++) {
-			courseorderservice.updateCourseOrder(courseOrderList.get(i));
+		
+		for(int i=0;i<SeccessCourseOrderList.size();i++) {
+			courseorderservice.updateCourseOrder(SeccessCourseOrderList.get(i));
+		}
+		for(int i=0;i<allCourseList.size();i++) {
+			if(allCourseList.get(i)==null) {
+				System.out.println("=============payState:null");
+			}else {
+				System.out.println("=============payState:"+allCourseList.get(i).getPayState());
+			}
+			
 		}
 		
 		
@@ -410,8 +430,12 @@ public class courseControl {
 			m.put("courseId",cblist.get(i).getCourseId());
 			m.put("courseName", cblist.get(i).getCourseName());
 			m.put("courseKind", cblist.get(i).getCourseKind());
-			m.put("courseCost", cblist.get(i).getCourseCost());		
-			
+			m.put("courseCost", cblist.get(i).getCourseCost());	
+			if(allCourseList.get(i)==null) {
+				m.put("coursePayState",0) ;  
+			}else {
+				m.put("coursePayState",allCourseList.get(i).getPayState() ) ;  
+			}
 			// 暫時存timeset裡面所有資料的List
 			List<String> tempList = new ArrayList<>();
 			boolean b = true;
@@ -519,6 +543,21 @@ public class courseControl {
 		
 	}
 
+	@GetMapping("deleteCourseImpl")
+	@ResponseBody
+	public String deleteCourseImpl(@RequestParam String courseId) {
+		//Integer id=Integer.parseInt(courseId);
+		//放棄刪除
+		//boolean deleteResult=courseservice.deleteCourse(id);		
+		  String returnString="";
+		 /*	if(deleteResult) {
+				returnString="deleteOk";
+		   }else {
+			   returnString="deleteFail";
+		   }*/
+			return returnString;
+		}
+	
 	public String confirmCourseApply() {
 		return "course_act/InsertOK";
 	}

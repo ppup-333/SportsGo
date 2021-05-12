@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sport.springboot.course_act.model.activityBean;
+import com.sport.springboot.course_act.model.courseBean;
 import com.sport.springboot.course_act.repository.activityRepository;
 import com.sport.springboot.field.service.FieldActOrderService;
 import com.sport.springboot.field.service.impl.FieldActOrderServiceImpl;
@@ -90,6 +91,16 @@ public class activityService {
 	public activityBean getOne(int actId) {
 		return activityDao.getOne(actId);
 	}
+	
+	@Transactional
+	public boolean changeCATimeByAct(activityBean activity) {
+		boolean b=catimeservice.deleteTimeByAct(activity);
+		if(b) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 	@Transactional
 	public boolean updateActivity(activityBean act, String dateStart, String dateEnd, String timeStart, String timeEnd,
@@ -114,10 +125,10 @@ public class activityService {
 			ds=Date-ds;
 			freq=ds+de;			
 		}
+				
+		
 		boolean orderStatus = fieldActOrderService.changeOrderStatusByActId(act.getActId());
-		if(orderStatus) {
-			boolean b=catimeservice.deleteTimeByAct(act);
-			if(b) {
+			if(orderStatus) {
 				boolean timeCheck=catimeservice.checkTimeCanRentOrNot(dateStart, timeStart, timeEnd, freq, place,type,null,act);
 				try {
 					if(timeCheck) {	
@@ -137,11 +148,7 @@ public class activityService {
 				System.out.println("活動更新失敗-刪除失敗");
 				return false;
 			}
-		}else {
-			return false;
-		}
-		
-		
+
 		
 	}
 	
