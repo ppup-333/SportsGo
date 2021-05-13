@@ -11,6 +11,20 @@
 
 <title>Document</title>
 <script>
+
+
+$("#oneclick2").on("click",function(){
+	$("#courseIntro").val("適合年齡：高中以上~無上限			教練全程指導，初學者也能放心學習			有經驗者可提升技術，矯正錯誤姿勢。			學習打球兼交友，輕鬆無負擔。			避免運動傷害。");
+	$("#to").val("4");
+	$("#cost").val("1200");
+});
+
+$("#oneclick1").on("click",function(){
+	$("#courseIntro").val("羽毛球是一項老少閒宜的運動，但沒有正確的打羽球觀念是很容易受傷的，您需要專業羽球教練的訓練課程，讓您安心的享受打羽毛球的樂趣！無論您要找羽毛球教學教練或是找兒童、成人羽球課程，您可以點選服務專家推薦，透過選擇地區找到附近的羽球教練以及評價，還可以使用價格篩選器了解費用。你可邀請多位適合的羽球教練與您洽談報價！");
+	$("#to").val("4");
+	$("#cost").val("1200");
+});
+
 	$(document).ready(function() {
 		
 		
@@ -85,6 +99,10 @@
 	});
 </script>
 <style type="text/css">
+#oneclick1,#oneclick2{
+	margin:10px;
+}
+
 .courseInsertTable {
 text-align:center;
 	border-collapse: collapse;
@@ -111,6 +129,7 @@ text-align:center;
 </style>
 </head>
 <body>
+<button id="oneclick1">一鍵輸入1</button><button id="oneclick2">一鍵輸入2</button>
 	<form id="insert" action="/sport/courseInsertImpl">
 
 		<table class="courseInsertTable" border="1" style="text-align: center;">
@@ -179,7 +198,7 @@ text-align:center;
 				</select>
 			<tr class="courseInsertTr">
 				<td>課程介紹:
-				<td><textarea rows="10" cols="40" name="courseIntroduce"></textarea>
+				<td><textarea rows="10" id="courseIntro" cols="40" name="courseIntroduce"></textarea>
 					<input type="text" name="types" style="display: none;"
 					value="insert" />
 		</table>
