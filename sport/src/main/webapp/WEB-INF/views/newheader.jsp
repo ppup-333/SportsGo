@@ -44,9 +44,9 @@
                                     場地預約
                                 </span>
                                 <div id="fieldOrder" class="dropdown-menu" aria-labelledby="fieldOrder">
-                                    <a class="dropdown-item" href="/sport/fieldOrder/createPage">我要預約</a>
-                                    <a class="dropdown-item" href="/sport/fieldOrder/searchForMemberPage">訂單查詢</a>
-                                    <a class="dropdown-item" href="/sport/fieldOrder/cancelForMemberPage">訂單取消</a>
+                                    <a id="fieldOrder/createPage" class="dropdown-item" href="/sport/fieldOrder/createPage">我要預約</a>
+                                    <a id="fieldOrder/searchForMemberPage" class="dropdown-item" href="/sport/fieldOrder/searchForMemberPage">訂單查詢</a>
+                                    <a id="fieldOrder/cancelForMemberPage" class="dropdown-item" href="/sport/fieldOrder/cancelForMemberPage">訂單取消</a>
                                 </div>
                             </div>
                             <div class="btn-group">
@@ -130,6 +130,7 @@
 							<td class="td1">帳號：<br>&nbsp;</td>
 							<td class="td2"><form:input path="account" id='userAct'/><br>&nbsp;
 								<span class="spLogin">8~16位英文字母和數字組合(不區分大小寫)</span>
+								<input type="hidden" name="loginUrl" id="loginUrl">
 								</td>
 						</tr>
 						<tr>
@@ -159,8 +160,29 @@
 <script>
 
 	<c:if test="${sessionScope.loginErrorCode !=null && sessionScope.loginErrorCode == 1}">		
-		alert("登入失敗！");
+		//alert("登入失敗！");
+		Swal.fire({
+			icon: "error",
+			showCancelButton: true,
+			confirmButtonText: "確定",
+			cancelButtonText: "取消",
+			title: "登入失敗！"
+		});
+		
 		$("#loginModal").modal("show");
+		${sessionScope.remove("loginErrorCode")}		
+	</c:if>
+	
+	<c:if test="${sessionScope.loginErrorCode != null || sessionScope.loginErrorCode == 2}">		
+	//alert("帳號尚未驗證！");
+		Swal.fire({
+			icon: "error",
+			showCancelButton: true,
+			confirmButtonText: "確定",
+			cancelButtonText: "取消",
+			title: "帳號尚未驗證！",
+			text: "請按「重設驗證碼」進行驗證"
+		});
 		${sessionScope.remove("loginErrorCode")}		
 	</c:if>
 		
@@ -190,8 +212,10 @@
 			}
 		});
 	});
+	//fieldOrderCreateA
 	
 	$("#fieldOrder").children("a").click(function(){
+		//alert(this.id);
 		if(${sessionScope.account == null}){
 			
 			Swal.fire({
@@ -202,6 +226,7 @@
 				title: "請先登入？"
 			}).then((result) => {
 				if (result.isConfirmed) {
+					$("#loginUrl").val(this.id);
 					$("#loginModal").modal("show");		
 				}
 			});
@@ -209,6 +234,8 @@
 			return false;
 		}
 	});
+	
+	
 	
 	$("#clickInputHeader").click(function(){
 		$("input[id='userAct']").val("beyond1000")
@@ -218,6 +245,10 @@
 	$("#clickInputHeader1").click(function(){
 		$("input[id='userAct']").val("chen1002")
 		$("input[id='userPwd']").val("chen1002")
+	});
+	
+	$("#loginModal").on("hidden.bs.modal", function(){
+		$("#loginUrl").val("");
 	});
 	
 </script>

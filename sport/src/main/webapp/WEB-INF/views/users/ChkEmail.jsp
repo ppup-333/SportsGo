@@ -16,6 +16,11 @@
 		font-size:2px;
 	}
 	
+	.errorMsg {
+		color:red;
+		font-size:2px;
+	}
+	
 .sp {
 		color: darkgrey;
 		font-size: 1px;
@@ -36,8 +41,15 @@
 /*  	margin-top:20px; */
 /*  	margin:20px 600px;  */
  	} 
+ 	#chkEmailMainDiv {
+ 		min-height: 260px;
+ 	}
 </style>
 <script>
+	$(document).ready(function(){
+		$('.errorMsg').text($('.getErrorMsg').val());
+	});
+
 	var time = 60;
 	function resetVerifyCode(){
 		$.ajax({
@@ -63,15 +75,17 @@
 	}
 </script>
 <meta charset="UTF-8">
-<title>email確認</title>
+<title>SportsGo!</title>
 <!-- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet"> -->
 <!--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 <!--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script> -->
-<link rel="stylesheet" href="jqueryui/style.css">
+<!-- <link rel="stylesheet" href="jqueryui/style.css"> -->
 </head>
 <body>
 <c:import url="../newheader.jsp"/>
-
+	<h2>E-mail驗證</h2>
+	<div id="chkEmailMainDiv">
+	
 		<div class='f1'>
 			<form action='verifyEmail' method="post" id='verifyForm'>
 			<input style="display:none" type="text" name="checkAccount" value="${checkAccount}"/>
@@ -81,7 +95,9 @@
 					<td>
 						<input type="text" name="verifyCode"/>&nbsp;&nbsp;&nbsp;
 						<input id="submitBtn" class="btn btn-info" type='submit' value='送出'/>&nbsp;&nbsp;&nbsp;<br>
-						<span class="sp">驗證碼需區分大小寫</span>
+						<span class="sp">驗證碼需區分大小寫</span><br>
+						<span class="errorMsg"></span>
+						<input class="getErrorMsg" type="button" style="display:none" value="${error}">
 					</td>
 				</tr>
 				<tr>
@@ -97,6 +113,21 @@
 			</form>
 
 		</div>
+	</div>
+	
+<script>
+	$("#resetCodeBtn").click(function(){
+		Swal.fire({
+			  toast: true,
+			  icon: 'success',
+			  position: 'top',
+			  showConfirmButton: false,
+		  	  timer: 2000,
+			  title: '新驗證碼已寄出，請至信箱確認'
+		});
+	});
+</script>
+
 <c:import url="../footer.jsp"/>
 </body>
 </html>

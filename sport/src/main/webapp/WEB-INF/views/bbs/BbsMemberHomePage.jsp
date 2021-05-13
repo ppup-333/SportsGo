@@ -244,6 +244,7 @@ table.table-hover tbody tr:hover {
 		$("#createBbs").on("click", function(){
 			if(${sessionScope.account == null}) {
 				$("#loginModal").modal("show");
+				$("#loginUrl").val("bbsdiscussion.c");
 				return false;
 			}else {
 				window.location.href="bbsdiscussion.c";
