@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SportsGo!</title>
 <c:import url="../headerScript.jsp"/>
 <!-- jQuery -->
 <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
@@ -18,7 +18,7 @@
 <!-- <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 <style>
 #orderFullMainDiv {
-	min-height: 250px;
+	min-height: 300px;
 }
 
 #searchDiv {

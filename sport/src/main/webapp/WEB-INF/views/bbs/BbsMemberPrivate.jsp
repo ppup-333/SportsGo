@@ -6,7 +6,7 @@
 <head>
 <c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SportsGo!</title>
 <style>
 
 a {
@@ -27,6 +27,10 @@ tbody {
 	cursor: pointer;
 }
 
+#memberPrivateDiv {
+	min-height: 300px;
+}
+
 </style>
 </head>
 <body>
@@ -36,7 +40,7 @@ tbody {
 
 <h2>我的發文與留言</h2>
 
-	<div class="container-fluid pt-3">
+	<div id="memberPrivateDiv" class="container-fluid pt-3">
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">

@@ -7,7 +7,7 @@
 <head>
 <c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SportsGo!</title>
 <style>
 
 /* CKEditor 編輯區塊 */
@@ -21,13 +21,17 @@ select {
 	height: 30px;
 }
 
+#bbsCreateDiv {
+	min-height: 300px;
+}
+
 </style>
 </head>
 <body>
 <c:import url="../newheader.jsp"/>
 
-
-	<div class="container-fluid pt-5">
+	<h2>新增發文</h2>
+	<div id="bbsCreateDiv" class="container-fluid">
 		<div class="row justify-content-center align-items-center">
 			<div class="col"></div>
 			<div class="col">

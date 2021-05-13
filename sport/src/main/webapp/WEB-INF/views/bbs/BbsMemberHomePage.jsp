@@ -7,7 +7,7 @@
 <head>
 <c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SportsGo!</title>
 <style>
 
 #createBbs {
@@ -72,11 +72,16 @@ table.table-hover tbody tr:hover {
     background-color: #d7e5f4; 
 }
 
+#bbsMemberHomeDiv {
+	min-height: 300px;
+}
+
 </style>
 </head>
 <body>
 <c:import url="../newheader.jsp"/>
 <h2>討論區</h2>
+<div id="bbsMemberHomeDiv">
 	<div class="container-fluid pt-3">
 		<div class="row">
 			<div class="col-2"></div>
@@ -143,7 +148,7 @@ table.table-hover tbody tr:hover {
 			<div class="col-2"></div>
 		</div>
 	</div>
-	
+</div>	
 	<script>
 		$("#game").change(function() {
 			var $table = $("#table");
