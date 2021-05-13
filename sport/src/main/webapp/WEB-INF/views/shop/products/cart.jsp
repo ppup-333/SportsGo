@@ -10,7 +10,7 @@
 
 .title{
 /* color:#2482e0; */
-text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
+/* text-shadow: 2px 4px 3px rgba(0,0,0,0.2); */
 margin-top:20px;
 font-size : 34px;
 font-weight:bolder;
@@ -228,7 +228,8 @@ margin-left: 330px;
 
 .emptyCart{
 border:10px grey solid;
-/* background-color:grey; */
+background:linear-gradient(to right, #cce0f5, white);
+/* background-color: #eef5fc ;  */
 /* color:#fff; */
 border-radius:100px;
 }
@@ -458,7 +459,7 @@ function cartProducts(responseText){
         $("[name=selectProduct]:checkbox:checked").each(function(){
           sumPrice += parseInt($(this).val());
           });
-        var contentPrice="總共金額為 : <span class='sumPrices'>"+sumPrice+"</span> 元<hr><br>";
+        var contentPrice="總共金額為 : <span class='sumPrices'> $"+sumPrice+"</span> 元<hr><br>";
         sumPriceZone.innerHTML = contentPrice;
     }
 
@@ -705,7 +706,7 @@ function cartProducts(responseText){
 	      	  showCancelButton: true, 
 	      	  confirmButtonColor: '#3085d6',
 	      	  cancelButtonColor: '#d33',
-	      	  confirmButtonText: '就是刪!',
+	      	  confirmButtonText: '刪除',
 	      	  backdrop: false,
 
 	      	  }).then(result => {
@@ -839,11 +840,7 @@ function cartProducts(responseText){
 		} else {
 			$("#clickAll").prop("checked", true);
 		}
-// 		console.log("checks = "+$('input[name="selectProduct"]:checkbox:checked').val());
-// 		var selectProd = new Array(); //送出所選商品的時候把這段加進去code就好
-// 		$('input[name="selectProduct"]:checkbox:checked').each(function(i) {
-// 			selectProd[i] =  $(this).attr('selectName');
-// 		});
+
 	});
 
 
@@ -851,8 +848,6 @@ function cartProducts(responseText){
 }
 		
 </script>
-
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 
 </body>
 </html>

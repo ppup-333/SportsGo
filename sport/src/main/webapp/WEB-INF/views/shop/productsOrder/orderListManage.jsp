@@ -9,8 +9,6 @@
 <style>
 
 .title{
-/* color:#2482e0; */
-/* text-shadow: 2px 4px 3px rgba(0,0,0,0.2); */
 margin-top:20px;
 font-size : 34px;
 font-weight:bolder;
@@ -340,7 +338,7 @@ function orderLists(responseText){
 				 + "<td class='member'>"+orderList[i].member_id+"</td>"
 				 + "<td class='time'>"+orderList[i].order_create_date+"</td>"
 				 + "<td class='product'>"+orderList[i].name+" (共 "+orderNumber[i]+" 件商品)</td>"
-				 + "<td class='price'>"+orderList[i].order_price+"</td>"
+				 + "<td class='price'>$"+orderList[i].order_price+"</td>"
 				 + "<td class='shipway'>"+orderList[i].shipway+"</td>";
 				 
 				 if (orderList[i].order_status == "未付款"){
@@ -433,17 +431,9 @@ function orderLists(responseText){
 		});
 	
 	
-	
-	
-	
-	
-	
-		
-	
 
 
 }
 </script>
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
 </body>
 </html>

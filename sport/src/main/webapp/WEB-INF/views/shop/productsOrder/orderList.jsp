@@ -191,22 +191,6 @@ background-color: #d7e5f4;
 	
 	<div id="orderlist">
 	
-<!-- 		<table class="order"> -->
-<!-- 			<tr> -->
-<!-- 				<th class="time">訂單時間</th> -->
-<!-- 				<th class="product">訂單商品</th> -->
-<!-- 				<th class="price">訂單總價</th> -->
-<!-- 				<th class="shipway">交易方式</th> -->
-<!-- 				<th class="status">訂單狀態</th> -->
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<!-- 				<td class="time">2020/2/2</td> -->
-<!-- 				<td class="time">商品測試用啞鈴123</td> -->
-<!-- 				<td class="price">1200</td> -->
-<!-- 				<td class="shipway">宅配</td> -->
-<!-- 				<td class="status">完成</td> -->
-<!-- 			</tr> -->
-<!-- 		</table> -->
 	</div>
 
 
@@ -217,10 +201,7 @@ background-color: #d7e5f4;
 
 	
 	<div id="orderFooter">
-<!-- 		<span id="sumPriceZone"></span> -->
-<!-- 		<input class="continue" type="button" value="繼續購物"/> -->
-<!-- 		<input class="home" type="button" value="回到首頁"/> -->
-<!--  		<input class="checkBill" type="button" value="結帳去"/>  -->
+
 	</div><br><br><br>
 	
 </div>
@@ -280,11 +261,8 @@ function orderLists(responseText){
 	for(var i=0; i < orderList.length; i++){	
 		content += "<tr><td class='time'>"+orderList[i].order_create_date+"</td>"
 				 + "<td class='product'>"+orderList[i].name+" (共 "+orderNumber[i]+" 件商品)</td>"
-				 + "<td class='price'>"+orderList[i].order_price+"</td>"
+				 + "<td class='price'>$"+orderList[i].order_price+"</td>"
 				 + "<td class='shipway'>"+orderList[i].shipway+"</td>";
-				 
-				 
-// 				 + "<td class='status'>"+orderList[i].order_status+"</td>"
 				 
 				 if (orderList[i].order_status == "未付款"){
 					 content += "<td class='status nopay'><span class='badge badge-warning' >"+orderList[i].order_status+"</span></td>";
@@ -330,7 +308,8 @@ function orderLists(responseText){
 	      	  showCancelButton: true, 
 	      	  confirmButtonColor: '#3085d6',
 	      	  cancelButtonColor: '#d33',
-	      	  confirmButtonText: '取消!',
+	      	  confirmButtonText: '取消',
+	      	  cancelButtonText: 'NO',
 	      	  backdrop: false,
 	      	  }).then(result => {
 	      		  if (result.value) {
