@@ -10,7 +10,6 @@
 
 <c:import url="../headerScript.jsp"/>
  <link rel="stylesheet" href="css/teacher.css">
-<!--      <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
      <link  rel="stylesheet" href="css/course.css">
 <style type="text/css">
 table{
@@ -30,7 +29,6 @@ text-align:center;
 
 <c:import url="../newheaderM.jsp" />
 <div class="course">管理老師<hr></div>
-<!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <table>
 
 <tr><th class='bg-info'>老師姓名<th class='bg-info'>性別<th class='bg-info'>電話<th class='bg-info'>薪水<th class='bg-info'>雇用日期<th class='bg-info'><th class='bg-info'>
