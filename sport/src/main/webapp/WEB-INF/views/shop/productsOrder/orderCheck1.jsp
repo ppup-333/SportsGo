@@ -9,8 +9,6 @@
 <style>
 
 .title{
-/* color:#2482e0; */
-/* text-shadow: 2px 4px 3px rgba(0,0,0,0.2); */
 margin-top:20px;
 font-size : 34px;
 font-weight:bolder;
@@ -19,7 +17,7 @@ text-align: center;
 
 .All {
 	width: 1280px;
-	min-height:880px;
+/* 	min-height:880px; */
 	margin-left: 125px;
 	display:none;
 }
@@ -122,7 +120,7 @@ display: inline-block;
 
 #orderFooter{
    width: 600px;
-   height:100px;
+/*    height:100px; */
    margin-top:10px;  
    margin-left:335px;
 /*    border: 1px black solid;  */
@@ -401,7 +399,7 @@ background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75
 	
 	<div id="orderFooter">
 	
-	</div><br><br><br>
+	</div>
 	
 </div>
 <script type='text/javascript'>
@@ -447,7 +445,7 @@ function orderProducts(responseText){
 		contentfoot = "<span id='sumPriceZone'>訂單總金額 : <span class='sumPrices'> $"+sumPrice+"</span> 元<hr><br></span>"
 					+"<a href='../myShoppingCart'><input class='continue' type='button' value='回購物車'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
 					+"<a href='<c:url value='../storeProductsAll'/>'><input class='home' type='button' value='回到商城'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-					+"<input class='payBill' type='button' value='付款'/><br><br>";
+					+"<input class='payBill' type='button' value='付款'/>";
 
 		allProductInOrder.innerHTML = content;
 		orderFooter.innerHTML = contentfoot;
