@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		      
 			context+="]";
 			console.log(context);
-			
+			let calendertoday=new Date();
 			let eventCal=JSON.parse(context);
 			context="";
 			$("#animation").removeClass("loader");
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		        center: 'title',
 		        right: 'dayGridMonth'
 		      },
-		      initialDate: result[0].DateStart,
+		      initialDate: calendertoday,
 		      navLinks: true, 
 		      businessHours: true, 
 		      editable: true,

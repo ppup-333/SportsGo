@@ -39,7 +39,7 @@ public class teacherControl {
 	}
 
 	@GetMapping("teacherUpdate")
-	public String teacherUpdate(@RequestParam String teacherId, Model model) {
+	public String teacherUpdate(@RequestParam String teacherId, Model model,HttpServletRequest request) {
 		int id = Integer.parseInt(teacherId);
 		Optional<teacherBean> selectoneteacher = teacherservice.selectTeacher(id);
 		teacherBean teacher = selectoneteacher.get();
@@ -48,7 +48,8 @@ public class teacherControl {
 		if (imgData != null) {
 			base64data = Base64.getEncoder().encodeToString(imgData);
 		} else {
-			String FilePath = "D:/_SpringBoot/images/user.png";
+			//String FilePath = "D:/_SpringBoot/images/user.png";
+			String FilePath=request.getSession().getServletContext().getRealPath("/uploadTempDir/user.png");
 			try {
 				FileInputStream fis1 = new FileInputStream(FilePath);
 				imgData = new byte[fis1.available()];

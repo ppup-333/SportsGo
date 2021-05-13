@@ -415,7 +415,7 @@ function cartProducts(responseText){
 				+ "<br><br><p style='text-align:center; font-size:22px; font-weight:bold;'>購物車裡空無一物，請去選購商品再來</p><div>"; 
 		contentfoot = "<span id='sumPriceZone'></span><hr><br>"
 					+"<a href='/sport/shop/storeProductsAll'><input class='continue' type='button' value='繼續購物'/></a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"
-					+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>";
+					+"<a href='<c:url value='/'/>'><input class='home' type='button' value='回到首頁'/></a>";
 		allProductInCart.innerHTML = content;
 		cartFooter.innerHTML = contentfoot;
 	}
