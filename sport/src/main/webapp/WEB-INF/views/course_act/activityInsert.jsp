@@ -37,6 +37,7 @@ $(document).ready(function(){
 	});
 });
 
+
 $("#oneclick1").on("click",function(){
 		$("#AN").val("羽球比賽");
 		$("#AC").val(250);
