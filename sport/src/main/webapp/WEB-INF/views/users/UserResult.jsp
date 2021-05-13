@@ -105,5 +105,7 @@
 <!-- 			<input type='button' value='回上一頁' onclick='location.href="loginHomePage"'> -->
 			<input type='button' class="btn btn-secondary" value='回首頁' onclick='location.href="<c:url value='../'/> "'>
 		</div>
+		
+<c:import url="../footer.jsp"/>
 </body>
 </html>

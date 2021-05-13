@@ -194,6 +194,6 @@ function dataSubmit(){
 	
 	
 	
-	
+<c:import url="../footer.jsp"/>
 </body>
 </html>

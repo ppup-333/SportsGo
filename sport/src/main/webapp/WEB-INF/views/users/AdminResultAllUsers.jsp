@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:import url="../headerScript.jsp"/>
 <style>
 td{
 padding : 5px 15px;
@@ -23,6 +24,7 @@ padding : 5px 15px;
 <title>會員資料</title>
 </head>
 <body>
+	<c:import url="../newheader.jsp"/>
 	<fieldset>
 		<legend >會員資料</legend>
 		<div>
@@ -75,5 +77,6 @@ padding : 5px 15px;
 <!-- 		<input type='button' value='修改資料' onclick='location.href="userUpdate"'> -->
 		<input type='button' value='修改帳號狀態' onclick='location.href="XXX"'>
 		<input type='button' value='回上一頁' onclick='location.href="adminUserHomePage"'>
+		<c:import url="../footer.jsp"/>
 </body>
 </html>
