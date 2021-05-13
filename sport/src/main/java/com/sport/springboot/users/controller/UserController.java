@@ -105,7 +105,8 @@ public class UserController {
 		model.addAttribute("loginPage", users);
 
 		if (session.getAttribute("account") != null) {
-			return "index";
+			//return "index";
+			return "redirect:/";
 //			String account = session.getAttribute("account").toString();
 //			if (chkStatus(account)) {
 //				//////////////////////////////////////////////////////////////////////////////////////
@@ -300,7 +301,8 @@ public class UserController {
 		if (result.hasErrors()) {
 //			return "users/Login";
 			session.setAttribute("loginErrorCode", "1");
-			return "index";
+			//return "index";
+			return "redirect:/";
 		}
 
 		try {
@@ -326,13 +328,15 @@ public class UserController {
 				result.rejectValue("password", "", "帳號或密碼不正確");
 //				return "users/Login";
 				session.setAttribute("loginErrorCode", "1");
-				return "index";
+				//return "index";
+				return "redirect:/";
 
 			} else if ("03".equals(userStatus)) {
 				result.rejectValue("password", "", "帳號已封鎖，請洽管理員");
 //				return "users/Login";
 				session.setAttribute("loginErrorCode", "1");
-				return "index";
+				//return "index";
+				return "redirect:/";
 			} else if ("01".equals(userStatus)) {
 //				this.checkAccount = users.getAccount();
 				session.setAttribute("tempAccount", users.getAccount());
@@ -345,7 +349,8 @@ public class UserController {
 			result.rejectValue("password", "", "帳號或密碼不正確");
 //			return "users/Login";
 			session.setAttribute("loginErrorCode", "1");
-			return "index";
+			//return "index";
+			return "redirect:/";
 		}
 
 		session.removeAttribute("loginErrorCode");
@@ -357,7 +362,8 @@ public class UserController {
 //			//reAttr.addAttribute("tempAccount", reAttr)
 //			return "redirect:/user/ChkEmail";
 //		}
-		return "index";
+		//return "index";
+		return "redirect:/";
 
 	}
 
@@ -438,8 +444,9 @@ public class UserController {
 //		System.out.println("取得的帳號 = " + userAct);
 //		System.out.println("取得的 = " + userData.getName());
 
-		return "index";
-
+		//return "index";
+		return "redirect:/";
+		
 	}
 
 	@PostMapping(value = "/ChkUserUpdatePwd")
@@ -597,7 +604,8 @@ public class UserController {
 		System.out.println("verifyCode:" + verifyCode);
 		System.out.println("================");
 		UserActValidateTemp uavt = new UserActValidateTemp();
-		String account = session.getAttribute("tempAccount").toString();
+		String account = session.getAttribute("tempAccount").toString();		
+		
 		uavt = userActValidateTempService.getInfo(account);
 		Date sqlDate = uavt.getExpired_time();
 		Date nowDate = new Timestamp(System.currentTimeMillis());
@@ -625,7 +633,9 @@ public class UserController {
 			usersService.save(user);
 			System.out.println("=========verify Success!!!=========");
 			session.removeAttribute("tempAccount");
-			session.setAttribute("account", user.getAccount());
+			//session.setAttribute("account", user.getAccount());
+			session.setAttribute("account", account);
+			session.setAttribute("username", usersService.get(account).getName());
 			return "redirect:/";
 		} else {
 			System.out.println("=========verify Fail!!!============\n");

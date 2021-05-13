@@ -74,8 +74,8 @@
 				  				</span>
 				  				<div class="dropdown-menu dropdown-menu-md-left" aria-labelledby="aboutUs">
 				    				<a class="dropdown-item" href="#">場館介紹</a>
-				    				<a class="dropdown-item" href="#">位置資訊</a>
-				    				<a class="dropdown-item" href="#">聯絡我們</a>
+				    				<a class="dropdown-item" href="#footerDiv">位置資訊</a>
+				    				<a class="dropdown-item" href="#footerDiv">聯絡我們</a>
 				  				</div>
                             </div>
                         </div>
@@ -88,12 +88,12 @@
   				</button>
   				<div class="dropdown-menu dropdown-menu-md-left">
 <!--     				<a class="dropdown-item" href="/sport/user/Login">登入</a> -->
-					<a class="dropdown-item" href="/sport/user/Login">登入</a>
+<!-- 					<a class="dropdown-item" href="/sport/user/Login">登入</a> -->
 					<a class="dropdown-item" href="" id="loginBtn" data-toggle="modal" data-target="#loginModal">
-					  測試登入
+					  登入
 					</a>
-					<a class="dropdown-item" href="/sport/user/ForgetPwd">忘記密碼</a>
     				<a class="dropdown-item" href="/sport/user/RegisterEdit">註冊</a>
+					<a class="dropdown-item" href="/sport/user/ForgetPwd">忘記密碼</a>
     				<a class="dropdown-item" href="/sport/admin/AdminLogin">管理員登入</a>
   				</div>  				
 			</div>

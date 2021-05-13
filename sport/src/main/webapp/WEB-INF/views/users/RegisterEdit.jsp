@@ -31,18 +31,25 @@
 	}
 	
  	.f1{ 
+ 	padding-top: 20px;
  	font-size:14px; 
    	width:550px; 
-/*    	margin:auto; */
-  	margin-left:550px;
- 	margin-top:50px;
+   	margin:auto;
+/*   	margin-left:500px; */
+ 	margin-top:10px;
+ 	border: 1px solid gray;
+ 	border-radius: 15px;
+ 	background-color: rgb(245,245,245);
+ 	box-shadow: 0 0 3px gray;
  	} 
 
  	.d1{ 
- 	
- 	width:500px;
- 	margin-left:700px;
- 	margin-top:20px;
+ 	text-align:center;
+/*  	width:500px; */
+ 	margin: 20px auto 20px auto;
+/*  	margin-left:700px; */
+/*  	margin-top:20px; */
+
 /*  	margin:20px 600px;  */
  	} 
  	
@@ -61,14 +68,15 @@
 </head>
 <body>
 <c:import url="../newheader.jsp"/>
+	<h2>註冊會員帳號</h2>
 	<fieldset class='f1'>
-	<legend>註冊會員帳號</legend>
+<!-- 	<legend>註冊會員帳號</legend> -->
 		<form:form method="POST" modelAttribute="users" enctype='multipart/form-data' id="form1">
 			<div>
 				<table class='table table-hover' id='table1'>
 					<tr>
-	      				<td>帳號：</td>
-		  				<td><form:input path='account' name='account' id='inputAct'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      				<td class="border-top-0" style="padding-left:25px;">帳號：</td>
+		  				<td class="border-top-0"><form:input path='account' name='account' id='inputAct'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		  					<a href='#'><input type="button" value="檢查帳號" id='repeatAccount' class='btn btn-sm btn-primary'></a><br>	
 		     				<span class="sp">8~16位英文字母和數字的組合(不區分大小寫)</span><br/>
 		     				<form:errors path='account' cssClass="error"/>
@@ -79,7 +87,7 @@
 		     			
 		     		</tr>
 		     		<tr>
-	      				<td>密碼：</td>
+	      				<td style="padding-left:25px;">密碼：</td>
 		  				<td><form:input path='password' type='password' /><br>	
 		     				<span class="sp">8~16位英文字母和數字的組合(區分大小寫)</span><br/>
 		     				<form:errors path='password' cssClass="error"/>
@@ -87,7 +95,7 @@
 <!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>確認密碼：</td>
+	      				<td style="padding-left:25px;">確認密碼：</td>
 		  				<td><form:input path='dbChkPwd' type='password'/><br>
 		     				<span class="sp">必須與密碼相同</span><br/>
 		     				<form:errors path='dbChkPwd' cssClass="error"/>
@@ -95,14 +103,14 @@
 <!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
    					<tr>
-	      				<td>姓名：</td>
+	      				<td style="padding-left:25px;">姓名：</td>
 		  				<td><form:input path='name' /><br>	
 		     				<form:errors path='name' cssClass="error"/>
 		     			</td>
 <!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>身分證字號：</td>
+	      				<td style="padding-left:25px;">身分證字號：</td>
 		  				<td><form:input path='id' /><br>
 		  					<span class="sp">第一個英文字母大寫</span><br/>	
 		     				<form:errors path='id' cssClass="error"/>
@@ -110,21 +118,21 @@
 <!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>性別：</td>
+	      				<td style="padding-left:25px;">性別：</td>
 	   	  				<td>
 	   	  					<form:radiobuttons path="gender" items='${genderMap}'/>
 <%-- 	   	  					<form:errors path="gender"  cssClass="error" /> --%>
 	   	  				</td>
 <!-- 	   	  				<td>&nbsp;</td> -->
 	   	  			<tr>
-	      				<td>生日：</td>
+	      				<td style="padding-left:25px;">生日：</td>
 		  				<td><form:input type='text' id='datepicker' path='birthday' /><br>	
 		     				<form:errors path='birthday' cssClass="error"/>
 		     			</td>
 <!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>E-Mail：</td>
+	      				<td style="padding-left:25px;">E-Mail：</td>
 		  				<td><form:input path='email' /><br>	
 		  					<span class="sp">需收認證信，盡量避免使用免費信箱</span><br/>
 		     				<form:errors path='email' cssClass="error"/>
@@ -132,7 +140,7 @@
 <!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>地址：</td>
+	      				<td style="padding-left:25px;">地址：</td>
 	   	 				<td><form:select path="cityCode.cityCode" id="aaaa">
 								<form:option label="請選擇縣市" value="00" id='cityValue'/>
 								<form:options  items="${cityList}" itemLabel='city' itemValue='cityCode' />
@@ -147,7 +155,7 @@
 <!-- 	   	  				<td>&nbsp;</td> -->
 					</tr>
 					<tr>
-	      				<td>市內電話：</td>
+	      				<td style="padding-left:25px;">市內電話：</td>
 		  				<td><form:input path='tel'  /><br>	
 		  					<span class="sp">市內電話與行動電話至少填寫一項</span><br/>
 		     				<form:errors path='tel' cssClass="error"/>
@@ -155,7 +163,7 @@
 <!-- 		     			<td>&nbsp;</td> -->
 		     		</tr>
 		     		<tr>
-	      				<td>行動電話：</td>
+	      				<td style="padding-left:25px;">行動電話：</td>
 		  				<td><form:input path='mobile'  /><br>
 		  					<span class="sp">市內電話與行動電話至少填寫一項</span><br/>
 		     				<form:errors path='mobile' cssClass="error"/>

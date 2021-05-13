@@ -17,6 +17,10 @@
     min-width: 600px;
 }
 
+select {
+	height: 30px;
+}
+
 </style>
 </head>
 <body>
@@ -181,6 +185,6 @@
 		});
 
 	</script>
-
+<c:import url="../footer.jsp"/>	
 </body>
 </html>

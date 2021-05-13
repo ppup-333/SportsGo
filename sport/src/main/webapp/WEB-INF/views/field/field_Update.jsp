@@ -106,5 +106,6 @@ $("#insertButton").on("click", function() {
 
 $.datepicker.setDefaults($.datepicker.regional['zh-TW']);
 </script>
+<c:import url="../footer.jsp"/>	
 </body>
 </html>

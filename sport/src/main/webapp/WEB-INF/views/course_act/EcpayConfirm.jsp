@@ -60,7 +60,7 @@ text-align:center;
 <input name="TradeDesc" value="${remark}" style="display:none;"/>
 </table>
 </form>
-<button>上一步</button>
+<button onclick="window.location.href='/sport/courseApply?id=${courseId}&type=second'">上一步</button>
 <button class="confirm">前往付款</button>
 </div>
 </body>
@@ -69,7 +69,8 @@ $(".confirm").on("click",function(){
 	if(confirm("確認付款")){
 		$("#ecpay").submit();
 		$(".main_body").empty();
-		$(".main_body").append("<button onclick=\"window.location.href='/sport/order'\">查詢課程訂單</button>");
+		$(".main_body").append("<button onclick=\"window.location.href='/sport/CourseOrder'\">查詢課程訂單</button>");
+	
 	/*	$.ajax({		
 			url:"/sport/",
 		    context: document.body,

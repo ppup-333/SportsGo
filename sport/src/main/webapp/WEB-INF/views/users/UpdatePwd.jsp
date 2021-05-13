@@ -49,6 +49,7 @@
 <link rel="stylesheet" href="jqueryui/style.css">
 </head>
 <body>
+	<h2>變更密碼</h2>
 	<c:import url="../newheader.jsp"/>
 	<fieldset class='f1'>
 		<legend>輸入新密碼</legend>

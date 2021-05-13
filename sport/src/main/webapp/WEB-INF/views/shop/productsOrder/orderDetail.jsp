@@ -355,5 +355,6 @@ function orderDetails(responseText){
 
 }
 </script>
+
 </body>
 </html>

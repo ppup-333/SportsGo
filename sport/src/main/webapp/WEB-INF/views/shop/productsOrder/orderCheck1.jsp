@@ -629,5 +629,6 @@ function orderProducts(responseText){
 }
 
 </script>
+
 </body>
 </html>

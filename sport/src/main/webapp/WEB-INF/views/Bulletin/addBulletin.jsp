@@ -9,13 +9,14 @@
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" /> -->
 <!-- <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script> -->
-
+<title>新增公告</title>
 
 <meta charset="UTF-8">
 <%-- <link rel='stylesheet' href="<c:url value='/css/style.css' />" type="text/css" /> --%>
 </head>
 <style type="text/css">
 .box{
+	font-family: 'Noto Sans TC';
 	margin-top:50px;
 	margin-bottom:100px;
 }
@@ -155,7 +156,13 @@ span.error {
 		}
 	}
 	
-	
+	function autoAdd(){
+		$('#BulletinTitle').val("水中有氧 全身舒展運動");
+		$('#BulletinSubtitle').val('全身舒展運動、關節少負擔');
+		$('#BulletinContent').val('利用浮力減少體重負擔，【關節疼痛】也能【運動減重】\n藉由水壓訓練【心肺功能】和【肌耐力】\n配合【音樂律動舒壓】，簡單、有趣又好玩\n動作舒緩，適合熟齡者【復健訓練】\n\n頭部不必下水旱鴨子也OK！');
+		$('#className').val(2);
+		
+	}
 </script>
 
 
@@ -163,7 +170,7 @@ span.error {
 <c:import url="../newheaderM.jsp"/>
 	<div class="box">
 		<div class="container title-style">
-		<h2 style="font-weight:bold;color:white">新增公告</h2>
+		<h2 style="font-family: 'Noto Sans TC', sans-serif;color:white">新增公告</h2>
 		</div>
 		<div class="container">
 			<div class="formcontainer">
@@ -173,13 +180,13 @@ span.error {
 			<form:form id="insertForm" name="insertForm" method="POST" modelAttribute="bulletin" enctype='multipart/form-data'>
 					<div class="form-group">
 						<label for="BulletinTitle">公告標題：</label>
-						<form:input id="BulletinTitle" name="title" path='title' class="form-control" aria-describedby="titleHelp" placeholder="請輸入標題"/> 
+						<form:input id="BulletinTitle" name="title" path='title' class="form-control" aria-describedby="titleHelp" placeholder="請輸入標題" maxlength="11"/> 
 						<form:errors path='title' cssClass="error" />
 	<!-- 					<small id="titleHelp" class="form-text text-muted"></small> -->
 					</div>
 					<div class="form-group">
 						<label for="BulletinSubTitle">副標題：</label>
-						<form:textarea id="BulletinSubtitle" name="subtitle" path='subtitle' class="form-control" aria-describedby="subtitleHelp" placeholder="請輸入副標題" rows="2"></form:textarea> 
+						<form:textarea id="BulletinSubtitle" name="subtitle" path='subtitle' class="form-control" aria-describedby="subtitleHelp" placeholder="請輸入副標題" rows="2" maxlength="160"></form:textarea> 
 						<form:errors path='subtitle' cssClass="error" />
 	<!-- 					<small id="titleHelp" class="form-text text-muted"></small> -->
 					</div>
@@ -193,7 +200,7 @@ span.error {
 					</div>
 					<div class="form-group">
 						<label for="BulletinContent">公告內容：</label>
-						<form:textarea id="BulletinContent" name="contents" path="contents" class="form-control" aria-describedby="subtitleHelp" placeholder="請輸入公告內容" rows="6" ></form:textarea>
+						<form:textarea id="BulletinContent" name="contents" path="contents" class="form-control" aria-describedby="subtitleHelp" placeholder="請輸入公告內容" rows="6" maxlength="400"></form:textarea>
 						<form:errors path='contents' cssClass="error" />
 					</div>
 					<div class="form-group">
@@ -230,9 +237,12 @@ span.error {
 	
 				
 			<hr>
+			<div style="float:left;">
+				<a class="btn btn-secondary" onclick='autoAdd();'>一鍵輸入</a>
+			</div>
 			<div style="float:right;">
-			<a class="btn btn-secondary" onclick='checkForm();' >新增公告</a>
-			<a class="btn btn-secondary" onclick="checkEdit();"  >返回</a>
+				<a class="btn btn-secondary" onclick='checkForm();' >新增公告</a>
+				<a class="btn btn-secondary" onclick="checkEdit();"  >返回</a>
 			</div>
 		</div>
 		</div>
@@ -286,5 +296,6 @@ span.error {
 <%-- 		</form:form> --%>
 		
 <!-- 	</fieldset> -->
+<c:import url="../footer.jsp"/>	
 </body>
 </html>

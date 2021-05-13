@@ -123,9 +123,20 @@ height:200px;
      </div>
 <script type="text/javascript">
 $(".confirm").on("click",function(){
-	if(confirm("確認報名")){
-		$("#courseApply").submit();
-	}
+	Swal.fire({
+		title:'確定報名嗎?',
+		icon:'question',
+      	showCancelButton: true, 
+      	confirmButtonColor: '#3085d6',
+      	cancelButtonColor: '#d33',
+      	confirmButtonText: '確定',
+      	cancelButtonText:'取消',
+	}).then(result => {
+		if(result.value){
+			$("#courseApply").submit();
+		}		
+	})
+	
 });
     
     

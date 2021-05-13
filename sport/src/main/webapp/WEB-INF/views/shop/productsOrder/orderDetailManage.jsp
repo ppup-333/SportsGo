@@ -337,7 +337,7 @@ function orderDetails(responseText){
 }
 </script>
 
-
+<c:import url="../../footer.jsp"/>	
 </body>
 </html>
 

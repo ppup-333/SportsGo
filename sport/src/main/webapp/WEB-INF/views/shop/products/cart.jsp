@@ -849,5 +849,6 @@ function cartProducts(responseText){
 		
 </script>
 
+
 </body>
 </html>

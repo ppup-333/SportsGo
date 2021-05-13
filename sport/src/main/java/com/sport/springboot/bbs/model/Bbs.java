@@ -65,7 +65,7 @@ public class Bbs implements Comparable<Bbs> {
 	}
 	
 	public String getBbsTitleByDetail() {
-		return bbsTitle.replaceAll("嗨", "&#128563");
+		return bbsTitle.replaceAll("嗨", "&#128563").replaceAll("冠軍", "&#127942");
 	}
 
 	public void setBbsTitle(String bbsTitle) {
@@ -77,7 +77,7 @@ public class Bbs implements Comparable<Bbs> {
 	}
 	
 	public String getBbsMessageByDetail() {
-		return bbsMessage.replaceAll("\n", "<br>").replaceAll("嗨", "&#128563");
+		return bbsMessage.replaceAll("\n", "<br>").replaceAll("嗨", "&#128563").replaceAll("冠軍", "&#127942");
 	}
 
 	public void setBbsMessage(String bbsMessage) {

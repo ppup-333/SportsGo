@@ -10,6 +10,10 @@
 <c:import url="../headerScript.jsp"/>
 
 <style>
+#fieldOrderMainDiv {
+	min-height: 200px;
+}
+
 #detailDiv td{
 	padding: 5px 10px;
 }
@@ -38,7 +42,7 @@
 	<h2>訂單取消</h2>
 
 	
-	<div class="container">
+	<div id="fieldOrderMainDiv" class="container">
 		<div class="row">
 			<div class="col-2"></div>
 			<div id="cancelMemberOrderDiv" class="col-8">
@@ -226,5 +230,6 @@
 	
 
 </script>
+<c:import url="../footer.jsp"/>	
 </body>
 </html>
