@@ -511,7 +511,9 @@ font-weight: bold;
 
 		<div id="allProduct"></div>
 		
+		
 		<div id="pages"></div>
+		<hr>
 		
 	</div>
 	</div>
@@ -622,9 +624,9 @@ function testProducts(responseText){
 	}
 	
 
-	contentPage = "<br><br><div class='pagging'>";
+	contentPage = "<div class='pagging'>";
 	if(currentPage == 1) {
-		contentPage += "<span class='disabled' ><i class='fas fa-arrow-circle-left'></i></span>&nbsp;";
+		contentPage += "<span class='disabled' ><i class='fas fa-arrow-circle-left' ></i></span>&nbsp;";
 	}
 	if(currentPage != 1) {
 		contentPage += "<a href='storeProductsAll?category="+category+"&keyword="+keyword+"&page="+(currentPage-1)+"'><i class='fas fa-arrow-circle-left'></i></a>&nbsp;";
@@ -669,6 +671,8 @@ function testProducts(responseText){
 	result.innerHTML = productList.length;
 	$(".All").show();
 	$(".All2").show();
+	$("#foot").show();
+	$("#head").show();
 
 	
 	$('.addCart').click(function() {
@@ -726,7 +730,7 @@ function testProducts(responseText){
 		
 	</script>
 
-<c:import url="../../footer.jsp"/>	
+<div id="foot" style="display:none;"><c:import url="../../footer.jsp"/>	</div>
 </body>
 
 

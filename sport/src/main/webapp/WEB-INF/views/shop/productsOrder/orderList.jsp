@@ -19,14 +19,14 @@ text-align: center;
 
 .All {
 	width: 1280px;
-	min-height:680px;
+/* 	min-height:680px; */
 	margin-left: 120px;
 	display:none;
 }
 
 .All2 {
 
-	min-height:680px;
+/* 	min-height:680px; */
 
 }
 
@@ -98,7 +98,7 @@ text-align:center;
 
 #orderFooter{
    width: 600px;
-   height:100px;
+/*    height:100px; */
    margin-top:30px;  
    margin-left:345px;
 /*    border: 1px black solid;  */
@@ -182,7 +182,7 @@ background-color: #d7e5f4;
 </head>
 <body>
 
-<c:import url="../../newheader.jsp" />
+<div id="head" style="display:none;"><c:import url="../../newheader.jsp" /></div>
 
 <div class="All2">
 <div class="All">
@@ -202,7 +202,7 @@ background-color: #d7e5f4;
 	
 	<div id="orderFooter">
 
-	</div><br><br><br>
+	</div><br>
 	
 </div>
 </div>
@@ -298,6 +298,8 @@ function orderLists(responseText){
 	orderlist.innerHTML = content;
 	orderFooter.innerHTML = contentfoot;
 	$(".All").show();
+	$("#head").show();
+	$("#foot").show();
 		
 
 	$('.cancelBtn').click(function() {
@@ -363,7 +365,6 @@ function orderLists(responseText){
 
 }
 </script>
-<c:import url="../../footer.jsp"/>	
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
+<div id="foot" style="display:none;"><c:import url="../../footer.jsp"/>	</div>
 </body>
 </html>

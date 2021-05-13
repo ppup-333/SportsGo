@@ -549,6 +549,7 @@ function productDetails(responseText){
 	}
 
 	$("#All").show();
+	$("#foot").show();
 	
 
 $('.addCartButton').click(function() {
@@ -668,6 +669,6 @@ $('.pic').click(function() {  //減少商品
 
 	
 </script>
-<c:import url="../../footer.jsp"/>	
+<div id="foot" style="display:none;"><c:import url="../../footer.jsp"/>	</div>
 </body>
 </html>

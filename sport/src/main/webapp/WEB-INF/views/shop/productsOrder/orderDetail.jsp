@@ -17,13 +17,13 @@
 
 .All {
   width: 1280px;
-  min-height:680px;
+/*   min-height:680px; */
   margin-left: 120px;
   display:none;
 }
 
 .All2 {
-  min-height:800px;
+/*   min-height:800px; */
 }
 
 .pname{
@@ -93,7 +93,7 @@
 
 #orderFooter{
    width: 600px;
-   height:100px;
+/*    height:100px; */
    margin-top:30px;  
    margin-left:340px;
    padding:10px 0px;
@@ -179,7 +179,7 @@ font-weight: bold;
 
 <body>
 
-<c:import url="../../newheader.jsp" />
+<div id="head" style="display:none;"><c:import url="../../newheader.jsp" /></div>
 
 <div class="All2">
 <div class="All">
@@ -235,7 +235,7 @@ font-weight: bold;
 
 	<div id="orderFooter">
 
-	</div><br><br><br>
+	</div><br>
 	
 </div>
 </div>
@@ -318,7 +318,8 @@ function orderDetails(responseText){
 	
 	orderFooter.innerHTML = contentfoot;
 	$(".All").show();
-	
+	$("#foot").show();
+	$("#head").show();
 	
 	$('.payBill').click(function() {
 		Swal.fire({ 
@@ -355,6 +356,6 @@ function orderDetails(responseText){
 
 }
 </script>
-<c:import url="../../footer.jsp"/>
+<div id="foot" style="display:none;"><c:import url="../../footer.jsp"/></div>
 </body>
 </html>
