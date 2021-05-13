@@ -54,6 +54,16 @@ $("#oneclick2").on("click",function(){
 	$("#TE").val("17:00");
 	$("#actIntro").val("在一局比賽中，先得 11 分的一方為勝方； 10 比 10 平手後，先多得 2 分的一方為勝方。通常在國際正式比賽，單項賽（單打、雙打）採用七局四勝制，團體賽中的單打或雙打採用五局三勝制。在巡迴公開賽中的雙打雖然亦為單項賽，但採用五局三勝制。");
 });
+
+$("#oneclick3").on("click",function(){
+	$("#AN").val("老當益壯");
+	$("#AC").val(300);
+	$("#AM").val(50);
+	$("#pl").val("BM01");	
+	$("#datestart").val("2021-07-12");
+	$("#dateend").val("2021-07-14");
+	$("#actIntro").val("✨ DAIKIN超級達克盃✨ 火熱報名中🔥🔥				球友們站出來! 一起創造最熱血的羽球狂潮!				無論是你是球隊還是休閒玩家 #這戰一定要打!				由中華羽協共同主辦的「新指標賽事」				5/13-14決勝台北體育館~引爆你心中的羽球魂!				組別涵蓋-企業組、 社會組、羽委會組跟學生組，賽制兼具團體與個人，愛羽球的通通戰起來!				只要報名就送VICTOR賽事紀念衣!超值好康手刀報起來!");
+});
 function checkName(){
 	if($("#AN").val()==""){
 			$("#aName").append(spImageIncorrect);
@@ -128,7 +138,7 @@ margin:10px;
 		<tr><td>活動名稱: <td><input type="text" name="actName" id="AN" maxlength="10"  required/><span id="aName"></span>
 		<tr><td>活動費用: <td><input type="text" name="actCost" id="AC" maxlength="5" required /><span id="aCost"></span>
 		<tr><td>活動限制人數: <td><input type="text" name="actMaxNum" id="AM" maxlength="4"  required/><span id="aMaxNum"></span>
-		<tr><td>活動開始日期: <td><input type="text" name="DateStart" style="color:gray" value="${ymd}"  readOnly/>
+		<tr><td>活動開始日期: <td><input type="text" name="DateStart" id="datestart" style="color:gray" value="${ymd}"  readOnly/>
 		<tr><td>活動結束日期: <td><input type="date" name="DateEnd"  id="dateend" value="${ymd}"  min="${ymd}"  />
 		<tr><td>活動開始時間: <td><select name="TimeStart" id="TS">
             <option value="09:00">09:00</option>
