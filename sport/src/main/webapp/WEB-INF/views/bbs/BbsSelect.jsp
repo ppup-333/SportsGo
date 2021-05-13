@@ -8,7 +8,7 @@
 <head>
 <c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SportsGo!</title>
 <style>
 
 /* CKEditor 編輯區塊 */
