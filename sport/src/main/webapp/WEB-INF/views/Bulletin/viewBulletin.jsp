@@ -75,9 +75,10 @@
 /* 		border:1px solid red; */
 		text-align:right;
 		float:right;
+		
 	}
 	.showContentLink{
-		width:87px;!important
+
 	}
 	
 	.title{
@@ -240,7 +241,7 @@ function showBulletin(nowPage) {
 				$('.news-col' + index).html('<h5 class="title'+index+'"><i id="titleIcon'+index+'" class=""></i>'+ '【' + bulletin.class_id.name + '】' + bulletin.title + '</h5>');
 				$('.news-time' + index).html('<p><i class="far fa-clock"></i>' + updateTime + '</p>');
 				$('.subtitle-container' + index).html('<p>' + bulletin.subtitle + '</p>');
-				$('#showContentLink' + index).attr("href","/sport/Bulletin/showBulletinContent/" + bulletin.id).addClass('btn btn-outline-info').text('MORE');
+				$('#showContentLink' + index).attr("href","/sport/Bulletin/showBulletinContent/" + bulletin.id).addClass('btn btn-outline-info').text('延伸閱讀');
 				$('#showContentLink' + index).show();
 				if(bulletin.class_id.id == 1){
 					$('#titleIcon' + index).addClass("far fa-newspaper");
