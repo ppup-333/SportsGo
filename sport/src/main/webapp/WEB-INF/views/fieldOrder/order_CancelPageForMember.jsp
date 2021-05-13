@@ -11,7 +11,7 @@
 
 <style>
 #fieldOrderMainDiv {
-	min-height: 250px;
+	min-height: 300px;
 }
 
 #detailDiv td{

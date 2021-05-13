@@ -144,14 +144,18 @@ public class OrderController {
 				}else if(i==1){
 					List<Integer> insideList = (List<Integer>) TwoActList.get(i).get(j);
 					int totalCost=0;
-					int count=insideList.size();
+					
+					if(insideList!=null) {
+						int count=insideList.size();
 					for(int k=0;k<insideList.size();k++) {
 						totalCost+=insideList.get(k);
-					}					
+						}					
 					System.out.println("活動次數:"+count);
 					System.out.println("活動總價:"+totalCost);
 					actCostTotal.add(totalCost);
 					actCount.add(count);
+					}
+					
 				}
 			}
 		}

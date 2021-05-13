@@ -105,6 +105,7 @@ $("#clickInput").click(function(){
 
 
 </script>
+<br><br>
 <c:import url="../footer.jsp"/>
 </body>
 </html>

@@ -87,7 +87,6 @@
 $("#insertButton").on("click", function() {
 	Swal.fire({
 		icon: "question",
-		position: "center-end",
 		showCancelButton: true,
 		confirmButtonText: "確定",
 		cancelButtonText: "取消",

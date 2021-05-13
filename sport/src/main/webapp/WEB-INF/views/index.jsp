@@ -125,7 +125,7 @@
     </div> <!-- end of news -->
 
     <!-- fields -->
-    <div id="fieldsDiv" class="container">
+    <div style="display:none" id="fieldsDiv" class="container">
         <div class="row">
             <div class="col-12">
                 <h2>場館介紹</h2>
