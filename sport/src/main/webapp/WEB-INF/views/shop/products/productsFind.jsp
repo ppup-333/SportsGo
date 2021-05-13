@@ -89,6 +89,22 @@ text-align: center;
 background-color: #d7e5f4;
 }
 
+.pagging{
+margin-top:60px;
+margin-bottom:30px;
+}
+
+.productNone{
+min-height: 180px;
+}
+
+.noneContent{
+font-size: 20px;
+font-weight: bold;
+}
+
+
+
 
 </style>
 
@@ -103,7 +119,7 @@ background-color: #d7e5f4;
 </head>
 <body>
 
-	<c:import url="../../newheaderM.jsp" />
+	<div id="head" style="display:none;"><c:import url="../../newheaderM.jsp" /></div>
 
 <div align='center'>
  <p class="title">商品資料後台管理</p>
@@ -171,7 +187,7 @@ background-color: #d7e5f4;
 
 <c:choose>
 	<c:when test="${empty products}">
-	    搜尋不到任何商品<br> 
+	    <div class="productNone"><span class="noneContent"><br><br>沒有任何商品資料</span></div>  
 	</c:when>
 	<c:otherwise>
 <!-- 		<table border='1' cellpadding="3" cellspacing="1" width='1280' > -->
@@ -234,7 +250,7 @@ background-color: #d7e5f4;
 			</c:forEach>
 		</table>
 		</div>
-		<p>總共${prodNum}筆商品資料</p>
+<%-- 		<p>總共${prodNum}筆商品資料</p> --%>
 		
 		<div class="pagging">
         <div class="right">
@@ -279,15 +295,19 @@ background-color: #d7e5f4;
 </c:choose>
 <hr>
 
-<c:if test="${empty products}">
-	<div style="min-height:210px;"></div>
-</c:if>
-<div style="min-height:140px;"></div>
+<%-- <c:if test="${empty products}"> --%>
+<!-- 	<div style="min-height:210px;"></div> -->
+<%-- </c:if> --%>
+<!-- <div style="min-height:140px;"></div> -->
 
 </div>
 <script type='text/javascript'>
 
     $(document).ready(function() {
+    	
+    	
+    	$("#head").show();
+    	$("#All").show();
     	
 //     	$('.create').click(function() {
 //           	 var href = $(this).attr('myhref');
