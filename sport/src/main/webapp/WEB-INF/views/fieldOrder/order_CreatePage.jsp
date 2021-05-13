@@ -142,28 +142,37 @@
 	</form>				
 	
 <script>
-// <c:if test="${memberOrderCount >= 2}">
-// 	var div_DateType = document.getElementById("div_DateType");
-// 	div_DateType.innerHTML = "<h4>您的預約已達上限</h4>";
-// </c:if>
+<c:if test="${memberOrderCount >= 2}">
+	var div_DateType = document.getElementById("div_DateType");
+	div_DateType.innerHTML = "<h4>您的預約已達上限</h4>";
+</c:if>
 $("#createSubmit").click(function(){
-	Swal.fire({
-		icon: "question",
-		showCancelButton: true,
-		confirmButtonText: "確定",
-		cancelButtonText: "取消",
-		title: "確定要預約？"
-	}).then((result) => {
-		if (result.isConfirmed) {
-			$("#createOrderForm").submit();			
-		}
-	});
+	if($("#hoursSelect").val() == 0){
+		Swal.fire({
+			  icon: 'error',
+			  title: '請填完表再送出！'
+		});
+	}else{
+		Swal.fire({
+			icon: "question",
+			showCancelButton: true,
+			confirmButtonText: "確定",
+			cancelButtonText: "取消",
+			title: "確定要預約？"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$("#createOrderForm").submit();			
+			}
+		});
+	}
+	
+	
 });
 
 
 <c:if test="${attendanceStatus == false}">
 	var div_DateType = document.getElementById("div_DateType");
-	div_DateType.innerHTML = "<h4>預約未到太多次，您的預約功能已被封鎖</h4>";
+	div_DateType.innerHTML = "<h4 style='color:red;'>預約未到太多次，您的預約功能已被封鎖</h4>";
 </c:if>
 
 var typeSelect = document.getElementById("typeSelect");
