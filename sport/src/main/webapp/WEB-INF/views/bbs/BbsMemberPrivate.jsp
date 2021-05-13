@@ -32,6 +32,10 @@ tbody {
 <body>
 <c:import url="../newheader.jsp"/>
 
+<input type="hidden" id="bbsId" name="bbsId" value="${bbs.bbsId}">
+
+<h2>我的發文與留言</h2>
+
 	<div class="container-fluid pt-3">
 		<div class="row">
 			<div class="col-2"></div>
