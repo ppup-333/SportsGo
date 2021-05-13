@@ -36,6 +36,24 @@ $(document).ready(function(){
 		}
 	});
 });
+
+$("#oneclick1").on("click",function(){
+		$("#AN").val("羽球比賽");
+		$("#AC").val(250);
+		$("#AM").val(50);
+		$("#pl").val("BM01");		
+		$("#dateend").val("2021-05-14");
+		$("#actIntro").val("✨ DAIKIN超級達克盃✨ 火熱報名中🔥🔥				球友們站出來! 一起創造最熱血的羽球狂潮!				無論是你是球隊還是休閒玩家 #這戰一定要打!				由中華羽協共同主辦的「新指標賽事」				5/13-14決勝台北體育館~引爆你心中的羽球魂!				組別涵蓋-企業組、 社會組、羽委會組跟學生組，賽制兼具團體與個人，愛羽球的通通戰起來!				只要報名就送VICTOR賽事紀念衣!超值好康手刀報起來!");
+	});
+$("#oneclick2").on("click",function(){
+	$("#AN").val("桌球比賽");
+	$("#AC").val(300);
+	$("#AM").val(50);
+	$("#pl").val("TA01");		
+	$("#dateend").val("2021-05-18");
+	$("#TE").val("17:00");
+	$("#actIntro").val("在一局比賽中，先得 11 分的一方為勝方； 10 比 10 平手後，先多得 2 分的一方為勝方。通常在國際正式比賽，單項賽（單打、雙打）採用七局四勝制，團體賽中的單打或雙打採用五局三勝制。在巡迴公開賽中的雙打雖然亦為單項賽，但採用五局三勝制。");
+});
 function checkName(){
 	if($("#AN").val()==""){
 			$("#aName").append(spImageIncorrect);
@@ -73,6 +91,8 @@ function checkMaxNum(){
 			
 		}
 }
+
+
 </script>
 <style type="text/css">
 .courseInsertTable{
@@ -95,9 +115,13 @@ function checkMaxNum(){
 	background-color: #66B3FF;
 	border-right: 1px solid #D0D0D0;
 }
+#oneclick1,#oneclick2{
+margin:10px;
+}
 </style>
 </head>
 <body>
+	<button id="oneclick1">一鍵輸入1</button><button id="oneclick2">一鍵輸入2</button>
 	<form id="insert" action="/sport/activityInsertImpl" method="post"  enctype="multipart/form-data">
 		<table class="courseInsertTable" border="1" style="text-align: center;">
 		<tr><td>負責人: <td> <input type="text" name="account" style="display:none;" value="${account}"/>${account}
@@ -105,7 +129,7 @@ function checkMaxNum(){
 		<tr><td>活動費用: <td><input type="text" name="actCost" id="AC" maxlength="5" required /><span id="aCost"></span>
 		<tr><td>活動限制人數: <td><input type="text" name="actMaxNum" id="AM" maxlength="4"  required/><span id="aMaxNum"></span>
 		<tr><td>活動開始日期: <td><input type="text" name="DateStart" style="color:gray" value="${ymd}"  readOnly/>
-		<tr><td>活動結束日期: <td><input type="date" name="DateEnd"   value="${ymd}"  min="${ymd}"  />
+		<tr><td>活動結束日期: <td><input type="date" name="DateEnd"  id="dateend" value="${ymd}"  min="${ymd}"  />
 		<tr><td>活動開始時間: <td><select name="TimeStart" id="TS">
             <option value="09:00">09:00</option>
             <option value="10:00">10:00</option>
@@ -121,7 +145,7 @@ function checkMaxNum(){
 						<option value="${item1.id}">${item1.name}</option>
 						</c:forEach>
         </select>
-		<tr><td>活動介紹: <td><textarea name="actIntroduce" rows="10" cols="40"></textarea>
+		<tr><td>活動介紹: <td><textarea id="actIntro" name="actIntroduce" rows="10" cols="40"></textarea>
 		<tr><td>活動預覽圖: <td><input type="file" name="actPicture"/>
 		</table>
 	</form>

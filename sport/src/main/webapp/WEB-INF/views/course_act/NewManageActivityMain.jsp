@@ -158,9 +158,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		        let dd=choose.lastIndexOf("日");
 		        let ds=today.lastIndexOf("日");
 		        let chooseInt=parseInt(choose.substring(7,dd));
-		        let todayInt=parseInt(today.substring(7,dd));
-		        
-		        
+		        let todayInt=parseInt(today.substring(7,ds));
+		     
 				console.log(info);
 		        if(monthChooseInt<monthTodayInt){
 		         	$('#modalTitle').html("");
@@ -199,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		        	
 		        	if(chooseInt<todayInt){
 		        	$('#modalTitle').html("");
-					$('#modalBody').html("過去不復返，請選擇今天以後的課程");
+					$('#modalBody').html("過去不復返，請選擇今天以後的活動");
 					$('#calendarModal').modal();
 		        	}else{
 		        		let ymd;
@@ -224,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						 xhr.onreadystatechange=function(){
 							if(xhr.readyState==4&&xhr.status==200){
 								let response=xhr.responseText;
-							$('#modalTitle').html("新增課程");
+							$('#modalTitle').html("新增活動");
 							$('#modalBody').html(response);
 							$('#calendarModal').modal();
 							}

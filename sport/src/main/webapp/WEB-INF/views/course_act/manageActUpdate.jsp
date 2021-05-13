@@ -48,6 +48,19 @@
     .fl2{
         float: left ;
     }
+    .apply{
+	 background-color:#008CBA;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left:870px;
+	
+}
     </style>
     
 <script type="text/javascript">
@@ -80,6 +93,11 @@ $("#TS").change(function(){
 		$("#TE").append("<option value='17:00'>17:00</option>");
 	}
 });
+
+$("#oneclick").on("click",function(){
+		$("#ds").val("2021-05-17");
+		$("#de").val("2021-05-18");
+	});
 
 function checkName(){
 	if($("#AN").val()==""){
@@ -121,6 +139,7 @@ function checkMaxNum(){
 </script>
 </head>
 <body>
+	<button  id="oneclick">一鍵輸入1</button>
 	<form  id="update" method="post" action="../sport/actUpdateImpl" enctype="multipart/form-data">
 		<fieldset>
             <legend>修改活動資料</legend>

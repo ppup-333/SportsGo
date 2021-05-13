@@ -28,7 +28,12 @@ text-align:center;
   cursor: pointer;
   margin:20px;
   height:150px;
+
 	
+}
+#piechart{
+  margin-right:200px;
+  margin-left:auto;
 }
 .cost{
 display:none;
@@ -196,7 +201,7 @@ $(document).ready(function(){
 
 <div class="course">DashBoard<hr></div>
 <div class="main_body">
-<h1>本月累積總業績</h1>
+<h1>累積總業績</h1>
 <h2>${total}</h2>
 <div>
 <c:forEach var="item1" items="${actCount}" varStatus="status">
