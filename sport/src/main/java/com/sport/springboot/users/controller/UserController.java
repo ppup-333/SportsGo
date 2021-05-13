@@ -301,8 +301,8 @@ public class UserController {
 		if (result.hasErrors()) {
 //			return "users/Login";
 			session.setAttribute("loginErrorCode", "1");
-			//return "index";
-			return "redirect:/";
+			return "index";
+//			return "redirect:/";
 		}
 
 		try {
