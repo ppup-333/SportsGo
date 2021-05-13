@@ -328,15 +328,15 @@ public class UserController {
 				result.rejectValue("password", "", "帳號或密碼不正確");
 //				return "users/Login";
 				session.setAttribute("loginErrorCode", "1");
-				//return "index";
-				return "redirect:/";
+				return "index";
+//				return "redirect:/";
 
 			} else if ("03".equals(userStatus)) {
 				result.rejectValue("password", "", "帳號已封鎖，請洽管理員");
 //				return "users/Login";
 				session.setAttribute("loginErrorCode", "1");
-				//return "index";
-				return "redirect:/";
+				return "index";
+//				return "redirect:/";
 			} else if ("01".equals(userStatus)) {
 //				this.checkAccount = users.getAccount();
 				session.setAttribute("tempAccount", users.getAccount());
@@ -349,8 +349,8 @@ public class UserController {
 			result.rejectValue("password", "", "帳號或密碼不正確");
 //			return "users/Login";
 			session.setAttribute("loginErrorCode", "1");
-			//return "index";
-			return "redirect:/";
+			return "index";
+//			return "redirect:/";
 		}
 
 		session.removeAttribute("loginErrorCode");
@@ -362,7 +362,7 @@ public class UserController {
 //			//reAttr.addAttribute("tempAccount", reAttr)
 //			return "redirect:/user/ChkEmail";
 //		}
-		//return "index";
+//		return "index";
 		return "redirect:/";
 
 	}
