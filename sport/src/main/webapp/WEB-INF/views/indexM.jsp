@@ -16,11 +16,11 @@
 
 
 
-<a href="/sport/user_Login">會員登入系統</a><br>
-<a href="/sport/bulletin">公告管理</a><br>
-<a href="/sport/field_HomePage">場地預約管理</a><br>
-<a href="/sport/bbsM">bbsM</a><br>
-<a href="/sport/shopHome">購物商城</a><br>
-<a href="/sport/courseHome">課程</a>
+<!-- <a href="/sport/user_Login">會員登入系統</a><br> -->
+<!-- <a href="/sport/bulletin">公告管理</a><br> -->
+<!-- <a href="/sport/field_HomePage">場地預約管理</a><br> -->
+<!-- <a href="/sport/bbsM">bbsM</a><br> -->
+<!-- <a href="/sport/shopHome">購物商城</a><br> -->
+<!-- <a href="/sport/courseHome">課程</a> -->
 </body>
 </html>

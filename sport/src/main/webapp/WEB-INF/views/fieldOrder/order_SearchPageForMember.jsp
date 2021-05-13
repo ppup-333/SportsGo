@@ -12,7 +12,7 @@
 
 <style>
 #fieldOrderMainDiv {
-	min-height: 260px;
+	min-height: 300px;
 }
 
 #detailDiv td{

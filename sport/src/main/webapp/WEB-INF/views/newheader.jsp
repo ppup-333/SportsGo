@@ -73,7 +73,7 @@
     								關於我們
 				  				</span>
 				  				<div class="dropdown-menu dropdown-menu-md-left" aria-labelledby="aboutUs">
-				    				<a class="dropdown-item" href="#">場館介紹</a>
+				    				<a style="display:none" class="dropdown-item" href="#">場館介紹</a>
 				    				<a class="dropdown-item" href="#footerDiv">位置資訊</a>
 				    				<a class="dropdown-item" href="#footerDiv">聯絡我們</a>
 				  				</div>
@@ -159,7 +159,8 @@
 <script>
 
 	<c:if test="${sessionScope.loginErrorCode !=null && sessionScope.loginErrorCode == 1}">		
-		alert("帳號或密碼不正確");
+		alert("登入失敗！");
+		$("#loginModal").modal("show");
 		${sessionScope.remove("loginErrorCode")}		
 	</c:if>
 		

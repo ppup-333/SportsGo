@@ -110,7 +110,7 @@ function checkSalary(){
   		<tr><td>活動預覽圖: <td><input type="file" name="teacherPicture"/>
 </table>
 </form>
-  <button type="button" onclick="window.location.href='/sport/teacherHome'">上一步</button>
+  <a href="/sport/teacherHome"><button type="button" >上一步</button></a>
 <button id="goTeacherInsert">送出</button>
 </div>
 
