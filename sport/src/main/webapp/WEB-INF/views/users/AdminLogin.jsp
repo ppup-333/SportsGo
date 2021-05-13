@@ -6,6 +6,7 @@
 
 <html>
 <head>
+<c:import url="../headerScript.jsp"/>
 <style>
 
 	.sp {
@@ -52,13 +53,13 @@
 </script>
 <meta charset="UTF-8">
 <title>後臺管理者登入</title>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="jqueryui/style.css">
+<!-- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet"> -->
+<!--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+<!--   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script> -->
+<!-- <link rel="stylesheet" href="jqueryui/style.css"> -->
 </head>
 <body>
-<c:import url="../header.jsp"/>
+<c:import url="../newheader.jsp"/>
 <h2>管理者登入</h2>
 <fieldset class='f1'>
 <!-- <legend>管理者登入</legend> -->
@@ -104,5 +105,6 @@ $("#clickInput").click(function(){
 
 
 </script>
+<c:import url="../footer.jsp"/>
 </body>
 </html>
