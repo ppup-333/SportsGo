@@ -36,6 +36,7 @@ margin:0px; display:inline
 
 .productlist{
 width:1280px;
+mar
 }
 
 .pnum{
@@ -91,6 +92,23 @@ text-align: center;
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover{
 background-color: #d7e5f4;
 }
+
+.pagging{
+margin-top:60px;
+margin-bottom:30px;
+}
+
+
+.productNone{
+min-height: 180px;
+}
+
+.noneContent{
+font-size: 20px;
+font-weight: bold;
+}
+
+
 
 </style>
 
@@ -181,7 +199,7 @@ background-color: #d7e5f4;
 
 <c:choose>
 	<c:when test="${empty products}">
-	    沒有任何商品資料<br> 
+	    <div class="productNone"><span class="noneContent"><br><br>沒有任何商品資料</span></div> 
 	</c:when>
 	<c:otherwise>
 <!-- 		<table border='1' cellpadding="3" cellspacing="1" width='1280' > -->
@@ -236,7 +254,7 @@ background-color: #d7e5f4;
 			</c:forEach>
 		</table>
 </div>
-		<p>總共${prodNum}筆商品資料</p>
+<%-- 		<p>總共${prodNum}筆商品資料</p> --%>
 		
 		<div class="pagging">
         <div class="right">
@@ -279,7 +297,7 @@ background-color: #d7e5f4;
 </div>
 	</c:otherwise>
 </c:choose>
-<!-- <hr> -->
+<hr>
 
 <%-- <c:if test="${empty products}"> --%>
 <!-- 	<div style="min-height:210px;"></div> -->

@@ -17,13 +17,13 @@ text-align: center;
 
 .All {
 	width: 1280px;
-	min-height:680px;
+/* 	min-height:680px; */
 	margin-left: 120px;
 	display:none;
 }
 
 .All2 {
-min-height:800px;
+/* min-height:800px; */
 
 }
 
@@ -110,7 +110,7 @@ text-align:center;
 
 #orderFooter{
    width: 600px;
-   height:100px;
+/*    height:100px; */
    margin-top:30px;  
    margin-left:345px;
 /*    border: 1px black solid;  */
@@ -205,7 +205,7 @@ background-color: #d7e5f4;
 </head>
 <body>
 
-<c:import url="../../newheaderM.jsp" />
+<div id="head" style="display:none;"><c:import url="../../newheaderM.jsp" /></div>
 
 <div class="All2">
 <div class="All">
@@ -226,22 +226,7 @@ background-color: #d7e5f4;
 	</div>
 	<div id="orderlist">
 	
-<!-- 		<table class="order"> -->
-<!-- 			<tr> -->
-<!-- 				<th class="time">訂單時間</th> -->
-<!-- 				<th class="product">訂單商品</th> -->
-<!-- 				<th class="price">訂單總價</th> -->
-<!-- 				<th class="shipway">交易方式</th> -->
-<!-- 				<th class="status">訂單狀態</th> -->
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<!-- 				<td class="time">2020/2/2</td> -->
-<!-- 				<td class="time">商品測試用啞鈴123</td> -->
-<!-- 				<td class="price">1200</td> -->
-<!-- 				<td class="shipway">宅配</td> -->
-<!-- 				<td class="status">完成</td> -->
-<!-- 			</tr> -->
-<!-- 		</table> -->
+
 	</div>
 	
 	<div id="orderNum"> </div>
@@ -250,13 +235,6 @@ background-color: #d7e5f4;
 		
 	</div>
 
-	
-	<div id="orderFooter">
-<!-- 		<span id="sumPriceZone"></span> -->
-<!-- 		<input class="continue" type="button" value="繼續購物"/> -->
-<!-- 		<input class="home" type="button" value="回到首頁"/> -->
-<!--  		<input class="checkBill" type="button" value="結帳去"/>  -->
-	</div><br>
 	
 	</div>
 </div>
@@ -370,7 +348,8 @@ function orderLists(responseText){
 	orderlist.innerHTML = content;
 // 	orderFooter.innerHTML = contentfoot;
 	$(".All").show();
-	
+	$("#head").show();
+	$("#foot").show();
 	
 	$('.cancelBtn').click(function() {
 		Swal.fire({ 
@@ -435,6 +414,6 @@ function orderLists(responseText){
 
 }
 </script>
-<c:import url="../../footer.jsp"/>
+<div id="foot" style="display:none;"><c:import url="../../footer.jsp"/></div>
 </body>
 </html>

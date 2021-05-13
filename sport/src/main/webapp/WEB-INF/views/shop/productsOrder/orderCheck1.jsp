@@ -360,7 +360,7 @@ background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75
 </head>
 <body>
 
-<c:import url="../../newheader.jsp" />
+<div id="head" style="display:none;"><c:import url="../../newheader.jsp" /></div>
 
 <div class="All">
 	<p class="title">訂單明細</p>
@@ -450,6 +450,8 @@ function orderProducts(responseText){
 		allProductInOrder.innerHTML = content;
 		orderFooter.innerHTML = contentfoot;
 		$(".All").show();
+		$("#foot").show();
+		$("#head").show();
 		
 
     function priceSum(){
@@ -627,6 +629,7 @@ function orderProducts(responseText){
 }
 
 </script>
-<c:import url="../../footer.jsp"/>
+<br>
+<div id="foot" style="display:none;"><c:import url="../../footer.jsp"/></div>
 </body>
 </html>
