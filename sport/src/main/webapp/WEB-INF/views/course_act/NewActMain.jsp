@@ -86,7 +86,7 @@ text-align:center;
 <body>
 <c:import url="../newheader.jsp"/>
 <div class="main_body">
-<div class="course">活動總攬<hr></div>
+<div class="course">活動總覽<hr></div>
 <div id="act"></div>
 </div>
 

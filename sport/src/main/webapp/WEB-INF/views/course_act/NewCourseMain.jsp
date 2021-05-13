@@ -338,7 +338,7 @@ function sport(s){
 	<c:import url="../newheader.jsp" />
 	<div id="sport">
 	
-	<div class="course">課程總攬<hr></div>
+	<div class="course">課程總覽<hr></div>
 
 	<div class="main_body">
 		
