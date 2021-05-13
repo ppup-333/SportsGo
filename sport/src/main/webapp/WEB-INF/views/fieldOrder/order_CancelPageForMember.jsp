@@ -71,6 +71,7 @@
 							<tr><td>日期:</td><td id="detailDate"></td></tr>
 							<tr><td>時間:</td><td id="detailTime"></td></tr>
 							<tr><td>時數:</td><td id="detailHours"></td></tr>
+							<tr><td>金額:</td><td id="detailPrice"></td></tr>
 						</table>						
 					</div>
 				</div>
@@ -144,7 +145,7 @@
 			$(".displayDetail").click(displayDetail);
 			
 		}else{
-			queryDiv.innerHTML = "<h4>查無相符資料</h4>"
+			queryDiv.innerHTML = "<hr><h4 style='text-align:center'>查無相符資料</h4>"
 		}
 		
 		$(".cancelBtn").click(function() {
@@ -213,6 +214,7 @@
 		var startTime = fieldMemberOrderDetails[0].fieldPeriod.period.substr(0,5);
 		var endTime = fieldMemberOrderDetails[fieldMemberOrderDetails.length-1].fieldPeriod.period.substr(6);
 		var hours = fieldMemberOrderDetails.length;
+		var price = fieldMemberOrderDetails[0].field.rentForMember * hours;
 //	 	console.log('預約日期:'+orderDate);
 //	 	console.log('預約場地:'+orderField);
 //	 	console.log('開始時間:'+startTime);
@@ -222,10 +224,12 @@
 		var detailDate = document.getElementById("detailDate");
 		var detailTime = document.getElementById("detailTime");
 		var detailHours = document.getElementById("detailHours");
+		var detailPrice = document.getElementById("detailPrice");
 		detailField.innerHTML = orderField;
 		detailDate.innerHTML = orderDate;
 		detailTime.innerHTML = startTime + " ~ " + endTime;
 		detailHours.innerHTML = hours + "小時";
+		detailPrice.innerHTML = price + "元";
 	}
 	
 

@@ -157,7 +157,7 @@
             </div>
         </div>        
     </div> <!-- end of fields -->
-
+<br><br>
 <c:import url="footer.jsp"/>
 </body>
 </html>
