@@ -9,164 +9,86 @@
 <style type="text/css">
 
 .title{
-/* color:#2482e0; */
-text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
-margin-top:20px;
-font-size : 34px;
-font-weight:bolder;
-text-align: center;
+  margin-top:20px;
+  font-size : 34px;
+  font-weight:bolder;
+  text-align: center;
 }
-
 
 .All {
-	width: 1280px;
-	min-height:680px;
-	margin-left: 120px;
-	display:none;
+  width: 1280px;
+  min-height:680px;
+  margin-left: 120px;
+  display:none;
 }
 
-table,th,td{
- border: 1px grey solid; 
-font-size:20px;
-
-}
-
-.order tr:hover {
-background-color: #f5f5f5;
+.All2 {
+  min-height:800px;
 }
 
 .pname{
-  min-width:550px;
-
-  text-align:center;
-  
+  margin-left: 15px;
 }
 .pname2{
-   max-width:550px;
-   font-weight: bold; 
-   font-size:16px;
-
-   
+  font-weight: bold; 
+  font-size:16px;
   overflow:hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-
 }
+
 .pprice{
-text-align:center;
-width: 90px;
+  text-align:center;
 }
 .pnumber{
-text-align:center;
-width: 60px;
+  text-align:center;
 }
 .psum{
-text-align:center;
-width: 90px;
-font-weight: bolder;
+  text-align:center;
+  font-weight: bolder;
 }
 
 #orderDetailList{
-   width: 880px;
-   border: 2px black solid;
-   border-radius:10px;
-   margin-top:30px;  
-   margin-left:190px;
-   padding:10px 0px;
+  width: 980px;
+  margin:auto;
+  padding:10px 0px;
 }
 
 .order{
-  margin-left:42px;
 }
 
+#orderPriceZone{
+  width: 980px;
+  margin-top:-30px;
+  margin-left: 280px;
+}
 .listNum{
-margin-top:10px;
-margin-left:544px; 
-font-size: 20px;
-font-weight: bold;
+  margin-top:10px;
+  margin-left:568px; 
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .ship{
-margin-top:-10px;
-margin-left:687px;
-font-size: 20px;
-font-weight: bold;
-color: grey;
+  margin-top:-10px;
+  margin-left:692px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #96989c;
 }
 
-
 .sumPrice{
-margin-top:-10px;
-margin-left:648px;
-font-size: 20px;
-font-weight: bold;
- text-decoration: underline; 
-
+  margin-top:-10px;
+  margin-left:660px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .sumPricec{
-display: inline-block;
-
-font-size: 25px;
-font-weight: bold;
-color: red;
-/* border-bottom: 3px solid red; */
-/* margin-bottom: -22px; */
-
- text-decoration: underline; 
-
-}
-
-
-
-#orderBuyer{
-   width: 600px;
-   min-height:100px;
-   margin-top:0px;  
-   margin-left:320px;
-/*    border: 1px black solid;  */
-   padding:5px 0px;
-/*    text-align:center;  */
- font-size: 20px;
-
-}
-
-.buyerData{
-width:520px;
-margin-left:50px;
-margin-top:30px;
-padding:10px;
-border:4px black solid;
-border-radius:30px;
-background-color: #f0feff;
-}
-
-.buyertable{
- width: 450px;
- font-size: 20px;
- margin-left:22px;
- border: 0px red solid;
- 
-}
-
-.buyertable th, .buyertable td{
-border: 0px ;
-
-
-}
-
-
-.buyer{
-text-align: center;
-font-size: 20px;
-font-weight: bolder;
-
-}
-
-#Box1{
-
-font-weight: bold;
- font-size: 18px;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  color: red;
 }
 
 #orderFooter{
@@ -174,30 +96,77 @@ font-weight: bold;
    height:100px;
    margin-top:30px;  
    margin-left:340px;
-/*    border: 1px black solid;  */
    padding:10px 0px;
    text-align:center; 
-
 }
 
-
-
 .continue, .home, .payBill{
-margin:auto;
-height:60px;
-width:180px;
-font-size:28px;
-font-weight:bold;
-border:2px white solid;
-background-color:#1aa1ff;
-color:#fff;
-border-radius:10px;
-cursor:pointer;
+  margin:auto;
+  height:60px;
+  width:180px;
+  font-size:28px;
+  font-weight:bold;
+  border:2px white solid;
+  background-color:#1aa1ff;
+  color:#fff;
+  border-radius:10px;
+  cursor:pointer;
 }
 .continue:hover, .home:hover, .payBill:hover{
   background-color:#1b1dac;
   border:2px #003C9D solid;
 }
+
+hr.s2 {
+  border: 0;
+  height: 3px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+#orderBuyer{
+  width: 500px;
+  min-height:100px;
+  margin-top:0px;  
+  margin-left:380px;
+  padding:10px 0px;
+  text-align: center;
+}
+
+.buyerData{
+  width:500px;
+  margin-top:30px; 
+  padding:10px;
+  background-color: #fffff5;
+  box-shadow:0px 0px 5px grey  ;
+}
+
+ .buyer{
+ font-size:22px;
+ font-weight:bold;
+ }
+
+#Box1{
+float:left;
+font-weight: bold;
+}
+
+.nameI{
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  display: inline-block; 
+  margin-top:10px; 
+  margin-left:45px;
+  margin-bottom:10px;
+  height:18px;
+}
+
+.nameII{
+  font-size: 18px;
+  font-weight: bold;
+  color: #1c548d;
+}
+
 
 
 </style>
@@ -206,20 +175,19 @@ cursor:pointer;
 <title>訂單明細</title>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.16.3/sweetalert2.js" type="text/javascript"></script>
-
 </head>
 
 <body>
 
 <c:import url="../../newheader.jsp" />
 
+<div class="All2">
+<div class="All">
+
 <input type='hidden' id='order_Id' value='${order_Id}'>
 
 
 
-<div class="All">
 	    <p class="title">訂單明細內容</p>
 
 
@@ -227,25 +195,35 @@ cursor:pointer;
 
 	</div>
 	
+	<div id="orderPriceZone">
+	
+	</div>
+	
 	<div id="orderBuyer">
 		<div class="buyerData">
-		<p class="buyer">購買人資料</p>
+		<p class="buyer">訂購資料</p><hr class="s2">
 		
-				<table class="buyertable">
+				<table class="buy0">
 					
-				    <tr><td><div id="Box1"><p style="display: inline-block; height:18px; ">姓名 :&nbsp;</p><span id="bName"></span></div></td></tr>
+					<tr><td><div id="Box1"><span class="nameI">					
+						姓名 :&nbsp;</span><span  class="nameII" id="bName"></span></div></td></tr>
 
-					<tr><td><div id="Box1"><p style="display: inline-block; height:18px;">電話 :&nbsp;</p><span id="bTel"></span></div></td></tr>
+					<tr><td><div id="Box1"><span class="nameI" >
+						電話 :&nbsp;</span><span class="nameII" id="bTel"></span></div></td></tr>
 					
-					<tr><td><div id="Box1"><p style="display: inline-block; height:18px;">運送方式 :&nbsp;</p><span id="bShipway"></span></div></td></tr>
+					<tr><td><div id="Box1"><span class="nameI" >
+						運送方式 :&nbsp;</span><span class="nameII" id="bShipway"></span></div></td></tr>
     
-					<tr class="address"><td><div id="Box1"><p style="display: inline-block; height:18px;">地址 :&nbsp;</p><span id="bAddress"></span></div></td></tr>
+					<tr class="address"><td><div id="Box1"><span class="nameI" >
+						地址 :&nbsp;</span><span class="nameII" id="bAddress"></span></div></td></tr>
 					
-					<tr><td><div id="Box1"><p style="display: inline-block; height:18px;">運費 :&nbsp;</p><span id="bShip"></span></div></td></tr>
+					<tr><td><div id="Box1"><span class="nameI" >
+						運費 :&nbsp;</span><span class="nameII" id="bShip"></span></div></td></tr>
 					
-					<tr><td><div id="Box1"><p style="display: inline-block; height:18px;">訂單總金額 :&nbsp;</p><span id="bPrice"></span></div></td></tr>
-					
-
+					<tr><td><div id="Box1"><span class="nameI" >
+						訂單總金額 :&nbsp;</span><span class="nameII" id="bPrice"></span></div></td></tr>
+						
+					<tr><td width="500px"><hr class="s2"></td></tr>
 					
 				</table>
 
@@ -256,12 +234,10 @@ cursor:pointer;
 
 
 	<div id="orderFooter">
-<!-- 		<span id="sumPriceZone"></span> -->
-<!-- 		<input class="continue" type="button" value="繼續購物"/> -->
-<!-- 		<input class="home" type="button" value="回到首頁"/> -->
-<!--  		<input class="checkBill" type="button" value="結帳去"/>  -->
+
 	</div><br><br><br>
 	
+</div>
 </div>
 
 
@@ -299,10 +275,9 @@ function orderDetails(responseText){
 		$(".address").css("display", "none");
 	}
 
-	
-	
-	content = "<table class='order'><tr>"
-			+ "<th class='pname'>商品名稱</th>"
+
+	content = "<table class='order table  table-striped'><tr class='table-primary' style='color:black;'>"
+			+ "<th class='pname'>&nbsp;商品名稱</th>"
 			+ "<th class='pprice'>商品售價</th>"
 			+ "<th class='pnumber'>數量</th>"
 			+ "<th class='psum'>商品總價</th></tr>";
@@ -316,11 +291,11 @@ function orderDetails(responseText){
 				 listnum += orderDetail[i].product_number;
 				 sumprice += productList[i].product_price*orderDetail[i].product_number;
 	}
-	content+="</table>";
+	content+="</table><hr>";
 
-	content += "<p class='listNum'>共 "+listnum+" 件商品&emsp;金額小計 : $ "+sumprice+""
-	         + "<p class='ship'>+ 運費 : $ "+orderList.ship+"</p>"
-	         + "<p class='sumPrice'>結帳總金額 : <span class='sumPricec'> $ "+orderList.order_price+"</span></p>"
+	var contentPrice = "<p class='listNum'>共 "+listnum+" 件商品&emsp;金額小計 : $ "+sumprice+""
+	         		 + "<p class='ship'>+ 運費 : $ "+orderList.ship+"</p>"
+	         		 + "<p class='sumPrice'>結帳總金額 : <span class='sumPricec'> $ "+orderList.order_price+"</span></p><hr class='s2' width='300px' style='margin-left:580px; margin-top:-10px;'>";
 	
 	contentmain="";
 	
@@ -332,6 +307,7 @@ function orderDetails(responseText){
 	}
 
 	orderDetailList.innerHTML = content;
+	orderPriceZone.innerHTML = contentPrice;
 	
 	bName.innerHTML = ""+orderList.name+"";
 	bTel.innerHTML = ""+orderList.tel+"";
@@ -339,7 +315,6 @@ function orderDetails(responseText){
 	bShipway.innerHTML = ""+orderList.shipway+"";
 	bShip.innerHTML = "$ "+orderList.ship+" 元";
 	bPrice.innerHTML = "$ "+orderList.order_price+" 元";
-	
 	
 	orderFooter.innerHTML = contentfoot;
 	$(".All").show();
@@ -353,7 +328,7 @@ function orderDetails(responseText){
 	      	  showCancelButton: true, 
 	      	  confirmButtonColor: '#3085d6',
 	      	  cancelButtonColor: '#d33',
-	      	  confirmButtonText: '付款去!',
+	      	  confirmButtonText: '付款GO!',
 	      	  backdrop: false,
 	      	  }).then(result => {
 	      		  if (result.value) {	  
@@ -378,27 +353,8 @@ function orderDetails(responseText){
 	});
 		
 
-
-
-	
-
-
 }
 </script>
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
-<c:import url="../../footer.jsp"/>	
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

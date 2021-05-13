@@ -10,7 +10,7 @@
 
 .title{
 /* color:#2482e0; */
-text-shadow: 2px 4px 3px rgba(0,0,0,0.2);
+/* text-shadow: 2px 4px 3px rgba(0,0,0,0.2); */
 margin-top:20px;
 font-size : 34px;
 font-weight:bolder;
@@ -20,7 +20,7 @@ text-align: center;
 .All {
 	width: 1280px;
 	min-height:880px;
-	margin-left: 120px;
+	margin-left: 125px;
 	display:none;
 }
 
@@ -123,24 +123,14 @@ display: inline-block;
 #orderFooter{
    width: 600px;
    height:100px;
-   margin-top:30px;  
-   margin-left:340px;
+   margin-top:10px;  
+   margin-left:335px;
 /*    border: 1px black solid;  */
    padding:10px 0px;
    text-align:center; 
 
 }
 
-#orderOption{
-   width: 600px;
-   min-height:100px;
-   margin-top:0px;  
-   margin-left:330px;
-/*    border: 1px black solid;  */
-   padding:10px 0px;
-   text-align:center; 
-
-}
 
 .sumNum{
 
@@ -187,15 +177,14 @@ margin-left:580px;
 #sumPriceZone {
   font-size:20px;
   font-weight:bold;
-  color:#306eab;
-
+  color: #041c34 ;
 
 }
 .sumPrices{
   font-size:36px;
   font-weight:bold;
-  color:#2c4ec3;
-  text-decoration:underline; 
+  color:#ff1a21;
+/*   text-decoration:underline;  */
 }
 
 .continue, .home, .payBill{
@@ -220,27 +209,42 @@ input[type=checkbox]{
  -webkit-transform: scale(1.5); /* Safari and Chrome */
 }
 
+
+#orderOption{
+   width: 500px;
+   min-height:100px;
+   margin-top:0px;  
+   margin-left:385px;
+/*    border: 1px black solid;  */
+   padding:10px 0px;
+   text-align:center; 
+
+}
+
 #dataBox{
-width:388px;
-margin-left:110px;
-padding:10px;
-border:4px black solid;
-border-radius:30px;
+width:500px;
+/* margin-left:10px; */
+ padding:10px; 
+/*  border:1px black solid;  */
+/* border-radius:30px; */
 background-color: #f0feff;
+box-shadow:0px 0px 5px grey  ;
 
 }
 
 .d1, .d2{
-color:#4F4FFF;
- font-size:18px;
+display:inline-block;
+color: #236bb3 ;
+ font-size:20px;
  font-weight:bold;
- margin-left: 3px;
+ margin-left: 5px;
 /*  text-decoration:underline; */
 
 }
 
 #deliveryBox{
  display:none;
+ float:left;
 /*  margin-left:140px; */
 /*  border:2px black solid; */
 /*  border-radius:10px; */
@@ -258,63 +262,73 @@ font-weight: bold;
 }
 
 #button{
-width:180px;
-margin-left:80px;
+width:auto;
+margin-left:120px;
+margin:auto;
 }
-
 
 .name{
 margin:10px;
-width:90px;
-height:22px;
+width:180px;
+height:40px;
+}
 
+.nameI{
+font-size: 18px;
+font-weight: bold;
+color: #1c548d;
 }
 
 .tel{
 margin:10px;
-width:120px;
-height:22px;
- 
- } 
+width:180px;
+height:40px;
+} 
  
  .address{
- margin:10px;
- width:280px;
-height:22px;
- 
- }
- 
+margin:10px;
+width:340px;
+height:40px;
+}
  
  .buyer{
- font-size:20px;
+ font-size:24px;
  font-weight:bold;
-  text-decoration:underline;
+/*   text-decoration:underline; */
  }
 
 .auto{
-width:80px;
-height:30px;
+width:100px;
+height:40px;
+font-size:18px;
 border:0;
 background-color:#5959FF;
 color:white;
 border-radius:10px;
 cursor:pointer;
+box-shadow:0px 0px 3px grey  ;
 }
 
-.auto:hover, .clear:hover{
-  background-color:black;
+.auto:hover{
+  background-color: #07427d;
+  border:2px #003C9D solid;
+}
+.clear:hover{
+  background-color: black;
   border:2px #003C9D solid;
 }
 
 
 .clear{
-width:50px;
-height:30px;
+width:100px;
+height:40px;
+font-size:18px;
 border:0;
 background-color:grey;
 color:#fff;
 border-radius:10px;
 cursor:pointer;
+box-shadow:0px 0px 3px grey  ;
 }
 
 .dWay{
@@ -322,7 +336,16 @@ display: inline-block;
 margin-top:-10px;
 font-size: 20px;
 font-weight: bolder; 
+
 }
+
+
+hr.s2 {
+border: 0;
+height: 3px;
+background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
 
 
 
@@ -352,33 +375,31 @@ font-weight: bolder;
 <!-- 	<p class="fee">共計 19000元</p> -->
 	</div>
 	<div id="orderOption">
-		<p class="dWay">請選擇運送方式：</p>
-		<div>&emsp;<input type='checkbox' name='delivery' value='delivery' ><span class="d1">宅配到府 (運費$ 100)</span>&emsp;
-			 <input type='checkbox' name='take' value='take' ><span class="d2">中心自取 (免運費)</span><p></p>
+		<p class="dWay">運送方式</p>
+		<div>&emsp;<span style="float:left">&emsp;<input type='checkbox' name='delivery' value='delivery' ><span class="d1">宅配到府 (運費$ 100)</span>&emsp;</span>
+			 <span style="float:right; margin-right:15px;"><input type='checkbox' name='take' value='take' ><span class="d2">中心自取 (免運費)</span></span><p></p>
 				<div id='dataBox' >
-				<span class="buyer">購買人資料</span>
-		
-					<table>
-						
-					    <tr><td><div id="deliveryBox1"><p style="display: inline-block; ">姓名 : </p><input type="text" class="name" name="name" ></div></td></tr>
-	
-						<tr><td><div id="deliveryBox2"><p style="display: inline-block; ">電話 : </p><input type="tel"  class="tel" name="tel" ></div></td></tr>
-	    
-						<tr><td><div id="deliveryBox"><p style="display: inline-block; ">地址 : </p><input type="text" class="address" name="address" ></div></td></tr>
-						
+				<span class="buyer">訂購資料</span><hr class="s2">
+					<table class='table0'>
+
+						<tr><td><div id="deliveryBox1"><span class="nameI" style="display: inline-block; margin-top:15px; margin-left:30px;margin-bottom:15px;">姓名 : </span>
+						<input type="text" class="form-control name" name="name" style="display: inline-block;" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1"></div></td></tr>
+
+						<tr><td><div id="deliveryBox1"><span class="nameI" style="display: inline-block; margin-top:30px; margin-left:30px;margin-bottom:15px;">電話 : </span>
+						<input type="tel" class="form-control tel" name="tel" style="display: inline-block;" placeholder="Telephone" aria-label="Username" aria-describedby="basic-addon1"></div></td></tr>
+	                    
+	                    <tr><td><div id="deliveryBox"><span class="nameI" style="display: inline-block; margin-top:30px; margin-left:30px;margin-bottom:15px;">地址 : </span>
+						<input type="tel" class="form-control address" name="address" style="display: inline-block;" placeholder="Address" aria-label="Username" aria-describedby="basic-addon1"></div></td></tr>
+	                  
+						<tr><td width="500px"><hr class="s2">
 						<tr><td><div id="button"><input type="button" class="auto" value="一鍵輸入" >
-									 			 <input type="button" class="clear" value="清除" ></div></td></tr>
-						
+									 			 <input type="button" class="clear" value="清除" ></div></td></tr>	
 					</table>
 				</div>
 		</div>
 	</div>
 	
 	<div id="orderFooter">
-<!-- 		<span id="sumPriceZone"></span> -->
-<!-- 		<input class="continue" type="button" value="繼續購物"/> -->
-<!-- 		<input class="home" type="button" value="回到首頁"/> -->
-<!--  		<input class="checkBill" type="button" value="結帳去"/>  -->
 	
 	</div><br><br><br>
 	
@@ -413,7 +434,7 @@ function orderProducts(responseText){
 		for(var i=0; i < productList.length; i++){		
 				content += "<div class='productInOrder'>"
 						+"<img class='prodPic' width='40' height='40' src='../picture/"+productList[i].product_id+"'/>"
-						+"<div class='pnamebox'><p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='<c:url value='/'/>'>"+productList[i].product_name+"</a></p></div>"
+						+"<div class='pnamebox'><p class='pname' title='"+productList[i].product_name+"'><a class='pnamehref' href='../storeProduct/"+productList[i].product_id+"'>"+productList[i].product_name+"</a></p></div>"
 						+"<div class='price'>&nbsp;NT$&nbsp;"+productList[i].product_price+"</div>&nbsp;"
 						+"<span class='num'> 數量 : "+productNums[i]+"</span>"
 						+"<span class='sumprice'>小計 $ "+ productList[i].product_price * productNums[i] +"</span>"
@@ -423,7 +444,7 @@ function orderProducts(responseText){
 		}
 		content+="<p class='sumNum'><span class='cnum'>共 "+cartNum+" 件商品</span><span class='sumPrice'>合計 $ "+sumPrice+"</span></p>";
 		
-		contentfoot = "<span id='sumPriceZone'>訂單總金額 : <span class='sumPrices'>"+sumPrice+"</span> 元<hr><br></span>"
+		contentfoot = "<span id='sumPriceZone'>訂單總金額 : <span class='sumPrices'> $"+sumPrice+"</span> 元<hr><br></span>"
 					+"<a href='../myShoppingCart'><input class='continue' type='button' value='回購物車'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
 					+"<a href='<c:url value='../storeProductsAll'/>'><input class='home' type='button' value='回到商城'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
 					+"<input class='payBill' type='button' value='付款'/><br><br>";
@@ -436,7 +457,7 @@ function orderProducts(responseText){
     function priceSum(){
     	sumPrice2 = sumPrice + fee;
     	console.log("fee  = "+fee);
-        var contentPrice="訂單總金額 : <span class='sumPrices'>"+sumPrice2+"</span> 元<hr><br>";
+        var contentPrice="訂單總金額 : <span class='sumPrices'> $"+sumPrice2+"</span> 元<hr><br>";
         sumPriceZone.innerHTML = contentPrice;
         feePrice.innerHTML = fee;
     }
@@ -549,7 +570,6 @@ function orderProducts(responseText){
 	    		        dataType: 'text',             // 回傳資料會是 json 格式
 	    		        data: JSON.stringify(json),  // 將表單資料用打包起來送出去
 	    		        success: function(response){ // 成功以後會執行這個方法  
-// 	    		        	if (response != "success"){
 	    		        	var checkResponse = response.indexOf("fail");
 	    		        	if (checkResponse == 0) {
 	    		        		var str = response.split("d");
@@ -561,20 +581,16 @@ function orderProducts(responseText){
 					    		    icon: 'error',
 					    		    title: '結帳失敗',
 					    		    html: str[1]+" 的庫存數量不足! <br><br><p style='text-align:center;font-size:18px;font-weight:bold;'>請回購物車重新選擇數量。</p>",
-					    		    //text: response+" 的庫存數量不足! \\n請回購物車重新選擇數量。",
 					    		})
 	    		        	} else {
-	    		        		console.log("response = "+response)
-// 	    		        	    alert("success orderId="+response);
-	    		        		
+	    		        		console.log("response = "+response)	        		
 	    		        		var form = document.createElement('form');
 	    		        		form.action = 'productEcpay/'+response;
 	    		        		form.target = '_blank';
 	    		        		form.method = 'POST';
 	    		        		document.body.appendChild(form);
 	    		        		form.submit();
-	    		        		
-	    		        		
+	    		        				
 	    		        		Swal.fire({
 	    	        				  title: '訂單成立',
 	    	        				  text: '您的訂單已成功創立，請盡快付款。',
@@ -583,30 +599,24 @@ function orderProducts(responseText){
 	    	        			  }).then(function(){
 	    	        				  window.location.href = "orderList";  	 
 	    	        	  		     });
-	    		        		
-	    		        		
-	    		        		
-	    		        	}
-	    		        	    
+	    		        	}   
 	    		        },
 	    		        error: function(response) {
 	    		        	console.log("response = "+response)
 	    		            alert("error");
 	    		        }
 	    		    });
-
+	      			
 	      			} else {
 	      				return false;
 	      			}
 	      	  });
-
 	});
-	
 	
 	$('.auto').click(function() {
 		$("input[name='name']").val("吳柏毅");
 		$("input[name='tel']").val("0987666777");
-		$("input[name='address']").val("台北市大安去信義路100號2樓");
+		$("input[name='address']").val("台北市大安區信義路三段100號2樓");
 	});
 	
 	$('.clear').click(function() {
@@ -615,12 +625,10 @@ function orderProducts(responseText){
 		$("input[name='address']").val("");
 	});
 		
-	
-
 
 }
+
 </script>
-<c:import url="../../footer.jsp"/>	
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
+
 </body>
 </html>

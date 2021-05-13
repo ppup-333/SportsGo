@@ -33,6 +33,7 @@ a {
 /*  min-height:900px;  */
 /* text-align: center; */
  	min-height: 300px;
+ 	overflow:auto;
  } 
 
 #pages{
@@ -128,7 +129,7 @@ text-align: center;
 	float: left;
     border: 2px #f0f0ef solid;
     margin-top:0px; 
-    overflow:hidden; 
+/*     overflow:hidden;  */
     
 }
 
