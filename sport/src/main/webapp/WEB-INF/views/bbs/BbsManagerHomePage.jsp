@@ -138,7 +138,7 @@ table.table-hover tbody tr:hover {
 				<table class="table table-striped table-borderless" id="table" data-pagination="true" data-page-size="5"
 					data-pagination-parts="['pageList']">
 					<thead>
-						<tr>
+						<tr class="bg-info" style="color:white;">
 							<th data-field="bbsDelete" data-formatter="DeleteFormatter" data-halign="center" data-align="center" data-width="80">狀態</th>
 							<th data-field="bbsId" data-halign="center" data-align="center" data-width="60">序號</th>
 							<th data-field="typeName" data-halign="center" data-align="center" data-width="90">類型</th>

@@ -6,7 +6,7 @@
 <head>
 <c:import url="../headerScript.jsp"/>
 <meta charset="UTF-8">
-<title>activityCheckSignUp</title>
+<title>SportsGo!</title>
 <link rel="stylesheet" href="css/course.css">
 <style type="text/css">
 
@@ -188,5 +188,6 @@ $(document).ready(function(){
 	});
 });
 </script>
+<c:import url="../footer.jsp"/>
 </body>
 </html>

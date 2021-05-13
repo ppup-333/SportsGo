@@ -253,6 +253,7 @@
 			});
 		</c:forEach>
 	</script>
+	<br><br>
 <c:import url="../footer.jsp"/>	
 </body>
 </html>
