@@ -112,7 +112,7 @@ function dataSubmit(){
 }
 
 </script>
-	
+<c:import url="../footer.jsp"/>
 
 </body>
 </html>
