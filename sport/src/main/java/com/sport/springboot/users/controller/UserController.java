@@ -294,6 +294,7 @@ public class UserController {
 	@PostMapping(value = "/Login")
 	public String chkUserLogin(@ModelAttribute("loginPage") Users users, BindingResult result,
 			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password,
+			@RequestParam(value = "loginUrl") String loginUrl,
 			HttpSession session, RedirectAttributes reAttr) {
 
 		LoginValidator validator = new LoginValidator();
@@ -340,7 +341,7 @@ public class UserController {
 			} else if ("01".equals(userStatus)) {
 //				this.checkAccount = users.getAccount();
 				session.setAttribute("tempAccount", users.getAccount());
-				session.setAttribute("loginErrorCode", "1");
+				session.setAttribute("loginErrorCode", "2");
 				return "redirect:/user/ChkEmail";
 			}
 
@@ -363,7 +364,7 @@ public class UserController {
 //			return "redirect:/user/ChkEmail";
 //		}
 //		return "index";
-		return "redirect:/";
+		return (loginUrl == null || loginUrl.equals("")) ? "redirect:/" : "redirect:/" + loginUrl;
 
 	}
 

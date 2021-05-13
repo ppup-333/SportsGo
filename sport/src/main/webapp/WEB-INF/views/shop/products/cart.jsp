@@ -390,9 +390,13 @@ function cartProducts(responseText){
 		contentfoot = "<span id='sumPriceZone'></span>"
 					+"<a href='/sport/shop/storeProductsAll'><input class='continue' type='button' value='繼續購物'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
 					+"<a href='<c:url value='/'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-					+"<input class='checkBill' type='button' value='結帳'/>";
+					+"<input id='toPay' class='checkBill' type='button' value='結帳'/>";
 		allProductInCart.innerHTML = content;
 		cartFooter.innerHTML = contentfoot;
+		
+// 		$("#toPay").click(function(){
+			
+// 		});
 		
 
 		//$('.productInCart').css('background', '#e0fcff');	
@@ -622,14 +626,27 @@ function cartProducts(responseText){
 	    		        		self.location.href='order/orderCheck1';
 	    		        	} else if(response =="login"){
 	    		        		Swal.fire({
-					    		    toast: true,
-					    		    position: 'center',
-					    		    showConfirmButton: false,
-					    		    timer: 2500,
-					    		    icon: 'error',
+	    		        			icon: "warning",
+	    		    				showCancelButton: true,
+	    		    				confirmButtonText: "登入",
+	    		    				cancelButtonText: "取消",
 					    		    title: '尚未登入',
 					    		    text: "請先登入再進行結帳!",    
-					    		})
+					    		}).then((result) => {
+									if (result.isConfirmed) {
+										$("#loginUrl").val("shop/myShoppingCart");
+										$("#loginModal").modal("show");		
+									}
+								});
+// 	    		        		Swal.fire({
+// 					    		    toast: true,
+// 					    		    position: 'center',
+// 					    		    showConfirmButton: false,
+// 					    		    timer: 2500,
+// 					    		    icon: 'error',
+// 					    		    title: '尚未登入',
+// 					    		    text: "請先登入再進行結帳!",    
+// 					    		})
 	    		        			
 	    		        	} else {
 	    		        		Swal.fire({
