@@ -9,8 +9,6 @@
 <style>
 
 .title{
-/* color:#2482e0; */
-/* text-shadow: 2px 4px 3px rgba(0,0,0,0.2); */
 margin-top:20px;
 font-size : 34px;
 font-weight:bolder;
@@ -18,17 +16,14 @@ text-align: center;
 }
 
 
-
 .All {
 	width: 1280px;
-	min-height:680px;
 	margin-left: 120px;
-
+	display:none;
 }
 
 #allProductInCart {
    width: 960px;
-
    margin-top:30px;  
    margin-left:160px;
 /*    border: 1px black solid;  */
@@ -201,7 +196,7 @@ margin-right:8px;
 
 #cartFooter{
    width: 600px;
-   height:100px;
+/*    height:100px; */
    margin-top:10px;  
    margin-left:340px;
 /*    border: 1px black solid;  */
@@ -279,11 +274,10 @@ input[type=checkbox] {
   font-size:36px;
   font-weight:bold;
   color:#2c4ec3;
+  
 }
 
 .continue, .home, .checkBill{
-/* margin-left:50px; */
-/* margin-right:50px; */
 
 margin:auto;
 height:60px;
@@ -295,6 +289,7 @@ background-color:#1aa1ff;
 color:#fff;
 border-radius:10px;
 cursor:pointer;
+
 }
 .continue:hover, .home:hover, .checkBill:hover{
   background-color:#1b1dac;
@@ -313,53 +308,33 @@ cursor:pointer;
 
 </head>
 <body>
-	<c:import url="../../newheader.jsp" />
+	<div id="head" style="display:none;"><c:import url="../../newheader.jsp" /></div>
+	
+<div class="All">
+
+
 
 <div class="All2" >
 
-<%-- <c:import url="../../header.jsp" /> --%>
 
 
-<div class="All">
 	<p class="title">我的購物車</p>
 
 	<div id="allProductInCart">
 	
-<!-- 		<div class="productInCart"> -->
-<!-- 			<label>&nbsp;<input type="moox" name="selectProduct" value="check"> </label> -->
-<!-- 			<a><img width='60' height='60' src='picture/2'/></a> -->
-<!-- 			<div class="pnamebox"><p class="pname"> -->
-<%-- 				<a class="pnamehref" href="<c:url value='/'/>">金黃5號-精選鵝毛A級室內外羽毛球 (1打12入)aaaawdwdwdaaa</a><br> --%>
-<!-- 				<span class="price">&nbsp;NT$&nbsp;</span><span class="pprice">500</span></p> -->
-<!-- 			</div>&nbsp;&nbsp; -->
-<!-- 			<div class="buttons"> -->
-<!-- 				<ul class="counter"> -->
-<!-- 					<li id="minus"><input type="button" class="minuser" value="-"/></li> -->
-<!-- 					<li id="countnum">0</li> -->
-<!-- 					<li id="plus"><input type="button" class="adder"  value="+"/></li> -->
-<!-- 				</ul><br><br><span class="stock">&nbsp;庫存數量：30</span> -->
-<!-- 			</div> -->
-<!-- 			<span class="sumprice">總價$ 500</span> -->
-<!-- 			<input class="delete" type="button" value="刪除"/> -->
-<!-- 		</div> -->
-		
 	</div>
 	
 	<div id="cartFooter">
-<!-- 		<span id="sumPriceZone"></span> -->
-<!-- 		<input class="continue" type="button" value="繼續購物"/> -->
-<!-- 		<input class="home" type="button" value="回到首頁"/> -->
-<!--  		<input class="checkBill" type="button" value="結帳去"/>  -->
+
+	</div>
 	
-	
-	
-	
-	
-	</div><br><br><br><br>
+	<br>
 
 </div>
+
 </div>
 
+<div id="foot" style="display:none;"><c:import url="../../footer.jsp"/></div>
 
 <script type='text/javascript'>
 
@@ -377,7 +352,6 @@ function xhrFunction(){
 		}
 	}
 }
-
 
 
 function cartProducts(responseText){
@@ -416,9 +390,10 @@ function cartProducts(responseText){
 		contentfoot = "<span id='sumPriceZone'></span>"
 					+"<a href='/sport/shop/storeProductsAll'><input class='continue' type='button' value='繼續購物'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
 					+"<a href='<c:url value='/'/>'><input class='home' type='button' value='回到首頁'/></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-					+"<input class='checkBill' type='button' value='結帳'/><br><br>";
+					+"<input class='checkBill' type='button' value='結帳'/>";
 		allProductInCart.innerHTML = content;
 		cartFooter.innerHTML = contentfoot;
+		
 
 		//$('.productInCart').css('background', '#e0fcff');	
 		$('input[name="selectProduct"]').each(function(i) {
@@ -435,24 +410,21 @@ function cartProducts(responseText){
 		priceSum();
 
 		
-
 	}else if(productList.length == 0){
 		content = "<div class='emptyCart'><img class='cartPic' src='../images/cart.png'  width='250' height='236' />"
 				+ "<br><br><p style='text-align:center; font-size:22px; font-weight:bold;'>購物車裡空無一物，請去選購商品再來</p><div>"; 
 		contentfoot = "<span id='sumPriceZone'></span><hr><br>"
 					+"<a href='/sport/shop/storeProductsAll'><input class='continue' type='button' value='繼續購物'/></a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"
-					+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a><br><br>";
+					+"<a href='<c:url value='/shopHome'/>'><input class='home' type='button' value='回到首頁'/></a>";
 		allProductInCart.innerHTML = content;
 		cartFooter.innerHTML = contentfoot;
 	}
 				
+	$(".All").show();
+	$("#head").show();
+	$("#foot").show();
 				
-
-	
-
-
-
-
+				
 	
     function priceSum(){  //計算總金額
     	var sumPrice=0;
@@ -493,11 +465,6 @@ function cartProducts(responseText){
 		
 	}
 
-
-
-	
-	
-	
 	
 	$('.adder').click(function() {  //購物車增加商品
 		var id = $(this).attr('addCartId');
@@ -516,8 +483,7 @@ function cartProducts(responseText){
 		            console.log("response = "+response);// 成功以後會執行這個方法
 		            if (response=="success") {
 		        		$(this).parent().prev().text(count);
-		        		check();	
-						//xhrFunction();          	
+		        		check();	    	
 		            } else {
 		            	Swal.fire({
 			    		    toast: true,
@@ -560,8 +526,7 @@ function cartProducts(responseText){
 			            if (response=="success") {
 			            	console.log(response);
 			            	$(this).parent().next().text(count);
-			            	check();
-							//xhrFunction();	          	
+			            	check();          	
 			            } else {
 			            	Swal.fire({
 				    		    toast: true,
@@ -582,11 +547,9 @@ function cartProducts(responseText){
 		});
 	
 	
-	
 	$('.delete').click(function() {  //購物車刪除商品
 		var id = $(this).attr('delCartId');
 		var name = $(this).attr('delCartName');
-		//var json = {"delCartId" : id, "delCartName" : name};
 		var json = {"delCartName" : name};
 	    console.log("JSONS = "+JSON.stringify(json)) 
 		cartDelete(json);
@@ -613,7 +576,6 @@ function cartProducts(responseText){
 		cartDelete(selectedProd);
 	});
 
-	
 	
 	$('.checkBill').click(function() {  //準備結帳
 		if ($('input[name="selectProduct"]:checkbox:checked').length == 0){
@@ -656,7 +618,6 @@ function cartProducts(responseText){
 	    		        dataType: 'text',             // 回傳資料會是 json 格式
 	    		        data: JSON.stringify(selectedProd),  // 將表單資料用打包起來送出去
 	    		        success: function(response){ // 成功以後會執行這個方法   
-//     		        	    console.log("response = "+response)
 	    		        	if (response =="success") {
 	    		        		self.location.href='order/orderCheck1';
 	    		        	} else if(response =="login"){
@@ -678,7 +639,6 @@ function cartProducts(responseText){
 					    		    timer: 3500,
 					    		    icon: 'error',
 					    		    title: '結帳失敗',
-// 					    		    text: response+" 的庫存數量不足!",
 					    		    html: response+" 的庫存數量不足! <br><br><p style='text-align:center;font-size:18px;font-weight:bold;'>請重新選擇數量。</p>",
 					    		})
 	    		        	}
@@ -848,7 +808,7 @@ function cartProducts(responseText){
 }
 		
 </script>
-<c:import url="../../footer.jsp"/>
+
 
 </body>
 </html>

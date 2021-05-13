@@ -102,9 +102,10 @@ background-color: #d7e5f4;
   
 </head>
 <body>
-	<c:import url="../../newheaderM.jsp" />
 
-<div align='center'>
+	<div id="head" style="display:none;"><c:import url="../../newheaderM.jsp" /></div>
+
+<div id="All" align='center' style="display:none;">
  <p class="title">商品資料後台管理</p>
 <%-- <a class='create' href='pro/${currentPage}?status=${status}&category=${category}'><button>新增商品</button></a> --%>
 <%-- <a href="<c:url value='/shopHome'/> " ><button>回到管理首頁</button></a><br> --%>
@@ -278,18 +279,22 @@ background-color: #d7e5f4;
 </div>
 	</c:otherwise>
 </c:choose>
-<hr>
+<!-- <hr> -->
 
-<c:if test="${empty products}">
-	<div style="min-height:210px;"></div>
-</c:if>
-<div style="min-height:140px;"></div>
+<%-- <c:if test="${empty products}"> --%>
+<!-- 	<div style="min-height:210px;"></div> -->
+<%-- </c:if> --%>
+<!-- <div style="min-height:140px;"></div> -->
 
 
 </div>
 <script type='text/javascript'>
 
     $(document).ready(function() {
+    	
+    	$("#head").show();
+    	$("#All").show();
+//     	$("#foot").show();
     	
         
         $('.deletelink').click(function() {
