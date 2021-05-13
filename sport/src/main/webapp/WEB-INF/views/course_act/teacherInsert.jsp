@@ -43,7 +43,9 @@ $(document).ready(function(){
 	$(".main_Title").empty();
 	$(".main_Title").append("新增老師");
 	$("#goTeacherInsert").click(function(){	
-		$("span").empty();
+		$("#tName").empty();
+		$("#tPhone").empty();
+
 		if(checkName()&checkPhone()&checkSalary()){
 			if(confirm("確認資料無誤即將送出")){
 				$("#insert").submit();
@@ -107,7 +109,7 @@ function checkSalary(){
   				女:<input type="radio" id="girl" name="gender" value="0">
   		<tr><td>電話<td><input type="text" name="phone" id="TP" maxlength="10"/><span id="tPhone"></span>
   		<tr><td>薪水<td><input type="text" name="salary" id="TS" value="30000"><span id="tSalary"></span>
-  		<tr><td>活動預覽圖: <td><input type="file" name="teacherPicture"/>
+  		<tr><td>老師照片: <td><input type="file" name="teacherPicture"/>
 </table>
 </form>
   <a href="/sport/teacherHome"><button type="button" >上一步</button></a>
