@@ -11,7 +11,7 @@
 
 <style>
 #fieldOrderMainDiv {
-	min-height: 200px;
+	min-height: 260px;
 }
 
 #div_DateType {

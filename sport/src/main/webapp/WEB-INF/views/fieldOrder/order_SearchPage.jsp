@@ -17,6 +17,10 @@
 <!-- <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
 <!-- <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 <style>
+#orderFullMainDiv {
+	min-height: 250px;
+}
+
 #searchDiv {
 	width: 600px;
 	margin: auto;
@@ -69,6 +73,7 @@
 <body>
 	<c:import url="../newheaderM.jsp"/>
 	<h2>訂單管理</h2>
+	<div id="orderFullMainDiv">
 	<div id="searchDiv">
 		帳號：
 		<input type="text" name="account" id="account" />
@@ -100,7 +105,7 @@
 	</div>
 	
 	<div id="queryDiv"></div>
-
+</div>
 	<!-- The Modal -->
 	<div class="modal fade" id="myModal">
 		<div class="modal-dialog modal-dialog-centered">
@@ -595,6 +600,7 @@ function displayDetail(){
 }
 
 </script>
-<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.12.4.js"></script> -->
+<c:import url="../footer.jsp"/>
 </body>
 </html>
