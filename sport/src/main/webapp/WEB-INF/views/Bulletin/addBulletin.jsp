@@ -44,6 +44,19 @@ span.error {
 }
 </style>
 <script>
+
+	$(document).ready(function(){
+		$("#imgInput").change(function(){
+			readURL(this);
+		});
+		$('#BulletinContent').summernote({
+			placeholder: '請輸入內文',
+			tabsize: 2,
+			height: 300
+		});
+	});
+
+
 	function checkForm(){
 		let flag1 = false, flag2 = false;
 		var frm = document.forms["insertForm"];
@@ -102,11 +115,7 @@ span.error {
 			
 		}
 	}
-	$(document).ready(function(){
-		$("#imgInput").change(function(){
-			readURL(this);
-		});
-	});
+	
 	
 	function readURL(input){
 // 		console.log("11111");
@@ -157,9 +166,11 @@ span.error {
 	}
 	
 	function autoAdd(){
+		console.log($('#BulletinContent').summernote('code'));
+		var str = '<p><b>利用浮力減少體重負擔，<font&nbsp;color="#ff0000">【關節疼痛】</font>也能<font&nbsp;color="#ff0000"&nbsp;style="background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);">【運動減重】<br/></font></b></p><p><font&nbsp;color="#000000">藉由水壓訓練</font><font&nbsp;color="#ff0000"&nbsp;style="background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);">【心肺功能】</font><font&nbsp;color="#000000">和</font><font&nbsp;color="#ff0000"&nbsp;style="background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);">【肌耐力】<br/></font></p><p>配合<font&nbsp;color="#ff0000"&nbsp;style="background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);">【音樂律動舒壓】</font>，簡單、有趣又好玩<br/>動作舒緩，適合熟齡者<font&nbsp;color="#ff0000"&nbsp;style="background-color:&nbsp;rgb(255,&nbsp;255,&nbsp;255);">【復健訓練】<br/></font></p><p><br></p><p&nbsp;style="text-align:&nbsp;center;&nbsp;"><br/>頭部不必下水旱鴨子也OK！</p>';
 		$('#BulletinTitle').val("水中有氧 全身舒展運動");
 		$('#BulletinSubtitle').val('全身舒展運動、關節少負擔');
-		$('#BulletinContent').val('利用浮力減少體重負擔，【關節疼痛】也能【運動減重】\n藉由水壓訓練【心肺功能】和【肌耐力】\n配合【音樂律動舒壓】，簡單、有趣又好玩\n動作舒緩，適合熟齡者【復健訓練】\n\n頭部不必下水旱鴨子也OK！');
+		$('#BulletinContent').summernote('code',str);
 		$('#className').val(2);
 		
 	}

@@ -114,6 +114,11 @@ span.error {
 		if($('#previewImg').attr('src') == undefined){
 			console.log('dsa123');
 		}
+		$('#BulletinContent').summernote({
+			placeholder: '請輸入內文',
+			tabsize: 2,
+			height: 300
+		});
 	});
 	
 	
