@@ -222,19 +222,19 @@ public class BulletinController {
 			}
 		}
 		//前端接收資料轉換為標籤存入資料庫
-		String contents = bulletin.getContents();
-		if(contents != null) {
-			contents = contents.replaceAll("\n", "<br/>");
-			contents = contents.replaceAll(" ", "&nbsp;");
-			bulletin.setContents(contents);
-		}
-		
-		String subtitle = bulletin.getSubtitle();
-		if(subtitle != null) {
-			subtitle = subtitle.replaceAll("\n", "<br/>");
-			subtitle = subtitle.replaceAll(" ", "&nbsp;");
-			bulletin.setSubtitle(subtitle);
-		}
+//		String contents = bulletin.getContents();
+//		if(contents != null) {
+//			contents = contents.replaceAll("\n", "<br/>");
+//			contents = contents.replaceAll(" ", "&nbsp;");
+//			bulletin.setContents(contents);
+//		}
+//		
+//		String subtitle = bulletin.getSubtitle();
+//		if(subtitle != null) {
+//			subtitle = subtitle.replaceAll("\n", "<br/>");
+//			subtitle = subtitle.replaceAll(" ", "&nbsp;");
+//			bulletin.setSubtitle(subtitle);
+//		}
 		//
 		BulletinClass bulletinClass = bulletinClassService.getBulletinClass(bulletin.getClass_id().getId());
 		bulletin.setClass_id(bulletinClass);
@@ -255,18 +255,18 @@ public class BulletinController {
 		Bulletin bulletin = bulletinService.get(id);
 		String contents = bulletin.getContents();
 		//空白與換行處理
-		if(contents != null) {
-			contents = contents.replaceAll("<br/>", "\n");
-			contents = contents.replaceAll("&nbsp;", " ");
-			bulletin.setContents(contents);
-		}
-		String subtitle = bulletin.getSubtitle();
-		//空白與換行處理
-		if(subtitle != null) {
-			subtitle = subtitle.replaceAll("<br/>", "\n");
-			subtitle = subtitle.replaceAll("&nbsp;", " ");
-			bulletin.setSubtitle(subtitle);
-		}
+//		if(contents != null) {
+//			contents = contents.replaceAll("<br/>", "\n");
+//			contents = contents.replaceAll("&nbsp;", " ");
+//			bulletin.setContents(contents);
+//		}
+//		String subtitle = bulletin.getSubtitle();
+//		//空白與換行處理
+//		if(subtitle != null) {
+//			subtitle = subtitle.replaceAll("<br/>", "\n");
+//			subtitle = subtitle.replaceAll("&nbsp;", " ");
+//			bulletin.setSubtitle(subtitle);
+//		}
 		System.out.println("==============" +  bulletin.getSubtitle());
 //		if(bulletin.getSubtitle() == null) {
 //			bulletin.setSubtitle("");
@@ -295,18 +295,18 @@ public class BulletinController {
 		
 		//前端接收資料轉換為標籤存入資料庫
 		String contents = bulletin.getContents();
-		if(contents != null) {
-			contents = contents.replaceAll("\n", "<br/>");
-			contents = contents.replaceAll(" ", "&nbsp;");
-			bulletin.setContents(contents);
-		}
-				
-		String subtitle = bulletin.getSubtitle();
-		if(subtitle != null) {
-			subtitle = subtitle.replaceAll("\n", "<br/>");
-			subtitle = subtitle.replaceAll(" ", "&nbsp;");
-			bulletin.setSubtitle(subtitle);
-		}
+//		if(contents != null) {
+//			contents = contents.replaceAll("\n", "<br/>");
+//			contents = contents.replaceAll(" ", "&nbsp;");
+//			bulletin.setContents(contents);
+//		}
+//				
+//		String subtitle = bulletin.getSubtitle();
+//		if(subtitle != null) {
+//			subtitle = subtitle.replaceAll("\n", "<br/>");
+//			subtitle = subtitle.replaceAll(" ", "&nbsp;");
+//			bulletin.setSubtitle(subtitle);
+//		}
 				//
 		
 		
